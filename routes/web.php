@@ -1,0 +1,137 @@
+<?php
+
+use App\Http\Controllers\Admin\AdminDashboard;
+use App\Http\Controllers\Admin\ApplicationController;
+use App\Http\Controllers\Admin\AuthController as AdminAuthController;
+use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\CmsController;
+use App\Http\Controllers\Admin\PromocodeController;
+use App\Http\Controllers\Admin\RecommendationController;
+use App\Http\Controllers\Frontend\AuthController as UserAuthController;
+use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\PaymentController;
+use Illuminate\Auth\Events\Logout;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Route;
+
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/cicd', function () {
+    return "DevOps CI/CD working fine";
+});
+
+// Route::get('/pay', [PaymentController::class, 'pay'])->name('pay');
+// Route::post('/dopay/online', [PaymentController::class, 'handleonlinepay'])->name('dopay.online');
+
+Route::get('login', [UserAuthController::class, 'getLogin'])->name('login.get');
+Route::post('login', [UserAuthController::class, 'postLogin'])->name('login.post');
+//
+Route::get('register', [UserAuthController::class, 'getRegister'])->name('register.get');
+Route::post('register', [UserAuthController::class, 'postRegister'])->name('register.post');
+
+Route::get('forgot-username', [UserAuthController::class, 'showForgotUsernameForm'])->name('forgot-username');
+Route::post('forgot-username', [UserAuthController::class, 'submitForgotUsernameForm'])->name('forgot-username.post');
+
+Route::get('forgot-password', [UserAuthController::class, 'showForgotPasswordForm'])->name('forgot-password');
+Route::post('forgot-password', [UserAuthController::class, 'submitForgotPasswordForm'])->name('forgot-password.post');
+
+Route::get('reset-password/{token}', [UserAuthController::class, 'showResetPasswordForm'])->name('reset.password.get');
+Route::post('reset-password', [UserAuthController::class, 'submitResetPasswordForm'])->name('reset.password.post');
+
+Route::group(['middleware' => 'auth:customer'], function () {
+    Route::get("/", [HomeController::class, 'home']);
+    Route::get('/edit-profile', [UserAuthController::class, 'editProfile'])->name('edit-profile');
+    Route::post('/edit-profile', [UserAuthController::class, 'updateProfile'])->name('update-profile');
+    Route::get('/change-password', [UserAuthController::class, 'changePassword'])->name('change-password');
+    Route::post('/change-password', [UserAuthController::class, 'submitChangePassword'])->name('change-password.post');
+    Route::get('/user-logout', [UserAuthController::class, 'logout'])->name('user.logout');
+
+    Route::get('/book-wildcat-experience', [HomeController::class, 'bookWildcatExperience'])->name('book-wildcat-experience');
+    Route::get('/admission-application/{step?}', [HomeController::class, 'admissionApplication'])->name('admission-application');
+    Route::get('/view-application/{application_id}', [HomeController::class, 'viewApplication'])->name('view-application');
+    Route::get('/supplemental-recommendation', [HomeController::class, 'supplementalRecommendation'])->name('supplemental-recommendation');
+    Route::post('/supplemental-recommendation', [HomeController::class, 'submitSupplemental'])->name('supplemental-recommendation-submit');
+
+    //Thank you page
+    Route::get('/thank-you', [HomeController::class, 'thankYou'])->name('thank.you')->middleware('prevent-back-history');
+});
+
+Route::get('/thankyou', [HomeController::class, 'thankYou2'])->name('thank-you')->middleware('prevent-back-history');
+Route::get('/written-recommendation/{id}', [HomeController::class, 'writtenRecommendation'])->name('written-recommendation');
+Route::post('/written-recommendation', [HomeController::class, 'submitWritten'])->name('written-recommendation-submit');
+
+
+//Admin Portal All routs
+Route::redirect('/admin', 'admin');
+Route::redirect('admin', 'admin/login');
+Route::get('admin/login', [AdminAuthController::class, 'getLogin'])->name('admin.login.get');
+Route::post('admin/login', [AdminAuthController::class, 'postLogin'])->name('admin.login.post');
+Route::group(['prefix' => 'admin', 'middleware' => 'auth:sanctum'], function () {
+    Route::get('profile', [ProfileController::class, 'getProfile'])->name('admin.profile');
+    Route::get('/dashboard', [AdminDashboard::class, 'getDashboard'])->name('admin.dashboard');
+    Route::resources([
+        'users' => UserController::class
+    ]);
+
+    Route::resource('application', ApplicationController::class);
+
+    Route::resource('recommendation', RecommendationController::class);
+
+    Route::resource('promocode', PromocodeController::class);
+
+    Route::resource('cms', CmsController::class)->only([
+        'index', 'edit', 'update'
+    ]);
+});
+Route::get('admin/logout', [AdminAuthController::class, 'signout'])->name('admin.logout');
+
+Route::get('clear', function () {
+    Artisan::call('optimize:clear');
+    Artisan::call('config:clear');
+    Artisan::call('cache:clear');
+    Artisan::call('route:clear');
+    Artisan::call('view:clear');
+    Artisan::call('clear-compiled');
+    return 'Cleared.';
+});
+
+if (config('app.artisan') == 1) {
+    Route::get('laravel-log', function () {
+        return file_get_contents(storage_path('logs/laravel.log'), true);
+    });
+    Route::get('migrate', function () {
+        Artisan::call('migrate');
+        return 'Migrate done.';
+    });
+    Route::get('migrate-fresh-seed', function () {
+        Artisan::call('migrate:fresh --seed');
+        return 'Migrate fresh and seeder done.';
+    });
+    Route::get('db-seed', function () {
+        Artisan::call('db:seed');
+        return 'Seeder done.';
+    });
+    Route::get('single-seed/{class_name}', function ($class_name) {
+        Artisan::call('db:seed --class=' . $class_name);
+        return 'seeder done.';
+    });
+    Route::get('migration-roleback/{file_name}', function ($file_name) {
+        Artisan::call('migrate:rollback --path=/database/migrations/' . $file_name);
+        return 'roleback done.';
+    });
+    Route::get('storage-link', function ($file_name) {
+        Artisan::call('storage:link');
+        return 'storage link generate.';
+    });
+}
