@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Application extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'Application_ID';
+    
+
     protected $fillable = [
         'Profile_ID', 'Title', 'Description', 'status','last_step_complete'
     ];

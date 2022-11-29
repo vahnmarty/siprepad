@@ -5,14 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class NotificationType extends Model
+
+class Notification extends Model
 {
     use HasFactory;
     
-    public function type()
-    {
-        return $this->belongsTo(NotificationType::class);
-    }
+    protected $fillable = ['profile_id', 'message'];
     
     public function profile()
     {

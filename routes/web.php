@@ -14,6 +14,8 @@ use App\Http\Controllers\PaymentController;
 use Illuminate\Auth\Events\Logout;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NotificationController;
+
 
 
 /*
@@ -51,6 +53,10 @@ Route::post('reset-password', [UserAuthController::class, 'submitResetPasswordFo
 
 Route::group(['middleware' => 'auth:customer'], function () {
     Route::get("/", [HomeController::class, 'home']);
+
+    Route::get('/notification', [NotificationController::class, 'list']);
+    Route::get('/notification/show/{nid}', [NotificationController::class, 'show']);
+
     Route::get('/edit-profile', [UserAuthController::class, 'editProfile'])->name('edit-profile');
     Route::post('/edit-profile', [UserAuthController::class, 'updateProfile'])->name('update-profile');
     Route::get('/change-password', [UserAuthController::class, 'changePassword'])->name('change-password');
@@ -84,7 +90,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:sanctum'], function () 
         'users' => UserController::class
     ]);
 
+    Route::get('/user/notify/{status}/{uid}',[UserController::class, 'notificationChange']);
+
     Route::resource('application', ApplicationController::class);
+    
+    Route::post('/application/cstatus',[ApplicationController::class, 'statusSubmit']);
+
 
     Route::resource('recommendation', RecommendationController::class);
 

@@ -25,11 +25,15 @@ class Show extends Component
     public $studentInfo = [], $addressInfo = [], $parentInfo = [], $siblingInfo = [], $legacyInfo = [];
     public $parentStatement = [], $spiritualCommunityInfo = [], $studentStatementInfo = [], $writingSample = [], $releaseAuthorization = [];
     public $identifyRacially = [], $applicationId, $user, $promoCodes = [], $promo_code, $paymentLog;
-
+    
+    public $applicationStatus;
 
     public function mount($application = null)
     {
         $profile_id = $application->Profile_ID;
+        
+        $this->applicationStatus = $application->application_type_id;
+        
         $this->user = Profile::where('id', $profile_id)->first();
         //dd($this->user);
         $application_id = $application->Application_ID;
@@ -80,6 +84,7 @@ class Show extends Component
 
         $this->paymentLog = Payment::where('user_id', $this->user->id)->where('application_id', $this->applicationId)->first();
     }
+    
     public function render()
     {
         return view('livewire.admin.application.show');
