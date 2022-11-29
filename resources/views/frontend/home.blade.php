@@ -5,8 +5,15 @@
         <div class="hme-inr">
             <h3>Welcome, <span>{{ Auth::guard('customer')->user()->full_name }}</span></h3>
             <ul class="hme-ul">
-            	<li>
-                    <a target="_blank" href="https://www.siprep.org/admissions/visit/wildcat-experience">
+            @php
+            $uid=Auth::guard('customer')->user()->id;
+                 $getProfile = App\Models\Profile::find($uid)->first();
+                
+            @endphp     
+            @if($getProfile->is_notifiable)
+            <li>
+                    <a target="_blank" href="/notification">
+
                         <em>
                             <img src="{{ asset('frontend_assets/images/j1.svg') }}" alt="" />
                         </em>
@@ -16,6 +23,9 @@
                         </span>
                     </a>
                 </li>
+
+            @endif 	    
+
                 <li>
                     <a target="_blank" href="https://www.siprep.org/admissions/visit/wildcat-experience">
                         <em>

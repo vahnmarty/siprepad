@@ -88,4 +88,22 @@ class UserController extends Controller
     {
         //
     }
+    
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $status
+     * @param int $uid
+     */
+    public function notificationChange(Request $request, $status , $uid)
+    {
+        $user= Profile::where('id', $uid)->first();
+        if($user){
+            $user->is_notifiable = $status;
+            $user->save();
+            return redirect()->back()->with('success', "User Updated");
+        } else {
+            return redirect()->back()->with('error', "User Not Found");
+        }  
+    }
 }

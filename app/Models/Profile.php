@@ -12,6 +12,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Profile extends Authenticatable
 {
     use HasFactory, Notifiable,HasProfilePhoto;
+    
+    const NOTIFICATION_OFF = 0;
+    const NOTIFICATION_ON = 1;
+
 
     protected $guard='customer';
 

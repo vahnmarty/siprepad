@@ -12,12 +12,15 @@
     <x-slot name="thead">
         <tr role="row">
             <th class="align-center" tabindex="0" aria-controls="kt_table_1" rowspan="1" colspan="1"
-                style="width: 20%;" aria-sort="ascending" aria-label="Agent: activate to sort column descending">First Name
+                style="width: 15%;" aria-sort="ascending" aria-label="Agent: activate to sort column descending">First Name
+
                 <i class="fa fa-fw fa-sort pull-right" style="cursor: pointer;"
                     wire:click="sortBy('Pro_First_Name')"></i>
             </th>
             <th class="align-center" tabindex="0" aria-controls="kt_table_1" rowspan="1" colspan="1"
-                style="width: 20%;" aria-sort="ascending" aria-label="Agent: activate to sort column descending">Last
+
+                style="width: 15%;" aria-sort="ascending" aria-label="Agent: activate to sort column descending">Last
+
                 Name<i class="fa fa-fw fa-sort pull-right" style="cursor: pointer;"
                     wire:click="sortBy('Pro_Last_Name')"></i>
             </th>
@@ -25,6 +28,10 @@
                 style="width: 15%;" aria-label="Company Email: activate to sort column ascending">Email</th>
             <th class="align-center" tabindex="0" aria-controls="kt_table_1" rowspan="1" colspan="1"
                 style="width: 15%;" aria-label="Company Agent: activate to sort column ascending">Phone</th>
+
+            <th class="align-center" tabindex="0" aria-controls="kt_table_1" rowspan="1" colspan="1"
+                style="width: 15%;" aria-label="Company Agent: activate to sort column ascending">Is Notifiable</th>
+
             <th class="align-center" rowspan="1" colspan="1" style="width: 30%;" aria-label="Actions">Actions</th>
         </tr>
 
@@ -94,6 +101,7 @@
                 <td class="align-center"><a class="kt-link" href="mailto:adingate15@furl.net">{{ $user->email }}</a>
                 </td>
                 <td class="align-center">{{ $user->Pro_Mobile ?? '---' }}</td>
+
                 @php
                     $getApplication = App\Models\Application::where('Profile_ID', $user->id)
                         //->where('status', 1)
@@ -101,6 +109,24 @@
                         ->first();
                 @endphp
                 @if ($getApplication)
+
+                <td>
+
+                <div class="action__btn">
+                @if($user->is_notifiable == 1)
+                	<a href="{{ url('/admin/user/notify/')}}/{{App\Models\Profile::NOTIFICATION_OFF}}/{{$user->id}}" class="btn btn-xs">Notification Off</a>
+                @else
+                	<a href="{{ url('/admin/user/notify/')}}/{{App\Models\Profile::NOTIFICATION_ON}}/{{$user->id}}" class="btn btn-xs">Notification On</a>
+                @endif
+                	
+				</div>
+				
+
+                </td>
+                <td>
+                	
+                </td>
+
                     <td>
                         <div class="action__btn">
                             <a class="btn"
@@ -132,3 +158,14 @@
         entries
     </x-slot>
 </x-admin.table>
+
+
+<script>
+//  function toggleOnByInput() {
+//     $('#toggle-trigger').prop('checked', true).change()
+//   }
+//   function toggleOffByInput() {
+//     $('#toggle-trigger').prop('checked', false).change()
+//   }
+</script>
+
