@@ -258,7 +258,7 @@
     <!--end::Fonts -->
 
     <!--begin::Page Vendors Styles(used by this page) -->
-    <link href="{{ asset('admin_assets/vendors/general/perfect-scrollbar/css/perfect-scrollbar.min.rtl.css') }}"
+    <link href="{{ Asset('admin_assets/vendors/general/perfect-scrollbar/css/perfect-scrollbar.min.rtl.css') }}"
         rel="stylesheet" type="text/css" />
     <!--end:: Global Mandatory Vendors -->
 
@@ -301,7 +301,7 @@
         type="text/css" />
 
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('admin_assets/css/custom.css') }}">
     <!--end::Layout Skins -->
     <link rel="shortcut icon" href="{{ asset('admin_assets/media/logos/favicon.png') }}" />
@@ -370,7 +370,7 @@
 
     <!-- begin::Global Config(global config for global JS sciprts) -->
     <!-- Scripts -->
-    <script src="{{ mix('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}" defer></script>
     <livewire:scripts />
     <script>
         var KTAppOptions = {

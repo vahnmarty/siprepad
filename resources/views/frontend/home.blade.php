@@ -12,7 +12,7 @@
             @endphp     
             @if($getProfile->is_notifiable)
             <li>
-                    <a target="_blank" href="/notification">
+                    <a target="_blank" href="{{url('/notification')}}">
 
                         <em>
                             <img src="{{ asset('frontend_assets/images/j1.svg') }}" alt="" />

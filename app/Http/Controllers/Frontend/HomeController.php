@@ -70,7 +70,7 @@ class HomeController extends Controller
 
             return view('frontend.home', compact('application', 'getStudentCount'));
         } else {
-            return redirect('/');
+            return redirect('/login');
         }
     }
 
