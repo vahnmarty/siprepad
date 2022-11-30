@@ -28,7 +28,8 @@
         		<p class='short_message'>{{ $ntfDetail->message; }}</p>
         	</div>
         	<div class='application_download'>
-        		<a href='/notification/pdfgenerator/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}'>Download</a>
+        		<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}'>Download</a>
+        		
         	</div>
         </div>
     </div>

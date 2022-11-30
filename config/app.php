@@ -54,7 +54,7 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
-    'asset_url' => env('ASSET_URL', null),
+    'asset_url' => env('ASSET_URL', 'http://localhost/admission-portal-web-1854/public/'),
 
     //Custom
     'artisan' => env('APP_ARTISAN', 0),

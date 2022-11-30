@@ -7,7 +7,7 @@
         	<h3>Notifications, <span>{{ Auth::guard('customer')->user()->full_name }}</span></h3>
         	<ul class="ntf-ul">
         		@foreach($notifications as $notification)
-        			<li class='ntf-li'><a href='/notification/show/{{ $notification->id }}'>{{ $notification->message }}</a></li>
+        			<li class='ntf-li'><a href='{{url("/notification/show")}}/{{ $notification->id }}'>{{ $notification->message }}</a></li>
         		@endforeach()
         	</ul>
         </div>

@@ -60,7 +60,7 @@
                         	<div class='student_box'>
                         		<label>Candidate Status:</label>
                         		<div class='candidate_state_select'>
-                        			<form action='/admin/application/cstatus' method='post'>
+                        			<form action='{{url("/admin/application/cstatus")}}' method='post'>
                         			@csrf
                         			<input type="hidden" name="user_id" value='{{$user->id}}'>
                         				
