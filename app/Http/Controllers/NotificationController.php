@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Notification;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Application;
+use App\Models\StudentInformation;
 
 class NotificationController extends Controller
 {
@@ -24,10 +25,11 @@ class NotificationController extends Controller
     
     public function show(Request $request, $nid) {
         $profile_id = Auth::guard('customer')->user()->id;
+        $studentDetail = StudentInformation::where('Profile_ID',$profile_id)->first();
         $ntfDetail = Notification::where('id',$nid)->first();
         $appDetail = Application::where('Profile_ID',$profile_id)->first();
         
-        return view('frontend.notificationDetail',compact('ntfDetail','appDetail'));   
+        return view('frontend.notificationDetail',compact('ntfDetail','appDetail','studentDetail'));   
     }
     
     

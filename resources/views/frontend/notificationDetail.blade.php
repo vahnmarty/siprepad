@@ -8,6 +8,7 @@
         		<img src="{{ asset('frontend_assets/images/lg2.png') }}" alt="" />
         	</div>
         	<div class='ntf_candidate_detail'>
+        		<p class='ntf_student_name'>Student Name: {{ $studentDetail->S1_Preferred_First_Name }}</p>
         		@switch($appDetail->application_type_id)
         			@case(1)
         				@php ($appStatus = 'Accepted')
@@ -21,7 +22,13 @@
         			@default
         				@php ($appStatus = 'No Status Yet')
         		@endswitch
-        		<p>Application Status: {{ $appStatus }} </p>
+        		<p class='ntf_application_status'>Application Status: {{ $appStatus }} </p>
+        	</div>
+        	<div class='application_message'>
+        		<p class='short_message'>{{ $ntfDetail->message; }}</p>
+        	</div>
+        	<div class='application_download'>
+        		<a href='/notification/pdfgenerator/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}'>Download</a>
         	</div>
         </div>
     </div>

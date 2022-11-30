@@ -32,5 +32,6 @@ class DatabaseSeeder extends Seeder
         $this->call(MaritalSeeder::class);
         $this->call(SpiritualitySeeder::class);
         // \App\Models\User::factory(10)->create();
+        $this->call(ApplicationTypeSeeder::class);
     }
 }
