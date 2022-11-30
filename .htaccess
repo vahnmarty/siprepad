@@ -1,14 +1,21 @@
-# .htaccess main domain to subfolder redirect
-RewriteEngine on
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
 
-RewriteCond %{HTTP_HOST} ^(www.)?siprepadmissions.org$
-RewriteCond %{REQUEST_URI} !^/public/
+    RewriteEngine On
 
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
-RewriteRule ^(.*)$ /public/$1
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
 
-RewriteCond %{HTTP_HOST} ^(www.)?siprepadmissions.org$
-
-RewriteRule ^(/)?$ public/index.html [L]
+    # Send Requests To Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>
