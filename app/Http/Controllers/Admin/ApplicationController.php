@@ -113,13 +113,13 @@ class ApplicationController extends Controller
             
             switch($candidateStatus) {
                 case 1:
-                    $message = 'Hello '.$fullName.', Congratulations! Your application has been accepted.';
+                    $message = 'Congratulations! Your application has been accepted.';
                     break;
                 case 2:
-                    $message = 'Hello '.$fullName.', Your application is in Waiting List. We will in touch with you shortly.';
+                    $message = 'Your application is in Waiting List. We will in touch with you shortly.';
                     break;
                 case 3:
-                    $message = 'Hello '.$fullName.', Sorry! Your application has been rejected. Better Luck next time.';
+                    $message = 'Sorry! Your application has been rejected. Better Luck next time.';
                     break;
                 default:
                     $message = 'Nothing';

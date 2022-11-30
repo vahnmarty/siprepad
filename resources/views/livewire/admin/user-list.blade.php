@@ -12,14 +12,14 @@
     <x-slot name="thead">
         <tr role="row">
             <th class="align-center" tabindex="0" aria-controls="kt_table_1" rowspan="1" colspan="1"
-                style="width: 15%;" aria-sort="ascending" aria-label="Agent: activate to sort column descending">First Name
+                style="width: 20%;" aria-sort="ascending" aria-label="Agent: activate to sort column descending">First Name
 
                 <i class="fa fa-fw fa-sort pull-right" style="cursor: pointer;"
                     wire:click="sortBy('Pro_First_Name')"></i>
             </th>
             <th class="align-center" tabindex="0" aria-controls="kt_table_1" rowspan="1" colspan="1"
 
-                style="width: 15%;" aria-sort="ascending" aria-label="Agent: activate to sort column descending">Last
+                style="width: 20%;" aria-sort="ascending" aria-label="Agent: activate to sort column descending">Last
 
                 Name<i class="fa fa-fw fa-sort pull-right" style="cursor: pointer;"
                     wire:click="sortBy('Pro_Last_Name')"></i>
@@ -122,8 +122,7 @@
 				</div>
 				
 
-                </td>
-                <td>
+               
                 	
                 </td>
 

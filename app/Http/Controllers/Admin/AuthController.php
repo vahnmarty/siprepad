@@ -27,7 +27,8 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
             if (Auth::user()->role_name == "SUPER-ADMIN") {
-                return redirect()->intended('/admin/dashboard')->withSuccess('You have successfully logged in');
+                
+                return redirect()->to('/admin/dashboard')->withSuccess('You have successfully logged in');
                 //return redirect('/admin')->withSuccess('You have successfully logged in');
             } else {
                 Auth::logout();

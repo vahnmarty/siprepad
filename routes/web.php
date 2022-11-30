@@ -15,6 +15,7 @@ use Illuminate\Auth\Events\Logout;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\Frontend\StatusPdfController;
 
 
 
@@ -56,7 +57,9 @@ Route::group(['middleware' => 'auth:customer'], function () {
 
     Route::get('/notification', [NotificationController::class, 'list']);
     Route::get('/notification/show/{nid}', [NotificationController::class, 'show']);
-
+    
+    Route::get('/notification/pdfgenerator/{ntid}/{uid}', [StatusPdfController::class, 'index']);
+    
     Route::get('/edit-profile', [UserAuthController::class, 'editProfile'])->name('edit-profile');
     Route::post('/edit-profile', [UserAuthController::class, 'updateProfile'])->name('update-profile');
     Route::get('/change-password', [UserAuthController::class, 'changePassword'])->name('change-password');

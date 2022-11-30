@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
-class NotificationTypeSeeder extends Seeder
+class ApplicationTypeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,12 +17,12 @@ class NotificationTypeSeeder extends Seeder
     public function run()
     {
 
-        DB::table('notification_types')->truncate();
+        DB::table('application_types')->truncate();
         $types = array(
             array('name' => "Accepted"),
             array('name' => "Wait Listed"),
             array('name' => "Not Accepted"),
         );
-        DB::table('notification_types')->insert($types);
+        DB::table('application_types')->insert($types);
     }
 }
