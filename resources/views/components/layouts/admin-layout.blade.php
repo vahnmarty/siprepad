@@ -255,6 +255,7 @@
             border: none;
         }
     </style>
+   
     <!--end::Fonts -->
 
     <!--begin::Page Vendors Styles(used by this page) -->
@@ -294,7 +295,9 @@
         type="text/css" />
     <link href="{{ asset('admin_assets/demo/default/skins/brand/dark.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('admin_assets/demo/default/skins/aside/dark.css') }}" rel="stylesheet" type="text/css" />
-    <livewire:styles />
+   
+    
+     @livewireStyles
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
     <link href="{{ asset('admin_assets/vendors/custom/datatables/datatables.bundle.css') }}" rel="stylesheet"
@@ -371,7 +374,9 @@
     <!-- begin::Global Config(global config for global JS sciprts) -->
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <livewire:scripts />
+
+    @livewireScripts
+
     <script>
         var KTAppOptions = {
             "colors": {

@@ -10,7 +10,7 @@
                  $getProfile = App\Models\Profile::find($uid)->first();
                 
             @endphp     
-            @if($getProfile->is_notifiable)
+            @if(Auth::user()->is_notifiable)
             <li>
                     <a target="_blank" href="{{url('/notification')}}">
 

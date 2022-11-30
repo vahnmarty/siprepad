@@ -53,6 +53,9 @@
                     class="form-control-sm form-filter" />
             </th>
             <th>
+
+            </th>
+            <th>
                 <div class="row">
                     <div class="col-md-6">
                         <button class="btn btn-brand kt-btn btn-sm kt-btn--icon" wire:click="search">
@@ -108,23 +111,21 @@
                         //->where('last_step_complete', 'ten')
                         ->first();
                 @endphp
-                @if ($getApplication)
-
+                
                 <td>
 
-                <div class="action__btn">
-                @if($user->is_notifiable == 1)
-                	<a href="{{ url('/admin/user/notify/')}}/{{App\Models\Profile::NOTIFICATION_OFF}}/{{$user->id}}" class="btn btn-xs">Notification Off</a>
-                @else
-                	<a href="{{ url('/admin/user/notify/')}}/{{App\Models\Profile::NOTIFICATION_ON}}/{{$user->id}}" class="btn btn-xs">Notification On</a>
-                @endif
-                	
-				</div>
+                    <div class="action__btn">
+                        @if($user->is_notifiable == 1)
+                        	<a href="{{ url('/admin/user/notify/')}}/{{App\Models\Profile::NOTIFICATION_OFF}}/{{$user->id}}" class="btn btn-xs">Notification Off</a>
+                        @else
+                        	<a href="{{ url('/admin/user/notify/')}}/{{App\Models\Profile::NOTIFICATION_ON}}/{{$user->id}}" class="btn btn-xs">Notification On</a>
+                        @endif
+    				</div>
 				
-
-               
-                	
                 </td>
+                @if ($getApplication)
+
+                
 
                     <td>
                         <div class="action__btn">
