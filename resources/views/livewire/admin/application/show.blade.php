@@ -97,7 +97,7 @@
                                 				<option value='3'>Not Accepted</option>
                                 			</select>
                         				@endswitch
-                            			<button class='status_submit' type='submit'>Submit</button>
+                            			<button class='status_submit ml-3 btn btn-sm btn-success' type='submit'>Submit</button>
                         			</form>
                         		</div>
                         	</div>

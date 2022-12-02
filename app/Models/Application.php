@@ -12,7 +12,7 @@ class Application extends Model
     
 
     protected $fillable = [
-        'Profile_ID', 'Title', 'Description', 'status','last_step_complete'
+        'Profile_ID', 'Title', 'Description', 'status','last_step_complete','application_type_id'
     ];
 
     public function user()

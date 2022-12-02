@@ -29,9 +29,17 @@ class ApplicationEight extends Component
         $this->studentInfo = StudentInformation::where('Profile_ID', Auth::guard('customer')->user()->id)->where('Application_ID', $this->application_id)->first();
 
         $getStudent = StudentInformation::where('Profile_ID', Auth::guard('customer')->user()->id)
-            ->where('Application_ID', $getApplication->Application_ID)->first()->toArray();
+            ->where('Application_ID', $getApplication->Application_ID)->first();
+        
+            if($getStudent){
+                $getStudent = $getStudent->toArray();
+            }
+            
+            $Students_Statement = [];
+            $Extracurricular_Activities = [];
+            $Future_Activities = [];
+            if($getStudent){
 
-        $Students_Statement = [];
         $arr1 = [
             "S1_Why_did_you_decide_to_apply_to_SI" => '',
             "S1_Greatest_Challenge" => '',
@@ -63,7 +71,7 @@ class ApplicationEight extends Component
         }
 
         //
-        $Extracurricular_Activities = [];
+      
         $arr1 = [
             "Student_name" => $getStudent['S1_First_Name'] . ' ' . $getStudent['S1_Last_Name'],
             "Activity" => [
@@ -107,7 +115,7 @@ class ApplicationEight extends Component
         }
 
         //
-        $Future_Activities = [];
+        
         $arr1 = [
             "S1_Most_Passionate_Activity" => '',
             "S1_Extracurricular_Activity_at_SI" => '',
@@ -400,6 +408,14 @@ class ApplicationEight extends Component
 
             //dd($this->studentStatementInfo);
         }
+            }else{
+                $this->studentStatementInfo = [
+                    'Students_Statement' => $Students_Statement,
+                    'Extracurricular_Activities' => $Extracurricular_Activities,
+                    'Future_Activities' => $Future_Activities
+                ];
+                
+            }
 
         $this->numberOfYears = ApplicationConstHelper::numberOfYears();
 

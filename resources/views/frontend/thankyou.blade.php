@@ -16,7 +16,7 @@
                     <a href="mailto:admissions@siprep.org">admissions@siprep.org.</a>
                 </p>
                 <div class="text-center">
-                    <a href="/" class="back-to">Back to Home</a>
+                    <a href="{{url('/')}}" class="back-to">Back to Home</a>
                 </div>
             </div>
         </div>

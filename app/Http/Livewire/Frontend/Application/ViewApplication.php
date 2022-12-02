@@ -30,14 +30,16 @@ class ViewApplication extends Component
     public $identifyRacially = [];
     public function mount($application_id = null)
     {
+        
         $profile_id = Auth::guard('customer')->user()->id;
         $getApplication = Application::where('Application_ID', $application_id)->where('Profile_ID', $profile_id)
             ->where('status', 1)->where('last_step_complete', 'ten')->first();
         $this->application = $getApplication;
+        
         //Step 1
         $this->studentInfo = $this->getStudentInfo($application_id, $profile_id);
         //dd($this->studentInfo);
-
+        
         //Step 2
         $this->addressInfo = $this->getAddressInfo($application_id, $profile_id);
         //dd($this->addressInfo);
@@ -123,7 +125,9 @@ class ViewApplication extends Component
                 "Other_High_School_3" =>  $getStudentInfo->S1_Other_High_School_3,
                 "Other_High_School_4" =>  $getStudentInfo->S1_Other_High_School_4
             ];
-
+            
+            
+            
             $student2 = [
                 "Photo" =>  $getStudentInfo->S2_Photo,
                 "First_Name" => $getStudentInfo->S2_First_Name,
@@ -595,11 +599,13 @@ class ViewApplication extends Component
     //Step 7
     public function getSpiritualCommunityInfo($application_id, $profile_id)
     {
+        
         $students = [];
         $getSpiritualCommunityInfo = SpiritualAndCommunityInformation::where('Profile_ID', $profile_id)->where('Application_ID', $application_id)->first();
+        
         if ($getSpiritualCommunityInfo) {
             $getStudent = StudentInformation::where('Profile_ID', $profile_id)->where('Application_ID', $application_id)->first()->toArray();
-
+            
             $arr1 = [
                 "Baptism_Year" => $getSpiritualCommunityInfo->S1_Baptism_Year,
                 "Confirmation_Year" => $getSpiritualCommunityInfo->S1_Confirmation_Year,
@@ -618,22 +624,24 @@ class ViewApplication extends Component
                 "Student_name" => $getStudent['S3_First_Name'] . ' ' . $getStudent['S3_Last_Name']
 
             ];
+            
             $newArr[] = $getSpiritualCommunityInfo['S1_Baptism_Year'] ? $arr1 : null;
             $newArr[] = $getSpiritualCommunityInfo['S2_Baptism_Year'] ? $arr2 : null;
             $newArr[] = $getSpiritualCommunityInfo['S3_Baptism_Year'] ? $arr3 : null;
-
-
+            
+            
             foreach ($newArr as $value) {
                 if (!is_null($value)) {
                     array_push($students, $value);
                 }
             }
-
+            
             $getNewArr = [];
+            
             if ($getSpiritualCommunityInfo->Describe_Family_Spirituality) {
                 $getNewArr = ApplicationConstHelper::getFamilySpirituality($getSpiritualCommunityInfo->Describe_Family_Spirituality);
             }
-            //dd($getNewArr);
+            
 
             $spiritualCommunityInfo = [
                 'Applicant_Religion' => $getSpiritualCommunityInfo->Applicant_Religion,

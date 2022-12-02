@@ -278,10 +278,11 @@
             </div>
             <div class="form-btn">
                 @if ($is_patment_compleate || $pay_amount == 0)
-                    <button type="submit" value="Next" class="sub-btn">Submit Application</button>
-                @else
-                    <button type="submit" value="Next" class="sub-btn" style="background: #848485;"
+                	<button type="submit" value="Next" class="sub-btn" style="background: #848485;"
                         disabled>Submit Application</button>
+                    
+                @else
+                    <button type="submit" value="Next" class="sub-btn">Submit Application</button>
                 @endif
             </div>
         </div>

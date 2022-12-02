@@ -26,78 +26,85 @@ class ApplicationSix extends Component
         $getApplication = Application::where('Profile_ID', Auth::guard('customer')->user()->id)->where('status', 0)->first();
         $this->application_id = $getApplication->Application_ID;
         $this->studentInfo = StudentInformation::where('Profile_ID', Auth::guard('customer')->user()->id)->where('Application_ID', $this->application_id)->first();
-
+        
         $getStudent = StudentInformation::where('Profile_ID', Auth::guard('customer')->user()->id)
-            ->where('Application_ID', $getApplication->Application_ID)->first()->toArray();
-
-        if ($getParentStatement) {
-
-            $this->parentStatement_id = $getParentStatement->id;
-
-            $student1 = [
-                "S1_Endearing_Quality_and_Growth" => $getParentStatement->S1_Endearing_Quality_and_Growth,
-                "S1_About_Child_Not_on_App" => $getParentStatement->S1_About_Child_Not_on_App,
-                "Student_name" => $getStudent['S1_First_Name'] . ' ' . $getStudent['S1_Last_Name']
-            ];
-
-            $student2 = [
-                "S2_Endearing_Quality_and_Growth" => $getParentStatement->S2_Endearing_Quality_and_Growth,
-                "S2_About_Child_Not_on_App" => $getParentStatement->S2_About_Child_Not_on_App,
-                "Student_name" => $getStudent['S2_First_Name'] . ' ' . $getStudent['S2_Last_Name']
-            ];
-
-            $student3 = [
-                "S3_Endearing_Quality_and_Growth" => $getParentStatement->S3_Endearing_Quality_and_Growth,
-                "S3_About_Child_Not_on_App" => $getParentStatement->S3_About_Child_Not_on_App,
-                "Student_name" => $getStudent['S3_First_Name'] . ' ' . $getStudent['S3_Last_Name']
-            ];
-
-            // $getParentArr[] = $getParentStatement['S1_Endearing_Quality_and_Growth'] ? $student1 : null;
-            // $getParentArr[] = $getParentStatement['S2_Endearing_Quality_and_Growth'] ? $student2 : null;
-            // $getParentArr[] = $getParentStatement['S3_Endearing_Quality_and_Growth'] ? $student3 : null;
-
-            $getParentArr[] = $getStudent['S1_First_Name'] ? $student1 : null;
-            $getParentArr[] = $getStudent['S2_First_Name'] ? $student2 : null;
-            $getParentArr[] = $getStudent['S3_First_Name'] ? $student3 : null;
-
-            foreach ($getParentArr as $key => $value) {
-                if (!is_null($value)) {
-                    array_push($this->parentStatement, $value);
+            ->where('Application_ID', $getApplication->Application_ID)->first();
+            if($getStudent) {
+                $getStudent = $getStudent->toArray();                
+            }
+            
+            if($getStudent) {
+                if ($getParentStatement) {
+                    
+                    $this->parentStatement_id = $getParentStatement->id;
+                    
+                    $student1 = [
+                        "S1_Endearing_Quality_and_Growth" => $getParentStatement->S1_Endearing_Quality_and_Growth,
+                        "S1_About_Child_Not_on_App" => $getParentStatement->S1_About_Child_Not_on_App,
+                        "Student_name" => $getStudent['S1_First_Name'] . ' ' . $getStudent['S1_Last_Name']
+                    ];
+                    
+                    $student2 = [
+                        "S2_Endearing_Quality_and_Growth" => $getParentStatement->S2_Endearing_Quality_and_Growth,
+                        "S2_About_Child_Not_on_App" => $getParentStatement->S2_About_Child_Not_on_App,
+                        "Student_name" => $getStudent['S2_First_Name'] . ' ' . $getStudent['S2_Last_Name']
+                    ];
+                    
+                    $student3 = [
+                        "S3_Endearing_Quality_and_Growth" => $getParentStatement->S3_Endearing_Quality_and_Growth,
+                        "S3_About_Child_Not_on_App" => $getParentStatement->S3_About_Child_Not_on_App,
+                        "Student_name" => $getStudent['S3_First_Name'] . ' ' . $getStudent['S3_Last_Name']
+                    ];
+                    
+                    // $getParentArr[] = $getParentStatement['S1_Endearing_Quality_and_Growth'] ? $student1 : null;
+                    // $getParentArr[] = $getParentStatement['S2_Endearing_Quality_and_Growth'] ? $student2 : null;
+                    // $getParentArr[] = $getParentStatement['S3_Endearing_Quality_and_Growth'] ? $student3 : null;
+                    
+                    $getParentArr[] = $getStudent['S1_First_Name'] ? $student1 : null;
+                    $getParentArr[] = $getStudent['S2_First_Name'] ? $student2 : null;
+                    $getParentArr[] = $getStudent['S3_First_Name'] ? $student3 : null;
+                    
+                    foreach ($getParentArr as $key => $value) {
+                        if (!is_null($value)) {
+                            array_push($this->parentStatement, $value);
+                        }
+                    }
+                    $this->Why_SI_for_Child = $getParentStatement->Why_SI_for_Child;
+                    $this->Parent_Statement_Submitted_By = $getParentStatement->Parent_Statement_Submitted_By;
+                    $this->Parent_Statement_Relationship = $getParentStatement->Parent_Statement_Relationship;
+                    //dd($this->parentStatement);
+                    $this->isEdit = true;
+                } else {
+                    
+                    $arr1 = [
+                        "S1_Endearing_Quality_and_Growth" => '',
+                        "S1_About_Child_Not_on_App" => '',
+                        "Student_name" => $getStudent['S1_First_Name'] . ' ' . $getStudent['S1_Last_Name']
+                    ];
+                    $arr2 = [
+                        "S2_Endearing_Quality_and_Growth" => '',
+                        "S2_About_Child_Not_on_App" => '',
+                        "Student_name" => $getStudent['S2_First_Name'] . ' ' . $getStudent['S2_Last_Name']
+                    ];
+                    $arr3 = [
+                        "S3_Endearing_Quality_and_Growth" => '',
+                        "S3_About_Child_Not_on_App" => '',
+                        "Student_name" => $getStudent['S3_First_Name'] . ' ' . $getStudent['S3_Last_Name']
+                    ];
+                    
+                    $studentArr[] = $getStudent['S1_First_Name'] ? $arr1 : null;
+                    $studentArr[] = $getStudent['S2_First_Name'] ? $arr2 : null;
+                    $studentArr[] = $getStudent['S3_First_Name'] ? $arr3 : null;
+                    foreach ($studentArr as $key => $arr) {
+                        if (!is_null($arr)) {
+                            array_push($this->parentStatement, $arr);
+                        }
+                    }
                 }
             }
-            $this->Why_SI_for_Child = $getParentStatement->Why_SI_for_Child;
-            $this->Parent_Statement_Submitted_By = $getParentStatement->Parent_Statement_Submitted_By;
-            $this->Parent_Statement_Relationship = $getParentStatement->Parent_Statement_Relationship;
-            //dd($this->parentStatement);
-            $this->isEdit = true;
-        } else {
-
-            $arr1 = [
-                "S1_Endearing_Quality_and_Growth" => '',
-                "S1_About_Child_Not_on_App" => '',
-                "Student_name" => $getStudent['S1_First_Name'] . ' ' . $getStudent['S1_Last_Name']
-            ];
-            $arr2 = [
-                "S2_Endearing_Quality_and_Growth" => '',
-                "S2_About_Child_Not_on_App" => '',
-                "Student_name" => $getStudent['S2_First_Name'] . ' ' . $getStudent['S2_Last_Name']
-            ];
-            $arr3 = [
-                "S3_Endearing_Quality_and_Growth" => '',
-                "S3_About_Child_Not_on_App" => '',
-                "Student_name" => $getStudent['S3_First_Name'] . ' ' . $getStudent['S3_Last_Name']
-            ];
-
-            $studentArr[] = $getStudent['S1_First_Name'] ? $arr1 : null;
-            $studentArr[] = $getStudent['S2_First_Name'] ? $arr2 : null;
-            $studentArr[] = $getStudent['S3_First_Name'] ? $arr3 : null;
-            foreach ($studentArr as $key => $arr) {
-                if (!is_null($arr)) {
-                    array_push($this->parentStatement, $arr);
-                }
-            }
-        }
-
+            
+        
+            
         $this->relationshipList = ApplicationConstHelper::relationshipListFour();
     }
 

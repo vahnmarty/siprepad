@@ -32,7 +32,7 @@
             <th class="align-center" tabindex="0" aria-controls="kt_table_1" rowspan="1" colspan="1"
                 style="width: 15%;" aria-label="Company Agent: activate to sort column ascending">Is Notifiable</th>
 
-            <th class="align-center" rowspan="1" colspan="1" style="width: 30%;" aria-label="Actions">Actions</th>
+            <th class="align-center" rowspan="1" colspan="1" style="width: 20%;" aria-label="Actions">Actions</th>
         </tr>
 
         <tr class="filter">
@@ -114,13 +114,17 @@
                 
                 <td>
 
-                    <div class="action__btn">
+                    
                         @if($user->is_notifiable == 1)
-                        	<a href="{{ url('/admin/user/notify/')}}/{{App\Models\Profile::NOTIFICATION_OFF}}/{{$user->id}}" class="btn btn-xs">Notification Off</a>
+                        	<div class="action__btn">
+                        		<a href="{{ url('/admin/user/notify/')}}/{{App\Models\Profile::NOTIFICATION_OFF}}/{{$user->id}}" class="btn btn-off">Notification Off</a>
+                        	</div>
                         @else
-                        	<a href="{{ url('/admin/user/notify/')}}/{{App\Models\Profile::NOTIFICATION_ON}}/{{$user->id}}" class="btn btn-xs">Notification On</a>
+                        	<div class="action__btn" style="background: linear-gradient(180deg, #19a74d 0%, #002664 100%) !important;">
+                        		<a href="{{ url('/admin/user/notify/')}}/{{App\Models\Profile::NOTIFICATION_ON}}/{{$user->id}}" class="btn btn-on">Notification On</a>
+                        	</div>
                         @endif
-    				</div>
+    				
 				
                 </td>
                 @if ($getApplication)

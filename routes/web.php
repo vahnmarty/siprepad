@@ -58,6 +58,8 @@ Route::group(['middleware' => 'auth:customer'], function () {
     Route::get('/notification', [NotificationController::class, 'list']);
     Route::get('/notification/show/{nid}', [NotificationController::class, 'show']);
     
+    Route::get('/candidate/response/{apid}/{rsid}', [NotificationController::class, 'candidateResponse']);
+    
     Route::get('/notification/pdfgenerator/{ntid}/{uid}', [StatusPdfController::class, 'index']);
     
     Route::get('/edit-profile', [UserAuthController::class, 'editProfile'])->name('edit-profile');
