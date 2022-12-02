@@ -31,7 +31,6 @@ class HomeController extends Controller
             $application = Application::where('Profile_ID', $profile_id)->first();
             $recommendationStudent = Recommendation::where('Profile_ID', $profile_id)->select('Rec_Student')->get()->toArray();
             $getStudentCount = 0;
-
             if ($application) {
 
                 $getAllStudent = [];

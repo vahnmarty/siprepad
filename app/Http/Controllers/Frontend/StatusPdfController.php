@@ -18,7 +18,7 @@ class StatusPdfController extends Controller
         
         $html = '
             <h1>St. Ignatius College Preparatory</h1>
-            <p>Dear '.$studentDetail->S1_Preferred_First_Name.',</p>
+            <p>Dear '.$studentDetail->S1_First_Name.' '.$studentDetail->S1_Last_Name.',</p>
             <p>'.$notMessage->message.'</p>
         ';
         $mpdf = new \Mpdf\Mpdf();

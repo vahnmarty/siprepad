@@ -437,9 +437,10 @@ class ApplicationConstHelper
         if ($data_is_json) {
             $arr = array();
             foreach (array_filter((array)json_decode($data)) as $dfsKey => $value) {
-                $item = Spirituality::find($dfsKey);
+                $item = Spirituality::find($value);
 
                 $arr[] = $item->name;
+                
             }
             $getNewArr = array_combine($arr, $arr);
         } else {

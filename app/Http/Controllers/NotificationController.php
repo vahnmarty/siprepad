@@ -32,5 +32,24 @@ class NotificationController extends Controller
         return view('frontend.notificationDetail',compact('ntfDetail','appDetail','studentDetail'));   
     }
     
+    public function candidateResponse(Request $request, $apid, $rsid) {
+        $checkApp = Application::where('Application_ID',$apid)->first();
+        if(!empty($checkApp)) {
+            if($checkApp->candidate_status == '0'){
+                $updateCr = Application::where('Application_ID',$apid)->limit(1)->update(array('candidate_status' => $rsid));
+                
+                if($updateCr) {
+                    return redirect()->back()->with('success','Thankyou, We have recieved your response!!');
+                }
+                
+                return redirect()->back()->with('error','Something went wrong! Please check after sometime');
+            } else {
+                return redirect('/')->with('error','You can\'t change your response now!!');
+            }
+        } else {
+            return redirect()->back()->with('error','Application Not found!!!');
+        }
+    }
+    
     
 }

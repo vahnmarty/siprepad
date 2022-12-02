@@ -101,7 +101,7 @@ class UserController extends Controller
         if($user){
             $user->is_notifiable = $status;
             $user->save();
-            return redirect()->back()->with('success', "User Updated");
+            return redirect()->back()->with('success', "User Notifcation Updated Successfully!!");
         } else {
             return redirect()->back()->with('error', "User Not Found");
         }  

@@ -134,7 +134,7 @@ class ApplicationController extends Controller
                     $newNotification->profile_id = $userID;
                     $newNotification->message = $message;
                     if($newNotification->save()){
-                        return redirect()->back()->with('success','Candidate Status successfully Submitted!!!!');                            
+                        return redirect()->back()->with('success','Candidate Status Submitted Successfully!!!!');                            
                     }
                 }
             }

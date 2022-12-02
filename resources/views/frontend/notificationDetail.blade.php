@@ -8,7 +8,7 @@
         		<img src="{{ asset('frontend_assets/images/lg2.png') }}" alt="" />
         	</div>
         	<div class='ntf_candidate_detail'>
-        		<p class='ntf_student_name'>Student Name: {{ $studentDetail->S1_Preferred_First_Name }}</p>
+        		<p class='ntf_student_name'>Candidate Name: {{ $studentDetail->S1_First_Name }} {{ $studentDetail->S1_Last_Name }}</p>
         		@switch($appDetail->application_type_id)
         			@case(1)
         				@php ($appStatus = 'Accepted')
@@ -29,8 +29,18 @@
         	</div>
         	<div class='application_download'>
         		<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}'>Download</a>
-        		
         	</div>
+        	
+        	@if($appDetail->application_type_id == '1' && $appDetail->candidate_status == '0')
+        		<div class='student_btns'>
+        			<a href="{{ url('/candidate/response') }}/{{ $appDetail->Application_ID }}/1" class='btn btn_accept'>Accept</a>
+        			<a href="{{ url('/candidate/response') }}/{{ $appDetail->Application_ID }}/2" class='btn btn_reject'>Reject</a>
+        		</div>
+        	@else 
+        		<div class='get_response'>
+        			<p>Thankyou for your response. We have recieved your response.</p>
+        		</div>
+        	@endif
         </div>
     </div>
 	
