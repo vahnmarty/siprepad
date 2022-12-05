@@ -35,7 +35,7 @@ class NotificationController extends Controller
     public function candidateResponse(Request $request, $apid, $rsid) {
         $checkApp = Application::where('Application_ID',$apid)->first();
         if(!empty($checkApp)) {
-            if($checkApp->candidate_status == '0'){
+            if($checkApp->candidate_status == Application::CANDIDATE_NOT_DEFINED){
                 $updateCr = Application::where('Application_ID',$apid)->limit(1)->update(array('candidate_status' => $rsid));
                 
                 if($updateCr) {

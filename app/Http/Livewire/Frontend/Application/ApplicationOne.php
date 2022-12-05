@@ -30,7 +30,6 @@ class ApplicationOne extends Component
 
     public function mount($studentInfo = null)
     {
-        //dd('livewire', $studentInfo);
         if ($studentInfo) {
             $this->studentInfo = $studentInfo;
             $this->studentInfo_id = $studentInfo->id;
@@ -128,20 +127,20 @@ class ApplicationOne extends Component
             $studentArr[] = $studentInfo['S1_First_Name'] ? $arr1 : null;
             $studentArr[] = $studentInfo['S2_First_Name'] ? $arr2 : null;
             $studentArr[] = $studentInfo['S3_First_Name'] ? $arr3 : null;
-            //dd($studentArr);
+            
             foreach ($studentArr as $key => $student) {
                 if (!is_null($student)) {
                     $this->old_arr_count += 1;
                     array_push($this->inputs, $student);
                 }
             }
-            //dd($this->inputs);
+          
             $this->i = count($this->inputs);
             $this->isEdit = true;
 
             $getPayment = Payment::where('user_id', Auth::guard('customer')->user()->id)
                 ->where('application_id', $studentInfo->Application_ID)->first();
-            //dd($getPayment);
+           
             if ($getPayment) {
                 $this->is_payment_compleat = true;
             }
@@ -226,7 +225,7 @@ class ApplicationOne extends Component
 
     public function saveOrUpdate()
     {
-        //dd($this->inputs);
+        
 
         foreach (array_values($this->inputs) as $key => $item) {
             $this->inputs[$key]['Mobile_Phone'] = $item['phone_number_one'] . $item['phone_number_two'] . $item['phone_number_three'];
@@ -290,7 +289,7 @@ class ApplicationOne extends Component
             array_push($new_arr, $arr);
         }
 
-        //dd($new_arr);
+      
 
         //Merage all array to one array
         $addOrUpdateArr = Arr::collapse($new_arr);
@@ -307,11 +306,14 @@ class ApplicationOne extends Component
             $application->status = 0;
             $application->last_step_complete = 'two';
             $application->application_type_id = 1;
-            $application->save();
+            if($application->save()){
+                $addOrUpdateArr['Profile_ID'] = Auth::guard('customer')->user()->id;
+                $addOrUpdateArr['Application_ID'] = $application->Application_ID;
+                StudentInformation::create($addOrUpdateArr);
+            } else {
+                return redirect()->route('admission-application', ['step' => 'one']);
+            }
 
-            $addOrUpdateArr['Profile_ID'] = Auth::guard('customer')->user()->id;
-            $addOrUpdateArr['Application_ID'] = $application->Application_ID;
-            StudentInformation::create($addOrUpdateArr);
         }
         return redirect()->route('admission-application', ['step' => 'two']);
     }

@@ -31,10 +31,10 @@
         		<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}'>Download</a>
         	</div>
         	
-        	@if($appDetail->application_type_id == '1' && $appDetail->candidate_status == '0')
+        	@if($appDetail->application_type_id == App\Models\Application::TYPE_ACCEPTED && $appDetail->candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED)
         		<div class='student_btns'>
-        			<a href="{{ url('/candidate/response') }}/{{ $appDetail->Application_ID }}/1" class='btn btn_accept'>Accept</a>
-        			<a href="{{ url('/candidate/response') }}/{{ $appDetail->Application_ID }}/2" class='btn btn_reject'>Reject</a>
+        			<a href="{{ url('/candidate/response') }}/{{ $appDetail->Application_ID }}/{{App\Models\Application::CANDIDATE_ACCEPTED}}" class='btn btn_accept'>Accept</a>
+        			<a href="{{ url('/candidate/response') }}/{{ $appDetail->Application_ID }}/{{App\Models\Application::CANDIDATE_REJECTED}}" class='btn btn_reject'>Reject</a>
         		</div>
         	@else 
         		<div class='get_response'>
