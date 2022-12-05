@@ -38,7 +38,6 @@ class ApplicationSeven extends Component
             if($getStudent){
                 if ($getSpiritualCommunityInfo) {
                     
-                    // dd('IF');
                     $this->spiritualCommunityInfo_id = $getSpiritualCommunityInfo->id;
                     
                     $arr1 = [
@@ -100,12 +99,10 @@ class ApplicationSeven extends Component
                         'Religious_Form_Relationship' => $getSpiritualCommunityInfo->Religious_Form_Relationship,
                         'Religious_Form_Date' => $getSpiritualCommunityInfo->Religious_Form_Date
                     ];
-                    // dd($this->spiritualCommunityInfo);
                     
                     $this->isEdit = true;
                 } else {
                     
-                    //dd('Else');
                     $arr1 = [
                         "S1_Baptism_Year" => '',
                         "S1_Confirmation_Year" => '',
@@ -125,13 +122,11 @@ class ApplicationSeven extends Component
                     $studentArr[] = $getStudent['S1_First_Name'] ? $arr1 : null;
                     $studentArr[] = $getStudent['S2_First_Name'] ? $arr2 : null;
                     $studentArr[] = $getStudent['S3_First_Name'] ? $arr3 : null;
-                    //dd($getStudent,$studentArr);
                     foreach ($studentArr as $key => $arr) {
                         if (!is_null($arr)) {
                             array_push($this->students, $arr);
                         }
                     }
-                    // dd($getStudent,$studentArr,$this->students);
                     $this->spiritualCommunityInfo = [
                         'Applicant_Religion' => '',
                         'Applicant_Religion_Other' => '',
@@ -251,7 +246,7 @@ class ApplicationSeven extends Component
         }
         $this->spiritualCommunityInfo['Profile_ID'] = Auth::guard('customer')->user()->id;
         $this->spiritualCommunityInfo['Application_ID'] = $this->application_id;
-        //dd($this->spiritualCommunityInfo);
+        
         SpiritualAndCommunityInformation::create($this->spiritualCommunityInfo);
 
         //Update Next step

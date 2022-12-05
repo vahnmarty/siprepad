@@ -11,7 +11,7 @@ class Notification extends Model
     use HasFactory;
     
     protected $fillable = ['profile_id', 'message'];
-    
+        
     public function profile()
     {
         return $this->belongsTo(Profile::class);

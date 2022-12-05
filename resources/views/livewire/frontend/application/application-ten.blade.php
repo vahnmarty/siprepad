@@ -263,8 +263,8 @@
                                 <div class="form-btn text-center mt-5">
                                     {{-- <input type="button" value="Pay Application Fee" class="sub-btn"
                                         data-bs-toggle="modal" data-bs-target="#staticBackdrop" /> --}}
-                                    <input type="button" value="Pay Application Fee" class="sub-btn"
-                                        wire:click='openModal()' />
+<!--                                     <input type="button" value="Pay Application Fee" class="sub-btn" -->
+<!--                                         wire:click='openModal()' disabled /> -->
                                 </div>
                             @endif
                         </div>
