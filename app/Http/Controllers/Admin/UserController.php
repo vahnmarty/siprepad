@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Profile;
+use App\Models\Global_Notifiable;
+
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -15,7 +17,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.user.list');
+        $notifications= Global_Notifiable::get();
+        return view('admin.user.list',compact('notifications'));
     }
 
     /**
@@ -97,13 +100,24 @@ class UserController extends Controller
      */
     public function notificationChange(Request $request, $status , $uid)
     {
-        $user= Profile::where('id', $uid)->first();
-        if($user){
-            $user->is_notifiable = $status;
-            $user->save();
-            return redirect()->back()->with('success', "User Notifcation Updated Successfully!!");
-        } else {
-            return redirect()->back()->with('error', "User Not Found");
-        }  
+        
+          $notification = Global_Notifiable::where('id', $uid)->first();
+          
+          $notification = $notification->update(['notifiable'=>$status]);
+
+          if($notification) {
+            return redirect()->back()->with('success', "Notifcation Updated Successfully!!");
+
+          }
+         
     }
+    //     $user= Profile::where('id', $uid)->first();
+    //     if($user){
+    //         $user->is_notifiable = $status;
+    //         $user->save();
+    //         return redirect()->back()->with('success', "User Notifcation Updated Successfully!!");
+    //     } else {
+    //         return redirect()->back()->with('error', "User Not Found");
+    //     }  
+    // }
 }

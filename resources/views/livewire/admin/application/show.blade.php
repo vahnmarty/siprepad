@@ -56,11 +56,12 @@
                             </div>
                         </div>
                         
-                        <div class="col-lg-6 col-md-4"> 
+                        <!-- <div class="col-lg-6 col-md-4"> 
                         	<div class='student_box'>
                         		<label>Candidate Status:</label>
-                        		<div class='candidate_state_select'>
-                        			<form action='{{url("/admin/application/cstatus")}}' method='post'>
+                        		<div class='candidate_state_select'> -->
+                                    
+                        			<!-- <form action='{{url("/admin/application/cstatus")}}' method='post'>
                         			@csrf
                         			<input type="hidden" name="user_id" value='{{$user->id}}'>
                         				
@@ -98,10 +99,10 @@
                                 			</select>
                         				@endswitch
                             			<button class='status_submit ml-3 btn btn-sm btn-success' type='submit'>Submit</button>
-                        			</form>
-                        		</div>
+                        			</form> -->
+                        <!-- 		</div>
                         	</div>
-                        </div>
+                        </div> -->
 
                     </div>
                 </div>

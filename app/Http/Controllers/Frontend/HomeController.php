@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Mail\RecommendationMail;
+use App\Models\Global_Notifiable;
 use App\Models\AddressInformation;
 use App\Models\Application;
 use App\Models\LegacyInformation;
@@ -67,7 +68,10 @@ class HomeController extends Controller
                 $getStudentCount = count($getStudent);
             }
 
-            return view('frontend.home', compact('application', 'getStudentCount'));
+              $notifications= Global_Notifiable::get('notifiable');
+               
+
+            return view('frontend.home', compact('application', 'getStudentCount','notifications'));
         } else {
             return redirect('/login');
         }

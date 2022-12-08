@@ -15,5 +15,5 @@
 				</x-slot>
 			</x-admin.sub-header>
     </x-slot>
-	<livewire:admin.user-list/>
+	<livewire:admin.user-list :notificationButton="$notifications" />
 </x-admin-layout>
