@@ -7,11 +7,13 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Http\Livewire\Traits\WithSorting;
 use App\Exports\UsersExport;
+use App\Models\Application;
 use App\Models\Profile;
 use Maatwebsite\Excel\Facades\Excel;
 
 class UserList extends Component
 {
+
     use WithPagination;
     use WithSorting;
     use AlertMessage;
@@ -19,14 +21,16 @@ class UserList extends Component
     public $bulkDelIds = [];
     public $selectAll = false;
     public $badgeColors = ['info', 'success', 'brand', 'dark', 'primary', 'warning'];
-
+    public $notificationButton;
     protected $paginationTheme = 'bootstrap';
+    public $valueStatus;
 
     public $searchFirstName, $searchLastName, $searchEmail, $searchPhone, $perPage = 5;
     protected $listeners = ['deleteConfirm', 'changeStatus', 'deleteSelected'];
 
-    public function mount()
+    public function mount($notificationButton = null)
     {
+        $this->notificationButton = $notificationButton;
         $this->perPageList = [
             ['value' => 5, 'text' => "5"],
             ['value' => 10, 'text' => "10"],
@@ -51,6 +55,11 @@ class UserList extends Component
     {
         $this->resetPage();
     }
+
+    public function appStatus($value) {
+       $this->valueStatus = $value;
+    }
+
     public function resetSearch()
     {
         $this->searchFirstName = "";

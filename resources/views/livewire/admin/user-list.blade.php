@@ -1,3 +1,13 @@
+<div class="notification_action">
+
+
+@if($notificationButton[0]->notifiable == '1')
+<a href="{{ url('/admin/user/notify/')}}/{{App\Models\Profile::NOTIFICATION_OFF}}/{{$notificationButton[0]->id}}" style="color:white" class="btn btn-off mb-3">Notification Off</a>
+@else
+<a href="{{ url('/admin/user/notify/')}}/{{App\Models\Profile::NOTIFICATION_ON}}/{{$notificationButton[0]->id}}"style="color: white; background: linear-gradient(180deg, #19a74d 0%, #002664 100%) !important;"class="btn btn-on mb-3">Notification On</a>
+@endif
+ </div>
+
 <x-admin.table>
     <x-slot name="perPage">
         <label>Show
@@ -7,6 +17,7 @@
                 @endforeach
             </x-admin.dropdown> entries
         </label>
+
     </x-slot>
 
     <x-slot name="thead">
@@ -52,9 +63,8 @@
                 <x-admin.input type="search" wire:model.defer="searchPhone" placeholder="" autocomplete="off"
                     class="form-control-sm form-filter" />
             </th>
-            <th>
-
-            </th>
+          <th>
+          </th>
             <th>
                 <div class="row">
                     <div class="col-md-6">
@@ -108,11 +118,47 @@
                 @php
                     $getApplication = App\Models\Application::where('Profile_ID', $user->id)
                         //->where('status', 1)
-                        //->where('last_step_complete', 'ten')
+                       //->where('last_step_complete', 'ten')
                         ->first();
                 @endphp
                 
                 <td>
+                         {{$user->id}}
+                    @switch($getApplication->application_type_id)
+                                            @case(1)
+                                            <select name='candidate-status' required class='state_select-box' id="candidate-status" wire:model.defer="select_value">
+                                                <option value=''>Select</option>
+                                                <option value='1' selected>Accepted</option>
+                                                <option value='2'>Wait Listed</option>
+                                                <option value='3'>Not Accepted</option>
+                                            </select>
+                                            @break
+                                            @case(2)
+                                            <select name='candidate-status' required class='state_select-box'id="candidate-status" wire:click="appStatus($event.target.value, $getApplication->id)">
+                                                <option value=''>Select</option>
+                                                <option value='1'>Accepted</option>
+                                                <option value='2' selected>Wait Listed</option>
+                                                <option value='3'>Not Accepted</option>
+                                            </select>
+                                            @break
+                                            @case(3)
+                                            <select name='candidate-status' required class='state_select-box'id="candidate-status" wire:click="appStatus($event.target.value, $getApplication->id)">
+                                                <option value=''>Select</option>
+                                                <option value='1'>Accepted</option>
+                                                <option value='2'>Wait Listed</option>
+                                                <option value='3' selected>Not Accepted</option>
+                                            </select>
+                                            @break
+                                            @default 
+                                            <select name='candidate-status' required class='state_select-box'id="candidate-status" wire:click="appStatus($event.target.value, $getApplication->id)">
+                                                <option value='' selected>Select</option>
+                                                <option value='1'>Accepted</option>
+                                                <option value='2'>Wait Listed</option>
+                                                <option value='3'>Not Accepted</option>
+                                            </select>
+                                        @endswitch
+                </td>
+               <!--  <td>
 
                     
                         @if($user->is_notifiable == 1)
@@ -126,7 +172,7 @@
                         @endif
     				
 				
-                </td>
+                </td> -->
                 @if ($getApplication)
 
                 
@@ -162,14 +208,4 @@
         entries
     </x-slot>
 </x-admin.table>
-
-
-<script>
-//  function toggleOnByInput() {
-//     $('#toggle-trigger').prop('checked', true).change()
-//   }
-//   function toggleOffByInput() {
-//     $('#toggle-trigger').prop('checked', false).change()
-//   }
-</script>
 
