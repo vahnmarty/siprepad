@@ -117,16 +117,22 @@ class ApplicationController extends Controller
             switch($candidateStatus) {
                 case 1:
                     $message = 'Congratulations! Your application has been accepted.';
+                    $ntfType = Notification::NOTIFY_ACCEPTED;
                     break;
                 case 2:
                     $message = 'Your application is in Waiting List. We will in touch with you shortly.';
+                    $ntfType = Notification::NOTIFY_WAITLIST;
                     break;
                 case 3:
                     $message = 'Sorry! Your application has been rejected. Better Luck next time.';
+                    $ntfType = Notification::NOTIFY_REJECTED;
                     break;
                 default:
                     $message = 'Nothing';
+                    $ntfType = Notification::NOTIFY_NO_STATUS;
             }
+
+       
 
             $application = Application::where('profile_id', $userID)->first();
             
@@ -136,6 +142,7 @@ class ApplicationController extends Controller
                     $newNotification = new Notification();
                     $newNotification->profile_id = $userID;
                     $newNotification->message = $message;
+                    $newNotification->notification_type = $ntfType;
                     if($newNotification->save()){
                         return 'Candidate Status Submitted Successfully!!!!';                            
                     }

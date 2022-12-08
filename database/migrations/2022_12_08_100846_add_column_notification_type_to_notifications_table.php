@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGlobalNotifiablesTable extends Migration
+class AddColumnNotificationTypeToNotificationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class CreateGlobalNotifiablesTable extends Migration
      */
     public function up()
     {
-        Schema::create('global_notifiables', function (Blueprint $table) {
-            $table->id();
-            $table->boolean('notifiable')->default(0);
-            $table->timestamps();
+        Schema::table('notifications', function (Blueprint $table) {
+           $table->string('notification_type');
         });
     }
 
@@ -27,7 +25,8 @@ class CreateGlobalNotifiablesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('global_notifiable');
+        Schema::table('notifications', function (Blueprint $table) {
+            $table->dropColumn('notification_type');
+        });
     }
 }
-
