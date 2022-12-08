@@ -25,7 +25,7 @@ class UserList extends Component
     protected $paginationTheme = 'bootstrap';
     public $valueStatus;
 
-    public $searchFirstName, $searchLastName, $searchEmail, $searchPhone, $perPage = 5;
+    public $searchFirstName, $searchLastName, $searchEmail, $searchPhone, $perPage = 5,$select_value;
     protected $listeners = ['deleteConfirm', 'changeStatus', 'deleteSelected'];
 
     public function mount($notificationButton = null)
@@ -56,8 +56,8 @@ class UserList extends Component
         $this->resetPage();
     }
 
-    public function appStatus($value) {
-       $this->valueStatus = $value;
+    public function appStatus() {
+      return $this->select_value;
     }
 
     public function resetSearch()

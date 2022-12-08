@@ -104,8 +104,11 @@ class ApplicationController extends Controller
      */
     public function statusSubmit(Request $request)
     {
-        $userID = $request->post('user_id'); 
-        $candidateStatus = $request->post('candidate-status');
+
+        $appID = $request->post('app_id'); 
+        $user_id = Application::where('Application_ID',$appID)->get('Profile_ID')->first();
+        $userID = $user_id->Profile_ID;
+        $candidateStatus = $request->post('app_type_id');
         
         $user = Profile::where('id',$userID)->first();
         if(!empty($user)) {
@@ -134,12 +137,12 @@ class ApplicationController extends Controller
                     $newNotification->profile_id = $userID;
                     $newNotification->message = $message;
                     if($newNotification->save()){
-                        return redirect()->back()->with('success','Candidate Status Submitted Successfully!!!!');                            
+                        return 'Candidate Status Submitted Successfully!!!!';                            
                     }
                 }
             }
         } else {
-            return redirect()->back()->with('error','User not registered with us!!!');
+            return 'User not registered with us!!!';
         }
     }
 }

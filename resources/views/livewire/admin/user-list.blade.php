@@ -123,40 +123,40 @@
                 @endphp
                 
                 <td>
-                         {{$user->id}}
+                    <input type='hidden' name='app_id' value='{{ $getApplication->Application_ID }}'>
                     @switch($getApplication->application_type_id)
-                                            @case(1)
-                                            <select name='candidate-status' required class='state_select-box' id="candidate-status" wire:model.defer="select_value">
-                                                <option value=''>Select</option>
-                                                <option value='1' selected>Accepted</option>
-                                                <option value='2'>Wait Listed</option>
-                                                <option value='3'>Not Accepted</option>
-                                            </select>
-                                            @break
-                                            @case(2)
-                                            <select name='candidate-status' required class='state_select-box'id="candidate-status" wire:click="appStatus($event.target.value, $getApplication->id)">
-                                                <option value=''>Select</option>
-                                                <option value='1'>Accepted</option>
-                                                <option value='2' selected>Wait Listed</option>
-                                                <option value='3'>Not Accepted</option>
-                                            </select>
-                                            @break
-                                            @case(3)
-                                            <select name='candidate-status' required class='state_select-box'id="candidate-status" wire:click="appStatus($event.target.value, $getApplication->id)">
-                                                <option value=''>Select</option>
-                                                <option value='1'>Accepted</option>
-                                                <option value='2'>Wait Listed</option>
-                                                <option value='3' selected>Not Accepted</option>
-                                            </select>
-                                            @break
-                                            @default 
-                                            <select name='candidate-status' required class='state_select-box'id="candidate-status" wire:click="appStatus($event.target.value, $getApplication->id)">
-                                                <option value='' selected>Select</option>
-                                                <option value='1'>Accepted</option>
-                                                <option value='2'>Wait Listed</option>
-                                                <option value='3'>Not Accepted</option>
-                                            </select>
-                                        @endswitch
+                        @case(1)
+                        <select name='candidate-status' required class='state_select-box'>
+                            <option value='' disabled>Select</option>
+                            <option value='1' selected>Accepted</option>
+                            <option value='2'>Wait Listed</option>
+                            <option value='3'>Not Accepted</option>
+                        </select>
+                        @break
+                        @case(2)
+                        <select name='candidate-status' required class='state_select-box'>
+                            <option value=''disabled>Select</option>
+                            <option value='1'>Accepted</option>
+                            <option value='2' selected>Wait Listed</option>
+                            <option value='3'>Not Accepted</option>
+                        </select>
+                        @break
+                        @case(3)
+                        <select name='candidate-status' required class='state_select-box'>
+                            <option value=''disabled>Select</option>
+                            <option value='1'>Accepted</option>
+                            <option value='2'>Wait Listed</option>
+                            <option value='3' selected>Not Accepted</option>
+                        </select>
+                        @break
+                        @default 
+                        <select name='candidate-status' required class='state_select-box'>
+                            <option value='' selected disabled>Select</option>
+                            <option value='1'>Accepted</option>
+                            <option value='2'>Wait Listed</option>
+                            <option value='3'>Not Accepted</option>
+                        </select>
+                    @endswitch
                 </td>
                <!--  <td>
 
@@ -208,4 +208,3 @@
         entries
     </x-slot>
 </x-admin.table>
-
