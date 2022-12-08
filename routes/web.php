@@ -99,7 +99,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:sanctum'], function () 
 
     Route::resource('application', ApplicationController::class);
     
-    Route::post('/application/cstatus',[ApplicationController::class, 'statusSubmit']);
+    Route::post('/application/cstatus',[ApplicationController::class, 'statusSubmit'])->name('statusSubmit');
 
 
     Route::resource('recommendation', RecommendationController::class);
