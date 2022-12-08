@@ -41,7 +41,7 @@
                 style="width: 15%;" aria-label="Company Agent: activate to sort column ascending">Phone</th>
 
             <th class="align-center" tabindex="0" aria-controls="kt_table_1" rowspan="1" colspan="1"
-                style="width: 15%;" aria-label="Company Agent: activate to sort column ascending">Is Notifiable</th>
+                style="width: 10%;" aria-label="Company Agent: activate to sort column ascending">Status</th>
 
             <th class="align-center" rowspan="1" colspan="1" style="width: 20%;" aria-label="Actions">Actions</th>
         </tr>
@@ -67,7 +67,7 @@
           </th>
             <th>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <button class="btn btn-brand kt-btn btn-sm kt-btn--icon" wire:click="search">
                             <span>
                                 <i class="la la-search"></i>
@@ -75,7 +75,7 @@
                             </span>
                         </button>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <button class="btn btn-secondary kt-btn btn-sm kt-btn--icon" wire:click="resetSearch">
                             <span>
                                 <i class="la la-close"></i>

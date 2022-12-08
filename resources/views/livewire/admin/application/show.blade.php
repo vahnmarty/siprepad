@@ -54,55 +54,7 @@
 
                                 </div>
                             </div>
-                        </div>
-                        
-<!--                         <div class="col-lg-6 col-md-4">  -->
-<!--                         	<div class='student_box'> -->
-<!--                         		<label>Candidate Status:</label> -->
-<!--                         		<div class='candidate_state_select'> -->
-                                    
-<!--                         			<form action='{{url("/admin/application/cstatus")}}' method='post'> -->
-<!--                         			@csrf -->
-<!--                         			<input type="hidden" name="user_id" value='{{$user->id}}'> -->
-                        				
-<!--                         				@switch($applicationStatus) -->
-<!--                         					@case(1) -->
-<!--                         					<select name='candidate-status' required class='state_select-box'> -->
-<!--                                 				<option value=''>Select</option> -->
-<!--                                 				<option value='1' selected>Accepted</option> -->
-<!--                                 				<option value='2'>Wait Listed</option> -->
-<!--                                 				<option value='3'>Not Accepted</option> -->
-<!--                                 			</select> -->
-<!--                                 			@break -->
-<!--                                 			@case(2) -->
-<!--                         					<select name='candidate-status' required class='state_select-box'> -->
-<!--                                 				<option value=''>Select</option> -->
-<!--                                 				<option value='1'>Accepted</option> -->
-<!--                                 				<option value='2' selected>Wait Listed</option> -->
-<!--                                 				<option value='3'>Not Accepted</option> -->
-<!--                                 			</select> -->
-<!--                                 			@break -->
-<!--                                 			@case(3) -->
-<!--                         					<select name='candidate-status' required class='state_select-box'> -->
-<!--                                 				<option value=''>Select</option> -->
-<!--                                 				<option value='1'>Accepted</option> -->
-<!--                                 				<option value='2'>Wait Listed</option> -->
-<!--                                 				<option value='3' selected>Not Accepted</option> -->
-<!--                                 			</select> -->
-<!--                                 			@break -->
-<!--                                 			@default -->
-<!--                                 			<select name='candidate-status' required class='state_select-box'> -->
-<!--                                 				<option value='' selected>Select</option> -->
-<!--                                 				<option value='1'>Accepted</option> -->
-<!--                                 				<option value='2'>Wait Listed</option> -->
-<!--                                 				<option value='3'>Not Accepted</option> -->
-<!--                                 			</select> -->
-<!--                         				@endswitch -->
-<!--                             			<button class='status_submit ml-3 btn btn-sm btn-success' type='submit'>Submit</button> -->
-<!--                         			</form> -->
-<!--                         		</div> -->
-<!--                         	</div> -->
-<!--                         </div> -->
+                        </div>                      
 
                     </div>
                 </div>

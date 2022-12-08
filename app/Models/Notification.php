@@ -10,6 +10,13 @@ class Notification extends Model
 {
     use HasFactory;
     
+    const NOTIFY_NO_STATUS = 0;
+    const NOTIFY_ACCEPTED = 1;
+    const NOTIFY_WAITLIST = 2;
+    const NOTIFY_REJECTED = 3;
+
+
+
     protected $fillable = ['profile_id', 'message'];
         
     public function profile()
