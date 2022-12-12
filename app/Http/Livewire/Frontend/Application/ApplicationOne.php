@@ -20,7 +20,6 @@ use function PHPUnit\Framework\isNull;
 
 class ApplicationOne extends Component
 {
-
     use WithFileUploads;
     use AlertMessage;
 
@@ -305,7 +304,7 @@ class ApplicationOne extends Component
             $application->Profile_ID = Auth::guard('customer')->user()->id;
             $application->status = 0;
             $application->last_step_complete = 'two';
-            $application->application_type_id = 1;
+            $application->application_type_id = Application::TYPE_PENDING;
             if($application->save()){
                 $addOrUpdateArr['Profile_ID'] = Auth::guard('customer')->user()->id;
                 $addOrUpdateArr['Application_ID'] = $application->Application_ID;
