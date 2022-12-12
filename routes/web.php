@@ -70,6 +70,8 @@ Route::group(['middleware' => 'auth:customer'], function () {
 
     Route::get('/book-wildcat-experience', [HomeController::class, 'bookWildcatExperience'])->name('book-wildcat-experience');
     Route::get('/admission-application/{step?}', [HomeController::class, 'admissionApplication'])->name('admission-application');
+    Route::get('/registeration-application/{step?}', [HomeController::class, 'registerationApplication'])->name('registeration-application');
+    
     Route::get('/view-application/{application_id}', [HomeController::class, 'viewApplication'])->name('view-application');
     Route::get('/supplemental-recommendation', [HomeController::class, 'supplementalRecommendation'])->name('supplemental-recommendation');
     Route::post('/supplemental-recommendation', [HomeController::class, 'submitSupplemental'])->name('supplemental-recommendation-submit');
@@ -105,6 +107,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:sanctum'], function () 
     Route::resource('recommendation', RecommendationController::class);
 
     Route::resource('promocode', PromocodeController::class);
+    Route::post('users-send-email', [ApplicationController::class, 'sendEmail'])->name('send.email');
+
+    Route::post('candidate_status', [ApplicationController::class, 'changestatus'])->name('changestatus');
+    
+
+
 
     Route::resource('cms', CmsController::class)->only([
         'index', 'edit', 'update'

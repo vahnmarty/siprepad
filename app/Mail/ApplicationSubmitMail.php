@@ -17,7 +17,7 @@ class ApplicationSubmitMail extends Mailable
      * @return void
      */
     public function __construct($data)
-    {
+    { 
         $this->data=$data;
         
     }
@@ -29,6 +29,7 @@ class ApplicationSubmitMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Application Confirmation')->view('emails.applicationSubmitMail');
+         return $this->from('mail@webskitters.com')->view('emails.applicationSubmitMail');
+       
     }
 }

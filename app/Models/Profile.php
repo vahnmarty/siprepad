@@ -13,8 +13,8 @@ class Profile extends Authenticatable
 {
     use HasFactory, Notifiable,HasProfilePhoto;
     
-    const NOTIFICATION_OFF = 0;
-    const NOTIFICATION_ON = 1;
+    const NOTIFICATION_OFF = 1;
+    const NOTIFICATION_ON = 0;
 
 
     protected $guard='customer';
@@ -50,7 +50,7 @@ class Profile extends Authenticatable
     {
         $this->attributes['password'] = bcrypt($password);
     }
-
+ 
     public function getFullNameAttribute()
     {
         return "{$this->Pro_First_Name} {$this->Pro_Last_Name}";

@@ -1,3 +1,4 @@
+ 
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
 <x-admin-layout title="User Management">               
@@ -21,7 +22,7 @@
 </x-admin-layout>
 
 <script>
-	   $.ajaxSetup({
+	   $.ajaxSetup({  
 
         headers: {
 

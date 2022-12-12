@@ -152,4 +152,5 @@ class ApplicationController extends Controller
             return 'User not registered with us!!!';
         }
     }
+   
 }

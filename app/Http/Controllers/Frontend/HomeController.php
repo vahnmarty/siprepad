@@ -342,4 +342,10 @@ class HomeController extends Controller
     {
         return view('frontend.thankyou2');
     }
+    public function registerationApplication(){
+        
+        return view('frontend.registeration.registeration-one');
+        
+    }
+    
 }

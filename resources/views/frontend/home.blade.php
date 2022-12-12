@@ -136,6 +136,17 @@
                         </a>
                     </li>
                 @endif
+                  <li>
+                        <a href="{{route('registeration-application')}}">
+                            <em>
+                                <img src="{{ asset('frontend_assets/images/j2.svg') }}" alt="" />
+                            </em>
+                            <p>Registeration Application</p>
+                            <span>
+                                <img src="{{ asset('frontend_assets/images/rgt-arrw.svg') }}"alt="" />
+                            </span>
+                        </a>
+                    </li>
             </ul>
         </div>
     </div>
