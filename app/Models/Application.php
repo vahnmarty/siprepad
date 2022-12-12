@@ -18,7 +18,7 @@ class Application extends Model
     const CANDIDATE_NOT_DEFINED = 0;
     const CANDIDATE_ACCEPTED = 1;
     const CANDIDATE_REJECTED = 2;
-    
+    const CANDIDATE_READ = 3;
 
     protected $fillable = [
         'Profile_ID', 'Title', 'Description', 'status','last_step_complete','application_type_id'

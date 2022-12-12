@@ -544,7 +544,7 @@ class ApplicationTen extends Component
                             'name_on_card' => trim($input['card_holder_name']),
                             'quantity' => 1
                         ]);
-                    } else {
+                     } else {
                         Payment::create([
                             'user_id' => Auth::guard('customer')->user()->id,
                             'application_id' => $this->application_id,

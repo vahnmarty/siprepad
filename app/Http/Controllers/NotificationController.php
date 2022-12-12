@@ -18,6 +18,10 @@ class NotificationController extends Controller
     
     
     public function list() {
+        
+        $user = Auth::user('id');
+       
+        $application=Application::Where('Profile_ID',$user->id)->update(['candidate_status'=>3]);
         $ntfStatus = Global_Notifiable::select('notifiable')->first();
         
         if($ntfStatus->notifiable == Global_Notifiable::NOTIFICATION_OFF) {
@@ -26,8 +30,8 @@ class NotificationController extends Controller
         
         if (!is_null(Auth::guard('customer')->user())) {
             $profile_id = Auth::guard('customer')->user()->id;
-            $notifications = Notification::where('profile_id',$profile_id)->orderBy('id','DESC')->get();
-            
+            $notifications = Notification::where('profile_id',$profile_id)->latest('id')->first();
+//             dd($notifications->toArray());
             return view('frontend.notification',compact('notifications'));
             
         } else {

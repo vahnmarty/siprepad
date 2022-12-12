@@ -1,13 +1,12 @@
-<div class="notification_action">
-
-
-@if($notificationButton[0]->notifiable == '1')
-<a href="{{ url('/admin/user/notify/')}}/{{App\Models\Profile::NOTIFICATION_OFF}}/{{$notificationButton[0]->id}}" style="color:white" class="btn btn-off mb-3">Notification Off</a>
-@else
-<a href="{{ url('/admin/user/notify/')}}/{{App\Models\Profile::NOTIFICATION_ON}}/{{$notificationButton[0]->id}}"style="color: white; background: linear-gradient(180deg, #19a74d 0%, #002664 100%) !important;"class="btn btn-on mb-3">Notification On</a>
-@endif
- </div>
-
+<div class="notification_action"> 
+ @if($notificationButton[0]->notifiable == '1') 
+  <a href="{{ url('/admin/user/notify/')}}/{{App\Models\Profile::NOTIFICATION_ON}}/{{$notificationButton[0]->id}}"style="color: white; background: linear-gradient(180deg, #19a74d 0%, #002664 100%) !important;"class="btn btn-on mb-3">Notification On</a> 
+ @else 
+ <a href="{{ url('/admin/user/notify/')}}/{{App\Models\Profile::NOTIFICATION_OFF}}/{{$notificationButton[0]->id}}" style="color:white" class="btn btn-off mb-3">Notification Off</a> 
+ @endif 
+  </div> 
+ <div>
+ 
 <x-admin.table>
     <x-slot name="perPage">
         <label>Show
@@ -42,7 +41,10 @@
 
             <th class="align-center" tabindex="0" aria-controls="kt_table_1" rowspan="1" colspan="1"
                 style="width: 10%;" aria-label="Company Agent: activate to sort column ascending">Status</th>
-
+                
+             <th class="align-center" tabindex="0" aria-controls="kt_table_1" rowspan="1" colspan="1"
+                style="width: 10%;" aria-label="Company Agent: activate to sort column ascending">Decision</th>
+                
             <th class="align-center" rowspan="1" colspan="1" style="width: 20%;" aria-label="Actions">Actions</th>
         </tr>
 
@@ -66,6 +68,9 @@
           <th>
           </th>
             <th>
+          </th>
+            <th>
+            
                 <div class="row">
                     <div class="col-md-5">
                         <button class="btn btn-brand kt-btn btn-sm kt-btn--icon" wire:click="search">
@@ -121,8 +126,9 @@
                        //->where('last_step_complete', 'ten')
                         ->first();
                 @endphp
-                
+                          
                 <td>
+                @if($getApplication)
                     <input type='hidden' name='app_id' value='{{ $getApplication->Application_ID }}'>
                     @switch($getApplication->application_type_id)
                         @case(1)
@@ -157,23 +163,33 @@
                             <option value='3'>Not Accepted</option>
                         </select>
                     @endswitch
+                    @endif
                 </td>
-               <!--  <td>
-
-                    
-                        @if($user->is_notifiable == 1)
-                        	<div class="action__btn">
-                        		<a href="{{ url('/admin/user/notify/')}}/{{App\Models\Profile::NOTIFICATION_OFF}}/{{$user->id}}" class="btn btn-off">Notification Off</a>
-                        	</div>
-                        @else
-                        	<div class="action__btn" style="background: linear-gradient(180deg, #19a74d 0%, #002664 100%) !important;">
-                        		<a href="{{ url('/admin/user/notify/')}}/{{App\Models\Profile::NOTIFICATION_ON}}/{{$user->id}}" class="btn btn-on">Notification On</a>
-                        	</div>
-                        @endif
-    				
-				
-                </td> -->
-                @if ($getApplication)
+                <td>
+               
+                        <div class="decision">
+                        @if ($getApplication)
+                        @switch($getApplication->candidate_status)
+                          @case(1)
+                          {{"Offer Accepted"}}
+                           @break
+                        @case(2)
+                        {{"Offer Rejected"}}
+                         @break
+                        @case(3)
+                        {{"Offer Read"}}
+                        @break
+                        @default
+                        {{"Offer not Read"}}
+                          @endswitch
+                           @endif
+                        </div>
+                    </td>
+                
+                
+                
+            
+                @if($getApplication)
 
                 
 
@@ -201,10 +217,13 @@
         @endforelse
     </x-slot>
     <x-slot name="pagination">
-        {{ $users->links() }}
+        {{ $users->links() }}  
     </x-slot>
     <x-slot name="showingEntries">
         Showing {{ $users->firstitem() ?? 0 }} to {{ $users->lastitem() ?? 0 }} of {{ $users->total() }}
         entries
     </x-slot>
 </x-admin.table>
+</div>
+</div>
+</div>
