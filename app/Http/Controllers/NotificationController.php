@@ -15,13 +15,12 @@ use App\Models\ParentInformation;
 class NotificationController extends Controller
 {
     
-    
-    
+   
     public function list() {
         
         $user = Auth::user('id');
        
-        $application=Application::Where('Profile_ID',$user->id)->update(['candidate_status'=>3]);
+        $application=Application::Where('Profile_ID',$user->id)->update(['candidate_status'=>Application::CANDIDATE_READ]);
         $ntfStatus = Global_Notifiable::select('notifiable')->first();
         
         if($ntfStatus->notifiable == Global_Notifiable::NOTIFICATION_OFF) {
