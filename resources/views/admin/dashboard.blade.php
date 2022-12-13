@@ -43,6 +43,56 @@
                         <div class="kt-widget24__details">
                             <div class="kt-widget24__info">
                                 <h4 class="kt-widget24__title">
+                                     Applications Accepted
+                                </h4>
+                            
+                            </div>
+                            <span class="kt-widget24__stats kt-font-danger">
+                                {{ $count['applicationCount'] }}
+                            </span>
+                        </div>
+                        <div class="progress progress--sm">
+                            <div class="progress-bar kt-bg-danger" role="progressbar"
+                                style="width: {{ $count['applicationCount'] }}%;" aria-valuenow="50" aria-valuemin="0"
+                                aria-valuemax="100"></div>
+                        </div>
+                        <div class="kt-widget24__action">
+                            <a class="kt-widget24__change" href="{{ route('application.index') }}">
+                                View
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="kt-widget24">
+                        <div class="kt-widget24__details">
+                            <div class="kt-widget24__info">
+                                <h4 class="kt-widget24__title">
+                                     Applications Rejected
+                                </h4>
+                              
+                            </div>
+                            <span class="kt-widget24__stats kt-font-danger">
+                                {{ $count['applicationCount'] }}
+                            </span>
+                        </div>
+                        <div class="progress progress--sm">
+                            <div class="progress-bar kt-bg-danger" role="progressbar"
+                                style="width: {{ $count['applicationCount'] }}%;" aria-valuenow="50" aria-valuemin="0"
+                                aria-valuemax="100"></div>
+                        </div>
+                        <div class="kt-widget24__action">
+                            <a class="kt-widget24__change" href="{{ route('application.index') }}">
+                                View
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="kt-widget24">
+                        <div class="kt-widget24__details">
+                            <div class="kt-widget24__info">
+                                <h4 class="kt-widget24__title">
                                     Total Submitted Applications
                                 </h4>
                                 {{-- <span class="kt-widget24__desc">
