@@ -14,8 +14,7 @@ class Notification extends Model
     const NOTIFY_ACCEPTED = 1;
     const NOTIFY_WAITLIST = 2;
     const NOTIFY_REJECTED = 3;
-
-
+    const NOTIFY_READ = 1;
 
     protected $fillable = ['profile_id', 'message'];
         

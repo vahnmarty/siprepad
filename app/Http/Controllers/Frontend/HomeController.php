@@ -70,8 +70,9 @@ class HomeController extends Controller
 
               $notifications= Global_Notifiable::get('notifiable');
                
-
-            return view('frontend.home', compact('application', 'getStudentCount','notifications'));
+             $application_status=Application::Where('Application_ID',$profile_id)->get('candidate_status');
+           
+            return view('frontend.home', compact('application', 'getStudentCount','notifications','application_status'));
         } else {
             return redirect('/login');
         }
@@ -344,6 +345,7 @@ class HomeController extends Controller
     }
     public function registerationApplication(){
         
+
         return view('frontend.registeration.registeration-one');
         
     }
