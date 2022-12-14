@@ -19,6 +19,10 @@ class AdminDashboard extends Controller
             $count['userCount'] = Profile::count();
             $count['applicationIncompleteCount'] = Application::where('status', 0)->count();
             $count['applicationCompleteCount'] = Application::where('status', 1)->count();
+            $count['applicationAcceptedCount'] = Application::where('candidate_status', 1)->count();
+            $count['applicationRejectedCount'] = Application::where('candidate_status', 2)->count();
+            $count['applicationNotReadCount'] = Application::where('candidate_status', 0)->count();
+            $count['applicationReadCount'] = Application::where('candidate_status', 3)->count();
             $count['applicationCount'] = Application::count();
             $getData = StudentInformation::join('applications', 'applications.Application_ID', 'student_information.Application_ID')
                 ->select('student_information.*', 'applications.status', 'applications.last_step_complete')

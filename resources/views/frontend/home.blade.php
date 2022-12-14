@@ -9,7 +9,20 @@
             $uid=Auth::guard('customer')->user()->id;
                  $getProfile = App\Models\Profile::find($uid)->first();
                 
-            @endphp     
+            @endphp  
+            @if($application_status[0]->candidate_status == 1)
+            <li>
+                        <a href="{{route('registeration-application')}}">
+                            <em>
+                                <img src="{{ asset('frontend_assets/images/j2.svg') }}" alt="" />
+                            </em>
+                            <p>Online Registeration</p>
+                            <span>
+                                <img src="{{ asset('frontend_assets/images/rgt-arrw.svg') }}"alt="" />
+                            </span>
+                        </a>
+                    </li>
+                    @endif
             @if($notifications[0]->notifiable == 1)
             <li>
                     <a target="_blank" href="{{url('/notification')}}">
@@ -136,17 +149,7 @@
                         </a>
                     </li>
                 @endif
-                  <li>
-                        <a href="{{route('registeration-application')}}">
-                            <em>
-                                <img src="{{ asset('frontend_assets/images/j2.svg') }}" alt="" />
-                            </em>
-                            <p>Registeration Application</p>
-                            <span>
-                                <img src="{{ asset('frontend_assets/images/rgt-arrw.svg') }}"alt="" />
-                            </span>
-                        </a>
-                    </li>
+
             </ul>
         </div>
     </div>

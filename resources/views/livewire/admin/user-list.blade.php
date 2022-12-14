@@ -171,16 +171,18 @@
                         @if ($getApplication)
                         @switch($getApplication->candidate_status)
                           @case(1)
-                          {{"Offer Accepted"}}
+
+                          {{"Accepted"}}
                            @break
                         @case(2)
-                        {{"Offer Rejected"}}
+                        {{"Rejected"}}
                          @break
                         @case(3)
-                        {{"Offer Read"}}
+                        {{"Notification Read"}}
                         @break
                         @default
-                        {{"Offer not Read"}}
+                        {{"Notification not Read"}}
+
                           @endswitch
                            @endif
                         </div>

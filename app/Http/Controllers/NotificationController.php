@@ -14,8 +14,7 @@ use App\Models\ParentInformation;
 
 class NotificationController extends Controller
 {
-    
-   
+
     public function list() {
         
         $user = Auth::user('id');
@@ -30,7 +29,8 @@ class NotificationController extends Controller
         if (!is_null(Auth::guard('customer')->user())) {
             $profile_id = Auth::guard('customer')->user()->id;
             $notifications = Notification::where('profile_id',$profile_id)->latest('id')->first();
-//             dd($notifications->toArray());
+
+
             return view('frontend.notification',compact('notifications'));
             
         } else {
@@ -39,7 +39,7 @@ class NotificationController extends Controller
     }
     
     public function show(Request $request, $nid) {
-        
+      
         $ntfStatus = Global_Notifiable::select('notifiable')->first();
         
         if($ntfStatus->notifiable == Global_Notifiable::NOTIFICATION_OFF) {
@@ -50,7 +50,11 @@ class NotificationController extends Controller
         $studentDetail = StudentInformation::where('Profile_ID',$profile_id)->first();
         $ntfDetail = Notification::where('id',$nid)->first();
         $appDetail = Application::where('Profile_ID',$profile_id)->first();
-        
+        $is_read_status= Notification::where('id',$nid)->pluck('is_read');
+        if($is_read_status[0] == 0){
+        $is_read_update=Notification::where('id',$nid)->update(['is_read'=>Notification::NOTIFY_READ]);
+        }
+
         return view('frontend.notificationDetail',compact('ntfDetail','appDetail','studentDetail'));   
     }
     
