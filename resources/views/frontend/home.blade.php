@@ -12,7 +12,7 @@
             @endphp  
             @if($application_status[0]->candidate_status == 1)
             <li>
-                        <a href="{{route('registeration-application')}}">
+                        <a href="{{route('registeration-application')}}/one">
                             <em>
                                 <img src="{{ asset('frontend_assets/images/j2.svg') }}" alt="" />
                             </em>

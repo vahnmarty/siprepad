@@ -13,21 +13,27 @@ class CreateStudentRegisterationTable extends Migration
      */
     public function up()
     {
-        Schema::create('student_registeration', function (Blueprint $table) {
+        Schema::create('student_registerations', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+         
+            $table->unsignedBigInteger('Profile_ID');
+            $table->foreign('Profile_ID')->references('id')->on('profiles')->onDelete('cascade');
             $table->string('first_name');
-            $table->string('middle_name');
+            $table->string('middle_name')->nullable();
             $table->string('last_name');
             $table->string('preffered_first_name')->nullable();
             $table->string('date_of_birth');
             $table->string('gender');
             $table->string('student_phone_number');
-            $table->string('t-shirt_size');
-            $table->string('religion');
+            $table->string('tshirt_size');
+            $table->string('religion')->nullable();
             $table->string('racial')->nullable();
             $table->string('ethnicity')->nullable();
             $table->string('current_school')->nullable();
+            $table->enum('last_step_complete', ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'])->nullable();
+            
+            
+            $table->timestamps();
         });
     }
 

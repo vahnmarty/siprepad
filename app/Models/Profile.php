@@ -60,4 +60,10 @@ class Profile extends Authenticatable
     {
         return $this->hasOne(Application::class);
     }
+    public function registeration()
+    {
+        return $this->hasOne(StudentRegisteration::class);
+    }
+    
+    
 }
