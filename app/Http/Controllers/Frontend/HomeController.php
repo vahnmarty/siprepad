@@ -22,7 +22,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
-
+use App\Models\Registeration;
 class HomeController extends Controller
 {
     public function home()
@@ -343,10 +343,22 @@ class HomeController extends Controller
     {
         return view('frontend.thankyou2');
     }
-    public function registerationApplication(){
+    public function registerationApplication($step){
+    
         
+        
+        if($step == 'one'){
+           
+            return view('frontend.registeration.registeration-one');
+            
+        }elseif($step == 'two'){
+            
+            $registeration=Registeration::where('last_step_complete','one')->latest('id')->first();
+            $reg_id = $registeration->id;
+            
+            return view('frontend.registeration.registeration-two',compact('reg_id'));
+        }
 
-        return view('frontend.registeration.registeration-one');
         
     }
     

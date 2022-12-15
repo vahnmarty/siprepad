@@ -70,7 +70,7 @@ Route::group(['middleware' => 'auth:customer'], function () {
 
     Route::get('/book-wildcat-experience', [HomeController::class, 'bookWildcatExperience'])->name('book-wildcat-experience');
     Route::get('/admission-application/{step?}', [HomeController::class, 'admissionApplication'])->name('admission-application');
-    Route::get('/registeration-application/{step?}', [HomeController::class, 'registerationApplication'])->name('registeration-application');
+    Route::get('/registeration-application/{step?}{id?}', [HomeController::class, 'registerationApplication'])->name('registeration-application');
     
     Route::get('/view-application/{application_id}', [HomeController::class, 'viewApplication'])->name('view-application');
     Route::get('/supplemental-recommendation', [HomeController::class, 'supplementalRecommendation'])->name('supplemental-recommendation');

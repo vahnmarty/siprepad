@@ -5,14 +5,17 @@ namespace App\Http\Livewire\Frontend\Registeration;
 use Livewire\Component;
 use App\Http\Livewire\Traits\AlertMessage;
 
+use App\Models\StudentRegisteration;
 use App\Models\Registeration;
-
 use function PHPUnit\Framework\isNull;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterationOne extends Component
 
 
 { 
+    
+    public $profile_id;
     public $first_name;
     public $middle_name ;
     public $last_name;
@@ -22,31 +25,54 @@ class RegisterationOne extends Component
     public $student_phone_number ;
     public $tshirt_size;
     public $religion ;
-    public $racial ;
-    public $ethinicity;
-    public  $current_school;
+    public $racial = [];
+    public $ethnicity;
+    public $current_school;
     
+    
+
     public function submit()    {
-       
+              
         $validatedData = $this->validate([
-            'first_name' => 'required|min:6',
+            'first_name' => 'required',
             'last_name' => 'required',
             'date_of_birth' => 'required',
             'gender' => 'required',
             'student_phone_number' => 'required',
-            't-shirt_size' => 'required',
-            'religion' => 'required',
-            'racial' => 'required',
+            'tshirt_size' => 'required',
+            'ethnicity' => 'required',
+            'current_school'=>'required',
         ]);
         
-        Registeration::create($validatedData);
+        $stdRegone = new StudentRegisteration();
+        $stdRegone->Profile_ID = Auth::guard('customer')->user()->id;
+        $stdRegone->first_name = $this->first_name;
+        $stdRegone->middle_name = $this->middle_name;
+        $stdRegone->last_name = $this->last_name;
+        $stdRegone->preffered_first_name = $this->preffered_first_name;
+        $stdRegone->date_of_birth = $this->date_of_birth;
+        $stdRegone->gender = $this->gender; 
+        $stdRegone->student_phone_number = $this->student_phone_number;
+        $stdRegone->student_phone_number = $this->student_phone_number;
+        $stdRegone->tshirt_size = $this->tshirt_size;
+        $stdRegone->ethnicity = $this->ethnicity;
+        $stdRegone->current_school = $this->current_school;
+        $stdRegone->racial = implode(" ",$this->racial);
+        $stdRegone->religion = $this->religion;
+        if($stdRegone->save()) {
+            
+            $registeration = new Registeration();
+            $registeration->profile_id = $stdRegone->Profile_ID;
+            $registeration->id =$stdRegone->id;
+            $registeration->status =Registeration::Pending;
+            $registeration->last_step_complete = 'one';
+                   $registeration->save();
+            
+            return redirect()->route('registeration-application', ['step' => 'two']);
+        }
         
-        return redirect()->to('/');
         
     }
-    
-   
-    
 
     public function render()
     {
