@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class RegisterationOne extends Component
 
-
+        
 { 
     
     public $profile_id;
@@ -28,9 +28,17 @@ class RegisterationOne extends Component
     public $racial = [];
     public $ethnicity;
     public $current_school;
-    
-    
+    public  $student_information;
 
+    
+    public  function mount($student_info = Null){
+        
+        $this->student_information = $student_info;
+    }
+    
+    
+    
+    
     public function submit()    {
               
         $validatedData = $this->validate([
@@ -38,10 +46,9 @@ class RegisterationOne extends Component
             'last_name' => 'required',
             'date_of_birth' => 'required',
             'gender' => 'required',
-            'student_phone_number' => 'required',
+            'student_phone_number' => 'required|numeric|digits:10',
             'tshirt_size' => 'required',
-            'ethnicity' => 'required',
-            'current_school'=>'required',
+          
         ]);
         
         $stdRegone = new StudentRegisteration();

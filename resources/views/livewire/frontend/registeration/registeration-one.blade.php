@@ -8,6 +8,7 @@
 			<div class="form-outr">
 				<div class="cmn-hdr">
 					<h4>Student Info</h4>
+					
 				</div>
 
 				<div class="school-wrap step__one">
@@ -16,8 +17,8 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									<label> Legal First Name </label> <input type="text"
-										class="form-control" wire:model='first_name' value="{{old('first_name')}}" />
-									@error('first_name')
+										class="form-control" wire:model.defer='first_name'
+										 /> @error('first_name')
 									<p class="text-danger">{{$message}}</p>
 									@enderror
 
@@ -25,9 +26,10 @@
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label class="blck">Legal Middle Name </label> <input type="text"
-										class="form-control" wire:model='middle_name' />
-									@error('middle_name')
+									<label class="blck">Legal Middle Name </label> <input
+										type="text" class="form-control"
+										wire:model.defer='middle_name'
+										value="{{ old('middle_name') }}" /> @error('middle_name')
 									<p class="text-danger">{{$message}}</p>
 									@enderror
 								</div>
@@ -35,8 +37,8 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									<label>Legal Last Name </label> <input type="text"
-										class="form-control" wire:model='last_name' />
-									@error('last_name')
+										class="form-control" wire:model.defer='last_name'
+										value="{{ old('last_name') }}" /> @error('last_name')
 									<p class="text-danger">{{$message}}</p>
 									@enderror
 								</div>
@@ -46,8 +48,10 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
-									<label class="blck">Preffered First Name </label> <input type="text"
-										class="form-control" wire:model='preffered_first_name' />
+									<label class="blck">Preffered First Name </label> <input
+										type="text" class="form-control"
+										wire:model.defer='preffered_first_name'
+										value="{{ old('preffered_first_name') }}" />
 									@error('preffered_first_name')
 									<p class="text-danger">{{$message}}</p>
 									@enderror
@@ -56,8 +60,9 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									<label>Date of Birth </label> <input type="date"
-										class="form-control" wire:model='date_of_birth'
-										name="date_of_birth" /> @error('date_of_birth')
+										class="form-control" wire:model.defer='date_of_birth'
+										value="{{ old('date_of_birth') }}" name="date_of_birth" />
+									@error('date_of_birth')
 									<p class="text-danger">{{$message}}</p>
 									@enderror
 								</div>
@@ -65,7 +70,8 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									<label>Gender </label> <input type="text" class="form-control"
-										wire:model='gender' /> @error('gender')
+										wire:model.defer='gender' value="{{ old('gender') }}" />
+									@error('gender')
 									<p class="text-danger">{{$message}}</p>
 									@enderror
 								</div>
@@ -75,9 +81,9 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
-									<label>Student's Mobile Phone Number </label> <input
-										type="number" class="form-control"
-										wire:model='student_phone_number' />
+									<label>Student's Mobile Phone Number </label> <input type="tel"
+										class="form-control" wire:model.defer='student_phone_number'
+										value="{{ old('student_phone_number') }}" />
 									@error('student_phone_number')
 									<p class="text-danger">{{$message}}</p>
 									@enderror
@@ -86,7 +92,8 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									<label>T-Shirt Size(Adult/Unisex) </label> <select
-										class="form-control" wire:model='tshirt_size'>
+										class="form-control" wire:model.defer='tshirt_size'
+										value="{{ old('tshirt_size') }}">
 										<option value="">-- Please Choose --</option>
 										<option value="small">Small</option>
 										<option value="medium">Medium</option>
@@ -102,8 +109,9 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
-									<label class="blck">Religion </label><select class="form-control"
-										wire:model='religion'>
+									<label class="blck">Religion </label><select
+										class="form-control" wire:model.defer='religion'
+										value="{{ old('religion') }}">
 										<option value="">-- Please Choose --</option>
 
 										<option value="christian">Christian</option>
@@ -124,14 +132,18 @@
 							</span>
 						</div>
 						<div class="form-group">
-							<label class="blck"><input type="checkbox" wire:model="racial" value="Asian">
-								Asian</label><br> <label class="blck"><input type="checkbox" wire:model="racial"
-								value="Black/African American"> Black/African American</label><br> <label class="blck"><input
-								type="checkbox" wire:model="racial"
-								value="Native American/Indegenous"> Native American/Indegenous</label><br>
-							<label class="blck"><input type="checkbox"wire:model="racial" value="White">
-								White</label> <br><label class="blck"><input type="checkbox" wire:model="racial"
-								value="Multiracial"> Multiracial</label> @error('racial')
+							<label class="blck"><input type="checkbox"
+								wire:model.defer="racial" value="Asian"> Asian</label><br> <label
+								class="blck"><input type="checkbox" wire:model.defer="racial"
+								value="Black/African American"> Black/African American</label><br>
+							<label class="blck"><input type="checkbox"
+								wire:model.defer="racial" value="Native American/Indegenous">
+								Native American/Indegenous</label><br> <label class="blck"><input
+								type="checkbox" wire:model.defer="racial" value="White"> White</label>
+							<br>
+							<label class="blck"><input type="checkbox"
+								wire:model.defer="racial" value="Multiracial"> Multiracial</label>
+							@error('racial')
 							<p class="text-danger">{{$message}}</p>
 							@enderror
 						</div>
@@ -144,7 +156,8 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
-									<input type="text" class="form-control" wire:model='ethnicity' />
+									<input type="text" class="form-control"
+										wire:model.defer='ethnicity' value="{{ old('ethnicity') }}" />
 									@error('ethnicity')
 									<p class="text-danger">{{$message}}</p>
 									@enderror
@@ -157,8 +170,9 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
-									<label class="blck">Current School </label><select class="form-control"
-										wire:model='current_school'>
+									<label class="blck">Current School </label><select
+										class="form-control" wire:model.defer='current_school'
+										value="{{ old('current_school') }}">
 										<option value="">-- Please Choose --</option>
 										<option value="test_school">Test School</option>
 
@@ -180,3 +194,4 @@
 
 
 	</div>
+</form>

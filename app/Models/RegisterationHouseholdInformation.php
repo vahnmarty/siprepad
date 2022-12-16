@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RegisterationHouseHoldInformation extends Model
+class RegisterationHouseholdInformation extends Model
 {
     use HasFactory;
     
