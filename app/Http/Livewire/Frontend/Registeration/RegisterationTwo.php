@@ -3,12 +3,15 @@
 namespace App\Http\Livewire\Frontend\Registeration;
 
 use Livewire\Component;
-use App\Models\RegisterationHouseHoldInformation;
+use App\Models\RegisterationHouseholdInformation;
 use Illuminate\Support\Facades\Auth;
+use App\Models\RegisterationParentInformation;
+use App\Models\Registeration;
 class RegisterationTwo extends Component
 {
-    public  $i = 1, $parentInfo = [],$live_with,$registeration_id,$street,$city,$state,$zip_code,
-    $home_phone,$primary_parent,$regesitration_id;
+    public   $live_with,$registeration_id,$street,$city,$state,$zip_code,
+    $home_phone,$primary_parent,$regesitration_id,$relation_to_applicant,$parent_first_name,$parent_middle_name,$parent_last_name,
+    $parent_cell_phone, $parent_work_phone,$parent_email,$parent_employer,$parent_position,$parent_school;
  
     
    
@@ -17,10 +20,7 @@ class RegisterationTwo extends Component
         $this->regesitration_id = $reg_id;
         
     }
-    
-    
-    
-    
+
     public function render()
     {
         return view('livewire.frontend.registeration.registeration-two');
@@ -30,67 +30,54 @@ class RegisterationTwo extends Component
     {
         $householdinformation = $this->validate([
             
-            'registeration_id' => 'required|min:6',
             'live_with' => 'required',
             'street' => 'required',
             'city' => 'required',
             'state' => 'required',
-            'zip_code' => 'required',
-            'home_phone' => 'required',
+            'zip_code' => 'required||numeric',
+            'home_phone' => 'required|numeric|digits:10',
             'primary_parent' => 'required',
         ]);
             
-          $household = new RegisterationHouseHoldInformation(); 
+          $household = new RegisterationHouseholdInformation(); 
           $household->profile_id = Auth::guard('customer')->user()->id;
-          $household->registeration_id = $this->registeration_id;
+          $household->id = $this->regesitration_id ;
           $household->live_with = $this->live_with;
           $household->street = $this->street;
           $household->city = $this->city;
           $household->state = $this->state;
           $household->zip_code = $this->zip_code;
           $household->primary_parent = $this->primary_parent;
-          if($household->save()){
-              
-              return "saved successfully";
+          $household->home_phone = $this->home_phone;
+         
+          
+          $parentinfo = new RegisterationParentInformation();
+          $parentinfo-> profile_id = Auth::guard('customer')->user()->id;
+          $parentinfo-> id = $this->regesitration_id;
+          $parentinfo->relation_to_applicant = $this->relation_to_applicant;
+          $parentinfo->parent_first_name = $this->parent_first_name;
+          $parentinfo->parent_middle_name = $this->parent_middle_name;
+          $parentinfo->parent_last_name = $this->parent_last_name;
+          $parentinfo->parent_cell_phone = $this->parent_cell_phone;
+          $parentinfo->parent_email = $this->parent_email;
+          $parentinfo->parent_employer = $this->parent_employer;
+          $parentinfo->parent_position = $this->parent_position;
+          $parentinfo->parent_work_phone = $this->parent_work_phone;
+          $parentinfo->parent_school = $this->parent_school;
+         
+          
+          if($household->save() & $parentinfo->save()){
+          
+              Registeration::where('id',$this->regesitration_id)->update(['last_step_complete'=>'two']);
+             return redirect()->route('registeration-application', ['step' => 'three']);
           }
+              
+       
+
+ 
     }
     
-    
-    
-    
-    
-    
-    public function add($i)
-    {
-        $this->i += 1;
-        $arr = [
-            "Relationship" => '',
-            "Salutation" => '',
-            "First_Name" => '',
-            "Middle_Name" => '',
-            "Last_Name" => '',
-            "Suffix" => '',
-            "Address_Type" => '',
-            //"Mobile_Phone" => '',
-            "mobile_phone_number_one" => '',
-            "mobile_phone_number_two" =>  '',
-            "mobile_phone_number_three" =>  '',
-            "Personal_Email" => '',
-            "Employer" => '',
-            "Title" => '',
-            "Work_Email" => '',
-            //"Work_Phone" => '',
-            "work_phone_number_one" => '',
-            "work_phone_number_two" =>  '',
-            "work_phone_number_three" =>  '',
-            "Work_Phone_Ext" => '',
-            "Schools" => '',
-            "Living_Situation" => '',
-            "Status" => ''
-        ];
-        array_push($this->parentInfo, $arr);
-    }
-    
+  
     
     
     

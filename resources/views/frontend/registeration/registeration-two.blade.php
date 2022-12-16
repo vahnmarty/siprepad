@@ -2,9 +2,8 @@
 @push('css')
 @endpush
 @section('content')
-    @livewire('frontend.registeration.registeration-two')
+<livewire:frontend.registeration.registeration-two :reg_id="$reg_id" />
 @endsection
 @push('js')
 @endpush
 
-<livewire:frontend.registeration.registeration-two :reg_id="$reg_id" />

@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Registeration;
+use App\Models\StudentRegisteration;
 class HomeController extends Controller
 {
     public function home()
@@ -344,21 +345,54 @@ class HomeController extends Controller
         return view('frontend.thankyou2');
     }
     public function registerationApplication($step){
-    
-        
-        
+     
+//         $profile_id = Auth::user()->id;
+//         $registeration = Registeration::where('profile_id', $profile_id)->where('status', 0)->first();
+      
         if($step == 'one'){
-           
+      
             return view('frontend.registeration.registeration-one');
             
+        
         }elseif($step == 'two'){
             
-            $registeration=Registeration::where('last_step_complete','one')->latest('id')->first();
-            $reg_id = $registeration->id;
-            
-            return view('frontend.registeration.registeration-two',compact('reg_id'));
-        }
 
+            $registeration=Registeration::where('last_step_complete','one')->latest('id')->first();
+            if($registeration == null){
+                return redirect()->back()->with('error', 'Please fill the all steps');
+                
+            }else{
+                $reg_id = $registeration->id;
+
+                return view('frontend.registeration.registeration-two',compact('reg_id'));
+            }
+        }elseif($step == 'three'){
+            $registeration=Registeration::where('last_step_complete','two')->latest('id')->first();
+            if($registeration == null){
+                return redirect()->back()->with('error', 'Please fill the all steps');
+                
+            }else{
+               
+                $reg_id = $registeration->id;
+                return view('frontend.registeration.registeration-three',compact('reg_id'));
+            }
+     
+        }elseif($step == 'four'){
+            
+            $registeration=Registeration::where('last_step_complete','three')->latest('id')->first();
+          
+            if($registeration == null){
+                return redirect()->back()->with('error', 'Please fill the all steps');
+                
+            }else{
+                
+            $reg_id = $registeration->id;
+            return view('frontend.registeration.registeration-four',compact('reg_id'));
+        }
+        }elseif ($step == 'five') {
+            
+            dd('saved successfully');
+        }
         
     }
     
