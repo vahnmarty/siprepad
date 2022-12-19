@@ -17,12 +17,7 @@ class RegisterationFour extends Component
         $this->regesitration_id = $reg_id;
     }
     
-    
-    
-    
-    
-    
-    
+
     public function render()
     {
         return view('livewire.frontend.registeration.registeration-four');
@@ -35,9 +30,9 @@ class RegisterationFour extends Component
             
             'emergency_contact_name' => 'required',
             'relation_to_student' => 'required',
-            'home_phone' => 'required|numeric',
-            'mobile_phone' => 'required|numeric',
-            'work_phone' => 'required|numeric',
+            'home_phone' => 'required|numeric|digits:10',
+            'mobile_phone' => 'required|numeric|digits:10',
+            'work_phone' => 'required|numeric|digits:10',
        
         ]);
         
