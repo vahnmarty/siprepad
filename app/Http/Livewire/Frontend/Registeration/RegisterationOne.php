@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Auth;
 
 class RegisterationOne extends Component
 
-        
 { 
     
     public $profile_id;
@@ -29,11 +28,13 @@ class RegisterationOne extends Component
     public $ethnicity;
     public $current_school;
     public  $student_information;
-
+    public $registeration_student_info;
+    public $studentinfo;
     
-    public  function mount($student_info = Null){
+    public  function mount($student_registeration = Null ,$studentinfo = null){
         
-        $this->student_information = $student_info;
+        $this->registeration_student_info = $student_registeration;
+        $this->studentinfo = $studentinfo;
     }
     
     

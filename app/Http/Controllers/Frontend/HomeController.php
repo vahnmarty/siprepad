@@ -346,14 +346,15 @@ class HomeController extends Controller
     }
     public function registerationApplication($step){
      
-//         $profile_id = Auth::user()->id;
-//         $registeration = Registeration::where('profile_id', $profile_id)->where('status', 0)->first();
+        $profile_id = Auth::guard('customer')->user()->id;
+        $registeration = Registeration::where('Profile_ID', $profile_id)->where('status', 0)->first();
       
         if($step == 'one'){
-      
-            return view('frontend.registeration.registeration-one');
+            $student_info = StudentInformation::where('Profile_id',$profile_id)->first();
+          
+            $registeration_student_info = StudentRegisteration::where('Profile_ID', $profile_id)->where('id', $registeration->id)->first();
+            return view('frontend.registeration.registeration-one',compact('registeration_student_info','student_info'));
             
-        
         }elseif($step == 'two'){
             
 
@@ -402,6 +403,36 @@ class HomeController extends Controller
                 return view('frontend.registeration.registeration-five',compact('reg_id'));
         }
         }elseif($step == 'six'){
+        
+        $registeration=Registeration::where('last_step_complete','five')->latest('id')->first();
+        if($registeration == null){
+            return redirect()->back()->with('error', 'Please fill the all steps');
+            
+        }else{
+            
+            $reg_id = $registeration->id;
+        
+        
+        return view('frontend.registeration.registeration-six',compact('reg_id'));
+        }
+        }elseif ($step == 'seven'){
+            
+            $registeration=Registeration::where('last_step_complete','six')->latest('id')->first();
+           
+            if($registeration == null){
+                return redirect()->back()->with('error', 'Please fill the all steps');
+                
+            }else{
+                
+                $reg_id = $registeration->id;
+                
+                
+                return view('frontend.registeration.registeration-seven',compact('reg_id'));
+            }
+        }elseif ($step == 'final'){
+
+        
+
         
         $registeration=Registeration::where('last_step_complete','five')->latest('id')->first();
         if($registeration == null){

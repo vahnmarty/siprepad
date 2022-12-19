@@ -2,8 +2,143 @@
 
 <form wire:submit.prevent="submit" method="POST">
 	<div class="home-wrap hme-wrp2">
-		<div class="progress-outr"></div>
-		<div class="form-outr">
+
+
+            <div class="progress-outr">
+                <ul class="progress-ul">
+                    <li class="step-complete">
+                        @if ($registeration_student_info)
+                            <a href="{{ route('admission-application', ['step' => 'one']) }}">
+                                <span>1</span>
+                                <h6>Student Info</h6>
+                            </a>
+                        @else
+                            <a href="javascript::void(0)">
+                                <span>1</span>
+                                <h6>Student Info</h6>
+                            </a>
+                        @endif
+
+                    </li>
+                    <li class="step-complete">
+                        @if ($registeration_student_info)
+                            <a href="{{ route('admission-application', ['step' => 'two']) }}">
+                                <span>2</span>
+                                <h6>Address Info</h6>
+                            </a>
+                        @else
+                            <a href="javascript::void(0)">
+                                <span>2</span>
+                                <h6>Address Info</h6>
+                            </a>
+                        @endif
+                    </li>
+                    <li class="step-complete">
+                        @if ($registeration_student_info)
+                            <a href="{{ route('admission-application', ['step' => 'three']) }}">
+                                <span>3</span>
+                                <h6>Parent Info</h6>
+                            </a>
+                        @else
+                            <a href="javascript::void(0)">
+                                <span>3</span>
+                                <h6>Parent Info</h6>
+                            </a>
+                        @endif
+                    </li>
+                    <li class="step-complete">
+                        @if ($registeration_student_info)
+                            <a href="{{ route('admission-application', ['step' => 'four']) }}">
+                                <span>4</span>
+                                <h6>Sibling Info</h6>
+                            </a>
+                        @else
+                            <a href="javascript::void(0)">
+                                <span>4</span>
+                                <h6>Sibling Info</h6>
+                            </a>
+                        @endif
+                    </li>
+                    <li class="step-complete">
+                        @if ($registeration_student_info)
+                            <a href="{{ route('admission-application', ['step' => 'five']) }}">
+                                <span>5</span>
+                                <h6>Legacy Info</h6>
+                            </a>
+                        @else
+                            <a href="javascript::void(0)">
+                                <span>5</span>
+                                <h6>Legacy Info</h6>
+                            </a>
+                        @endif
+                    </li>
+                    <li class="step-complete">
+                        @if ($registeration_student_info)
+                            <a href="{{ route('admission-application', ['step' => 'six']) }}">
+                                <span>6</span>
+                                <h6>Parent Statement</h6>
+                            </a>
+                        @else
+                            <a href="javascript::void(0)">
+                                <span>6</span>
+                                <h6>Parent Statement</h6>
+                            </a>
+                        @endif
+                    </li>
+                    <li class="step-complete">
+                        @if ($registeration_student_info)
+                            <a href="{{ route('admission-application', ['step' => 'seven']) }}">
+                                <span>7</span>
+                                <h6>Spiritual & Community Info</h6>
+                            </a>
+                        @else
+                            <a href="javascript::void(0)">
+                                <span>7</span>
+                                <h6>Spiritual & Community Info</h6>
+                            </a>
+                        @endif
+                    </li>
+                    <li class="step-complete">
+                        @if ($registeration_student_info)
+                            <a href="{{ route('admission-application', ['step' => 'eight']) }}">
+                                <span>8</span>
+                                <h6>Student Statement</h6>
+                            </a>
+                        @else
+                            <a href="javascript::void(0)">
+                                <span>8</span>
+                                <h6>Student Statement</h6>
+                            </a>
+                        @endif
+                    </li>
+                    <li>
+                        @if ($registeration_student_info)
+                            <a href="{{ route('admission-application', ['step' => 'nine']) }}">
+                                <span>9</span>
+                                <h6>Writing Sample</h6>
+                            </a>
+                        @else
+                            <a href="javascript::void(0)">
+                                <span>9</span>
+                                <h6>Writing Sample</h6>
+                            </a>
+                        @endif
+                    </li>
+                    <li>
+                        @if ($registeration_student_info)
+                            <a href="{{ route('admission-application', ['step' => 'ten']) }}">
+                                <span>10</span>
+                                <h6>Final Steps</h6>
+                            </a>
+                        @else
+                            <a href="javascript::void(0)">
+                                <span>10</span>
+                                <h6>Final Steps</h6>
+                            </a>
+                        @endif
+                    </li>
+                </ul>
+            </div>		<div class="form-outr">
 
 			<div class="form-outr">
 				<div class="cmn-hdr">
@@ -17,7 +152,7 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									<label> Legal First Name </label> <input type="text"
-										class="form-control" wire:model.defer='first_name'
+										class="form-control" wire:model.defer='first_name' value="{{$studentinfo->S1_First_Name}}"
 										 /> @error('first_name')
 									<p class="text-danger">{{$message}}</p>
 									@enderror
@@ -138,7 +273,7 @@
 						</div>
 						<div class="form-group">
 							<label class="blck"><input type="checkbox"
-								wire:model.defer="racial" value="Asian"> Asian</label><br> <label
+								wire:model.defer="racial" value="Asian">Asian</label><br> <label
 								class="blck"><input type="checkbox" wire:model.defer="racial"
 								value="Black/African American"> Black/African American</label><br>
 							<label class="blck"><input type="checkbox"
