@@ -391,9 +391,33 @@ class HomeController extends Controller
         }
         }elseif ($step == 'five') {
             
-            dd('saved successfully');
+            $registeration=Registeration::where('last_step_complete','four')->latest('id')->first();
+            
+            if($registeration == null){
+                return redirect()->back()->with('error', 'Please fill the all steps');
+                
+            }else{
+                
+                $reg_id = $registeration->id;
+                return view('frontend.registeration.registeration-five',compact('reg_id'));
         }
+        }elseif($step == 'six'){
         
+        $registeration=Registeration::where('last_step_complete','five')->latest('id')->first();
+        if($registeration == null){
+            return redirect()->back()->with('error', 'Please fill the all steps');
+            
+        }else{
+            
+            $reg_id = $registeration->id;
+        
+        
+        return view('frontend.registeration.registeration-six',compact('reg_id'));
+        }
+        }elseif ($step == 'seven'){
+            
+            return redirect('/')->with('success', 'You successfully fill the six steps of form');
+        }
     }
     
 }

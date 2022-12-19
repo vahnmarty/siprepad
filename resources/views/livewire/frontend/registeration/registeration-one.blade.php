@@ -69,8 +69,14 @@
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label>Gender </label> <input type="text" class="form-control"
-										wire:model.defer='gender' value="{{ old('gender') }}" />
+									<label>Gender </label> <select
+										class="form-control" wire:model.defer='gender'
+										value="{{ old('gender') }}">
+										<option value="" selected></option>
+										<option value="male">Male</option>
+										<option value="female">Female</option>
+
+									</select>
 									@error('gender')
 									<p class="text-danger">{{$message}}</p>
 									@enderror
@@ -115,8 +121,7 @@
 										<option value="">-- Please Choose --</option>
 
 										<option value="christian">Christian</option>
-										<option value=""></option>
-										<option value=""></option>
+										
 									</select> @error('religion')
 									<p class="text-danger">{{$message}}</p>
 									@enderror

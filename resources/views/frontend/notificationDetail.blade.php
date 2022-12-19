@@ -34,7 +34,8 @@
         	</div>
         	
         	@if($appDetail->application_type_id == App\Models\Application::TYPE_ACCEPTED && $ntfDetail->notification_type == App\Models\Notification::NOTIFY_ACCEPTED)
-        		@if($appDetail->candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED)
+        		
+        		@if($appDetail->candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appDetail->candidate_status == App\Models\Application::CANDIDATE_READ)
             		<div class='student_btns'>
             			<a href="{{ url('/candidate/response') }}/{{ $appDetail->Application_ID }}/{{App\Models\Application::CANDIDATE_ACCEPTED}}" class='btn btn_accept'>Accept</a>
             			<a href="{{ url('/candidate/response') }}/{{ $appDetail->Application_ID }}/{{App\Models\Application::CANDIDATE_REJECTED}}" class='btn btn_reject'>Reject</a>

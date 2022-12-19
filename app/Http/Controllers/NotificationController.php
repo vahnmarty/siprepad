@@ -30,7 +30,6 @@ class NotificationController extends Controller
             $profile_id = Auth::guard('customer')->user()->id;
             $notifications = Notification::where('profile_id',$profile_id)->latest('id')->first();
 
-
             return view('frontend.notification',compact('notifications'));
             
         } else {
@@ -64,11 +63,11 @@ class NotificationController extends Controller
         $studentDetail = StudentInformation::where('Profile_ID',$checkApp->Profile_ID)->first();
         
         if(!empty($checkApp)) {
-            if($checkApp->candidate_status == Application::CANDIDATE_NOT_DEFINED){
+            if($checkApp->candidate_status == Application::CANDIDATE_NOT_DEFINED || $checkApp->candidate_status == Application::CANDIDATE_READ){
                 $updateCr = Application::where('Application_ID',$apid)->limit(1)->update(array('candidate_status' => $rsid));
                 
                 if($updateCr) {
-                    $res = Mail::to($parentDetail->P1_Personal_Email)->send(new CandidateStatus($studentDetail, $rsid, $parentDetail));
+                    // $res = Mail::to($parentDetail->P1_Personal_Email)->send(new CandidateStatus($studentDetail, $rsid, $parentDetail));
                     return redirect()->back()->with('success','Thankyou, We have recieved your response!!');
                 }
                 

@@ -52,8 +52,8 @@ class RegisterationTwo extends Component
          
           
           $parentinfo = new RegisterationParentInformation();
-          $parentinfo-> profile_id = Auth::guard('customer')->user()->id;
-          $parentinfo-> id = $this->regesitration_id;
+              $parentinfo-> profile_id = Auth::guard('customer')->user()->id;
+              $parentinfo-> id = $this->regesitration_id;
           $parentinfo->relation_to_applicant = $this->relation_to_applicant;
           $parentinfo->parent_first_name = $this->parent_first_name;
           $parentinfo->parent_middle_name = $this->parent_middle_name;
