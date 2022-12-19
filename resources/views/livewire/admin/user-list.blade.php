@@ -1,14 +1,18 @@
+
+
+<div>
 <div class="notification_action"> 
  @if($notificationButton[0]->notifiable == '1') 
   <a href="{{ url('/admin/user/notify/')}}/{{App\Models\Profile::NOTIFICATION_ON}}/{{$notificationButton[0]->id}}"style="color: white; background: linear-gradient(180deg, #19a74d 0%, #002664 100%) !important;"class="btn btn-on mb-3">Notification On</a> 
  @else 
  <a href="{{ url('/admin/user/notify/')}}/{{App\Models\Profile::NOTIFICATION_OFF}}/{{$notificationButton[0]->id}}" style="color:white" class="btn btn-off mb-3">Notification Off</a> 
  @endif 
-  </div> 
- <div>
+  </div>
  
 <x-admin.table>
-    <x-slot name="perPage">
+ 
+
+     <x-slot name="perPage">
         <label>Show
             <x-admin.dropdown wire:model="perPage" class="custom-select custom-select-sm form-control form-control-sm">
                 @foreach ($perPageList as $page)
@@ -16,7 +20,6 @@
                 @endforeach
             </x-admin.dropdown> entries
         </label>
-
     </x-slot>
 
     <x-slot name="thead">
@@ -42,8 +45,7 @@
             <th class="align-center" tabindex="0" aria-controls="kt_table_1" rowspan="1" colspan="1"
                 style="width: 10%;" aria-label="Company Agent: activate to sort column ascending">Status</th>
                 
-             <th class="align-center" tabindex="0" aria-controls="kt_table_1" rowspan="1" colspan="1"
-                style="width: 10%;" aria-label="Company Agent: activate to sort column ascending">Decision</th>
+
                 
             <th class="align-center" rowspan="1" colspan="1" style="width: 20%;" aria-label="Actions">Actions</th>
         </tr>
@@ -68,8 +70,7 @@
           <th>
           </th>
             <th>
-          </th>
-            <th>
+        
             
                 <div class="row">
                     <div class="col-md-5">
@@ -165,28 +166,7 @@
                     @endswitch
                     @endif
                 </td>
-                <td>
                
-                        <div class="decision">
-                        @if ($getApplication)
-                        @switch($getApplication->candidate_status)
-                          @case(1)
-
-                          {{"Accepted"}}
-                           @break
-                        @case(2)
-                        {{"Rejected"}}
-                         @break
-                        @case(3)
-                        {{"Notification Read"}}
-                        @break
-                        @default
-                        {{"Notification not Read"}}
-
-                          @endswitch
-                           @endif
-                        </div>
-                    </td>
                 
                 
                 
@@ -219,13 +199,14 @@
         @endforelse
     </x-slot>
     <x-slot name="pagination">
-        {{ $users->links() }}  
+        {{ $users->links() }}
     </x-slot>
+
     <x-slot name="showingEntries">
-        Showing {{ $users->firstitem() ?? 0 }} to {{ $users->lastitem() ?? 0 }} of {{ $users->total() }}
+        Showing {{ $users->firstitem() ?? 0 }} to {{ $users->lastitem() ?? 0 }} of
+        {{ $users->total() }}
         entries
     </x-slot>
+
 </x-admin.table>
-</div>
-</div>
 </div>

@@ -10,6 +10,9 @@ use App\Exports\UsersExport;
 use App\Models\Application;
 use App\Models\Profile;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class UserList extends Component
 {
@@ -38,7 +41,6 @@ class UserList extends Component
             ['value' => 50, 'text' => "50"],
             ['value' => 100, 'text' => "100"]
         ];
-        $this->status = request('status');
     }
     public function getRandomColor()
     {
@@ -137,7 +139,12 @@ class UserList extends Component
         }
         $this->showModal('success', 'Success', 'User status has been changed successfully');
     }
-
+    public function paginate($items, $perPage, $page = null, $options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
+    }
     public function exportUsers()
     {
         return Excel::download(new UsersExport, 'users.xlsx');

@@ -14,5 +14,5 @@
             </x-slot>
         </x-admin.sub-header>
     </x-slot>
-    <livewire:admin.application.index />
+    <livewire:admin.application.index :applications="$app" />
 </x-admin-layout>

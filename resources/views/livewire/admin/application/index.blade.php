@@ -32,6 +32,9 @@
             <th tabindex="0" aria-controls="kt_table_1" rowspan="1" colspan="1" style="width: 20%;"
                 aria-label="Company Agent: activate to sort column ascending">Student Phone
             </th>
+            <th tabindex="0" aria-controls="kt_table_1" style="width: 10%;"
+                aria-label="Company Agent: activate to sort column ascending">Decision
+            </th>
 
             <th class="align-center" rowspan="1" colspan="1" style="width: 30%;" aria-label="Actions">Actions</th>
         </tr>
@@ -53,6 +56,8 @@
                 <x-admin.input type="search" wire:model.defer="searchPhone " placeholder="" autocomplete="off"
                     class="form-control-sm form-filter" />
             </th>
+            
+            <th></th>
             <th>
                 <div class="row justify-content-center align-items-center">
                     <button class="btn btn-brand kt-btn btn-sm kt-btn--icon button-fx" wire:click="search">
@@ -72,6 +77,7 @@
         </tr>
     </x-slot>
 
+             
     @php
         $lastId = null;
         $rowClass = 'grey';
@@ -89,12 +95,36 @@
                     }
                 }
             @endphp
-
+   @php
+                    $getApplication = App\Models\Application::where('Application_ID', $student['Application_ID'])
+                    ->get('candidate_status')->first();
+                      
+                @endphp
             <tr role="row" class="odd {{ $rowClass }}">
                 <td>{{ ucfirst($student['First_Name']) ?? '---' }}</td>
                 <td>{{ ucfirst($student['Last_Name']) ?? '---' }}</td>
                 <td>{{ $student['Personal_Email'] ?? '---' }}</td>
                 <td>{{ $student['Mobile_Phone'] ?? '---' }}</td>
+                 <td>
+                   @if ($getApplication)
+                        @switch($getApplication->candidate_status)
+                          @case(1)
+
+                          {{"Accepted"}}
+                           @break
+                        @case(2)
+                        {{"Rejected"}}
+                         @break
+                        @case(3)
+                        {{"Notification Read"}}
+                        @break
+                        @default
+                        {{"Notification not Read"}}
+
+                          @endswitch
+                           @endif
+                 </td>
+              
                 <td>
                     <div class="action__btn">
                         <a class="btn"

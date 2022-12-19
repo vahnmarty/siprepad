@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use App\Models\Profile;
 use App\Models\Notification;
 
-
 class ApplicationController extends Controller
 {
     /**
@@ -18,7 +17,9 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        return view('admin.application.index');
+        $app = Application::all();
+       
+        return view('admin.application.index',compact('app'));
     }
 
     /**

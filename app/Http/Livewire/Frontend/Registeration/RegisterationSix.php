@@ -44,6 +44,7 @@ class RegisterationSix extends Component
         
         
     }
+
     
     
     

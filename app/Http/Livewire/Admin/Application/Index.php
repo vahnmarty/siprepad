@@ -21,9 +21,11 @@ class Index extends Component
     public $searchFirstName, $searchLastName, $searchEmail, $searchPhone, $perPage = 10;
     public $first_name_sort = false, $first_name_sort_by;
     public $last_name_sort = false, $last_name_sort_by;
-
-    public function mount()
+    public $app;
+    public function mount($app = Null)
     {
+        $this->applications =$app;
+   
         $this->perPageList = [
             ['value' => 5, 'text' => "5"],
             ['value' => 10, 'text' => "10"],
