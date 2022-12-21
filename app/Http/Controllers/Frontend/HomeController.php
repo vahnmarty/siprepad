@@ -70,9 +70,9 @@ class HomeController extends Controller
                 $getStudentCount = count($getStudent);
             }
 
-              $notifications= Global_Notifiable::get('notifiable');
+              $notifications= Global_Notifiable::pluck('notifiable')->first();
                
-             $application_status=Application::Where('Application_ID',$profile_id)->get('candidate_status');
+             $application_status=Application::Where('Application_ID',$profile_id)->first();
              $registerable =GlobalRegisterable::select('registerable')->first();
             return view('frontend.home', compact('application', 'getStudentCount','notifications','application_status','registerable'));
         } else {

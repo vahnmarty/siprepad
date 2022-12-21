@@ -126,6 +126,7 @@
                             <option value='{{App\Models\Application::TYPE_ACCEPTED}}' selected>Accepted</option>
                             <option value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
                             <option value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
+
                         </select>
                         @break
                         @case(2)
@@ -134,6 +135,7 @@
                             <option value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
                             <option value='{{App\Models\Application::TYPE_WAIT_LISTED}}' selected>Wait Listed</option>
                             <option value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
+
                         </select>
                         @break
                         @case(3)

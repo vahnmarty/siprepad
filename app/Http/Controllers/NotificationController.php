@@ -20,7 +20,16 @@ class NotificationController extends Controller
         
         $user = Auth::user('id');
        
-        $application=Application::Where('Profile_ID',$user->id)->update(['candidate_status'=>Application::CANDIDATE_READ]);
+        
+        
+        $application=Application::Where('Profile_ID',$user->id)->first();
+        if(!empty($application)){
+            if($application->candidate_status == Application::CANDIDATE_NOT_DEFINED){
+                $application->update(['candidate_status'=>Application::CANDIDATE_READ]);
+            }
+            
+        }
+        
         $ntfStatus = Global_Notifiable::select('notifiable')->first();
        
         if($ntfStatus->notifiable == Global_Notifiable::NOTIFICATION_OFF) {
@@ -30,12 +39,14 @@ class NotificationController extends Controller
         if (!is_null(Auth::guard('customer')->user())) {
             $profile_id = Auth::guard('customer')->user()->id;
             $notifications = Notification::where('profile_id',$profile_id)->latest('id')->first();
-
-            return view('frontend.notification',compact('notifications'));
+            if(!empty($notifications)){
+                return view('frontend.notification',compact('notifications'));
+                
+            }else{
+                return  redirect('/')->with('error','you donot have any notifications yet!!!');
+            }
             
-        } else {
-            return redirect('/');
-        }
+        } 
     }
     
     public function show(Request $request, $nid) {
@@ -69,8 +80,10 @@ class NotificationController extends Controller
                 
                 if($updateCr) {
 //                     dd($parentDetail->P1_Personal_Email);
+
                     $res = Mail::to($parentDetail->P1_Personal_Email)->send(new CandidateStatus($studentDetail, $rsid, $parentDetail));
                     return redirect()->back()->with('success','Thank you, We have recieved your response!!');
+
                 }
                 
                 return redirect()->back()->with('error','Something went wrong! Please check after sometime');

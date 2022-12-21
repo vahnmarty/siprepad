@@ -21,7 +21,7 @@
                                     <small class="sub-lable">(500 characters maximum, approximately 75 words)</small>
                                     <textarea
                                         class="form-control {{ $errors->has('getStudentStatement.' . $sskey . '.statement_one') ? 'is-invalid' : '' }}"
-                                        name="statement_one" wire:model.defer='getStudentStatement.{{ $sskey }}.statement_one'></textarea>
+                                        name="statement_one" wire:model.defer='getStudentStatement.{{ $sskey }}.statement_one' max="75"></textarea>
                                     @error('getStudentStatement.*.statement_one')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -35,7 +35,7 @@
                                     <small class="sub-lable">(500 characters maximum, approximately 75 words)</small>
                                     <textarea
                                         class="form-control {{ $errors->has('getStudentStatement.' . $sskey . '.statement_two') ? 'is-invalid' : '' }}"
-                                        name="statement_two" wire:model.defer='getStudentStatement.{{ $sskey }}.statement_two'></textarea>
+                                        name="statement_two" wire:model.defer='getStudentStatement.{{ $sskey }}.statement_two' max="75"></textarea>
                                     @error('getStudentStatement.*.statement_two')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -49,7 +49,7 @@
                                     <small class="sub-lable">(500 characters maximum, approximately 75 words)</small>
                                     <textarea
                                         class="form-control {{ $errors->has('getStudentStatement.' . $sskey . '.statement_three') ? 'is-invalid' : '' }}"
-                                        name="statement_three" wire:model.defer='getStudentStatement.{{ $sskey }}.statement_three'></textarea>
+                                        name="statement_three" wire:model.defer='getStudentStatement.{{ $sskey }}.statement_three' max="75"></textarea>
                                     @error('getStudentStatement.*.statement_three')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror

@@ -13,9 +13,10 @@ class MaxWordsRule implements Rule
      *
      * @return void
      */
-    public function __construct($max_words = 1500)
+    public function __construct($max_words = 75)
     {
         $this->max_words = $max_words;
+       
     }
 
     /**
@@ -26,11 +27,13 @@ class MaxWordsRule implements Rule
      * @return bool
      */
     public function passes($attribute, $value)
-    {
-        //dd(count(explode(' ', $value)) <= $this->max_words);
-        //return str_word_count($value, 0, "#$%^&*()+=-[]\';,./{}|\":<>?~!") <= $this->max_words;
-        return count(explode(' ', $value)) <= $this->max_words+75;
-        //return false;
+    {       
+        $totalWords = count(explode(' ', $value));
+        $limitWords = $this->max_words;
+        
+        $result = $totalWords < $limitWords;
+        
+        return $result;
 
     }
 
