@@ -11,6 +11,7 @@ use App\Models\Global_Notifiable;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\CandidateStatus;
 use App\Models\ParentInformation;
+use App\Models\GlobalRegisterable;
 
 class NotificationController extends Controller
 {
@@ -21,7 +22,7 @@ class NotificationController extends Controller
        
         $application=Application::Where('Profile_ID',$user->id)->update(['candidate_status'=>Application::CANDIDATE_READ]);
         $ntfStatus = Global_Notifiable::select('notifiable')->first();
-        
+       
         if($ntfStatus->notifiable == Global_Notifiable::NOTIFICATION_OFF) {
             return redirect()->back()->with('error','You are not allowed to access this page');
         }
@@ -67,8 +68,9 @@ class NotificationController extends Controller
                 $updateCr = Application::where('Application_ID',$apid)->limit(1)->update(array('candidate_status' => $rsid));
                 
                 if($updateCr) {
-                    // $res = Mail::to($parentDetail->P1_Personal_Email)->send(new CandidateStatus($studentDetail, $rsid, $parentDetail));
-                    return redirect()->back()->with('success','Thankyou, We have recieved your response!!');
+//                     dd($parentDetail->P1_Personal_Email);
+                    $res = Mail::to($parentDetail->P1_Personal_Email)->send(new CandidateStatus($studentDetail, $rsid, $parentDetail));
+                    return redirect()->back()->with('success','Thank you, We have recieved your response!!');
                 }
                 
                 return redirect()->back()->with('error','Something went wrong! Please check after sometime');

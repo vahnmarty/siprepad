@@ -9,6 +9,7 @@ use App\Models\Global_Notifiable;
 use Illuminate\Http\Request;
 use App\Models\ApplicationType;
 use App\Models\Application;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -103,10 +104,11 @@ class UserController extends Controller
      */
     public function notificationChange(Request $request, $status , $uid)
     {
-          $notification = Global_Notifiable::where('id', $uid)->first();
-          
+            
+          $notification = Global_Notifiable::first();
+         
           $notification = $notification->update(['notifiable'=>$status]);
-
+          
           if($notification) {
             return redirect()->back()->with('success', "Notifcation Updated Successfully!!");
 

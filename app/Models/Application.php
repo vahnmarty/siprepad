@@ -10,6 +10,8 @@ class Application extends Model
     use HasFactory;
     protected $primaryKey = 'Application_ID';
     
+
+    
     const TYPE_PENDING = 0;
     const TYPE_ACCEPTED = 1;
     const TYPE_WAIT_LISTED = 2;

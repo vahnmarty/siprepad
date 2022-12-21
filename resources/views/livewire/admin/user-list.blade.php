@@ -1,17 +1,5 @@
-
-
-<div>
-<div class="notification_action"> 
- @if($notificationButton[0]->notifiable == '1') 
-  <a href="{{ url('/admin/user/notify/')}}/{{App\Models\Profile::NOTIFICATION_ON}}/{{$notificationButton[0]->id}}"style="color: white; background: linear-gradient(180deg, #19a74d 0%, #002664 100%) !important;"class="btn btn-on mb-3">Notification On</a> 
- @else 
- <a href="{{ url('/admin/user/notify/')}}/{{App\Models\Profile::NOTIFICATION_OFF}}/{{$notificationButton[0]->id}}" style="color:white" class="btn btn-off mb-3">Notification Off</a> 
- @endif 
-  </div>
- 
 <x-admin.table>
  
-
      <x-slot name="perPage">
         <label>Show
             <x-admin.dropdown wire:model="perPage" class="custom-select custom-select-sm form-control form-control-sm">
@@ -42,8 +30,7 @@
             <th class="align-center" tabindex="0" aria-controls="kt_table_1" rowspan="1" colspan="1"
                 style="width: 15%;" aria-label="Company Agent: activate to sort column ascending">Phone</th>
 
-            <th class="align-center" tabindex="0" aria-controls="kt_table_1" rowspan="1" colspan="1"
-                style="width: 10%;" aria-label="Company Agent: activate to sort column ascending">Status</th>
+            
                 
 
                 
@@ -67,8 +54,7 @@
                 <x-admin.input type="search" wire:model.defer="searchPhone" placeholder="" autocomplete="off"
                     class="form-control-sm form-filter" />
             </th>
-          <th>
-          </th>
+         
             <th>
         
             
@@ -128,44 +114,7 @@
                         ->first();
                 @endphp
                           
-                <td>
-                @if($getApplication)
-                    <input type='hidden' name='app_id' value='{{ $getApplication->Application_ID }}'>
-                    @switch($getApplication->application_type_id)
-                        @case(1)
-                        <select name='candidate-status' required class='state_select-box'>
-                            <option value='' disabled>Select</option>
-                            <option value='1' selected>Accepted</option>
-                            <option value='2'>Wait Listed</option>
-                            <option value='3'>Not Accepted</option>
-                        </select>
-                        @break
-                        @case(2)
-                        <select name='candidate-status' required class='state_select-box'>
-                            <option value=''disabled>Select</option>
-                            <option value='1'>Accepted</option>
-                            <option value='2' selected>Wait Listed</option>
-                            <option value='3'>Not Accepted</option>
-                        </select>
-                        @break
-                        @case(3)
-                        <select name='candidate-status' required class='state_select-box'>
-                            <option value=''disabled>Select</option>
-                            <option value='1'>Accepted</option>
-                            <option value='2'>Wait Listed</option>
-                            <option value='3' selected>Not Accepted</option>
-                        </select>
-                        @break
-                        @default 
-                        <select name='candidate-status' required class='state_select-box'>
-                            <option value='' selected disabled>Select</option>
-                            <option value='1'>Accepted</option>
-                            <option value='2'>Wait Listed</option>
-                            <option value='3'>Not Accepted</option>
-                        </select>
-                    @endswitch
-                    @endif
-                </td>
+                
                
                 
                 
@@ -209,4 +158,3 @@
     </x-slot>
 
 </x-admin.table>
-</div>

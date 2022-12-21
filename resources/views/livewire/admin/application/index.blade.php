@@ -1,3 +1,11 @@
+<div>
+<div class="notification_action"> 
+ @if($notification == '1') 
+  <a href="{{ url('/admin/user/notify/')}}/{{App\Models\Profile::NOTIFICATION_ON}}/{{$notification}}"style="color: white; background: linear-gradient(180deg, #19a74d 0%, #002664 100%) !important;"class="btn btn-on mb-3">Notification On</a> 
+ @else 
+ <a href="{{ url('/admin/user/notify/')}}/{{App\Models\Profile::NOTIFICATION_OFF}}/{{$notification}}" style="color:white" class="btn btn-off mb-3">Notification Off</a> 
+ @endif 
+  </div>
 <x-admin.table>
     <x-slot name="search">
     </x-slot>
@@ -32,6 +40,9 @@
             <th tabindex="0" aria-controls="kt_table_1" rowspan="1" colspan="1" style="width: 20%;"
                 aria-label="Company Agent: activate to sort column ascending">Student Phone
             </th>
+              <th tabindex="0" aria-controls="kt_table_1" style="width: 10%;"
+                aria-label="Company Agent: activate to sort column ascending">Status
+            </th>
             <th tabindex="0" aria-controls="kt_table_1" style="width: 10%;"
                 aria-label="Company Agent: activate to sort column ascending">Decision
             </th>
@@ -56,7 +67,7 @@
                 <x-admin.input type="search" wire:model.defer="searchPhone " placeholder="" autocomplete="off"
                     class="form-control-sm form-filter" />
             </th>
-            
+            <th></th>
             <th></th>
             <th>
                 <div class="row justify-content-center align-items-center">
@@ -97,7 +108,7 @@
             @endphp
    @php
                     $getApplication = App\Models\Application::where('Application_ID', $student['Application_ID'])
-                    ->get('candidate_status')->first();
+                    ->get()->first();
                       
                 @endphp
             <tr role="row" class="odd {{ $rowClass }}">
@@ -105,6 +116,44 @@
                 <td>{{ ucfirst($student['Last_Name']) ?? '---' }}</td>
                 <td>{{ $student['Personal_Email'] ?? '---' }}</td>
                 <td>{{ $student['Mobile_Phone'] ?? '---' }}</td>
+                <td>
+                @if($getApplication)
+                    <input type='hidden' name='app_id' value='{{ $getApplication->Application_ID }}'>
+                    @switch($getApplication->application_type_id)
+                        @case(1)
+                        <select name='candidate-status' required class='state_select-box'>
+                            <option value='' disabled>Select</option>
+                            <option value='{{App\Models\Application::TYPE_ACCEPTED}}' selected>Accepted</option>
+                            <option value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
+                            <option value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
+                        </select>
+                        @break
+                        @case(2)
+                        <select name='candidate-status' required class='state_select-box'>
+                            <option value=''disabled>Select</option>
+                            <option value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
+                            <option value='{{App\Models\Application::TYPE_WAIT_LISTED}}' selected>Wait Listed</option>
+                            <option value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
+                        </select>
+                        @break
+                        @case(3)
+                        <select name='candidate-status' required class='state_select-box'>
+                            <option value=''disabled>Select</option>
+                            <option value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
+                            <option value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
+                            <option value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}' selected>Not Accepted</option>
+                        </select>
+                        @break
+                        @default 
+                        <select name='candidate-status' required class='state_select-box'>
+                            <option value='' selected disabled>Select</option>
+                            <option value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
+                            <option value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
+                            <option value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
+                        </select>
+                    @endswitch
+                    @endif
+                </td>
                  <td>
                    @if ($getApplication)
                         @switch($getApplication->candidate_status)
@@ -157,3 +206,4 @@
     </x-slot>
 
 </x-admin.table>
+</div>

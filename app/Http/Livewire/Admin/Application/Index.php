@@ -10,6 +10,7 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class Index extends Component
 {
@@ -22,10 +23,13 @@ class Index extends Component
     public $first_name_sort = false, $first_name_sort_by;
     public $last_name_sort = false, $last_name_sort_by;
     public $app;
-    public function mount($app = Null)
+    public $notification;
+    public $registeration;
+    public function mount($app = Null,$notificationButton = null,$register = null)
     {
+        $this->registeration = $register;
         $this->applications =$app;
-   
+        $this->notification = $notificationButton;
         $this->perPageList = [
             ['value' => 5, 'text' => "5"],
             ['value' => 10, 'text' => "10"],
