@@ -7,6 +7,8 @@ use App\Models\Application;
 use Illuminate\Http\Request;
 use App\Models\Profile;
 use App\Models\Notification;
+use App\Models\Global_Notifiable;
+use App\Models\GlobalRegisterable;
 
 class ApplicationController extends Controller
 {
@@ -18,8 +20,11 @@ class ApplicationController extends Controller
     public function index()
     {
         $app = Application::all();
-       
-        return view('admin.application.index',compact('app'));
+        $getnotification= Global_Notifiable::get('notifiable')->first();
+        $notifications = $getnotification->notifiable;
+        $registerable =GlobalRegisterable::select('registerable')->first();
+        
+        return view('admin.application.index',compact('app','notifications','registerable'));
     }
 
     /**

@@ -1,5 +1,4 @@
  
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
 <div></div>
 <x-admin-layout title="User Management">               
     <x-slot name="subHeader">
@@ -21,51 +20,6 @@
 	<livewire:admin.user-list :notificationButton="$notifications" />
 </x-admin-layout>
 
-<script>
-	   $.ajaxSetup({  
-
-        headers: {
-
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-
-        }
-
-    });
-	$('document').ready(function(){
-
-
-
-	  $(".state_select-box").change(function() {
-     var app_type_id = $(this).val();
-     var app_id =$(this).prev().val();
-     $.ajax({
-
-           type:'POST',
-
-           url:"{{ route('statusSubmit') }}",
-
-           data:{app_type_id:app_type_id, app_id:app_id},
-           
-           success:function(data){
-
-              window.alert(data);
-
-           }
-
-        });
-
-  
-
-    });
-
-
-
-
-
-  });
-
-
-</script>
 
 
   

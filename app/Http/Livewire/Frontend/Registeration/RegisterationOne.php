@@ -4,12 +4,12 @@ namespace App\Http\Livewire\Frontend\Registeration;
 
 use Livewire\Component;
 use App\Http\Livewire\Traits\AlertMessage;
-
+use App\Models\Payment;
 use App\Models\StudentRegisteration;
 use App\Models\Registeration;
 use function PHPUnit\Framework\isNull;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Str;
 class RegisterationOne extends Component
 
 { 
@@ -35,11 +35,72 @@ class RegisterationOne extends Component
         
         $this->registeration_student_info = $student_registeration;
         $this->studentinfo = $studentinfo;
+        
+//         if ($studentinfo) {
+//             $this->studentInfo = $studentinfo;
+//             $this->studentInfo_id = $studentinfo->id;
+//             $this->application_id = $studentinfo->Application_ID;
+//         }
+        
+//         $arr1 = [
+//             "first_name" => $studentinfo->S1_First_Name,
+//             "middle_name" =>  $studentinfo->S1_Middle_Name,
+//             "last_name" =>  $studentinfo->S1_Last_Name,
+//             "preffered_first_name" =>  $studentinfo->S1_Preferred_First_Name,
+//             "date_of_birth" =>  $studentinfo->S1_Birthdate,
+//             "gender" =>  $studentinfo->S1_Gender,
+//             "student_phone_number" => Str::substr($studentinfo->S1_Mobile_Phone, 0, 3),
+//             "racial" => 'test',
+//             "ethnicity" =>  $studentinfo->S1_Ethnicity,
+//             "current_cchool" =>  $studentinfo->S1_Current_School,
+          
+//         ];
+//         $studentArr[] = $studentinfo['S1_First_Name'] ? $arr1 : null;
+//         foreach ($studentArr as $key => $student) {
+//             if (!is_null($student)) {
+               
+//                 array_push($this->inputs, $student);
+//             }
+//         }
+//         $this->i = count($this->inputs);
+//         $this->isEdit = true;
+//         $getPayment = Payment::where('user_id', Auth::guard('customer')->user()->id)
+//         ->where('application_id', $studentInfo->Application_ID)->first();
+        
+//         if ($getPayment) {
+//             $this->is_payment_compleat = true;
+//         }
+//      else {
+        
+//         $arr = [
+//             "Photo" => '',
+//             'New_Photo' => '',
+//             "First_Name" => '',
+//             "Middle_Name" =>  '',
+//             "Last_Name" =>  '',
+//             "Suffix" =>  '',
+//             "Preferred_First_Name" =>  '',
+//             "Birthdate" =>  '',
+//             "Gender" =>  '',
+//             "Personal_Email" =>  '',
+//             //"Mobile_Phone" =>  '',
+//             "phone_number_one" => '',
+//             "phone_number_two" =>  '',
+//             "phone_number_three" =>  '',
+//             "Race" => '',
+//             "Ethnicity" =>  '',
+//             "Current_School" =>  '',
+//             "Current_School_Not_Listed" =>  '',
+//             "Other_High_School_1" =>  '',
+//             "Other_High_School_2" =>  '',
+//             "Other_High_School_3" =>  '',
+//             "Other_High_School_4" =>  ''
+//         ];
+//         array_push($this->inputs, $arr);
+//     }
     }
     
-    
-    
-    
+
     public function submit()    {
               
         $validatedData = $this->validate([

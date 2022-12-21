@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Registeration;
 use App\Models\StudentRegisteration;
+use App\Models\GlobalRegisterable;
 class HomeController extends Controller
 {
     public function home()
@@ -72,8 +73,8 @@ class HomeController extends Controller
               $notifications= Global_Notifiable::get('notifiable');
                
              $application_status=Application::Where('Application_ID',$profile_id)->get('candidate_status');
-           
-            return view('frontend.home', compact('application', 'getStudentCount','notifications','application_status'));
+             $registerable =GlobalRegisterable::select('registerable')->first();
+            return view('frontend.home', compact('application', 'getStudentCount','notifications','application_status','registerable'));
         } else {
             return redirect('/login');
         }
