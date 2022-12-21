@@ -10,7 +10,9 @@
                  $getProfile = App\Models\Profile::find($uid)->first();
                 
             @endphp  
-            @if($application_status[0]->candidate_status == App\Models\Application::CANDIDATE_ACCEPTED)
+            @if(!empty($application_status))
+@if($application_status->candidate_status == App\Models\Application::CANDIDATE_ACCEPTED)
+
             <li>
                         <a href="{{route('registeration-application')}}/one">
                             <em>
@@ -23,8 +25,10 @@
                         </a>
                     </li>
                     @endif
+ @endif
                   
-            @if($notifications[0]->notifiable == App\Models\Global_Notifiable::NOTIFICATION_ON)
+            @if($notifications  == App\Models\Global_Notifiable::NOTIFICATION_ON)
+
             <li>
                     <a target="_blank" href="{{url('/notification')}}">
 
