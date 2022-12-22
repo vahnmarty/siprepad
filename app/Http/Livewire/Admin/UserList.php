@@ -72,24 +72,11 @@ class UserList extends Component
 
     public function render()
     {
-        $userQuery = Profile::query();
-
-        if ($this->searchFirstName)
-            $userQuery->where('Pro_First_Name', 'like', '%' . trim($this->searchFirstName) . '%');
-
-        if ($this->searchLastName)
-            $userQuery->where('Pro_Last_Name', 'like', '%' . trim($this->searchLastName) . '%');
-
-        if ($this->searchEmail)
-            $userQuery->where('email', 'like', '%' . trim($this->searchEmail) . '%');
-
-        if ($this->searchPhone)
-            $userQuery->where('Pro_Mobile', 'like', '%' . trim($this->searchPhone) . '%');
-
+       
         return view('livewire.admin.user-list', [
-            'users' => $userQuery
-                ->orderBy($this->sortBy, $this->sortDirection)
-                ->paginate($this->perPage)
+            'users' => Profile:: paginate($this->perPage)
+               
+               
         ]);
     }
     public function deleteConfirm($id)
@@ -145,6 +132,40 @@ class UserList extends Component
         $items = $items instanceof Collection ? $items : Collection::make($items);
         return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
+    public function searchArray($array, $key, $value)
+    {
+        $results = array();
+        
+        if (is_array($array)) {
+            if (isset($array[$key])) {
+                if (strpos($array[$key], $value) !== false) {
+                    $results[] = $array;
+                }
+            }
+            
+            foreach ($array as $subarray) {
+                $results = array_merge($results, $this->searchArray($subarray, $key, $value));
+            }
+        }
+        
+        return $results;
+    }
+    
+    public function sortByName($data)
+    {
+        if ($data == "first_name") {
+            $this->first_name_sort_by = ($this->first_name_sort_by == 'asc') ? 'desc' : 'asc';
+            $this->last_name_sort = false;
+            $this->first_name_sort = true;
+        } else {
+            $this->last_name_sort_by = ($this->last_name_sort_by == 'asc') ? 'desc' : 'asc';
+            $this->first_name_sort = false;
+            $this->last_name_sort = true;
+        }
+    }
+    
+    
+    
     public function exportUsers()
     {
         return Excel::download(new UsersExport, 'users.xlsx');
