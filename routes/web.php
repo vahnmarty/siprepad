@@ -20,6 +20,7 @@ use App\Http\Controllers\Frontend\RegistrationController;
 
 
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -161,3 +162,5 @@ if (config('app.artisan') == 1) {
         Route::resource('registration', RegistrationController::class);
         
 }
+
+
