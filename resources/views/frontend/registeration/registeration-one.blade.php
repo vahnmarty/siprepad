@@ -20,9 +20,7 @@
 								<div class="form-group">
 									<label> Legal First Name </label> <input type="text"
 										class="form-control" name='first_name' value="{{$student->S1_First_Name}}" />
-									@error('first_name')
-									<p class="text-danger">{{$message}}</p>
-									@enderror
+								
 
 								</div>
 							</div>
@@ -180,10 +178,10 @@
 								</div>
 							</div>
 						</div>
-					<div class = student-3>
+					<div class = student-2>
 					<div class ="row">
 					<div class ="col-md-4">
-					<h4>Student 3</h4>
+					<h4>Student 2</h4>
 					</div>
 					</div>
 						<div class="row">
@@ -352,10 +350,10 @@
 							</div>
 						</div>
 					</div>
-							<div class = student-2>
+							<div class = student-3>
 					<div class ="row">
 					<div class ="col-md-4">
-					<h4>Student 2</h4>
+					<h4>Student 3</h4>
 					</div>
 					</div>
 						<div class="row">
