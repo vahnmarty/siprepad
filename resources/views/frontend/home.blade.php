@@ -14,7 +14,7 @@
 @if($application_status->candidate_status == App\Models\Application::CANDIDATE_ACCEPTED)
 
             <li>
-                        <a href="{{route('registeration-application')}}/one">
+                        <a href="{{route('registration.create')}}">
                             <em>
                                 <img src="{{ asset('frontend_assets/images/j2.svg') }}" alt="" />
                             </em>
@@ -24,6 +24,7 @@
                             </span>
                         </a>
                     </li>
+                    
                     @endif
  @endif
                   

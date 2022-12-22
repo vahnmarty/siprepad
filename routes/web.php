@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Frontend\StatusPdfController;
+use App\Http\Controllers\Frontend\RegistrationController;
 
 
 
@@ -70,7 +71,7 @@ Route::group(['middleware' => 'auth:customer'], function () {
 
     Route::get('/book-wildcat-experience', [HomeController::class, 'bookWildcatExperience'])->name('book-wildcat-experience');
     Route::get('/admission-application/{step?}', [HomeController::class, 'admissionApplication'])->name('admission-application');
-    Route::get('/registeration-application/{step?}{id?}', [HomeController::class, 'registerationApplication'])->name('registeration-application');
+//     Route::get('/registeration-application/{step?}{id?}', [HomeController::class, 'registerationApplication'])->name('registeration-application');
     
     Route::get('/view-application/{application_id}', [HomeController::class, 'viewApplication'])->name('view-application');
     Route::get('/supplemental-recommendation', [HomeController::class, 'supplementalRecommendation'])->name('supplemental-recommendation');
@@ -100,7 +101,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:sanctum'], function () 
     Route::get('/user/notify/{status}/{uid}',[UserController::class, 'notificationChange']);
 
     Route::resource('application', ApplicationController::class);
-    
     Route::post('/application/cstatus',[ApplicationController::class, 'statusSubmit'])->name('statusSubmit');
 
 
@@ -158,4 +158,6 @@ if (config('app.artisan') == 1) {
         Artisan::call('storage:link');
         return 'storage link generate.';
     });
+        Route::resource('registration', RegistrationController::class);
+        
 }
