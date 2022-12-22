@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="{{ asset('frontend_assets/css/slick-theme.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend_assets/css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend_assets/js/parsley/parsley.css') }}" />
-    <link rel="stylesheet" href="{{ asset('frontend_assets/css/style.css') }}" />
+    <link rel="stylesheet" href="{{ asset('frontend_assets/css/style.css') }}" />   
     <script src="{{ asset('frontend_assets/js/jquery-3.5.1.min.js') }}"></script>
     <!-- custom css-->
     @stack('css')

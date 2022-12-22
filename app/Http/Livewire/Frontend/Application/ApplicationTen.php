@@ -415,7 +415,7 @@ class ApplicationTen extends Component
         $this->releaseAuthorization = [
             'EntranceExamInfo' => $entranceExamInfo,
             'Extrance_Exam_Date' => $getReleaseAuthorization->Extrance_Exam_Date,
-            'Agree_to_release_record' => $getReleaseAuthorization->Agree_to_release_record,
+            'Agree_to_release_record' => $getReleaseAuthorization+->Agree_to_release_record,
             'Agree_to_record_is_true' => $getReleaseAuthorization->Agree_to_record_is_true,
             'Release_Date' => $getReleaseAuthorization->Release_Date,
         ];

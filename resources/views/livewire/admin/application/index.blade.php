@@ -1,14 +1,15 @@
-<div>
+
 <div class="notification_action"> 
  @if($notification == '1') 
   <a href="{{ url('/admin/user/notify/')}}/{{App\Models\Profile::NOTIFICATION_ON}}/{{$notification}}"style="color: white; background: linear-gradient(180deg, #19a74d 0%, #002664 100%) !important;"class="btn btn-on mb-3">Notification On</a> 
  @else 
  <a href="{{ url('/admin/user/notify/')}}/{{App\Models\Profile::NOTIFICATION_OFF}}/{{$notification}}" style="color:white" class="btn btn-off mb-3">Notification Off</a> 
  @endif 
-  </div>
+  
 <x-admin.table>
     <x-slot name="search">
     </x-slot>
+    
     <x-slot name="perPage">
         <label>Show
             <x-admin.dropdown wire:model="perPage" class="custom-select custom-select-sm form-control form-control-sm">
@@ -208,4 +209,3 @@
     </x-slot>
 
 </x-admin.table>
-</div>
