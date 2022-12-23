@@ -18,7 +18,7 @@ class CreateGlobalNotifiablesTable extends Migration
             $table->boolean('notifiable')->default(0);
             $table->timestamps();
         });
-    }
+     }
 
     /**
      * Reverse the migrations.

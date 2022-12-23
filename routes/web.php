@@ -20,6 +20,7 @@ use App\Http\Controllers\Frontend\RegistrationController;
 
 
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
