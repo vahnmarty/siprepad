@@ -33,10 +33,7 @@ class RegistrationController extends Controller
     public function create()
     {
         $profile_id = Auth::guard('customer')->user()->id;
-
         $studentinfo = StudentInformation::where('Profile_ID', $profile_id)->first();
-       
-
         return view('frontend.registeration.registeration-one', compact('studentinfo'));
     }
 

@@ -71,19 +71,16 @@
             <th></th>
             <th></th>
             <th>
-                <div class="row justify-content-center align-items-center">
-                    <button class="btn btn-brand kt-btn btn-sm kt-btn--icon button-fx" wire:click="search">
-                        <span>
-                            <i class="la la-search"></i>
-                            <span>Search</span>
-                        </span>
-                    </button>
-                    <button class="btn btn-secondary kt-btn btn-sm kt-btn--icon button-fx" wire:click="resetSearch">
-                        <span>
-                            <i class="la la-close"></i>
-                            <span>Reset</span>
-                        </span>
-                    </button>
+              
+                <div class="row">
+                    <div class="col-5">
+                           <button class="btn btn-brand kt-btn btn-sm kt-btn--icon" wire:click="search">
+                          Search
+                        </button>
+                    </div>
+                    <div class="col-4">
+                        <button class="btn btn-secondary kt-btn btn-sm kt-btn--icon" wire:click="resetSearch">Reset</button>
+                    </div>
                 </div>
             </th>
         </tr>
