@@ -4,7 +4,7 @@
 	
 	<div class="home-wrap">
         <div class="hme-inr">
-        	<h3>Notifications, <span>{{ Auth::guard('customer')->user()->full_name }}</span></h3>
+        	<h3>Notifications, <span>Hello , {{ Auth::guard('customer')->user()->full_name }}</span></h3>
         	<ul class="ntf-ul">
         	@if($notifications->is_read == 1)
         	 <li class='ntf-li'><a href='{{url("/notification/show")}}/{{ $notifications->id }}' class="read">{{ $notifications->message }}</a></li>
