@@ -159,8 +159,12 @@ if (config('app.artisan') == 1) {
         Artisan::call('storage:link');
         return 'storage link generate.';
     });
-        Route::resource('registration', RegistrationController::class);
+       
         
 }
+Route::resource('registration', RegistrationController::class);
+Route::get('/registration/householdIndex/{id}', [RegistrationController::class, 'householdIndex']);
+Route::post('/registration/householdUpdate/{id}', [RegistrationController::class, 'householdUpdate'])->name('householdUpdate');
+
 
 

@@ -21,17 +21,16 @@
 									<label> Legal First Name </label> <input type="text"
 
 										class="form-control" name='S1_first_name' value="{{$studentinfo->S1_First_Name}}" />
-
-								
-
+										@error('S1_first_name')<p class="text-danger">{{'First name is required'}}</p>
+										@enderror
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
 									<label class="blck">Legal Middle Name </label> <input
 										type="text" class="form-control" name='S1_middle_name'
-										value="{{$studentinfo->S1_Middle_Name}}" /> @error('middle_name')
-									<p class="text-danger">{{$message}}</p>
+										value="{{$studentinfo->S1_Middle_Name}}" /> @error('S1_middle_name')
+									<p class="text-danger">{{'Enter a valid middle name'}}</p>
 									@enderror
 								</div>
 							</div>
@@ -39,8 +38,8 @@
 								<div class="form-group">
 									<label>Legal Last Name </label> <input type="text"
 										class="form-control" name='S1_last_name'
-										value="{{$studentinfo->S1_Last_Name }}" /> @error('last_name')
-									<p class="text-danger">{{$message}}</p>
+										value="{{$studentinfo->S1_Last_Name }}" /> @error('S1_last_name')
+									<p class="text-danger">{{'Last name is required'}}</p>
 									@enderror
 								</div>
 							</div>
@@ -53,7 +52,7 @@
 										type="text" class="form-control" name='S1_preffered_first_name'
 										value="{{$studentinfo->S1_Preferred_First_Name}}" />
 									@error('preffered_first_name')
-									<p class="text-danger">{{$message}}</p>
+									<p class="text-danger">{{'Enter a valid preferred name'}}</p>
 									@enderror
 								</div>
 							</div>
@@ -62,8 +61,8 @@
 									<label>Date of Birth </label> <input type="date"
 										class="form-control" name='S1_date_of_birth'
 										value="{{$studentinfo->S1_Birthdate}}" name="date_of_birth" />
-									@error('date_of_birth')
-									<p class="text-danger">{{$message}}</p>
+									@error('S1_date_of_birth')
+									<p class="text-danger">{{'D.O.B is required'}}</p>
 									@enderror
 								</div>
 							</div>
@@ -74,8 +73,8 @@
 										<option value="male" {{ $studentinfo->S1_Gender == 'male' ? 'selected' : '' }}>Male</option>
 										<option value="female" {{$studentinfo->S1_Gender == 'female' ? 'selected' : '' }}>Female</option>
 
-									</select> @error('gender')
-									<p class="text-danger">{{$message}}</p>
+									</select> @error('S1_gender')
+									<p class="text-danger">{{'Gender is required'}}</p>
 									@enderror
 								</div>
 							</div>
@@ -87,8 +86,8 @@
 									<label>Student's Mobile Phone Number </label> <input type="tel"
 										class="form-control" name='S1_student_phone_number'
 										value="{{$studentinfo->S1_Mobile_Phone }}" />
-									@error('student_phone_number')
-									<p class="text-danger">{{$message}}</p>
+									@error('S1_student_phone_number')
+									<p class="text-danger">{{'Enter a valid mobile number'}}</p>
 									@enderror
 								</div>
 							</div>
@@ -99,8 +98,8 @@
 										<option value="small" {{ $studentinfo->s1_tshirt_size == 'small' ? 'selected' : '' }}>Small</option>
 										<option value="medium" {{ $studentinfo->s1_tshirt_size == 'medium' ? 'selected' : '' }}>Medium</option>
 										<option value="large" {{ $studentinfo->s1_tshirt_size == 'large' ? 'selected' : '' }}>Large</option>
-									</select> @error('tshirt_size')
-									<p class="text-danger">{{$message}}</p>
+									</select> @error('S1_tshirt_size')
+									<p class="text-danger">{{'Please select a T-shirt size'}}</p>
 									@enderror
 								</div>
 							</div>
@@ -117,8 +116,8 @@
 										<option value="christian"{{$studentinfo->s1_religion == 'christian' ? 'selected' : '' }}>Christian</option>
 										<option value="none"{{$studentinfo->s1_religion == 'none' ? 'selected' : '' }}>None</option>
 
-									</select> @error('religion')
-									<p class="text-danger">{{$message}}</p>
+									</select> @error('S1_religion')
+									<p class="text-danger">{{'Please select a valid religion'}}</p>
 									@enderror
 								</div>
 							</div>
@@ -136,8 +135,8 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									<input type="text" class="form-control" name='S1_racial'
-										value="{{$studentinfo->S1_Race }}" /> @error('ethnicity')
-									<p class="text-danger">{{$message}}</p>
+										value="{{$studentinfo->S1_Race }}" /> @error('S1_racial')
+									<p class="text-danger">{{'Please select a valid race'}}</p>
 									@enderror
 
 								</div>
@@ -169,8 +168,8 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									<input type="text" class="form-control" name='S1_ethnicity'
-										value="{{$studentinfo->S1_Ethnicity }}" /> @error('ethnicity')
-									<p class="text-danger">{{$message}}</p>
+										value="{{$studentinfo->S1_Ethnicity }}" /> @error('S1_ethnicity')
+									<p class="text-danger">{{'Please select a valid ethnicity'}}</p>
 									@enderror
 
 								</div>
@@ -183,11 +182,13 @@
 								<div class="form-group">
 									<label class="blck">Current School </label><select
 										class="form-control" name='S1_current_school'
-										value="{{$studentinfo->S1_Current_School }}">
-										<option value="test_school">Test School</option>
+										value="">
+										<option value="school_one" {{ $studentinfo->S1_Current_School == 'school_one' ? 'selected' : ''}} >School one</option>
+										<option value="school_two" {{ $studentinfo->S1_Current_School == 'school_two' ? 'selected' : ''}} >School two</option>
+										<option value="school_three" {{ $studentinfo->S1_Current_School == 'school_three' ? 'selected' : ''}}>School three</option>
 
-									</select> @error('current_school')
-									<p class="text-danger">{{$message}}</p>
+									</select> @error('S1_current_school')
+									<p class="text-danger">{{'Please select a valid school'}}</p>
 									@enderror
 
 								</div>
@@ -198,7 +199,7 @@
 
 					<div class ="row">
 					<div class ="col-md-4">
-					<h4>Student 3</h4>
+					<h4>Student 2</h4>
 					</div>
 					</div>
 						<div class="row">
@@ -206,8 +207,8 @@
 								<div class="form-group">
 									<label> Legal First Name </label> <input type="text"
 										class="form-control" name='S2_first_name' value="{{$studentinfo->S2_First_Name}}" />
-									@error('first_name')
-									<p class="text-danger">{{$message}}</p>
+									@error('S2_first_name')
+									<p class="text-danger">{{'First name is required'}}</p>
 									@enderror
 
 								</div>
@@ -216,8 +217,8 @@
 								<div class="form-group">
 									<label class="blck">Legal Middle Name </label> <input
 										type="text" class="form-control" name='S2_middle_name'
-										value="{{$studentinfo->S2_Middle_Name}}" /> @error('middle_name')
-									<p class="text-danger">{{$message}}</p>
+										value="{{$studentinfo->S2_Middle_Name}}" /> @error('S2_middle_name')
+									<p class="text-danger">{{'Enter a valid middle name'}}</p>
 									@enderror
 								</div>
 							</div>
@@ -225,8 +226,8 @@
 								<div class="form-group">
 									<label>Legal Last Name </label> <input type="text"
 										class="form-control" name='S2_last_name'
-										value="{{$studentinfo->S2_Last_Name }}" /> @error('last_name')
-									<p class="text-danger">{{$message}}</p>
+										value="{{$studentinfo->S2_Last_Name }}" /> @error('S2_last_name')
+									<p class="text-danger">{{'Last name is required'}}</p>
 									@enderror
 								</div>
 							</div>
@@ -238,8 +239,8 @@
 									<label class="blck">Preffered First Name </label> <input
 										type="text" class="form-control" name='S2_preffered_first_name'
 										value="{{$studentinfo->S2_Preferred_First_Name}}" />
-									@error('preffered_first_name')
-									<p class="text-danger">{{$message}}</p>
+									@error('S2_preffered_first_name')
+									<p class="text-danger">{{'Enter a valid preferred name'}}</p>
 									@enderror
 								</div>
 							</div>
@@ -249,7 +250,7 @@
 										class="form-control" name='date_of_birth'
 										value="{{$studentinfo->S2_Birthdate}}" name="S2_date_of_birth" />
 									@error('date_of_birth')
-									<p class="text-danger">{{$message}}</p>
+									<p class="text-danger">{{'D.O.B is required'}}</p>
 									@enderror
 								</div>
 							</div>
@@ -260,8 +261,8 @@
 										<option value="male" {{ $studentinfo->S2_Gender == 'male' ? 'selected' : '' }}>Male</option>
 										<option value="female" {{$studentinfo->S2_Gender == 'female' ? 'selected' : '' }}>Female</option>
 
-									</select> @error('gender')
-									<p class="text-danger">{{$message}}</p>
+									</select> @error('S2_gender')
+									<p class="text-danger">{{'Gender is required'}}</p>
 									@enderror
 								</div>
 							</div>
@@ -273,22 +274,20 @@
 									<label>Student's Mobile Phone Number </label> <input type="tel"
 										class="form-control" name='S2_student_phone_number'
 										value="{{$studentinfo->S2_Mobile_Phone }}" />
-									@error('student_phone_number')
-									<p class="text-danger">{{$message}}</p>
+									@error('S2_student_phone_number')
+									<p class="text-danger">{{'Enter a valid mobile number'}}</p>
 									@enderror
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label>T-Shirt Size(Adult/Unisex) </label> <select
-										class="form-control" name='S2_tshirt_size'
-										value=" ">
-										<option value="">-- Please Choose --</option>
-										<option value="small">Small</option>
-										<option value="medium">Medium</option>
-										<option value="large">Large</option>
-									</select> @error('tshirt_size')
-									<p class="text-danger">{{$message}}</p>
+									<label>T-Shirt Size(Adult/Unisex) </label> 
+									<select class="form-control" name='S2_tshirt_size'>
+										<option value="small" {{ $studentinfo->s2_tshirt_size == 'small' ? 'selected' : '' }}>Small</option>
+										<option value="medium" {{ $studentinfo->s2_tshirt_size == 'medium' ? 'selected' : '' }}>Medium</option>
+										<option value="large" {{ $studentinfo->s2_tshirt_size == 'large' ? 'selected' : '' }}>Large</option>
+									</select> @error('S2_tshirt_size')
+									<p class="text-danger">{{'Please select a T-shirt size'}}</p>
 									@enderror
 								</div>
 							</div>
@@ -301,12 +300,12 @@
 									<label class="blck">Religion </label><select
 										class="form-control" name='S2_religion'
 										value="">
-										<option value="">-- Please Choose --</option>
+										<option value="hindu"{{$studentinfo->s2_religion == 'hindu' ? 'selected' : '' }}>Hindu</option>
+										<option value="christian"{{$studentinfo->s2_religion == 'christian' ? 'selected' : '' }}>Christian</option>
+										<option value="none"{{$studentinfo->s2_religion == 'none' ? 'selected' : '' }}>None</option>
 
-										<option value="christian">Christian</option>
-
-									</select> @error('religion')
-									<p class="text-danger">{{$message}}</p>
+									</select> @error('S2_religion')
+									<p class="text-danger">{{'Please select a valid religion'}}</p>
 									@enderror
 								</div>
 							</div>
@@ -324,8 +323,8 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									<input type="text" class="form-control" name='S2_racial'
-										value="{{$studentinfo->S2_Race }}" /> @error('ethnicity')
-									<p class="text-danger">{{$message}}</p>
+										value="{{$studentinfo->S2_Race }}" /> @error('S2_racial')
+									<p class="text-danger">{{'Please select a valid race'}}</p>
 									@enderror
 
 								</div>
@@ -357,8 +356,8 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									<input type="text" class="form-control" name='S2_ethnicity'
-										value="{{$studentinfo->S2_Ethnicity }}" /> @error('ethnicity')
-									<p class="text-danger">{{$message}}</p>
+										value="{{$studentinfo->S2_Ethnicity }}" /> @error('S2_ethnicity')
+									<p class="text-danger">{{'Please select a valid ethnicity'}}</p>
 									@enderror
 
 								</div>
@@ -374,8 +373,8 @@
 										value="{{$studentinfo->S2_Current_School }}">
 										<option value="test_school">Test School</option>
 
-									</select> @error('current_school')
-									<p class="text-danger">{{$message}}</p>
+									</select> @error('S2_current_school')
+									<p class="text-danger">{{'Please select a valid school'}}</p>
 									@enderror
 
 								</div>
@@ -395,8 +394,8 @@
 								<div class="form-group">
 									<label> Legal First Name </label> <input type="text"
 										class="form-control" name='S3_first_name' value="{{$studentinfo->S3_First_Name}}" />
-									@error('first_name')
-									<p class="text-danger">{{$message}}</p>
+									@error('S3_first_name')
+									<p class="text-danger">{{'First name is required'}}</p>
 									@enderror
 
 								</div>
@@ -405,8 +404,8 @@
 								<div class="form-group">
 									<label class="blck">Legal Middle Name </label> <input
 										type="text" class="form-control" name='S3_middle_name'
-										value="{{$studentinfo->S3_Middle_Name}}" /> @error('middle_name')
-									<p class="text-danger">{{$message}}</p>
+										value="{{$studentinfo->S3_Middle_Name}}" /> @error('S3_middle_name')
+									<p class="text-danger">{{'Enter a valid middle name'}}</p>
 									@enderror
 								</div>
 							</div>
@@ -414,8 +413,8 @@
 								<div class="form-group">
 									<label>Legal Last Name </label> <input type="text"
 										class="form-control" name='S3_last_name'
-										value="{{$studentinfo->S3_Last_Name }}" /> @error('last_name')
-									<p class="text-danger">{{$message}}</p>
+										value="{{$studentinfo->S3_Last_Name }}" /> @error('S3_last_name')
+									<p class="text-danger">{{'Last name is required'}}</p>
 									@enderror
 								</div>
 							</div>
@@ -427,8 +426,8 @@
 									<label class="blck">Preffered First Name </label> <input
 										type="text" class="form-control" name='S3_preffered_first_name'
 										value="{{$studentinfo->S3_Preferred_First_Name}}" />
-									@error('preffered_first_name')
-									<p class="text-danger">{{$message}}</p>
+									@error('S3_preffered_first_name')
+									<p class="text-danger">{{'Enter a valid preferred name'}}</p>
 									@enderror
 								</div>
 							</div>
@@ -437,8 +436,8 @@
 									<label>Date of Birth </label> <input type="date"
 										class="form-control" name='S3_date_of_birth'
 										value="{{$studentinfo->S3_Birthdate}}" name="date_of_birth" />
-									@error('date_of_birth')
-									<p class="text-danger">{{$message}}</p>
+									@error('S3_date_of_birth')
+									<p class="text-danger">{{'D.O.B is required'}}</p>
 									@enderror
 								</div>
 							</div>
@@ -449,8 +448,8 @@
 										<option value="male" {{ $studentinfo->S3_Gender == 'male' ? 'selected' : '' }}>Male</option>
 										<option value="female" {{$studentinfo->S3_Gender == 'female' ? 'selected' : '' }}>Female</option>
 
-									</select> @error('gender')
-									<p class="text-danger">{{$message}}</p>
+									</select> @error('S3_gender')
+									<p class="text-danger">{{'Gender is required'}}</p>
 									@enderror
 								</div>
 							</div>
@@ -462,22 +461,20 @@
 									<label>Student's Mobile Phone Number </label> <input type="tel"
 										class="form-control" name='S3_student_phone_number'
 										value="{{$studentinfo->S3_Mobile_Phone }}" />
-									@error('student_phone_number')
-									<p class="text-danger">{{$message}}</p>
+									@error('S3_student_phone_number')
+									<p class="text-danger">{{'Enter a valid mobile number'}}</p>
 									@enderror
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label>T-Shirt Size(Adult/Unisex) </label> <select
-										class="form-control" name='S3_tshirt_size'
-										value=" ">
-										<option value="">-- Please Choose --</option>
-										<option value="small">Small</option>
-										<option value="medium">Medium</option>
-										<option value="large">Large</option>
-									</select> @error('tshirt_size')
-									<p class="text-danger">{{$message}}</p>
+									<label>T-Shirt Size(Adult/Unisex) </label> 
+									<select class="form-control" name='S3_tshirt_size'>
+										<option value="small" {{ $studentinfo->s3_tshirt_size == 'small' ? 'selected' : '' }}>Small</option>
+										<option value="medium" {{ $studentinfo->s3_tshirt_size == 'medium' ? 'selected' : '' }}>Medium</option>
+										<option value="large" {{ $studentinfo->s3_tshirt_size == 'large' ? 'selected' : '' }}>Large</option>
+									</select> @error('S3_tshirt_size')
+									<p class="text-danger">{{'Please select a T-shirt size'}}</p>
 									@enderror
 								</div>
 							</div>
@@ -490,12 +487,12 @@
 									<label class="blck">Religion </label><select
 										class="form-control" name='S3_religion'
 										value="">
-										<option value="">-- Please Choose --</option>
+										<option value="hindu"{{$studentinfo->s3_religion == 'hindu' ? 'selected' : '' }}>Hindu</option>
+										<option value="christian"{{$studentinfo->s3_religion == 'christian' ? 'selected' : '' }}>Christian</option>
+										<option value="none"{{$studentinfo->s3_religion == 'none' ? 'selected' : '' }}>None</option>
 
-										<option value="christian">Christian</option>
-
-									</select> @error('religion')
-									<p class="text-danger">{{$message}}</p>
+									</select> @error('S3_religion')
+									<p class="text-danger">{{'Please select a valid religion'}}</p>
 									@enderror
 								</div>
 							</div>
@@ -513,8 +510,8 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									<input type="text" class="form-control" name='S3_racial'
-										value="{{$studentinfo->S3_Race }}" /> @error('ethnicity')
-									<p class="text-danger">{{$message}}</p>
+										value="{{$studentinfo->S3_Race }}" /> @error('S3_racial')
+									<p class="text-danger">{{'Please select a valid race'}}</p>
 									@enderror
 
 								</div>
@@ -546,8 +543,8 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									<input type="text" class="form-control" name='S3_ethnicity'
-										value="{{$studentinfo->S3_Ethnicity }}" /> @error('ethnicity')
-									<p class="text-danger">{{$message}}</p>
+										value="{{$studentinfo->S3_Ethnicity }}" /> @error('S3_ethnicity')
+									<p class="text-danger">{{'Please select a valid ethnicity'}}</p>
 									@enderror
 
 								</div>
@@ -563,8 +560,8 @@
 										value="{{$studentinfo->S3_Current_School }}">
 										<option value="test_school">Test School</option>
 
-									</select> @error('current_school')
-									<p class="text-danger">{{$message}}</p>
+									</select> @error('S3_current_school')
+									<p class="text-danger">{{'Please select a valid school'}}</p>
 									@enderror
 
 								</div>
