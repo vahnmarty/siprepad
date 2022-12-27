@@ -107,6 +107,10 @@
    @php
                     $getApplication = App\Models\Application::where('Application_ID', $student['Application_ID'])
                     ->get()->first();
+                    
+                    
+                    $getstudent = App\Models\StudentInformation::where('Application_ID', $getApplication->Application_ID)->first();
+
                       
                 @endphp
             <tr role="row" class="odd {{ $rowClass }}">
@@ -116,7 +120,12 @@
                 <td>{{ $student['Mobile_Phone'] ?? '---' }}</td>
                 <td>
                 @if($getApplication)
-                    <input type='hidden' name='app_id' value='{{ $getApplication->Application_ID }}'>
+                    <input type='hidden' class='app_id'  name='app_id' value='{{ $getApplication->Application_ID }}'>
+					<input type='hidden' class='first_name'  name='first_name' value="{{ $student['First_Name'] }}">
+					<input type='hidden' class='last_name' name='first_name' value="{{ $student['Last_Name'] }}">
+					<input type='hidden' class='dob' name='dob' value="{{ $student['Birthday'] }}">
+					<input type='hidden' class='email' name='email' value="{{ $student['Personal_Email'] }}">
+                    
                     @switch($getApplication->application_type_id)
                         @case(1)
                         <select name='candidate-status' required class='state_select-box'>
@@ -124,7 +133,6 @@
                             <option value='{{App\Models\Application::TYPE_ACCEPTED}}' selected>Accepted</option>
                             <option value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
                             <option value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
-
                         </select>
                         @break
                         @case(2)
@@ -133,7 +141,6 @@
                             <option value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
                             <option value='{{App\Models\Application::TYPE_WAIT_LISTED}}' selected>Wait Listed</option>
                             <option value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
-
                         </select>
                         @break
                         @case(3)

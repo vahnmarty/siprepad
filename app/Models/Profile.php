@@ -27,6 +27,7 @@ class Profile extends Authenticatable
     protected $appends = [
         'full_name'
     ];
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -60,10 +61,14 @@ class Profile extends Authenticatable
     {
         return $this->hasOne(Application::class);
     }
+    
     public function registeration()
     {
         return $this->hasOne(StudentRegisteration::class);
     }
     
-    
+    public function ApplicationStatus()
+    {
+        return $this->hasOne(StudentApplicationStatus::class);
+    }
 }

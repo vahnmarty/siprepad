@@ -91,6 +91,7 @@ class User extends Authenticatable implements HasMedia
         else
             return 0;
     }
+    
     public function getFullNameAttribute()
     {
         return "{$this->first_name} {$this->last_name}";

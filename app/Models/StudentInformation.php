@@ -9,6 +9,8 @@ class StudentInformation extends Model
 {
     use HasFactory;
 
+    
+    
     // protected $casts = [
     //     'S1_Race' => 'array',
     //     'S2_Race' => 'array',
