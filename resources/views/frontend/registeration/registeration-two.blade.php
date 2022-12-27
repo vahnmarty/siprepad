@@ -47,7 +47,7 @@
 									<div class="form-group">
 										<label>Street</label> <input type="text" value="{{$addressinfo->Address_1}}" class="form-control"
 											name='A1_street' /> @error('A1_street')
-										<p class="text-danger">{{$message}}</p>
+										<p class="text-danger">{{'The street field is required.'}}</p>
 										@enderror
 									</div>
 								</div>
@@ -59,7 +59,7 @@
 									<div class="form-group">
 										<label>City</label> <input type="text" value="{{$addressinfo->City_1}}" class="form-control"
 											name='A1_city' /> @error('A1_city')
-										<p class="text-danger">{{$message}}</p>
+										<p class="text-danger">{{'The city field is required.'}}</p>
 										@enderror
 									</div>
 								</div>
@@ -70,7 +70,7 @@
 									<div class="form-group">
 										<label>State</label> <input type="text" value="{{$addressinfo->State_1}}" class="form-control"
 											name='A1_state' /> @error('A1_state')
-										<p class="text-danger">{{$message}}</p>
+										<p class="text-danger">{{'The state field is required.'}}</p>
 										@enderror
 									</div>
 								</div>
@@ -82,7 +82,7 @@
 										<label>Zip Code</label> <input type="number"  value="{{$addressinfo->Zipcode_1}}"
 											class="form-control" name='A1_zip_code' />
 										@error('A1_zip_code')
-										<p class="text-danger">{{$message}}</p>
+										<p class="text-danger">{{'The zip code field is required.'}}</p>
 										@enderror
 									</div>
 								</div>
@@ -94,7 +94,7 @@
 										<label>Home Phone</label> <input type="tel"
 											class="form-control" name='A1_home_phone'  value="{{$addressinfo->Address_Phone_1}}" />
 										@error('A1_home_phone')
-										<p class="text-danger">{{$message}}</p>
+										<p class="text-danger">{{'The home phone should not be greater than 10 digits'}}</p>
 										@enderror
 									</div>
 								</div>
@@ -137,7 +137,7 @@
 												<option value="Father" {{$parentinfo->P1_Relationship == 'Father' ? 'selected' : '' }}>Father</option>
 												<option value="Mother" {{$parentinfo->P1_Relationship == 'Mother' ? 'selected' : '' }}>Mother</option>
 												<option value="Stepmother" {{$parentinfo->P1_Relationship == 'Stepmother' ? 'selected' : '' }}>Stepmother</option>
-												<option value=Stepfather" {{$parentinfo->P1_Relationship == 'Stepfather' ? 'selected' : '' }}>Stepfather</option>
+												<option value="Stepfather" {{$parentinfo->P1_Relationship == 'Stepfather' ? 'selected' : '' }}>Stepfather</option>
 												<option value="Guardians" {{$parentinfo->P1_Relationship == 'Guardians' ? 'selected' : '' }}>Guardians</option>
 											</select> @error('P1_relation_to_applicant')
 											<p class="text-danger">{{$message}}</p>
@@ -171,7 +171,7 @@
 											<label class="blck">First Name</label> <input type="text"
 												class="form-control" name='P1_parent_first_name' value="{{$parentinfo->P1_First_Name}}"/>
 											@error('P1_parent_first_name')
-											<p class="text-danger">{{$message}}</p>
+											<p class="text-danger">{{'The first name field is required.'}}</p>
 											@enderror
 										</div>
 									</div>
@@ -207,7 +207,7 @@
 											<label class="blck">Cell Phone</label> <input type="tel"
 												class="form-control" name='P1_parent_cell_phone' value="{{$parentinfo->P1_Mobile_Phone}}" />
 											@error('P1_parent_cell_phone')
-											<p class="text-danger">{{$message}}</p>
+											<p class="text-danger">{{'A valid cell phone number of 10 digits is required.'}}</p>
 											@enderror
 										</div>
 									</div>
@@ -219,7 +219,7 @@
 											<label class="blck">Email Address</label> <input type="email"
 												class="form-control" name='P1_parent_email' value="{{$parentinfo->P1_Personal_Email}}" />
 											@error('P1_parent_email')
-											<p class="text-danger">{{$message}}</p>
+											<p class="text-danger">{{'A valid email is required.'}}</p>
 											@enderror
 										</div>
 									</div>
@@ -596,7 +596,7 @@
 				</div>
 				  <div class="flx">
 				<div class="form-btn text-end mt">
-                <a href="" class="sub-btn">Previous</a>
+                <a href="{{route('registration.create')}}" class="sub-btn">Previous</a>
             </div>
 				<div class="form-btn text-end mt">
 					<button type="submit" value="Next" class="sub-btn">Next/Save</button>

@@ -2,9 +2,9 @@
 @push('css')
 @endpush
 @section('content')
-<form action="#" method="POST">
+<form action="{{route('healthInfoUpdate',['id' => $healthinfo->profile_id])}}" method="POST">
 @csrf
-@method('PUT')
+@method('POST')
 	<div class="home-wrap hme-wrp2">
 		<div class="progress-outr"></div>
 		<div class="form-outr">
@@ -24,7 +24,7 @@
 							<div class="col-lg-6">
 								<div class="form-group">
 									<input type="text" class="form-control"
-										name='medical_insurance_company' />
+										name='medical_insurance_company'   value="{{$healthinfo->medical_insurance_company}}" />
 									@error('medical_insurance_company')
 									<p class="text-danger">{{$message}}</p>
 									@enderror @error('live_with')
@@ -40,8 +40,8 @@
 							</div>
 							<div class="col-lg-6">
 								<div class="form-group">
-									<input type="number" class="form-control"
-										name='medical_policy_number' />
+								<input type="text" class="form-control"
+										name='medical_policy_number'   value="{{$healthinfo->medical_policy_number}}" />
 									@error('medical_policy_number')
 									<p class="text-danger">{{$message}}</p>
 									@enderror @error('live_with')
@@ -59,7 +59,7 @@
 							<div class="col-lg-6">
 								<div class="form-group">
 									<input type="text" class="form-control"
-										name='physician_name' /> @error('physician_name')
+										name='physician_name'  value="{{$healthinfo->physician_name}}" /> @error('physician_name')
 									<p class="text-danger">{{$message}}</p>
 									@enderror @error('live_with')
 									<p class="text-danger">{{$message}}</p>
@@ -75,14 +75,25 @@
 							<div class="col-lg-6">
 								<div class="form-group">
 									<input type="text" class="form-control"
-										name='physician_phone' /> @error('physician_phone')
+										name='physician_phone1'   value="{{$mobilearray[0]}}"/> @error('physician_phone1')
 									<p class="text-danger">{{$message}}</p>
-									@enderror @error('live_with')
+									@enderror 
+									
+									<input type="text" class="form-control"
+										name='physician_phone2'   value="{{$mobilearray[1]}}" /> @error('physician_phone2')
 									<p class="text-danger">{{$message}}</p>
-									@enderror
-								</div>
+									@enderror 
+									
+									<input type="text" class="form-control"
+										name='physician_phone3'   value="{{$mobilearray[2].$mobilearray[3]}}" /> @error('physician_phone3')
+									<p class="text-danger">{{$message}}</p>
+									@enderror 
+									
+								</div>						
+								
 							</div>
 							
+
 
 						</div>
 						<div class="row">
@@ -92,7 +103,7 @@
 									applicable , type "none"):</label>
 								<div class="form-group">
 									<textarea rows="8" cols="10" maxlength="1000"
-										name='prescribed_medication'>
+										name='prescribed_medication' >{{$healthinfo->prescribed_medication}}
                                       </textarea>
 									@error('prescribed_medication')
 									<p class="text-danger">{{$message}}</p>
@@ -110,7 +121,7 @@
 									Restrictions (If not applicable , type "none"): </label>
 								<div class="form-group">
 									<textarea rows="8" cols="10" maxlength="1000"
-										name='allergies'>
+										name='allergies'> {{$healthinfo->allergies}}
                                       </textarea>
 									@error('allergies')
 									<p class="text-danger">{{$message}}</p>
@@ -130,7 +141,7 @@
 									applicable, type "none"):</label>
 								<div class="form-group">
 									<textarea rows="8" cols="10" maxlength="1000"
-										name='child_condition'>
+										name='child_condition'> {{$healthinfo->child_condition}}
                                       </textarea>
 									@error('child_condition')
 									<p class="text-danger">{{$message}}</p>
@@ -146,9 +157,17 @@
 			</div>
 
 		</div>
-		<div class="form-btn text-end mt">
-			<button type="submit" value="Next" class="sub-btn">Next/Save</button>
+
+		<div class="flx">
+			<div class="form-btn text-end mt">
+				<a href="{{route('householdIndex',['id' => $healthinfo->profile_id])}}" class="sub-btn">Previous</a>
+			</div>
+			<div class="form-btn text-end mt">
+				<button type="submit" value="Next" class="sub-btn">Next/Save</button>
+			</div>
 		</div>
+
+
 	</div>
 </form>
 

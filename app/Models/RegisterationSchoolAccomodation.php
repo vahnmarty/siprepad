@@ -9,6 +9,6 @@ class RegisterationSchoolAccomodation extends Model
 {
     use HasFactory;
     
-    protected  $fillable = ['formal_accomodations_provided','informal_accomodations_provided'];
+    protected  $fillable = ['profile_id','formal_accomodations_provided','informal_accomodations_provided'];
     
 }
