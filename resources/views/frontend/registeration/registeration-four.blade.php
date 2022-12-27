@@ -2,9 +2,9 @@
 @push('css')
 @endpush
 @section('content')
-<form action="#" method="POST">
+<form action="{{route('emergencyContactUpdate',['id' => $emergencyContact->profile_id])}}" method="POST">
 @csrf
-@method('PUT')
+@method('POST')
 	<div class="home-wrap hme-wrp2">
 		<div class="progress-outr"></div>
 		<div class="form-outr">
@@ -25,7 +25,7 @@
 							<div class="col-lg-6">
 								<div class="form-group">
 									<input type="text" class="form-control"
-										name='emergency_contact_name' />
+										name='emergency_contact_name' value="{{$emergencyContact->emergency_contact_name}}"/>
 									@error('emergency_contact_name')
 									<p class="text-danger">{{$message}}</p>
 									@enderror
@@ -40,11 +40,11 @@
 							<div class="col-lg-6">
 								<div class="form-group">
 									<select class="form-control" name='relation_to_student'>
-										<option value="">-- Please Choose --</option>
-										<option value="stepmother">Stepmother</option>
-										<option value="stepfather">Stepfather</option>
-										<option value="siblings">Siblings</option>
-										<option value="friends">Friends</option>
+										<option value="" selected disabled>-- Please Choose --</option>
+										<option value="stepmother" {{ $emergencyContact->relation_to_student == 'stepmother' ? 'selected' : '' }}>Stepmother</option>
+										<option value="stepfather"{{$emergencyContact->relation_to_student == 'stepfather' ? 'selected' : ''}}>Stepfather</option>
+										<option value="siblings" {{$emergencyContact->relation_to_student == 'siblings' ? 'selected' : ''}}>Siblings</option>
+										<option value="friends" {{$emergencyContact->relation_to_student == 'friends' ? 'selected' : ''}}>Friends</option>
 
 									</select> @error('relation_to_student')
 									<p class="text-danger">{{$message}}</p>
@@ -59,7 +59,7 @@
 							</div>
 							<div class="col-lg-6">
 								<div class="form-group">
-									<input type="tel" class="form-control" name='home_phone' />
+									<input type="tel" class="form-control" name='home_phone' value="{{$emergencyContact->home_phone}}" />
 									@error('home_phone')
 									<p class="text-danger">{{$message}}</p>
 									@enderror
@@ -74,7 +74,7 @@
 							<div class="col-lg-6">
 								<div class="form-group">
 									<input type="tel" class="form-control"
-										name='mobile_phone' /> @error('mobile_phone')
+										name='mobile_phone' value="{{$emergencyContact->mobile_phone}}" /> @error('mobile_phone')
 									<p class="text-danger">{{$message}}</p>
 									@enderror
 								</div>
@@ -87,7 +87,7 @@
 							</div>
 							<div class="col-lg-6">
 								<div class="form-group">
-									<input type="tel" class="form-control" name='work_phone' />
+									<input type="tel" class="form-control" name='work_phone' value="{{$emergencyContact->work_phone}}" />
 									@error('work_phone')
 									<p class="text-danger">{{$message}}</p>
 									@enderror
@@ -101,8 +101,13 @@
 			</div>
 
 		</div>
-		<div class="form-btn text-end mt">
-			<button type="submit" value="Next" class="sub-btn">Next/Save</button>
+		<div class="flx">
+			<div class="form-btn text-end mt">
+				<a href="{{route('healthInfoIndex',['id' => $emergencyContact->profile_id])}}" class="sub-btn">Previous</a>
+			</div>
+			<div class="form-btn text-end mt">
+				<button type="submit" value="Next" class="sub-btn">Next/Save</button>
+			</div>
 		</div>
 	</div>
 </form>

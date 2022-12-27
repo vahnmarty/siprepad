@@ -62,7 +62,7 @@
 										class="form-control" name='S1_date_of_birth'
 										value="{{$studentinfo->S1_Birthdate}}" name="date_of_birth" />
 									@error('S1_date_of_birth')
-									<p class="text-danger">{{'D.O.B is required'}}</p>
+									<p class="text-danger">{{'A valid D.O.B is required before today'}}</p>
 									@enderror
 								</div>
 							</div>
@@ -125,9 +125,10 @@
 
 						</div>
 						<div class="multiracial mb-3">
-							<span>How do you identify racially? if you identify by more than
-								one race , Select all that apply to you and also select the<br>
-								"multiracial" checkbox.
+							<span>How do you identify racially ? If more than one select separate
+								races with a comma. Example: White, Black , Race x,
+								Race y, Race z"<br>
+								
 							</span>
 						</div>
 						
@@ -160,7 +161,7 @@
 <!-- 						</div> -->
 
 						<div class="ethinicity ">
-							<span>What is your ethinicity ?if more than one separate
+							<span>What is your ethinicity ? If more than one select separate
 								ethnicities with a comma. Example: Filipino , Hawaiian , Irish ,
 								Italian , Middle Eastern , Salvadorian" </span>
 						</div>
@@ -247,10 +248,10 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									<label>Date of Birth </label> <input type="date"
-										class="form-control" name='date_of_birth'
+										class="form-control"
 										value="{{$studentinfo->S2_Birthdate}}" name="S2_date_of_birth" />
-									@error('date_of_birth')
-									<p class="text-danger">{{'D.O.B is required'}}</p>
+									@error('S2_date_of_birth')
+									<p class="text-danger">{{'A valid D.O.B is required before today'}}</p>
 									@enderror
 								</div>
 							</div>
@@ -313,9 +314,10 @@
 
 						</div>
 						<div class="multiracial mb-3">
-							<span>How do you identify racially? if you identify by more than
-								one race , Select all that apply to you and also select the<br>
-								"multiracial" checkbox.
+							<span>How do you identify racially ? If more than one select separate
+								races with a comma. Example: White, Black , Race x,
+								Race y, Race z"<br>
+								
 							</span>
 						</div>
 						
@@ -348,7 +350,7 @@
 <!-- 						</div> -->
 
 						<div class="ethinicity ">
-							<span>What is your ethinicity ?if more than one separate
+							<span>What is your ethinicity ? If more than one separate
 								ethnicities with a comma. Example: Filipino , Hawaiian , Irish ,
 								Italian , Middle Eastern , Salvadorian" </span>
 						</div>
@@ -437,7 +439,7 @@
 										class="form-control" name='S3_date_of_birth'
 										value="{{$studentinfo->S3_Birthdate}}" name="date_of_birth" />
 									@error('S3_date_of_birth')
-									<p class="text-danger">{{'D.O.B is required'}}</p>
+									<p class="text-danger">{{'A valid D.O.B is required before today'}}</p>
 									@enderror
 								</div>
 							</div>
@@ -500,9 +502,10 @@
 
 						</div>
 						<div class="multiracial mb-3">
-							<span>How do you identify racially? if you identify by more than
-								one race , Select all that apply to you and also select the<br>
-								"multiracial" checkbox.
+							<span>How do you identify racially ? If more than one select separate
+								races with a comma. Example: White, Black , Race x,
+								Race y, Race z"<br>
+								
 							</span>
 						</div>
 						
@@ -535,7 +538,7 @@
 <!-- 						</div> -->
 
 						<div class="ethinicity ">
-							<span>What is your ethinicity ?if more than one separate
+							<span>What is your ethinicity ? If more than one separate
 								ethnicities with a comma. Example: Filipino , Hawaiian , Irish ,
 								Italian , Middle Eastern , Salvadorian" </span>
 						</div>

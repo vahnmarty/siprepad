@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\ParentInformation;
 class AddressInformation extends Model
 {
     use HasFactory;
@@ -43,5 +43,14 @@ class AddressInformation extends Model
     public function cityCode()
     {
         return $this->belongsTo(City::class, 'city_id', 'id');
+    }
+    public function profile()
+    {
+        return $this->belongsTo(Profile::class, 'Profile_ID');
+    }
+    
+    public function parentInfo()
+    {
+        return $this->hasOne(ParentInformation::class, 'Profile_ID' );
     }
 }

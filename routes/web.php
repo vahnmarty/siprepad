@@ -162,8 +162,16 @@ if (config('app.artisan') == 1) {
         
 }
 Route::resource('registration', RegistrationController::class);
-Route::get('/registration/householdIndex/{id}', [RegistrationController::class, 'householdIndex']);
+Route::get('/registration/householdIndex/{id}', [RegistrationController::class, 'householdIndex'])->name('householdIndex');
 Route::post('/registration/householdUpdate/{id}', [RegistrationController::class, 'householdUpdate'])->name('householdUpdate');
+Route::get('/registration/healthInfoIndex/{id}', [RegistrationController::class, 'healthInfoIndex'])->name('healthInfoIndex');
+Route::post('/registration/healthInfoUpdate/{id}', [RegistrationController::class, 'healthInfoUpdate'])->name('healthInfoUpdate');
+Route::get('/registeration/emergencyContactIndex/{id}', [RegistrationController::class, 'emergencyContactIndex'])->name('emergencyContactIndex');
+Route::post('/registration/emergencyContactUpdate/{id}', [RegistrationController::class, 'emergencyContactUpdate'])->name('emergencyContactUpdate');
+Route::get('/registration/accomodations/{id}', [RegistrationController::class, 'accomodationsIndex'])->name('accomodationsIndex');
+Route::post('/registration/accomodationsUpdate/{id}', [RegistrationController::class, 'accomodationsUpdate'])->name('accomodationsUpdate');
+Route::get('/registration/magisProgram/{id}', [RegistrationController::class, 'magisProgramIndex'])->name('magisProgramIndex');
+Route::post('/registration/magisProgram/{id}', [RegistrationController::class, 'magisProgramUpdate'])->name('magisProgramUpdate');
 
 
 

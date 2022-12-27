@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\AddressInformation;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Traits\HasProfilePhoto;
 use Illuminate\Database\Eloquent\Model;
@@ -60,11 +61,22 @@ class Profile extends Authenticatable
     public function application()
     {
         return $this->hasOne(Application::class);
+    
     }
+
+    public function addressInfo()
+    {
+        return $this->hasOne(AddressInformation::class);
+    }
+
     
     public function registeration()
     {
         return $this->hasOne(StudentRegisteration::class);
+    }
+    public function parentInfo()
+    {
+        return $this->hasOne(ParentInformation::class);
     }
     
     public function ApplicationStatus()
