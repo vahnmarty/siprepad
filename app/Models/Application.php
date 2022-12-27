@@ -35,4 +35,8 @@ class Application extends Model
     {
         return $this->belongsTo(Payment::class,'Application_ID');
     }
+    public function StudentApplicationStatus()
+    {
+        return $this->hasOne(StudentApplicationStatus::class,'application_id');
+    }
 }

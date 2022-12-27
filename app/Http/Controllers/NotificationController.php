@@ -29,10 +29,13 @@ class NotificationController extends Controller
         
         if (!is_null(Auth::guard('customer')->user())) {
             $profile_id = Auth::guard('customer')->user()->id;
-            $notifications = Notification::where('profile_id',$profile_id)->latest('id')->first();
+            $notifications = Notification::where('profile_id',$profile_id)->get();
             if(!empty($notifications)){
                 
                 $application=Application::Where('Profile_ID',$user->id)->first();
+                
+                $studentinfo = StudentInformation::where('Application_ID',$application->Application_ID)->get();
+                
                 if(!empty($application)){
                     if($application->candidate_status == Application::CANDIDATE_NOT_DEFINED){
                         $application->update(['candidate_status'=>Application::CANDIDATE_READ]);
@@ -40,7 +43,7 @@ class NotificationController extends Controller
                     
                 }
                 
-                return view('frontend.notification',compact('notifications'));
+                return view('frontend.notification_list',compact('notifications'));
                 
             }else{
                 return  redirect('/')->with('error','you donot have any notifications yet!!!');
@@ -73,13 +76,13 @@ class NotificationController extends Controller
         $checkApp = Application::where('Application_ID',$apid)->first();
         $parentDetail = ParentInformation::where('Profile_ID',$checkApp->Profile_ID)->first();
         $studentDetail = StudentInformation::where('Profile_ID',$checkApp->Profile_ID)->first();
+
         
         if(!empty($checkApp)) {
             if($checkApp->candidate_status == Application::CANDIDATE_NOT_DEFINED || $checkApp->candidate_status == Application::CANDIDATE_READ){
                 $updateCr = Application::where('Application_ID',$apid)->limit(1)->update(array('candidate_status' => $rsid));
                 
                 if($updateCr) {
-//                     dd($parentDetail->P1_Personal_Email);
 
                     $res = Mail::to($parentDetail->P1_Personal_Email)->send(new CandidateStatus($studentDetail, $rsid, $parentDetail));
                     return redirect()->back()->with('success','Thank you, We have recieved your response!!');

@@ -105,8 +105,6 @@ class Index extends Component
 
         $getData = $dbQuery->join('applications', 'applications.Application_ID', 'student_information.Application_ID')
             ->select('student_information.*', 'applications.status', 'applications.last_step_complete')
-            //->where('applications.status', 1)
-            //->where('applications.last_step_complete', 'two')
             ->orderBy('Application_ID', 'desc')
             ->get();
         //dd($getData);

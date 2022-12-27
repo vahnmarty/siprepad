@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -9,9 +8,13 @@ use App\Models\Profile;
 use App\Models\Notification;
 use App\Models\Global_Notifiable;
 use App\Models\GlobalRegisterable;
+use App\Models\StudentInformation;
+use App\Models\StudentApplicationStatus;
+use Illuminate\Support\Facades\DB;
 
 class ApplicationController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -20,11 +23,11 @@ class ApplicationController extends Controller
     public function index()
     {
         $app = Application::all();
-        $getnotification= Global_Notifiable::get('notifiable')->first();
+        $getnotification = Global_Notifiable::get('notifiable')->first();
         $notifications = $getnotification->notifiable;
-        $registerable =GlobalRegisterable::select('registerable')->first();
-        
-        return view('admin.application.index',compact('app','notifications','registerable'));
+        $registerable = GlobalRegisterable::select('registerable')->first();
+
+        return view('admin.application.index', compact('app', 'notifications', 'registerable'));
     }
 
     /**
@@ -34,13 +37,15 @@ class ApplicationController extends Controller
      */
     public function create()
     {
-        return view('admin.application.create-edit', ['application' => null]);
+        return view('admin.application.create-edit', [
+            'application' => null
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -51,15 +56,17 @@ class ApplicationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $application = Application::where('Application_ID',$id)->first();
-        //dd($application);
-        if (!is_null($application)) {
-            return view('admin.application.show', ['application' => $application]);
+        $application = Application::where('Application_ID', $id)->first();
+        // dd($application);
+        if (! is_null($application)) {
+            return view('admin.application.show', [
+                'application' => $application
+            ]);
         } else {
             return redirect()->route('application.index')->with('error', 'Application Not Found! Please, Try Again.');
         }
@@ -68,13 +75,15 @@ class ApplicationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit(Application $application)
     {
-        if (!is_null($application)) {
-            return view('admin.application.create-edit', ['application' => $application]);
+        if (! is_null($application)) {
+            return view('admin.application.create-edit', [
+                'application' => $application
+            ]);
         } else {
             return redirect()->route('application.index')->with('error', 'Application Not Found! Please, Try Again.');
         }
@@ -83,8 +92,8 @@ class ApplicationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -95,14 +104,14 @@ class ApplicationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         //
     }
-    
+
     /**
      * Change the candidate status in storage.
      *
@@ -110,53 +119,219 @@ class ApplicationController extends Controller
      */
     public function statusSubmit(Request $request)
     {
-
-        $appID = $request->post('app_id'); 
-        $user_id = Application::where('Application_ID',$appID)->get('Profile_ID')->first();
-        $userID = $user_id->Profile_ID;
-        $candidateStatus = $request->post('app_type_id');
+        $appID = $request->post('app_id');
+        $user_id = Application::where('Application_ID', $appID)->select('Profile_ID')->first();
+        $user = $user_id->Profile_ID;
+        $applicationStatus = $request->post('app_type_id');
+        $firstName = $request->first_name;
+        $lastName = $request->last_name;
+        $email = $request->email;
+        $dob = $request->dob;
         
-        $user = Profile::where('id',$userID)->first();
-        if(!empty($user)) {
-            $fullName = $user->Pro_First_Name." ".$user->Pro_Last_Name;
+        $firstName = strtolower($firstName);
+        
+        $studentInfo = StudentInformation::where([
+            ['Profile_ID','=',$user],
+            ['Application_ID','=',$appID]
+        ])->first();
+        
+        switch ($applicationStatus) {
+            case 1:
+                $message = 'Congratulations! Your application has been accepted.';
+                $ntfType = Notification::NOTIFY_ACCEPTED;
+                break;
+            case 2:
+                $message = 'Your application is in Waiting List. We will in touch with you shortly.';
+                $ntfType = Notification::NOTIFY_WAITLIST;
+                break;
+            case 3:
+                $message = 'Sorry! Your application has been rejected. Better Luck next time.';
+                $ntfType = Notification::NOTIFY_REJECTED;
+                break;
+            default:
+                $message = 'Nothing';
+                $ntfType = Notification::NOTIFY_NO_STATUS;
+        }
+        
+        if($studentInfo) {
             
-            switch($candidateStatus) {
-                case 1:
-                    $message = 'Congratulations! Your application has been accepted.';
-                    $ntfType = Notification::NOTIFY_ACCEPTED;
-                    break;
-                case 2:
-                    $message = 'Your application is in Waiting List. We will in touch with you shortly.';
-                    $ntfType = Notification::NOTIFY_WAITLIST;
-                    break;
-                case 3:
-                    $message = 'Sorry! Your application has been rejected. Better Luck next time.';
-                    $ntfType = Notification::NOTIFY_REJECTED;
-                    break;
-                default:
-                    $message = 'Nothing';
-                    $ntfType = Notification::NOTIFY_NO_STATUS;
-            }
-
-       
-
-            $application = Application::where('profile_id', $userID)->first();
-            
-            if(!empty($candidateStatus) && !empty($userID) && !empty($application)) {
-                $application->application_type_id = $candidateStatus;
-                if($application->save()){
-                    $newNotification = new Notification();
-                    $newNotification->profile_id = $userID;
-                    $newNotification->message = $message;
-                    $newNotification->notification_type = $ntfType;
-                    if($newNotification->save()){
-                        return 'Candidate Status Submitted Successfully!!!!';                            
+            if(strtolower($studentInfo->S1_First_Name) == $firstName && $studentInfo->S1_Last_Name == $lastName 
+                && $studentInfo->S1_Personal_Email == $email && $studentInfo->S1_Birthdate == $dob) {
+                    
+                    $checkStatus = StudentApplicationStatus::where([
+                        ['application_id','=',$appID],
+                        ['profile_id','=',$user]
+                    ])->first();
+                    
+                    if(empty($checkStatus)) {
+                        $setApplicationStatus = new StudentApplicationStatus();
+                        $setApplicationStatus->application_id = $appID;
+                        $setApplicationStatus->profile_id = $user;
+                        $setApplicationStatus->s1_application_status = $applicationStatus;
+                        
+                        if($setApplicationStatus->save()) {
+                            
+                            $newNotification = new Notification();
+                            $newNotification->profile_id = $user;
+                            $newNotification->application_id = $appID;
+                            $newNotification->student_profile = 'student_one';
+                            $newNotification->message = $message;
+                            $newNotification->notification_type = $ntfType;
+                            if ($newNotification->save()) {
+                                DB::commit();
+                                $latestNotification = $newNotification->id;
+                                $checkStatus->update([
+                                    's1_notification_id'=>$latestNotification,
+                                ]);
+                                
+                                return 'Application Status Submitted Successfully!!!!';
+                            } else {
+                                DB::rollback();
+                                return 'Something went wrong';
+                            }
+                        } 
+                    } else {
+                        $checkStatus->update([
+                            's1_application_status' => $applicationStatus,
+                        ]);
+                        
+                        $newNotification = new Notification();
+                        $newNotification->profile_id = $user;
+                        $newNotification->application_id = $appID;
+                        $newNotification->student_profile = 'student_one';
+                        $newNotification->message = $message;
+                        $newNotification->notification_type = $ntfType;
+                        if ($newNotification->save()) {
+                            DB::commit();
+                            $latestNotification = $newNotification->id;
+                            $checkStatus->update([
+                                's1_notification_id'=>$latestNotification,
+                            ]);
+                        }
+                        
+                        return "Application Status has been registered";
                     }
-                }
-            }
+                 
+            } else if(strtolower($studentInfo->S2_First_Name) == $firstName && $studentInfo->S2_Last_Name == $lastName
+                && $studentInfo->S2_Personal_Email == $email && $studentInfo->S2_Birthdate == $dob) {
+                    $checkStatus = StudentApplicationStatus::where([
+                        ['application_id','=',$appID],
+                        ['profile_id','=',$user]
+                    ])->first();
+                    
+                    if(empty($checkStatus)) {
+                        $setApplicationStatus = new StudentApplicationStatus();
+                        $setApplicationStatus->application_id = $appID;
+                        $setApplicationStatus->profile_id = $user;
+                        $setApplicationStatus->s2_application_status = $applicationStatus;
+                        
+                        if($setApplicationStatus->save()) {
+                            
+                            $newNotification = new Notification();
+                            $newNotification->profile_id = $user;
+                            $newNotification->application_id = $appID;
+                            $newNotification->student_profile = 'student_two';
+                            $newNotification->message = $message;
+                            $newNotification->notification_type = $ntfType;
+                            if ($newNotification->save()) {
+                                DB::commit();
+                                $latestNotification = $newNotification->id;
+                                $checkStatus->update([
+                                    's2_notification_id'=>$latestNotification,
+                                ]);
+                                
+                                return 'Application Status Submitted Successfully!!!!';
+                            } else {
+                                DB::rollback();
+                                return 'Something went wrong';
+                            }
+                        } else {
+                            return "Something went wrong";
+                        }
+                    } else {
+                        $checkStatus->update([
+                            's2_application_status' => $applicationStatus,
+                        ]);
+                        
+                        $newNotification = new Notification();
+                        $newNotification->profile_id = $user;
+                        $newNotification->application_id = $appID;
+                        $newNotification->student_profile = 'student_two';
+                        $newNotification->message = $message;
+                        $newNotification->notification_type = $ntfType;
+                        if ($newNotification->save()) {
+                            DB::commit();
+                            $latestNotification = $newNotification->id;
+                            $checkStatus->update([
+                                's2_notification_id'=>$latestNotification,
+                            ]);
+                        }
+                      
+                        return "Application Status has been registered";
+                    }
+            } else if(strtolower($studentInfo->S3_First_Name) == $firstName && $studentInfo->S3_Last_Name == $lastName
+                && $studentInfo->S3_Personal_Email == $email && $studentInfo->S3_Birthdate == $dob) {
+                    $checkStatus = StudentApplicationStatus::where([
+                        ['application_id','=',$appID],
+                        ['profile_id','=',$user]
+                    ])->first();
+                    
+                    if(empty($checkStatus)) {
+                        $setApplicationStatus = new StudentApplicationStatus();
+                        $setApplicationStatus->application_id = $appID;
+                        $setApplicationStatus->profile_id = $user;
+                        $setApplicationStatus->s3_application_status = $applicationStatus;
+                        
+                        if($setApplicationStatus->save()) {
+                            
+                            $newNotification = new Notification();
+                            $newNotification->profile_id = $user;
+                            $newNotification->application_id = $appID;
+                            $newNotification->student_profile = 'student_three';
+                            $newNotification->message = $message;
+                            $newNotification->notification_type = $ntfType;
+                            if ($newNotification->save()) {
+                                DB::commit();
+                                $latestNotification = $newNotification->id;
+                                $checkStatus->update([
+                                    's3_notification_id'=>$latestNotification,
+                                ]);
+                                
+                                return 'Application Status Submitted Successfully!!!!';
+                            } else {
+                                DB::rollback();
+                                return 'Something went wrong';
+                            }
+                        } else {
+                            DB::rollback();
+                            return 'Something went wrong';
+                        }
+                    } else {
+                        $checkStatus->update([
+                            's3_application_status' => $applicationStatus,
+                        ]);
+                        
+                        $newNotification = new Notification();
+                        $newNotification->profile_id = $user;
+                        $newNotification->application_id = $appID;
+                        $newNotification->student_profile = 'student_three';
+                        $newNotification->message = $message;
+                        $newNotification->notification_type = $ntfType;
+                        if ($newNotification->save()) {
+                            DB::commit();
+                            $latestNotification = $newNotification->id;
+                            $checkStatus->update([
+                                's3_notification_id'=>$latestNotification,
+                            ]);
+                        }
+                        
+                        return "Application Status has been registered";
+                    }
+             }
+            
         } else {
-            return 'User not registered with us!!!';
+                DB::rollback();
+            return 'Application not found';
         }
     }
-   
 }

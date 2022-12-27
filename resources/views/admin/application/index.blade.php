@@ -17,7 +17,7 @@
         </x-admin.sub-header>
     </x-slot>
 
-    @livewire('admin.application.index', ['applications' =>$app, 'notificationButton' =>$notifications,'register' =>$registerable]);
+    @livewire('admin.application.index', ['applications' => $app, 'notificationButton' => $notifications, 'register' =>$registerable]);
     
 </x-admin-layout>
 <script>
@@ -34,14 +34,20 @@
 
 	  $(".state_select-box").change(function() {
      var app_type_id = $(this).val();
-     var app_id =$(this).prev().val();
-     $.ajax({
+     var email =$(this).prev().val();
+     var dob =$(this).prev().prev().val();
+     var last_name =$(this).prev().prev().prev().val();
+     var first_name =$(this).prev().prev().prev().prev().val();
+     var app_id =$(this).prev().prev().prev().prev().prev().val();
+
+    
+ $.ajax({
 
            type:'POST',
 
            url:"{{ route('statusSubmit') }}",
 
-           data:{app_type_id:app_type_id, app_id:app_id},
+           data:{app_type_id:app_type_id, app_id:app_id,first_name:first_name,last_name:last_name,dob:dob,email:email},
            
            success:function(data){
 
@@ -52,15 +58,10 @@
 
         });
 
-  
-
-    });
-
-
-
 
 
   });
+    });
 
 
 </script>
