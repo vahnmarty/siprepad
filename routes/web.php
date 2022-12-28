@@ -172,6 +172,9 @@ Route::get('/registration/accomodations/{id}', [RegistrationController::class, '
 Route::post('/registration/accomodationsUpdate/{id}', [RegistrationController::class, 'accomodationsUpdate'])->name('accomodationsUpdate');
 Route::get('/registration/magisProgram/{id}', [RegistrationController::class, 'magisProgramIndex'])->name('magisProgramIndex');
 Route::post('/registration/magisProgram/{id}', [RegistrationController::class, 'magisProgramUpdate'])->name('magisProgramUpdate');
+Route::get('/registration/coursePlacement/{id}', [RegistrationController::class, 'coursePlacementIndex'])->name('coursePlacementIndex');
+Route::post('/registration/coursePlacement/{id}', [RegistrationController::class, 'coursePlacementUpdate'])->name('coursePlacementUpdate');
+
 
 
 

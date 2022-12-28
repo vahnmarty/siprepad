@@ -13,6 +13,8 @@ use App\Models\RegisterationHealthInformation;
 use App\Models\RegisterationEmergencycontact;
 use App\Models\RegisterationSchoolAccomodation;
 use Illuminate\Support\Facades\DB;
+use App\Models\RegisterationCoursePlacement;
+use App\Models\CoursePlacementInformation;
 
 class RegistrationController extends Controller
 {
@@ -427,7 +429,62 @@ class RegistrationController extends Controller
         
         if($accomodations->update())
         {
-            return Redirect::back()->with('success', "Updated successfully");
+
+            return redirect('registration/magisProgram/'.$accomodations->profile_id)->with('success', "Updated successfully");
+        }
+    }
+    
+    public function magisProgramIndex($id)
+    {
+        $magisProgram = StudentInformation::where('profile_id',$id)->first();
+        return view('frontend.registeration.registeration-six', compact('magisProgram'));
+    }
+    
+    public function magisProgramUpdate(Request $request, $id)
+    { 
+        $magisProgram = StudentInformation::where('Profile_ID',$id)->first();
+        $magisProgram->s1_first_generation = $request->first_generation_college_bound_student;
+        $magisProgram->s2_first_generation = $request->second_generation_college_bound_student;
+        $magisProgram->s3_first_generation = $request->third_generation_college_bound_student;
+
+        if($magisProgram->update())
+        {
+            return redirect('registration/coursePlacement/'.$magisProgram->Profile_ID)->with('success', "Updated successfully");
+        }
+    }
+    
+    public function coursePlacementIndex($id)
+    {   
+        $idCheck = CoursePlacementInformation::where('profile_id',$id)->first();
+        if($idCheck)
+        { 
+            $language=$idCheck->languages;
+            $languageArray=str_split($language,1);
+            return view('frontend.registeration.registeration-seven',compact('idCheck','languageArray'));
+        }
+        else 
+        {
+            return view('frontend.registeration.registeration-seven');
+        }
+        
+    }
+    
+    public function coursePlacementUpdate(Request $request, $id)
+    {
+        $coursePlacement = new CoursePlacementInformation();
+//         $coursePlacement->id = $request->id;
+        $coursePlacement->profile_id = $request->id;
+        $coursePlacement->english_placement = $request->english_placement;
+        $coursePlacement->math_placement = $request->math_placement;
+        $coursePlacement->math_challenge_test = $request->math_challenge_test;
+        $coursePlacement->language_selection = $request->language_selection;
+        $coursePlacement->language_placement_test = $request->language_placement_test;
+        $coursePlacement->languages = implode(',', $request->checks_apply_to_language);
+        $coursePlacement->choose_other_language = $request->open_to_choosing_another_language;
+        
+        if($coursePlacement->save())
+        {
+            return back()->with('success', "Updated successfully");
         }
     }
     
