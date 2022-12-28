@@ -58,6 +58,7 @@ Route::group(['middleware' => 'auth:customer'], function () {
 
     Route::get('/notification', [NotificationController::class, 'list']);
     Route::get('/notification/show/{nid}', [NotificationController::class, 'show']);
+    Route::get('/notification/{notificationid}', [NotificationController::class, 'ShowStudentNotification'])->name('studentNotification');
     
     Route::get('/candidate/response/{apid}/{rsid}', [NotificationController::class, 'candidateResponse']);
     
@@ -99,7 +100,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:sanctum'], function () 
     ]);
 
     Route::get('/user/notify/{status}/{uid}',[UserController::class, 'notificationChange']);
-
+    Route::get('/user/registerable/{status}/{uid}',[UserController::class,'registrationChange']);
     Route::resource('application', ApplicationController::class);
     Route::post('/application/cstatus',[ApplicationController::class, 'statusSubmit'])->name('statusSubmit');
 
@@ -111,7 +112,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:sanctum'], function () 
 
     Route::post('candidate_status', [ApplicationController::class, 'changestatus'])->name('changestatus');
     
-
+    
 
 
     Route::resource('cms', CmsController::class)->only([

@@ -12,10 +12,11 @@
             @endphp  
             @if(!empty($application_status))
 @if($application_status->candidate_status == App\Models\Application::CANDIDATE_ACCEPTED)
-
+    
+  @if(!empty($registerable))
+                       @if($registerable == App\Models\GlobalRegisterable::Registeration_ON)
             <li>
-
-
+                    
                         <a href="{{route('registration.create')}}">
 
                             <em>
@@ -27,7 +28,8 @@
                             </span>
                         </a>
                     </li>
-                    
+                      @endif
+                        @endif
                     @endif
  @endif
                   

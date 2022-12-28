@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\ApplicationType;
 use App\Models\Application;
 use Illuminate\Support\Facades\Auth;
+use App\Models\GlobalRegisterable;
 
 class UserController extends Controller
 {
@@ -104,7 +105,7 @@ class UserController extends Controller
      */
     public function notificationChange(Request $request, $status , $uid)
     {
-            
+          
           $notification = Global_Notifiable::first();
          
           $notification = $notification->update(['notifiable'=>$status]);
@@ -115,13 +116,18 @@ class UserController extends Controller
           }
          
     }
-    //     $user= Profile::where('id', $uid)->first();
-    //     if($user){
-    //         $user->is_notifiable = $status;
-    //         $user->save();
-    //         return redirect()->back()->with('success', "User Notifcation Updated Successfully!!");
-    //     } else {
-    //         return redirect()->back()->with('error', "User Not Found");
-    //     }  
-    // }
+    
+    public function registrationChange($status){
+        
+                
+        $registeration = GlobalRegisterable::first();
+        $registeration = $registeration->update(['registerable'=>$status]);
+        if($registeration) {
+            return redirect()->back()->with('success', "Registeration Updated Successfully!!");
+            
+        }
+        
+        
+    }
+    
 }

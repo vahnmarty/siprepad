@@ -73,7 +73,8 @@ class HomeController extends Controller
               $notifications= Global_Notifiable::pluck('notifiable')->first();
                
              $application_status=Application::Where('Application_ID',$profile_id)->first();
-             $registerable =GlobalRegisterable::select('registerable')->first();
+             $register =GlobalRegisterable::select('registerable')->first();
+                   $registerable = $register->registerable;
             return view('frontend.home', compact('application', 'getStudentCount','notifications','application_status','registerable'));
         } else {
             return redirect('/login');

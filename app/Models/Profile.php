@@ -16,8 +16,10 @@ class Profile extends Authenticatable
     
     const NOTIFICATION_OFF = 1;
     const NOTIFICATION_ON = 0;
-
-
+    
+    const Registeration_ON = 1;
+    const Registeration_OFF = 0;
+    
     protected $guard='customer';
 
     /**

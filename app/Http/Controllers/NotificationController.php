@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\CandidateStatus;
 use App\Models\ParentInformation;
 use App\Models\GlobalRegisterable;
+use App\Models\StudentApplicationStatus;
 
 class NotificationController extends Controller
 {
@@ -29,7 +30,14 @@ class NotificationController extends Controller
         
         if (!is_null(Auth::guard('customer')->user())) {
             $profile_id = Auth::guard('customer')->user()->id;
-            $notifications = Notification::where('profile_id',$profile_id)->get();
+            $notifications =Notification::where('profile_id',$profile_id)->get();
+    
+            $appid = Application::where('Profile_ID',$profile_id)->get('Application_ID')->first();
+              $applicationId    =     $appid->Application_ID;
+             
+              $studentinfo = StudentInformation::where('Application_ID',$applicationId)->first();
+              $application_status = StudentApplicationStatus::where('application_id',$applicationId)->first();
+
             if(!empty($notifications)){
                 
                 $application=Application::Where('Profile_ID',$user->id)->first();
@@ -43,7 +51,7 @@ class NotificationController extends Controller
                     
                 }
                 
-                return view('frontend.notification_list',compact('notifications'));
+                return view('frontend.notification_list',compact('application_status'));
                 
             }else{
                 return  redirect('/')->with('error','you donot have any notifications yet!!!');
@@ -98,5 +106,10 @@ class NotificationController extends Controller
         }
     }
     
-    
+    public function ShowStudentNotification($notificationid){
+        
+        $notifications= Notification::where('id',$notificationid)->latest()->first();
+       return view('frontend.notification',compact('notifications'));
+       
+    }
 }
