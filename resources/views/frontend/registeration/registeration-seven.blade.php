@@ -22,7 +22,14 @@
 								<div class="form-group">
 									You have been placed in:<br><label class="blck">
 									<input type="checkbox"
-										name="english_placement" value="{{App\Models\CoursePlacementInformation::IS_SELECTED}}" {{$idCheck->english_placement == App\Models\CoursePlacementInformation::IS_SELECTED ? 'checked' : ''}}>English 100 (College Prep Freshman
+
+										name="english_placement" value="{{App\Models\CoursePlacementInformation::IS_SELECTED}}" 
+									@if(!empty($idCheck))
+										{{ $idCheck->english_placement == App\Models\CoursePlacementInformation::IS_SELECTED ? 'checked' : ''}}	
+									@endif
+										>
+										English 100 (College Prep Freshman
+
 										English)</label> 
 									
 									
@@ -42,8 +49,13 @@
 								<div class="form-group">
 									You have been placed in:<br> 
 									<input type="checkbox"
-										name="math_placement" value="{{App\Models\CoursePlacementInformation::IS_SELECTED}}" {{$idCheck->math_placement == App\Models\CoursePlacementInformation::IS_SELECTED ? 'checked' : ''}}>
-										
+
+										name="math_placement" value="{{App\Models\CoursePlacementInformation::IS_SELECTED}}"
+									@if(!empty($idCheck))
+										{{ $idCheck->math_placement == App\Models\CoursePlacementInformation::IS_SELECTED ? 'checked' : ''}}			
+									@endif
+									>
+
 										<span class="blck"
 										style="margin: 4px">Algebra 1 Accelerated (College Prep
 										Accelerated Algebra) </span><br> If you want to challenge your
@@ -60,9 +72,20 @@
 												<option value="" selected disabled>Please Choose</option>
 
 												<option
-													value="{{App\Models\CoursePlacementInformation::IS_SELECTED}}" {{$idCheck->math_challenge_test == App\Models\CoursePlacementInformation::IS_SELECTED ? 'selected' : ''}}>Yes</option>
+
+													value="{{App\Models\CoursePlacementInformation::IS_SELECTED}}" 
+													@if(!empty($idCheck))
+														{{$idCheck->math_challenge_test == App\Models\CoursePlacementInformation::IS_SELECTED ? 'selected' : ''}}>Yes</option>
+													@else
+													>Yes</option>
+													@endif
 												<option
-													value="{{App\Models\CoursePlacementInformation::NOT_SELECTED}}" {{$idCheck->math_challenge_test == App\Models\CoursePlacementInformation::NOT_SELECTED ? 'selected' : ''}}>No</option>
+													value="{{App\Models\CoursePlacementInformation::NOT_SELECTED}}" 
+												@if(!empty($idCheck))
+													{{$idCheck->math_challenge_test == App\Models\CoursePlacementInformation::NOT_SELECTED ? 'selected' : ''}}>No</option>
+												@else
+												>No</option>
+												@endif
 
 											</select> @error('math_challenge_test')
 											<p class="text-danger">{{$message}}</p>
@@ -71,12 +94,6 @@
 
 									</div>
 
-									<!-- 										<label class="blck"><input -->
-<!-- 										type="radio" name="math_challenge_reservation" id="yes" value="yes" -->
-<!-- 										>Yes</label> -->
-<!-- 										<label class="blck"> <input type="radio" -->
-<!-- 										name="math_challenge_reservation" id="no" -->
-<!-- 										value="No"><span class="blck">No</label> -->
 										
 								</div>
 							</div>
@@ -89,114 +106,158 @@
 							<div class="col-lg-10">
 								<div class="form-group">
 								
-								<label class ="blck">Please indicate your language choice: </label><br> 
-								
-								<div class="col-md-3">
-								<div class="form-group">
-				
-								<select
-										class="form-control" name='language_selection'>
-										<option value="" selected disabled>Please Choose</option>    
+								<label class ="blck">Please indicate your language choice: </label><br>
 
-										<option value="French" {{$idCheck->language_selection == 'French' ? 'selected' : ''}}>French</option>
-										<option value="Latin" {{$idCheck->language_selection == 'Latin' ? 'selected' : ''}}>Latin</option>	
-										<option value="Mandarin" {{$idCheck->language_selection == 'Mandarin' ? 'selected' : ''}}>Mandarin</option>
-										<option value="Spanish" {{$idCheck->language_selection == 'Spanish' ? 'selected' : ''}}>Spanish</option>	
+									<div class="col-md-3">
+										<div class="form-group">
 
-									</select>
-									@error('language_selection')
-									<p class="text-danger">{{$message}}</p>
-									@enderror		
-								</div>
+											<select class="form-control" name='language_selection'>
+												<option value="" selected disabled>Please Choose</option>
 
-							</div>
-								
-<!-- 								<label class ="blck"> -->
-<!-- 								<input type="checkbox" name="language" value="french" id="french">French</label><br> -->
-<!-- 									<label class ="blck"> -->
-<!-- 								<input type="checkbox" name="language" -->
-<!-- 										value="latin" id="latin">Latin</label><br> <label class ="blck"> -->
-<!-- 								<input type="checkbox" -->
-<!-- 										name="language" value="mandarin"id="mandarin">Mandarin</label><br>  -->
-										
-<!-- 									  <label class ="blck"><input type="checkbox" name="language" id="spanish" value="spanish">Spanish</label><br> -->
+												<option value="{{App\Models\CoursePlacementInformation::FRENCH}}" 
+												
+											@if(!empty($idCheck))	
+												{{$idCheck->language_selection ==
+													App\Models\CoursePlacementInformation::FRENCH ? 'selected' : ''}}>French</option>
+											@else
+											>French</option>
+											@endif	
+													
+												<option value="{{App\Models\CoursePlacementInformation::LATIN}}" 
+											@if(!empty($idCheck))	
+												{{$idCheck->language_selection ==
+													App\Models\CoursePlacementInformation::LATIN ? 'selected' : ''}}>Latin</option>
+											@else
+											>Latin</option>
+												<option value="{{App\Models\CoursePlacementInformation::MANDARIN}}" 
+											@endif	
+											@if(!empty($idCheck))	
+												{{$idCheck->language_selection ==
+													App\Models\CoursePlacementInformation::MANDARIN ? 'selected' : ''}}>Mandarin</option>
+											@else
+											>Mandarin</option>
+												<option value="{{App\Models\CoursePlacementInformation::MANDARIN}}" 
+											@endif	
+												
+											@if(!empty($idCheck))
+												{{$idCheck->language_selection ==
+													App\Models\CoursePlacementInformation::SPANISH ? 'selected' : ''}}>Spanish</option>
+											@else
+											>Spanish</option>
+											@endif
+											</select> @error('language_selection')
+											<p class="text-danger">{{$message}}</p>
+											@enderror
+										</div>
+
+									</div>
+
 									  
 									To place in a more advanced section of your language choice than
 									beginning level, you are required to take a Language Placement
 									Test on April 30, 2022.<br> <label>Do you want to make a
 										reservation to take the Language Placement Test on April
-										30,2023 </label><br> 
-										
-										<div class="col-md-3">
-								<div class="form-group">
-				
-								<select
-										class="form-control" name='language_placement_test'>
-										<option value="" selected disabled>Please Choose</option>    
+										30,2023 </label><br>
 
-										<option value="{{App\Models\CoursePlacementInformation::IS_SELECTED}}" {{$idCheck->language_placement_test == App\Models\CoursePlacementInformation::IS_SELECTED ? 'selected' : ''}}>Yes</option>
-										<option value="{{App\Models\CoursePlacementInformation::NOT_SELECTED}}" {{$idCheck->language_placement_test == App\Models\CoursePlacementInformation::NOT_SELECTED ? 'selected' : ''}}>No</option>		
+									<div class="col-md-3">
+										<div class="form-group">
 
-									</select>
-									@error('language_placement_test')
-									<p class="text-danger">{{$message}}</p>
-									@enderror		
-								</div>
+											<select class="form-control" name='language_placement_test'>
+												<option value="" selected disabled>Please Choose</option>
 
-							</div>
-										
-<!-- 										<input type="radio" -->
-<!-- 										name="language_placement_test" id="language" -->
-<!-- 										value="yes"><span -->
-<!-- 										class="blck"  value="Yes">Yes</span> <input -->
-<!-- 										type="radio" name="language" id="language" -->
-<!-- 										name="language_plecement_test" value="No"><span -->
-<!-- 										class="blck" >No</span><br>  -->
-										
-										
-										
-										<label
+												<option
+													value="{{App\Models\CoursePlacementInformation::IS_SELECTED}}"
+												@if(!empty($idCheck))	
+													{{$idCheck->language_placement_test ==
+													App\Models\CoursePlacementInformation::IS_SELECTED ?
+													'selected' : ''}}>Yes</option>
+												@else
+												>Yes</option>
+												@endif	
+												<option
+													value="{{App\Models\CoursePlacementInformation::NOT_SELECTED}}"
+												@if(!empty($idCheck))													
+													{{$idCheck->language_placement_test ==
+													App\Models\CoursePlacementInformation::NOT_SELECTED ?
+													'selected' : ''}}>No</option>
+												@else
+												>No</option>
+												@endif
+											</select> @error('language_placement_test')
+											<p class="text-danger">{{$message}}</p>
+											@enderror
+										</div>
+
+									</div>
+
+									<label
 										class="blck">Check ALL that apply to your language choice: </label><br>
 									<input type="checkbox" name="checks_apply_to_language[]"
-										value="every day"
+										value="{{App\Models\CoursePlacementInformation::SPEAK_LANGUAGE_EVERYDAY}}"  
+										
+										@if(!empty($idCheck))
+										{{$idCheck->languages == App\Models\CoursePlacementInformation::SPEAK_LANGUAGE_EVERYDAY ? 'checked' : ''}}
+										@endif
+
 										><span class="blck"
 										style="margin: 4px">I speak this language every day</span><br>
 										
 									<input type="checkbox" name="checks_apply_to_language[]"
-										value="understand but do not speak"
-										"><span class="blck"
+										value="{{App\Models\CoursePlacementInformation::UNDERSTAND_DO_NOT_SPEAK}}" 
+										@if(!empty($idCheck))
+										{{$idCheck->languages == App\Models\CoursePlacementInformation::UNDERSTAND_DO_NOT_SPEAK ? 'checked' : ''}}
+										@endif
+										><span class="blck"
 										style="margin: 4px">I understand this language but do not
-										speak this language</span><br>
+										speak this language</span><br> 
 										
 									<input type="checkbox"
 										name="checks_apply_to_language[]"
-										value="speak occasionally"
+										value="{{App\Models\CoursePlacementInformation::OCASSIONALLY}}"  
+										@if(!empty($idCheck))
+										{{$idCheck->languages == App\Models\CoursePlacementInformation::OCASSIONALLY ? 'checked' : ''}}
+										@endif
 										><span class="blck"
 										style="margin: 4px">I speak this language occasionally with
 										family and/or friends</span><br> 
 										
 									<input type="checkbox"
 										name="checks_apply_to_language[]"
-										value="school language immersion program"><span class="blck"
+										value="{{App\Models\CoursePlacementInformation::LANGUAGE_IMMERSION_PROGRAM}}"  
+										@if(!empty($idCheck))
+										{{$idCheck->languages == App\Models\CoursePlacementInformation::LANGUAGE_IMMERSION_PROGRAM ? 'checked' : ''}}
+										@endif
+										><span class="blck"
 										style="margin: 4px">My current school is a language immersion
 										program </span><br>
 										
 									<input type="checkbox"
 										name="checks_apply_to_language[]"
-										value="currently taking"
+										value="{{App\Models\CoursePlacementInformation::CURRENTLY_HAVING_IN_SCHOOL}}" 
+										@if(!empty($idCheck))
+										{{$idCheck->languages == App\Models\CoursePlacementInformation::CURRENTLY_HAVING_IN_SCHOOL ? 'checked' : ''}}
+										@endif
 										><span class="blck"
 										style="margin: 4px">I am currently taking or have taken this
 										language at my current school </span><br> 
 										
 									<input type="checkbox" name="checks_apply_to_language[]"
-										value=" currently taking a course in this language outside of school"
+										value="{{App\Models\CoursePlacementInformation::CURRENTLY_TAKING_OUTSIDE_SCHOOL}}" 
+										@if(!empty($idCheck))
+										{{$idCheck->languages == App\Models\CoursePlacementInformation::CURRENTLY_TAKING_OUTSIDE_SCHOOL ? 'checked' : ''}}
+										@endif
 										><span class="blck"
 										style="margin: 4px">I am currently taking a course in this
 										language outside of school </span><br> 
 										
 									<input type="checkbox"
 										name="checks_apply_to_language[]"
-										value="none of the above" ><span
+										value="{{App\Models\CoursePlacementInformation::NONE}}" 
+										@if(!empty($idCheck))
+										{{$idCheck->languages == App\Models\CoursePlacementInformation::NONE ? 'checked' : ''}}
+										@endif
+										><span
+
 										class="blck" style="margin: 4px">I None of the above </span><br>
 										
 										
@@ -208,8 +269,18 @@
 										name='open_to_choosing_another_language'
 										value="{{ old('open_to_choosing_another_language') }}">
 										<option value="">Please Choose</option>
-										<option value="{{App\Models\CoursePlacementInformation::IS_SELECTED}}" {{$idCheck->choose_other_language == App\Models\CoursePlacementInformation::IS_SELECTED ? 'selected' : ''}}>Yes</option>
-										<option value="{{App\Models\CoursePlacementInformation::NOT_SELECTED}}" {{$idCheck->choose_other_language == App\Models\CoursePlacementInformation::NOT_SELECTED ? 'selected' : ''}}>No</option>
+										<option value="{{App\Models\CoursePlacementInformation::IS_SELECTED}}" 
+										@if(!empty($idCheck))
+										{{$idCheck->choose_other_language == App\Models\CoursePlacementInformation::IS_SELECTED ? 'selected' : ''}}>Yes</option>
+										@else
+										>Yes</option>
+										@endif
+										<option value="{{App\Models\CoursePlacementInformation::NOT_SELECTED}}" 
+										@if(!empty($idCheck))
+										{{$idCheck->choose_other_language == App\Models\CoursePlacementInformation::NOT_SELECTED ? 'selected' : ''}}>No</option>
+										@else
+										>No</option>
+										@endif
 
 									</select>
 								</div>
