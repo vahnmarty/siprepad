@@ -15,7 +15,7 @@ class AddColumnsToNotificationsTable extends Migration
     {
         Schema::table('notifications', function (Blueprint $table) {
            
-            $table->string('application_status');
+            $table->string('student_profile');
             
         });
     }
@@ -29,7 +29,6 @@ class AddColumnsToNotificationsTable extends Migration
     {
         Schema::table('notifications', function (Blueprint $table) {
             
-            $table->dropColumn('application_status');
             $table->dropColumn('student_profile');
             
             

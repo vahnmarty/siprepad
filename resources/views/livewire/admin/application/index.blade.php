@@ -5,7 +5,11 @@
  @else 
  <a href="{{ url('/admin/user/notify/')}}/{{App\Models\Profile::NOTIFICATION_OFF}}/{{$notification}}" style="color:white" class="btn btn-off mb-3">Notification Off</a> 
  @endif 
-  
+ @if($registeration == '1') 
+  <a href="{{ url('admin/user/registerable')}}/{{App\Models\Profile::Registeration_OFF}}/{{$registeration}}"style="color: white; background: linear-gradient(180deg, #19a74d 0%, #002664 100%) !important;"class="btn btn-on mb-3">Registeration On</a> 
+ @else 
+ <a href="{{  url('admin/user/registerable')}}/{{App\Models\Profile::Registeration_ON}}/{{$registeration}}" style="color:white" class="btn btn-off mb-3">Registeration Off</a> 
+ @endif 
 <x-admin.table>
     <x-slot name="search">
     </x-slot>
