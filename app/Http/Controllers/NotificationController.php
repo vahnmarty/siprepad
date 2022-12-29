@@ -31,7 +31,7 @@ class NotificationController extends Controller
         if (!is_null(Auth::guard('customer')->user())) {
             $profile_id = Auth::guard('customer')->user()->id;
             $notifications =Notification::where('profile_id',$profile_id)->get();
-    
+
             $appid = Application::where('Profile_ID',$profile_id)->get('Application_ID')->first();
               $applicationId    =     $appid->Application_ID;
              
@@ -42,7 +42,7 @@ class NotificationController extends Controller
                 
                 $application=Application::Where('Profile_ID',$user->id)->first();
                 
-                $studentinfo = StudentInformation::where('Application_ID',$application->Application_ID)->get();
+                $studentinfo = StudentInformation::where('Application_ID',$application->Application_ID)->first();
                 
                 if(!empty($application)){
                     if($application->candidate_status == Application::CANDIDATE_NOT_DEFINED){
@@ -50,8 +50,9 @@ class NotificationController extends Controller
                     }
                     
                 }
-                
-                return view('frontend.notification_list',compact('application_status'));
+
+                return view('frontend.notification_list',compact('application_status','studentinfo'));
+
                 
             }else{
                 return  redirect('/')->with('error','you donot have any notifications yet!!!');
@@ -61,7 +62,6 @@ class NotificationController extends Controller
     }
     
     public function show(Request $request, $nid) {
-      
         $ntfStatus = Global_Notifiable::select('notifiable')->first();
         
         if($ntfStatus->notifiable == Global_Notifiable::NOTIFICATION_OFF) {
@@ -71,13 +71,36 @@ class NotificationController extends Controller
         $profile_id = Auth::guard('customer')->user()->id;
         $studentDetail = StudentInformation::where('Profile_ID',$profile_id)->first();
         $ntfDetail = Notification::where('id',$nid)->first();
+        
         $appDetail = Application::where('Profile_ID',$profile_id)->first();
+      
         $is_read_status= Notification::where('id',$nid)->pluck('is_read');
         if($is_read_status[0] == 0){
         $is_read_update=Notification::where('id',$nid)->update(['is_read'=>Notification::NOTIFY_READ]);
         }
-
-        return view('frontend.notificationDetail',compact('ntfDetail','appDetail','studentDetail'));   
+        $appStatus = StudentApplicationStatus::where([['profile_id',$ntfDetail->profile_id],['application_id',$ntfDetail->application_id]])->first();
+        
+        $student=StudentInformation::where('Application_ID',$ntfDetail->application_id)->first();
+        if($ntfDetail->student_profile == 'student_one'){
+            $studentname=StudentInformation::where('Application_ID',$ntfDetail->application_id)->select('S1_First_Name','S1_Last_name')->first();
+            $name = $studentname->S1_First_Name .' '. $studentname->S1_Last_name;
+               $status = StudentApplicationStatus::where('application_id',$ntfDetail->application_id)->select('s1_application_status')->first();
+                 $student_status = $status->s1_application_status;
+        }
+        if($ntfDetail->student_profile == 'student_two'){
+            $studentname=StudentInformation::where('Application_ID',$ntfDetail->application_id)->select('S2_First_Name','S2_Last_name')->first();
+            $name = $studentname->S2_First_Name .' '. $studentname->S2_Last_name;
+            $status = StudentApplicationStatus::where('application_id',$ntfDetail->application_id)->select('s2_application_status')->first();
+            $student_status = $status->s2_application_status;
+        }
+        if($ntfDetail->student_profile == 'student_three'){
+            $studentname=StudentInformation::where('Application_ID',$ntfDetail->application_id)->select('S3_First_Name','S3_Last_name')->first();
+            $name = $studentname->S3_First_Name .' '. $studentname->S3_Last_name;
+            $status = StudentApplicationStatus::where('application_id',$ntfDetail->application_id)->select('s3_application_status')->first();
+            $student_status = $status->s3_application_status;
+        }
+       
+        return view('frontend.notificationDetail',compact('ntfDetail','appDetail','studentDetail','appStatus','name','student_status'));   
     }
     
     public function candidateResponse(Request $request, $apid, $rsid) {
@@ -109,7 +132,11 @@ class NotificationController extends Controller
     public function ShowStudentNotification($notificationid){
         
         $notifications= Notification::where('id',$notificationid)->latest()->first();
-       return view('frontend.notification',compact('notifications'));
+
+       
+        
+        return view('frontend.notification',compact('notifications'));
+
        
     }
 }

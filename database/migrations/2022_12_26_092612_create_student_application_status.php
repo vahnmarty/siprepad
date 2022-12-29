@@ -21,13 +21,13 @@ class CreateStudentApplicationStatus extends Migration
             $table->foreign('profile_iD')->references('id')->on('profiles')->onDelete('cascade');
             $table->string('s1_application_status')->nullable();
             $table->string('s1_notification_id')->nullable();
-            $table->string('s1_candidate_status')->nullable();
+            $table->boolean('s1_candidate_status')->comment('0:Not Defined,1:Accepted,2:Rejected')->default('0');
             $table->string('s2_application_status')->nullable();
             $table->string('s2_notification_id')->nullable();
-            $table->string('s2_candidate_status')->nullable();
+            $table->boolean('s2_candidate_status')->comment('0:Not Defined,1:Accepted,2:Rejected')->default('0');
             $table->string('s3_application_status')->nullable();
             $table->string('s3_notification_id')->nullable();
-            $table->string('s3_candidate_status')->nullable();
+            $table->boolean('s3_candidate_status')->comment('0:Not Defined,1:Accepted,2:Rejected')->default('0');
             $table->timestamps();
         });
     }
