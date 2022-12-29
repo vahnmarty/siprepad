@@ -11,6 +11,10 @@ use App\Models\GlobalRegisterable;
 use App\Models\StudentInformation;
 use App\Models\StudentApplicationStatus;
 use Illuminate\Support\Facades\DB;
+
+use Illuminate\Support\Facades\Auth;
+
+
 class ApplicationController extends Controller
 {
 
@@ -21,12 +25,16 @@ class ApplicationController extends Controller
      */
     public function index()
     {
+        $user = Auth::guard('customer')->user('id');
         $app = Application::all();
         $getnotification = Global_Notifiable::get('notifiable')->first();
         $notifications = $getnotification->notifiable;
         $register = GlobalRegisterable::select('registerable')->first();
         $registerable=$register->registerable;
-        return view('admin.application.index', compact('app', 'notifications', 'registerable'));
+
+        $appStatus = StudentApplicationStatus::where('profile_id',$user->id)->first();
+        return view('admin.application.index', compact('app', 'notifications', 'registerable','appStatus'));
+
     }
 
     /**
@@ -126,7 +134,6 @@ class ApplicationController extends Controller
         $lastName = $request->last_name;
         $email = $request->email;
         $dob = $request->dob;
-        
         $firstName = strtolower($firstName);
         $lastName = strtolower($lastName);
         
@@ -134,6 +141,8 @@ class ApplicationController extends Controller
             ['Profile_ID','=',$user],
             ['Application_ID','=',$appID]
         ])->first();
+        
+        
         
         switch ($applicationStatus) {
             case 1:
@@ -154,7 +163,10 @@ class ApplicationController extends Controller
         }
         
         if($studentInfo) {
-                     
+
+            DB::beginTransaction();
+
+
             if(strtolower($studentInfo->S1_First_Name) == $firstName  &&  strtolower(trim($studentInfo->S1_Last_Name)) == trim($lastName)) {
                     
                     $checkStatus = StudentApplicationStatus::where([
@@ -162,7 +174,7 @@ class ApplicationController extends Controller
                         ['profile_id','=',$user]
                     ])->first();
                     
-                    DB::beginTransaction();
+
                     
                     if(empty($checkStatus)) {
                         $setApplicationStatus = new StudentApplicationStatus();
@@ -184,13 +196,17 @@ class ApplicationController extends Controller
                                 $checkStatus->update([
                                     's1_notification_id'=>$latestNotification,
                                 ]);
-                                DB::commit();
+
+                                  DB::commit();
+
                                 return 'Application Status Submitted Successfully!!!!';
                             } else {
+                                DB::rollBack();
                                 return 'Something went wrong';
                             }
                         } else {
-                            DB::rollBack();
+
+                                   DB::rollBack();
                             return 'Something went wrong';
                         }
                     } else {
@@ -242,14 +258,18 @@ class ApplicationController extends Controller
                                 $checkStatus->update([
                                     's2_notification_id'=>$latestNotification,
                                 ]);
-                                      DB::commit();
+
+                                DB::commit();
+
                                 return 'Application Status Submitted Successfully!!!!';
                             } else {
+                                DB::rollBack();
                                 return 'Something went wrong';
                             }
                         } else {
-                            DB::rollBack();
-                            
+
+                                    DB::rollBack();
+
                             return "Something went wrong";
                         }
                     } else {
@@ -300,13 +320,17 @@ class ApplicationController extends Controller
                                 $checkStatus->update([
                                     's3_notification_id'=>$latestNotification,
                                 ]);
-                                     DB::commit();
+
+                                DB::commit();
+
                                 return 'Application Status Submitted Successfully!!!!';
                             } else {
+                                DB::rollBack();
                                 return 'Something went wrong';
                             }
                         } else {
                             DB::rollBack();
+
                             return 'Something went wrong';
                         }
                     } else {
@@ -326,14 +350,16 @@ class ApplicationController extends Controller
                             $checkStatus->update([
                                 's3_notification_id'=>$latestNotification,
                             ]);
-                        }
+                        
                         DB::commit();
                         return "Application Status has been registered";
+                    }
                     }
              }
             
         } else {
             DB::rollBack();
+
             return 'Application not found';
         }
     }

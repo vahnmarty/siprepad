@@ -10,6 +10,14 @@ class StudentApplicationStatus extends Model
 {
     use HasFactory;
     
+    const CANDIDATE_NOT_DEFINED = 0;
+    const CANDIDATE_ACCEPTED = 1;
+    const CANDIDATE_REJECTED = 2;
+    const CANDIDATE_READ = 3;
+    
+    
+    
+    
     protected $table = 'student_application_status';
     
     protected $fillable = ['profile_id','s1_application_status','s1_notification_id','s1_candidate_status','s2_application_status',

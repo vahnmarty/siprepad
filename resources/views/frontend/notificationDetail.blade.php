@@ -7,9 +7,9 @@
         	<div class='ntf_image_logo'>
         		<img src="{{ asset('frontend_assets/images/lg2.png') }}" alt="" />
         	</div>
-
+        	
         	<div class='ntf_candidate_detail'>
-        		<p class='ntf_student_name'>Candidate Name: {{ $studentDetail->S1_First_Name }} {{ $studentDetail->S1_Last_Name }}</p>
+        		<p class='ntf_student_name'>Candidate Name: {{ ucfirst($name)}}</p>
         		<p class='ntf_app_status'>Application Status:
         			@switch($ntfDetail->notification_type)
         				@case(1)
@@ -32,8 +32,7 @@
         	<div class='application_download'>
         		<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}'>Download</a>
         	</div>
-        	
-        	@if($appDetail->application_type_id == App\Models\Application::TYPE_ACCEPTED && $ntfDetail->notification_type == App\Models\Notification::NOTIFY_ACCEPTED)
+        	@if($student_status_== App\Models\Application::TYPE_ACCEPTED && $ntfDetail->notification_type == App\Models\Notification::NOTIFY_ACCEPTED)
         		
         		@if($appDetail->candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appDetail->candidate_status == App\Models\Application::CANDIDATE_READ)
             		<div class='student_btns'>
