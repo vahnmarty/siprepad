@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\Registeration;
 use App\Models\StudentRegisteration;
 use App\Models\GlobalRegisterable;
+use App\Models\StudentApplicationStatus;
 class HomeController extends Controller
 {
     public function home()
@@ -72,7 +73,10 @@ class HomeController extends Controller
 
               $notifications= Global_Notifiable::pluck('notifiable')->first();
                
-             $application_status=Application::Where('Application_ID',$profile_id)->first();
+              
+              
+              
+             $application_status=StudentApplicationStatus::Where('profile_id',$profile_id)->first();
              $register =GlobalRegisterable::select('registerable')->first();
                    $registerable = $register->registerable;
             return view('frontend.home', compact('application', 'getStudentCount','notifications','application_status','registerable'));

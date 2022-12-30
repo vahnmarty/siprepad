@@ -13,7 +13,7 @@
 
           
           @if(!empty($application_status->s1_notification_id))
-        	   <a href="{{route('studentNotification',$application_status->s1_notification_id)}}" class ="btn btn-primary btn-danger" style="font-size:33px;width:55%;" >{{ucfirst($studentinfo->S1_First_Name .' '. $studentinfo->S1_Last_Name)}} Notification </a>
+        	   <a href="{{route('studentNotification',$application_status->s1_notification_id)}}" class ="btn btn-sm  btn-danger" style="font-size:33px;width:55%;" >{{ucfirst($studentinfo->S1_First_Name) .' '. ucfirst($studentinfo->S1_Last_Name)}} Notification </a>
 
         	   @endif
         </div>
@@ -24,7 +24,7 @@
           <div class ="col-md-8">
         	@if(!empty($application_status->s2_notification_id)) 
 
-        	  <a href="{{route('studentNotification',$application_status->s2_notification_id)}}" class ="btn btn-primary btn-danger"style="font-size:33px;width:55%;" >{{ucfirst($studentinfo->S2_First_Name .' '.$studentinfo->S2_Last_Name)}} Notification</a>
+        	  <a href="{{route('studentNotification',$application_status->s2_notification_id)}}" class ="btn btn-sm  btn-danger"style="font-size:33px;width:55%;" >{{ucfirst($studentinfo->S2_First_Name) .' '.ucfirst($studentinfo->S2_Last_Name)}} Notification</a>
 
         	  @endif
         </div>
@@ -35,7 +35,7 @@
           <div class ="col-md-8">
        @if(!empty($application_status->s3_notification_id))
 
-        	   <a href="{{route('studentNotification',$application_status->s3_notification_id)}}" class ="btn btn-primary btn-danger"style="font-size:33px;width:55%;" >{{ucfirst($studentinfo->S3_First_Name .' '. $studentinfo->S3_Last_Name)}} Notification</a>
+        	   <a href="{{route('studentNotification',$application_status->s3_notification_id)}}" class ="btn btn-sm btn-danger"style="font-size:33px;width:55%;" >{{ucfirst($studentinfo->S3_First_Name) .' '. ucfirst($studentinfo->S3_Last_Name)}} Notification</a>
 
         @endif
         </div>

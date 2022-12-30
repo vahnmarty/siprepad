@@ -10,11 +10,14 @@
                  $getProfile = App\Models\Profile::find($uid)->first();
                 
             @endphp  
-            @if(!empty($application_status))
-@if($application_status->candidate_status == App\Models\Application::CANDIDATE_ACCEPTED)
+         
     
   @if(!empty($registerable))
                        @if($registerable == App\Models\GlobalRegisterable::Registeration_ON)
+                          @if(!empty($application_status))
+                          @if($application_status->s1_candidate_status == App\Models\Application::CANDIDATE_ACCEPTED||$application_status->s2_candidate_status == App\Models\Application::CANDIDATE_ACCEPTED
+                          ||$application_status->s3_candidate_status == App\Models\Application::CANDIDATE_ACCEPTED)
+                          
             <li>
                     
                         <a href="{{route('registration.create')}}">
@@ -32,9 +35,11 @@
                         @endif
                     @endif
  @endif
+              
                   
             @if($notifications  == App\Models\Global_Notifiable::NOTIFICATION_ON)
-
+             @if(!empty($application_status))
+             
             <li>
                     <a target="_blank" href="{{url('/notification')}}">
 
@@ -47,7 +52,7 @@
                         </span>
                     </a>
                 </li>
-
+@endif
             @endif 	    
 
                 <li>
