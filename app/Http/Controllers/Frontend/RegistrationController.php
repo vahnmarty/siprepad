@@ -15,6 +15,9 @@ use App\Models\RegisterationSchoolAccomodation;
 use Illuminate\Support\Facades\DB;
 use App\Models\RegisterationCoursePlacement;
 use App\Models\CoursePlacementInformation;
+use App\Models\ApplyLanguageChoice;
+use App\Models\ApplytoLanguageChoice;
+use App\Models\LanguageChoice;
 
 class RegistrationController extends Controller
 {
@@ -213,6 +216,8 @@ class RegistrationController extends Controller
 
     public function householdUpdate(Request $request, $id)
     {
+        DB::beginTransaction();
+        
         $addressinfo = AddressInformation::with('profile')->with('parentInfo')->where('Profile_ID', $id)->first();
         $parentInfo = $addressinfo->profile->parentInfo;
         
@@ -449,43 +454,148 @@ class RegistrationController extends Controller
 
         if($magisProgram->update())
         {
-            return redirect('registration/coursePlacement/'.$magisProgram->Profile_ID)->with('success', "Updated successfully");
+            return redirect('registration/coursePlacementIndex/'.$magisProgram->Profile_ID)->with('success', "Updated successfully");
         }
     }
     
     public function coursePlacementIndex($id)
     {   
         $idCheck = CoursePlacementInformation::where('profile_id',$id)->first();
+        $languageCheck = LanguageChoice::where('profile_id',$id)->get();
+        $language = LanguageChoice::getLanguageAttributes();
+        
+        $totalValues = count($languageCheck);
+        $languageValues = [];
+        for($i=0; $i<$totalValues; $i++) {
+            $languageValues[] = $languageCheck[$i]->language_id;
+        }
+         
+        
+        
         if($idCheck)
         { 
-            $language=$idCheck->languages;
-            $languageArray=str_split($language,1);
-            return view('frontend.registeration.registeration-seven',compact('idCheck','languageArray'));
+            return view('frontend.registeration.registeration-seven',compact('idCheck','languageValues', 'language' ));
         }
         else 
         {
-            return view('frontend.registeration.registeration-seven');
+            return view('frontend.registeration.registeration-seven', compact('language','id'));
         }
-        
     }
     
     public function coursePlacementUpdate(Request $request, $id)
     {
-        $coursePlacement = new CoursePlacementInformation();
-//         $coursePlacement->id = $request->id;
-        $coursePlacement->profile_id = $request->id;
-        $coursePlacement->english_placement = $request->english_placement;
-        $coursePlacement->math_placement = $request->math_placement;
-        $coursePlacement->math_challenge_test = $request->math_challenge_test;
-        $coursePlacement->language_selection = $request->language_selection;
-        $coursePlacement->language_placement_test = $request->language_placement_test;
-        $coursePlacement->languages = implode(',', $request->checks_apply_to_language);
-        $coursePlacement->choose_other_language = $request->open_to_choosing_another_language;
+        DB::beginTransaction();
         
-        if($coursePlacement->save())
-        {
-            return back()->with('success', "Updated successfully");
+        $idCheck = CoursePlacementInformation::where('profile_id',$id)->first();
+        $languageCheck = LanguageChoice::where('profile_id',$id)->get();
+        
+       
+        
+        if($idCheck == 'Null' && $languageCheck == 'Null')
+        {       
+           
+            $coursePlacement = new CoursePlacementInformation();
+            $coursePlacement->profile_id = $request->id;
+            $coursePlacement->english_placement = $request->english_placement;
+            $coursePlacement->math_placement = $request->math_placement;
+            $coursePlacement->math_challenge_test = $request->math_challenge_test;
+            $coursePlacement->language_selection = $request->language_selection;
+            $coursePlacement->language_placement_test = $request->language_placement_test;
+            $coursePlacement->choose_other_language = $request->open_to_choosing_another_language;
+            
+            $apply_to_language = $request->checks_apply_to_language;
+            if(!empty($apply_to_language))
+            {
+                foreach($apply_to_language as $languages)
+                {
+                    $applyLanguageChoice = new LanguageChoice();
+                    $applyLanguageChoice->profile_id = $request->id;
+                    $applyLanguageChoice->language_id = $languages;
+                    $applyLanguageChoice->save();
+                }
+            }
+            
+            if($coursePlacement->save())
+            {
+DB::commit();               
+                return redirect('registration/thankYou/')->with('success', "Updated successfully");
+            }
         }
+        
+        elseif (!empty($idCheck) && !empty($languageCheck))
+        {
+//             $coursePlacement = new CoursePlacementInformation();
+            $idCheck->profile_id = $request->id;
+            $idCheck->english_placement = $request->english_placement;
+            $idCheck->math_placement = $request->math_placement;
+            $idCheck->math_challenge_test = $request->math_challenge_test;
+            $idCheck->language_selection = $request->language_selection;
+            $idCheck->language_placement_test = $request->language_placement_test;
+            $idCheck->choose_other_language = $request->open_to_choosing_another_language;
+            
+            $delete = LanguageChoice::where('profile_id',$id)->delete();
+   
+            $apply_to_language = $request->checks_apply_to_language;
+            if(!empty($apply_to_language))
+            {
+                foreach($apply_to_language as $languages)
+                {
+                    $applyLanguageChoice = new LanguageChoice();
+                    $applyLanguageChoice->profile_id = $id;
+                    $applyLanguageChoice->language_id = $languages;
+                    $applyLanguageChoice->save();
+                }
+            }
+            
+            if($idCheck->update())
+            {
+                DB::commit();
+                
+                return redirect('registration/thankYou/')->with('success', "Updated successfully");
+            }
+        }
+        elseif (!empty($idCheck) && !empty($languageCheck))
+        {
+            //             $coursePlacement = new CoursePlacementInformation();
+            $idCheck->profile_id = $request->id;
+            $idCheck->english_placement = $request->english_placement;
+            $idCheck->math_placement = $request->math_placement;
+            $idCheck->math_challenge_test = $request->math_challenge_test;
+            $idCheck->language_selection = $request->language_selection;
+            $idCheck->language_placement_test = $request->language_placement_test;
+            $idCheck->choose_other_language = $request->open_to_choosing_another_language;
+            
+            $apply_to_language = $request->checks_apply_to_language;
+            if(!empty($apply_to_language))
+            {
+                foreach($apply_to_language as $languages)
+                {
+                    $applyLanguageChoice = new LanguageChoice();
+                    $applyLanguageChoice->profile_id = $request->id;
+                    $applyLanguageChoice->language_id = $languages;
+                    $applyLanguageChoice->save();
+                }
+            }
+            
+            if($idCheck->update())
+            {
+                DB::commit();
+                
+                
+                return redirect('registration/thankYou/')->with('success', "Updated successfully");
+            }
+        }
+        
+    }
+    
+    public function thankYou()
+    {
+        return view('frontend.registeration.thankYou');
     }
     
 }
+
+
+
+
+
