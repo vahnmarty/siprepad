@@ -189,78 +189,29 @@
 										</div>
 
 									</div>
-
-									<label
-										class="blck">Check ALL that apply to your language choice: </label><br>
+										
+									<label class="blck">Check ALL that apply to your language choice: </label><br>
+									
+									
+									
+								@if(empty($languageValues))
+									
+									@foreach($language as $key=>$value)
+									
+									
 									<input type="checkbox" name="checks_apply_to_language[]"
-										value="{{App\Models\CoursePlacementInformation::SPEAK_LANGUAGE_EVERYDAY}}"  
-										
-										@if(!empty($idCheck))
-										{{$idCheck->languages == App\Models\CoursePlacementInformation::SPEAK_LANGUAGE_EVERYDAY ? 'checked' : ''}}
-										@endif
-
-										><span class="blck"
-										style="margin: 4px">I speak this language every day</span><br>
-										
-									<input type="checkbox" name="checks_apply_to_language[]"
-										value="{{App\Models\CoursePlacementInformation::UNDERSTAND_DO_NOT_SPEAK}}" 
-										@if(!empty($idCheck))
-										{{$idCheck->languages == App\Models\CoursePlacementInformation::UNDERSTAND_DO_NOT_SPEAK ? 'checked' : ''}}
-										@endif
-										><span class="blck"
-										style="margin: 4px">I understand this language but do not
-										speak this language</span><br> 
-										
-									<input type="checkbox"
-										name="checks_apply_to_language[]"
-										value="{{App\Models\CoursePlacementInformation::OCASSIONALLY}}"  
-										@if(!empty($idCheck))
-										{{$idCheck->languages == App\Models\CoursePlacementInformation::OCASSIONALLY ? 'checked' : ''}}
-										@endif
-										><span class="blck"
-										style="margin: 4px">I speak this language occasionally with
-										family and/or friends</span><br> 
-										
-									<input type="checkbox"
-										name="checks_apply_to_language[]"
-										value="{{App\Models\CoursePlacementInformation::LANGUAGE_IMMERSION_PROGRAM}}"  
-										@if(!empty($idCheck))
-										{{$idCheck->languages == App\Models\CoursePlacementInformation::LANGUAGE_IMMERSION_PROGRAM ? 'checked' : ''}}
-										@endif
-										><span class="blck"
-										style="margin: 4px">My current school is a language immersion
-										program </span><br>
-										
-									<input type="checkbox"
-										name="checks_apply_to_language[]"
-										value="{{App\Models\CoursePlacementInformation::CURRENTLY_HAVING_IN_SCHOOL}}" 
-										@if(!empty($idCheck))
-										{{$idCheck->languages == App\Models\CoursePlacementInformation::CURRENTLY_HAVING_IN_SCHOOL ? 'checked' : ''}}
-										@endif
-										><span class="blck"
-										style="margin: 4px">I am currently taking or have taken this
-										language at my current school </span><br> 
-										
-									<input type="checkbox" name="checks_apply_to_language[]"
-										value="{{App\Models\CoursePlacementInformation::CURRENTLY_TAKING_OUTSIDE_SCHOOL}}" 
-										@if(!empty($idCheck))
-										{{$idCheck->languages == App\Models\CoursePlacementInformation::CURRENTLY_TAKING_OUTSIDE_SCHOOL ? 'checked' : ''}}
-										@endif
-										><span class="blck"
-										style="margin: 4px">I am currently taking a course in this
-										language outside of school </span><br> 
-										
-									<input type="checkbox"
-										name="checks_apply_to_language[]"
-										value="{{App\Models\CoursePlacementInformation::NONE}}" 
-										@if(!empty($idCheck))
-										{{$idCheck->languages == App\Models\CoursePlacementInformation::NONE ? 'checked' : ''}}
-										@endif
-										><span
-
-										class="blck" style="margin: 4px">I None of the above </span><br>
-										
-										
+										value="{{$key}}"  >
+									<span class="blck" style="margin: 4px">{{$value}}</span><br>
+									@endforeach
+									
+									
+									
+								@else
+									@foreach($language as $key=>$value)
+     									<input type="checkbox" name="checks_apply_to_language[]"  value="{{$key }}" {{ (in_array($key, $languageValues)) ? "checked" : " " }}>
+     									<span class="blck" style="margin: 4px">	{{ $value}}</span></br>
+   									@endforeach
+   								@endif	
 										
 									<label>If your language choice is not available due to
 										scheduling demands, are you open to choosing another
@@ -271,13 +222,13 @@
 										<option value="">Please Choose</option>
 										<option value="{{App\Models\CoursePlacementInformation::IS_SELECTED}}" 
 										@if(!empty($idCheck))
-										{{$idCheck->choose_other_language == App\Models\CoursePlacementInformation::IS_SELECTED ? 'selected' : ''}}>Yes</option>
+										{{$idCheck->choose_other_language == App\Models\CoursePlacementInformation::IS_SELECTED ? 'selected' : ''}}>Yes</option>		
 										@else
 										>Yes</option>
 										@endif
 										<option value="{{App\Models\CoursePlacementInformation::NOT_SELECTED}}" 
 										@if(!empty($idCheck))
-										{{$idCheck->choose_other_language == App\Models\CoursePlacementInformation::NOT_SELECTED ? 'selected' : ''}}>No</option>
+										{{$idCheck->choose_other_language == App\Models\CoursePlacementInformation::NOT_SELECTED ? 'selected' : ''}}>No</option>		
 										@else
 										>No</option>
 										@endif
