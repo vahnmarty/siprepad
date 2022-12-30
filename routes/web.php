@@ -60,7 +60,7 @@ Route::group(['middleware' => 'auth:customer'], function () {
     Route::get('/notification/show/{nid}', [NotificationController::class, 'show']);
     Route::get('/notification/{notificationid}', [NotificationController::class, 'ShowStudentNotification'])->name('studentNotification');
     
-    Route::get('/candidate/response/{apid}/{rsid}', [NotificationController::class, 'candidateResponse']);
+    Route::get('/candidate/response/{apid}/{cid}/{rsid}', [NotificationController::class, 'candidateResponse']);
     
     Route::get('/notification/pdfgenerator/{ntid}/{uid}', [StatusPdfController::class, 'index']);
     

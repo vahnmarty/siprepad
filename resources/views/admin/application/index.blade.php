@@ -16,7 +16,7 @@
             </x-slot>
         </x-admin.sub-header>
     </x-slot>
-    @livewire('admin.application.index', ['applications' => $app, 'notificationButton' => $notifications, 'register' =>$registerable,'applicationstatus'=>$appStatus]);
+    @livewire('admin.application.index', ['applications' => $app, 'notificationButton' => $notifications, 'register' =>$registerable]);
     
 </x-admin-layout>
 <script>
@@ -38,7 +38,8 @@
      var last_name =$(this).prev().prev().prev().val();
      var first_name =$(this).prev().prev().prev().prev().val();
      var app_id =$(this).prev().prev().prev().prev().prev().val();
-
+    var profile_id =$(this).prev().prev().prev().prev().prev().prev().val();
+       
     
  $.ajax({
 
@@ -46,7 +47,7 @@
 
            url:"{{ route('statusSubmit') }}",
 
-           data:{app_type_id:app_type_id, app_id:app_id,first_name:first_name,last_name:last_name,dob:dob,email:email},
+           data:{app_type_id:app_type_id, app_id:app_id,first_name:first_name,last_name:last_name,dob:dob,email:email,profile_id:profile_id},
            
            success:function(data){
 
@@ -56,8 +57,6 @@
 
 
         });
-
-
 
   });
     });

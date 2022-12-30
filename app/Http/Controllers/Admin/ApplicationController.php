@@ -31,9 +31,7 @@ class ApplicationController extends Controller
         $notifications = $getnotification->notifiable;
         $register = GlobalRegisterable::select('registerable')->first();
         $registerable=$register->registerable;
-
-        $appStatus = StudentApplicationStatus::where('profile_id',$user->id)->first();
-        return view('admin.application.index', compact('app', 'notifications', 'registerable','appStatus'));
+        return view('admin.application.index', compact('app', 'notifications', 'registerable'));
 
     }
 
@@ -126,9 +124,11 @@ class ApplicationController extends Controller
      */
     public function statusSubmit(Request $request)
     {
+        
+        
         $appID = $request->post('app_id');
-        $user_id = Application::where('Application_ID', $appID)->select('Profile_ID')->first();
-        $user = $user_id->Profile_ID;
+    
+        $user = $request->profile_id;
         $applicationStatus = $request->post('app_type_id');
         $firstName = $request->first_name;
         $lastName = $request->last_name;
@@ -137,11 +137,12 @@ class ApplicationController extends Controller
         $firstName = strtolower($firstName);
         $lastName = strtolower($lastName);
         
+       
+        
         $studentInfo = StudentInformation::where([
             ['Profile_ID','=',$user],
             ['Application_ID','=',$appID]
         ])->first();
-        
         
         
         switch ($applicationStatus) {
@@ -163,6 +164,8 @@ class ApplicationController extends Controller
         }
         
         if($studentInfo) {
+            
+            
 
             DB::beginTransaction();
 
@@ -174,15 +177,17 @@ class ApplicationController extends Controller
                         ['profile_id','=',$user]
                     ])->first();
                     
-
                     
                     if(empty($checkStatus)) {
+                        
+                        
                         $setApplicationStatus = new StudentApplicationStatus();
                         $setApplicationStatus->application_id = $appID;
                         $setApplicationStatus->profile_id = $user;
                         $setApplicationStatus->s1_application_status = $applicationStatus;
                         
                         if($setApplicationStatus->save()) {
+                            
                             
                             $newNotification = new Notification();
                             $newNotification->profile_id = $user;
@@ -191,13 +196,15 @@ class ApplicationController extends Controller
                             $newNotification->message = $message;
                             $newNotification->notification_type = $ntfType;
                             if ($newNotification->save()) {
-                              
+                                
+                                DB::commit();
+                                
                                 $latestNotification = $newNotification->id;
                                 $checkStatus->update([
                                     's1_notification_id'=>$latestNotification,
                                 ]);
-
-                                  DB::commit();
+                               
+                                  
 
                                 return 'Application Status Submitted Successfully!!!!';
                             } else {
@@ -221,13 +228,13 @@ class ApplicationController extends Controller
                         $newNotification->message = $message;
                         $newNotification->notification_type = $ntfType;
                         if ($newNotification->save()) {
-                            
+                            DB::commit();
                             $latestNotification = $newNotification->id;
                             $checkStatus->update([
                                 's1_notification_id'=>$latestNotification,
                             ]);
                         }
-                        DB::commit();
+                     
                         return "Application Status has been registered";
                     }
                  
@@ -254,12 +261,12 @@ class ApplicationController extends Controller
                             $newNotification->notification_type = $ntfType;
                             if ($newNotification->save()) {
                               
+                                DB::commit();
+                                
                                 $latestNotification = $newNotification->id;
                                 $checkStatus->update([
                                     's2_notification_id'=>$latestNotification,
                                 ]);
-
-                                DB::commit();
 
                                 return 'Application Status Submitted Successfully!!!!';
                             } else {
@@ -284,13 +291,13 @@ class ApplicationController extends Controller
                         $newNotification->message = $message;
                         $newNotification->notification_type = $ntfType;
                         if ($newNotification->save()) {
-                       
+                            DB::commit();
                             $latestNotification = $newNotification->id;
                             $checkStatus->update([
                                 's2_notification_id'=>$latestNotification,
                             ]);
                         }
-                        DB::commit();
+                       
                         return "Application Status has been registered";
                     }
             } else if(strtolower($studentInfo->S3_First_Name) == $firstName && $studentInfo->S3_Last_Name == $lastName
@@ -316,12 +323,13 @@ class ApplicationController extends Controller
                             $newNotification->notification_type = $ntfType;
                             if ($newNotification->save()) {
                              
+                                DB::commit();
                                 $latestNotification = $newNotification->id;
                                 $checkStatus->update([
                                     's3_notification_id'=>$latestNotification,
                                 ]);
 
-                                DB::commit();
+                             
 
                                 return 'Application Status Submitted Successfully!!!!';
                             } else {
@@ -345,13 +353,13 @@ class ApplicationController extends Controller
                         $newNotification->message = $message;
                         $newNotification->notification_type = $ntfType;
                         if ($newNotification->save()) {
-                           
+                            DB::commit();
+                            
                             $latestNotification = $newNotification->id;
                             $checkStatus->update([
                                 's3_notification_id'=>$latestNotification,
                             ]);
-                        
-                        DB::commit();
+                      
                         return "Application Status has been registered";
                     }
                     }
