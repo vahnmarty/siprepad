@@ -2,7 +2,7 @@
 @push('css')
 @endpush
 @section('content')
-<form action="" method="POST">
+<form action="{{route('coursePlacementUpdate',$id )}}" method="POST">
 @csrf
 @method('POST')
 	<div class="home-wrap hme-wrp2">
@@ -75,14 +75,14 @@
 
 													value="{{App\Models\CoursePlacementInformation::IS_SELECTED}}" 
 													@if(!empty($idCheck))
-														{{$idCheck->math_challenge_test == App\Models\CoursePlacementInformation::IS_SELECTED ? 'selected' : ''}}>Yes</option>
+														{{$idCheck->math_challenge_test == App\Models\CoursePlacementInformation::IS_SELECTED ? 'selected' : ''}}>Yes</option>		
 													@else
 													>Yes</option>
 													@endif
 												<option
 													value="{{App\Models\CoursePlacementInformation::NOT_SELECTED}}" 
 												@if(!empty($idCheck))
-													{{$idCheck->math_challenge_test == App\Models\CoursePlacementInformation::NOT_SELECTED ? 'selected' : ''}}>No</option>
+													{{$idCheck->math_challenge_test == App\Models\CoursePlacementInformation::NOT_SELECTED ? 'selected' : ''}}>No</option>		
 												@else
 												>No</option>
 												@endif
@@ -114,8 +114,7 @@
 											<select class="form-control" name='language_selection'>
 												<option value="" selected disabled>Please Choose</option>
 
-												<option value="{{App\Models\CoursePlacementInformation::FRENCH}}" 
-												
+											<option value="{{App\Models\CoursePlacementInformation::FRENCH}}" 
 											@if(!empty($idCheck))	
 												{{$idCheck->language_selection ==
 													App\Models\CoursePlacementInformation::FRENCH ? 'selected' : ''}}>French</option>
@@ -123,22 +122,23 @@
 											>French</option>
 											@endif	
 													
-												<option value="{{App\Models\CoursePlacementInformation::LATIN}}" 
+											<option value="{{App\Models\CoursePlacementInformation::LATIN}}" 
 											@if(!empty($idCheck))	
 												{{$idCheck->language_selection ==
 													App\Models\CoursePlacementInformation::LATIN ? 'selected' : ''}}>Latin</option>
 											@else
 											>Latin</option>
-												<option value="{{App\Models\CoursePlacementInformation::MANDARIN}}" 
 											@endif	
+											
+											<option value="{{App\Models\CoursePlacementInformation::MANDARIN}}" 
 											@if(!empty($idCheck))	
 												{{$idCheck->language_selection ==
 													App\Models\CoursePlacementInformation::MANDARIN ? 'selected' : ''}}>Mandarin</option>
 											@else
 											>Mandarin</option>
-												<option value="{{App\Models\CoursePlacementInformation::MANDARIN}}" 
 											@endif	
 												
+											<option value="{{App\Models\CoursePlacementInformation::SPANISH}}" 
 											@if(!empty($idCheck))
 												{{$idCheck->language_selection ==
 													App\Models\CoursePlacementInformation::SPANISH ? 'selected' : ''}}>Spanish</option>
@@ -192,8 +192,6 @@
 										
 									<label class="blck">Check ALL that apply to your language choice: </label><br>
 									
-									
-									
 								@if(empty($languageValues))
 									
 									@foreach($language as $key=>$value)
@@ -218,8 +216,8 @@
 										language?* </label> <select class="form-control"
 										style="width: 25%"
 										name='open_to_choosing_another_language'
-										value="{{ old('open_to_choosing_another_language') }}">
-										<option value="">Please Choose</option>
+										value="">
+										<option value="" selected disabled >Please Choose</option>
 										<option value="{{App\Models\CoursePlacementInformation::IS_SELECTED}}" 
 										@if(!empty($idCheck))
 										{{$idCheck->choose_other_language == App\Models\CoursePlacementInformation::IS_SELECTED ? 'selected' : ''}}>Yes</option>		
@@ -234,6 +232,9 @@
 										@endif
 
 									</select>
+									@error('open_to_choosing_another_language')
+										<p class="text-danger">{{$message}}</p>
+									@enderror
 								</div>
 							</div>
 
@@ -246,7 +247,7 @@
 		</div>
 		<div class="flx">
 			<div class="form-btn text-end mt">
-				<a href="" class="sub-btn">Previous</a>
+				<a href="{{route('accomodationsIndex',$id)}}" class="sub-btn">Previous</a>
 			</div>
 			<div class="form-btn text-end mt">
 				<button type="submit" value="Next" class="sub-btn">Next/Save</button>

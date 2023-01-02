@@ -437,18 +437,55 @@ class RegistrationController extends Controller
     {
        
         $emergencyContact = RegisterationEmergencycontact::where('profile_id',$id)->first();
-        return view('frontend.registeration.registeration-four',compact('emergencyContact'));
+        if($emergencyContact)
+        {
+            return view('frontend.registeration.registeration-four-update',compact('emergencyContact'));
+        }
+        else
+        {
+            return view('frontend.registeration.registeration-four',compact('emergencyContact','id'));
+        }
+    }
+    
+    public function emergencyContactSave(Request $request)
+    {
+        
+        $profile = Auth::guard('customer')->user('id');
+
+        $validator = validator($request->all(), [
+            'emergency_contact_name' => 'required|string|max:50',
+            'relation_to_student' => 'required|string|max:30',
+            'home_phone' => 'required|regex:/[0-9]/|not_regex:/[a-z]/|min:10|max:10|gt:0',
+            'mobile_phone' => 'required|regex:/[0-9]/|not_regex:/[a-z]/|min:10|max:10',
+            'work_phone' => 'required|regex:/[0-9]/|not_regex:/[a-z]/|min:10|max:10',
+        ]);
+        if ($validator->fails()) {
+            return Redirect::back()->withInput()->withErrors($validator);
+        }
+        
+        $emergencyInfo = new RegisterationEmergencycontact();
+        $emergencyInfo->emergency_contact_name = $request->emergency_contact_name;
+        $emergencyInfo->relation_to_student = $request->relation_to_student;
+        $emergencyInfo->home_phone = $request->home_phone;
+        $emergencyInfo->mobile_phone = $request->mobile_phone;
+        $emergencyInfo->work_phone = $request->work_phone;
+        $emergencyInfo->profile_id = $profile->id;
+        if($emergencyInfo->save())
+        {
+            return redirect('registration/accomodations/'.$emergencyInfo->profile_id)->with('success', "Updated successfully");
+        }
+        
     }
     
     public function emergencyContactUpdate(Request $request, $id)
     {
-        
+
         $validator = validator($request->all(), [
             'emergency_contact_name' => 'required|string|max:50',
             'relation_to_student' => 'required|string|max:30',
-            'home_phone' => 'required|regex:/[0-9]/|not_regex:/[a-z]/|min:10|max:10',
+            'home_phone' => 'required|regex:/[0-9]/|not_regex:/[a-z]/|min:10|max:10|gt:0',
             'mobile_phone' => 'required|regex:/[0-9]/|not_regex:/[a-z]/|min:10|max:10',
-            'work_phone' => 'required|regex:/[0-9]/|not_regex:/[a-z]/|min:10|max:10'
+            'work_phone' => 'required|regex:/[0-9]/|not_regex:/[a-z]/|min:10|max:10',
         ]);
         if ($validator->fails()) {
             return Redirect::back()->withInput()->withErrors($validator);
@@ -469,7 +506,32 @@ class RegistrationController extends Controller
     public function accomodationsIndex($id)
     {
         $accomodations = RegisterationSchoolAccomodation::where('profile_id',$id)->first();
-        return view('frontend.registeration.registeration-five',compact('accomodations'));   
+        if($accomodations)
+        {
+            return view('frontend.registeration.registeration-five-update',compact('accomodations','id')); 
+        }
+        else 
+        {
+            return view('frontend.registeration.registeration-five',compact('accomodations','id')); 
+        } 
+    }
+    
+    public function accomodationsSave(Request $request)
+    {
+        
+        $profile = Auth::guard('customer')->user('id');
+        
+        $accomodations = new RegisterationSchoolAccomodation();
+        $accomodations->formal_accomodations_provided = $request->formal_accomodations_provided;
+        $accomodations->informal_accomodations_provided = $request->informal_accomodations_provided;
+        $accomodations->profile_id = $profile->id;
+        
+        if($accomodations->save())
+        {
+            
+            return redirect('registration/magisProgram/'.$accomodations->profile_id)->with('success', "Updated successfully");
+        }
+        
     }
     
     public function accomodationsUpdate(Request $request, $id)
@@ -488,11 +550,49 @@ class RegistrationController extends Controller
     public function magisProgramIndex($id)
     {
         $magisProgram = StudentInformation::where('profile_id',$id)->first();
-        return view('frontend.registeration.registeration-six', compact('magisProgram'));
+        if($magisProgram)
+        {
+            return view('frontend.registeration.registeration-six-update', compact('magisProgram'));
+        }
+        else 
+        {
+            return view('frontend.registeration.registeration-six', compact('magisProgram'));
+        }
+    }
+    
+    public function magisProgramSave(Request $request)
+    {
+        
+        $profile = Auth::guard('customer')->user('id');
+        
+        $validator = validator($request->all(), [
+            'first_generation_college_bound_student' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return Redirect::back()->withInput()->withErrors($validator);
+        }
+        
+        $magisProgram = new StudentInformation();
+        $magisProgram->s1_first_generation = $request->first_generation_college_bound_student;
+        $magisProgram->s2_first_generation = $request->second_generation_college_bound_student;
+        $magisProgram->s3_first_generation = $request->third_generation_college_bound_student;
+        
+        if($magisProgram->update())
+        {
+            return redirect('registration/coursePlacementIndex/'.$magisProgram->Profile_ID)->with('success', "Updated successfully");
+        }
+        
     }
     
     public function magisProgramUpdate(Request $request, $id)
     { 
+        $validator = validator($request->all(), [
+            'first_generation_college_bound_student' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return Redirect::back()->withInput()->withErrors($validator);
+        }
+        
         $magisProgram = StudentInformation::where('Profile_ID',$id)->first();
         $magisProgram->s1_first_generation = $request->first_generation_college_bound_student;
         $magisProgram->s2_first_generation = $request->second_generation_college_bound_student;
@@ -516,11 +616,11 @@ class RegistrationController extends Controller
             $languageValues[] = $languageCheck[$i]->language_id;
         }
          
-        
-        
+
         if($idCheck)
         { 
-            return view('frontend.registeration.registeration-seven',compact('idCheck','languageValues', 'language' ));
+            return view('frontend.registeration.registeration-seven',compact('idCheck','languageValues', 'language' ,'id' ));
+
         }
         else 
         {
@@ -535,11 +635,21 @@ class RegistrationController extends Controller
         $idCheck = CoursePlacementInformation::where('profile_id',$id)->first();
         $languageCheck = LanguageChoice::where('profile_id',$id)->get();
         
-       
-        
-        if($idCheck == 'Null' && $languageCheck == 'Null')
-        {       
-           
+
+        $langCount =  count($languageCheck);
+    
+        if(empty($idCheck) && $langCount == LanguageChoice::LANG_COUNT)
+        {   
+            $validator = validator($request->all(), [
+                'math_challenge_test' => 'required',
+                'language_placement_test' => 'required',
+                'open_to_choosing_another_language' => 'required'
+            ]);
+            if ($validator->fails()) {
+                return Redirect::back()->withInput()->withErrors($validator);
+            }
+            
+
             $coursePlacement = new CoursePlacementInformation();
             $coursePlacement->profile_id = $request->id;
             $coursePlacement->english_placement = $request->english_placement;
@@ -563,13 +673,23 @@ class RegistrationController extends Controller
             
             if($coursePlacement->save())
             {
-DB::commit();               
-                return redirect('registration/thankYou/')->with('success', "Updated successfully");
+
+                DB::commit();               
+                return view('frontend.registeration.thankYou')->with('success', "Updated successfully");
             }
         }
         
-        elseif (!empty($idCheck) && !empty($languageCheck))
+        elseif (!empty($idCheck) && $langCount > LanguageChoice::LANG_COUNT)
         {
+            $validator = validator($request->all(), [
+                'math_challenge_test' => 'required',
+                'language_placement_test' => 'required',
+                'open_to_choosing_another_language' => 'required'
+            ]);
+            if ($validator->fails()) {
+                return Redirect::back()->withInput()->withErrors($validator);
+            }
+
 //             $coursePlacement = new CoursePlacementInformation();
             $idCheck->profile_id = $request->id;
             $idCheck->english_placement = $request->english_placement;
@@ -596,12 +716,21 @@ DB::commit();
             if($idCheck->update())
             {
                 DB::commit();
-                
-                return redirect('registration/thankYou/')->with('success', "Updated successfully");
+
+                return view('frontend.registeration.thankYou')->with('success', "Updated successfully");
             }
         }
-        elseif (!empty($idCheck) && !empty($languageCheck))
+        elseif (!empty($idCheck) && $langCount == LanguageChoice::LANG_COUNT)
         {
+            $validator = validator($request->all(), [
+                'math_challenge_test' => 'required',
+                'language_placement_test' => 'required',
+                'open_to_choosing_another_language' => 'required'
+            ]);
+            if ($validator->fails()) {
+                return Redirect::back()->withInput()->withErrors($validator);
+            }
+
             //             $coursePlacement = new CoursePlacementInformation();
             $idCheck->profile_id = $request->id;
             $idCheck->english_placement = $request->english_placement;
@@ -626,9 +755,9 @@ DB::commit();
             if($idCheck->update())
             {
                 DB::commit();
-                
-                
-                return redirect('registration/thankYou/')->with('success', "Updated successfully");
+
+                return view('frontend.registeration.thankYou')->with('success', "Updated successfully");
+
             }
         }
         

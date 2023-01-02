@@ -14,7 +14,7 @@ class CoursePlacementInformation extends Model
     ];
     
     const IS_SELECTED = 1;
-    const NOT_SELECTED = 0;
+    const NOT_SELECTED = 2;
     
 
     const FRENCH = 1;

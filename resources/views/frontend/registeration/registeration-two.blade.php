@@ -91,7 +91,7 @@
 								<div class="col-lg-3"></div>
 								<div class="col-lg-9">
 									<div class="form-group">
-										<label>Home Phone</label> <input type="tel"
+										<label>Home Phone</label> <input type="number"
 											class="form-control" name='A1_home_phone'  value="{{$addressinfo->Address_Phone_1}}" />
 										@error('A1_home_phone')
 										<p class="text-danger">{{'The home phone should not be greater than 10 digits'}}</p>
