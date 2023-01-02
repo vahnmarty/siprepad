@@ -46,6 +46,6 @@ class StudentInformation extends Model
     ];
     
     const IS_FIRST_GENERATION = 1;
-    const NOT_FIRST_GENERATION = 0;
+    const NOT_FIRST_GENERATION = 2;
     
 }

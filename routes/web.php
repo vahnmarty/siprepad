@@ -166,17 +166,22 @@ Route::resource('registration', RegistrationController::class);
 Route::get('/registration/householdIndex/{id}', [RegistrationController::class, 'householdIndex'])->name('householdIndex');
 Route::post('/registration/householdUpdate/{id}', [RegistrationController::class, 'householdUpdate'])->name('householdUpdate');
 Route::get('/registration/healthInfoIndex/{id}', [RegistrationController::class, 'healthInfoIndex'])->name('healthInfoIndex');
+
 Route::post('/registration/healthInfoUpdate/{id}', [RegistrationController::class, 'healthInfoUpdate'])->name('healthInfoUpdate');
 Route::post('/registration/healthInfoCreate', [RegistrationController::class, 'healthInfoCreate'])->name('healthInfoCreate');
 
 Route::get('/registeration/emergencyContactIndex/{id}', [RegistrationController::class, 'emergencyContactIndex'])->name('emergencyContactIndex');
-Route::post('/registration/emergencyContactUpdate/{id}', [RegistrationController::class, 'emergencyContactUpdate'])->name('emergencyContactUpdate');
+Route::post('/registration/emergencyContactUpdate/{id}', [RegistrationController::class, 'emergencyContactUpdate'])->name('emergencyContactUpdate');       
+Route::post('/registration/emergencyContactSave', [RegistrationController::class, 'emergencyContactSave'])->name('emergencyContactSave');
 Route::get('/registration/accomodations/{id}', [RegistrationController::class, 'accomodationsIndex'])->name('accomodationsIndex');
+Route::post('/registration/accomodationsSave', [RegistrationController::class, 'accomodationsSave'])->name('accomodationsSave');
 Route::post('/registration/accomodationsUpdate/{id}', [RegistrationController::class, 'accomodationsUpdate'])->name('accomodationsUpdate');
-Route::get('/registration/magisProgram/{id}', [RegistrationController::class, 'magisProgramIndex'])->name('magisProgramIndex');
+Route::get('/registration/magisProgram/{id}', [RegistrationController::class, 'magisProgramIndex'])->name('magisProgramIndex');    
+Route::post('/registration/magisProgram', [RegistrationController::class, 'magisProgramSave'])->name('magisProgramSave');
 Route::post('/registration/magisProgram/{id}', [RegistrationController::class, 'magisProgramUpdate'])->name('magisProgramUpdate');
-Route::get('/registration/coursePlacement/{id}', [RegistrationController::class, 'coursePlacementIndex'])->name('coursePlacementIndex');
+Route::get('/registration/coursePlacementIndex/{id}', [RegistrationController::class, 'coursePlacementIndex'])->name('coursePlacementIndex');                                                           
 Route::post('/registration/coursePlacement/{id}', [RegistrationController::class, 'coursePlacementUpdate'])->name('coursePlacementUpdate');
+Route::get('/registration/thankYou' , [RegistrationController::class, 'thankYou']);
 
 
 

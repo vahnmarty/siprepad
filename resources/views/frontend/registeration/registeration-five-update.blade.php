@@ -2,7 +2,7 @@
 @push('css')
 @endpush
 @section('content')
-<form action="{{route('accomodationsSave')}}" method="POST">
+<form action="{{route('accomodationsUpdate',['id' => $accomodations->profile_id])}}" method="POST">
 @csrf
 @method('POST')
 	<div class="home-wrap hme-wrp2">
@@ -25,11 +25,11 @@
 										accommodations at their current school (Learning Plan, IEP,
 										504 Plan, Other)?</label> 
 										<input type="radio" id="yes" name="formal_accomodations_provided" 
-										value="{{App\Models\RegisterationSchoolAccomodation::ACCOMODATION_PROVIDED}}"> 
+										value="{{App\Models\RegisterationSchoolAccomodation::ACCOMODATION_PROVIDED}}" {{($accomodations->formal_accomodations_provided == App\Models\RegisterationSchoolAccomodation::ACCOMODATION_PROVIDED) ? "checked" : ""}}> 
 										<label class="blck" for="yes">Yes</label><br> 
 
 											
-					<input type="radio" id="no" name="formal_accomodations_provided" value="{{App\Models\RegisterationSchoolAccomodation::ACCOMODATION_NOT_PROVIDED}}">
+					<input type="radio" id="no" name="formal_accomodations_provided" value="{{App\Models\RegisterationSchoolAccomodation::ACCOMODATION_NOT_PROVIDED}}" {{($accomodations->formal_accomodations_provided == App\Models\RegisterationSchoolAccomodation::ACCOMODATION_NOT_PROVIDED) ? "checked" : ""}}>
 
 						<label class="blck" for="no">No</label><br>
 									@error('accomodations_provided')
@@ -46,10 +46,10 @@
 									<label class="blck">Does the student receive informal academic
 										accommodations at their current school (e.g., extended time,
 										preferred seating)?</label>
-										<input type="radio" id="yes" name="informal_accomodations_provided" value="{{App\Models\RegisterationSchoolAccomodation::ACCOMODATION_PROVIDED}}"> 
+										<input type="radio" id="yes" name="informal_accomodations_provided" value="{{App\Models\RegisterationSchoolAccomodation::ACCOMODATION_PROVIDED}}" {{($accomodations->informal_accomodations_provided == App\Models\RegisterationSchoolAccomodation::ACCOMODATION_PROVIDED) ? "checked" : ""}}> 
 									<label class="blck" for="yes">Yes</label><br>
 										<input type="radio" id="no" name="informal_accomodations_provided"
-										name="informal_accomodations_provided" value="{{App\Models\RegisterationSchoolAccomodation::ACCOMODATION_NOT_PROVIDED}}">
+										name="informal_accomodations_provided" value="{{App\Models\RegisterationSchoolAccomodation::ACCOMODATION_NOT_PROVIDED}}" {{($accomodations->informal_accomodations_provided == App\Models\RegisterationSchoolAccomodation::ACCOMODATION_NOT_PROVIDED) ? "checked" : ""}}>
 
 									<label class="blck" for="no">No</label><br>
 									@error('accomodations_provided')
@@ -67,7 +67,7 @@
 		</div>
 		<div class="flx">
 			<div class="form-btn text-end mt">
-				<a href="{{route('emergencyContactIndex',$id)}}" class="sub-btn">Previous</a>
+				<a href="{{route('emergencyContactIndex',['id' => $accomodations->profile_id])}}" class="sub-btn">Previous</a>
 			</div>
 			<div class="form-btn text-end mt">
 				<button type="submit" value="Next" class="sub-btn">Next/Save</button>
