@@ -214,6 +214,9 @@ class RegistrationController extends Controller
         return view('frontend.registeration.registeration-two', compact('addressinfo', 'parentinfo'));
     }
 
+  
+
+    
     public function householdUpdate(Request $request, $id)
     {
         DB::beginTransaction();
@@ -230,12 +233,12 @@ class RegistrationController extends Controller
                 'A1_home_phone' => 'required|regex:/[0-9]/|not_regex:/[a-z]/|min:10|max:10',
 
                 'P1_relation_to_applicant' => 'required|string|max:30',
-                'P1_prefix' => 'required|string|max:10',
-                'P1_parent_first_name' => 'required|string|max:255',
+                'P1_prefix' => 'string|max:10',
+                'P1_parent_first_name' => 'string|max:255',
                 'P1_parent_middle_name' => 'nullable|string|max:255',
                 'P1_parent_last_name' => 'nullable|string|max:255',
-                'P1_parent_cell_phone' => 'required|regex:/[0-9]/|not_regex:/[a-z]/|min:10|max:12',
-                'P1_parent_email' => 'required|email',
+                'P1_parent_cell_phone' => 'regex:/[0-9]/|not_regex:/[a-z]/|min:10|max:12',
+                'P1_parent_email' => 'email',
                 'P1_parent_employer' => 'nullable|string|max:200',
                 'P1_parent_position' => 'nullable|string',
                 'p1_parent_work_phone' => 'nullable|regex:/[0-9]/|not_regex:/[a-z]/|min:10|max:12',
@@ -349,12 +352,54 @@ class RegistrationController extends Controller
 
     public function healthInfoIndex($id)
     {
+
         $healthinfo = RegisterationHealthInformation::where('profile_id', $id)->first();
-        $mobile=$healthinfo->physician_phone;
-        $mobilearray=str_split($mobile,3);
-        
-        return view('frontend.registeration.registeration-three', compact('healthinfo','mobilearray'));
+          $profile = Auth::guard('customer')->user('id');
+         
+          if(!empty($healthinfo)){
+        return view('frontend.registeration.registeration-three-update', compact('healthinfo','profile'));
+          }else {
+              return view('frontend.registeration.registeration-three',compact('profile'));
+          }
     }
+    
+    public function healthInfoCreate(Request $request){
+        
+        $physician_no = $request->physician_phone1.$request->physician_phone2.$request->physician_phone3;
+//         dd($request->toArray());
+       $profile = Auth::guard('customer')->user('id');
+        $validator = validator($request->all(), [
+            'medical_insurance_company' => 'required|string|max:50',
+            'medical_policy_number' => 'required|string|max:30',
+            'physician_name' => 'required|string|max:50',
+            'physician_phone1' => 'required|regex:/[0-9]/|not_regex:/[a-z]/|min:3|max:3',
+            'physician_phone2' => 'required|regex:/[0-9]/|not_regex:/[a-z]/|min:3|max:3',
+            'physician_phone3' => 'required|regex:/[0-9]/|not_regex:/[a-z]/|min:4|max:4',
+            'prescribed_medication' => 'required|string',
+            'allergies' => 'required|string',
+            'child_condition' => 'required|string'
+        ]);
+        
+        if ($validator->fails()) {
+            return redirect()->route('emergencyContactIndex');
+        }
+        
+        $healthinfo = new RegisterationHealthInformation();
+        $healthinfo->medical_insurance_company = $request->medical_insurance_company;
+        $healthinfo->medical_policy_number = $request->medical_policy_number;
+        $healthinfo->physician_name = $request->physician_name;
+        $healthinfo->physician_phone = $request->physician_phone1.$request->physician_phone2.$request->physician_phone3;
+        $healthinfo->prescribed_medication = $request->prescribed_medication;
+        $healthinfo->allergies = $request->allergies;
+        $healthinfo->child_condition = $request->child_condition;
+        $healthinfo->profile_id = $profile->id;
+        
+        if($healthinfo->save()){
+            return redirect('registeration/emergencyContactIndex/'.$healthinfo->profile_id)->with('success', "Saved successfully");
+        }
+   
+    }
+    
     
     public function healthInfoUpdate(Request $request, $id)
     {
@@ -388,8 +433,9 @@ class RegistrationController extends Controller
         }
     }
     
-    public function emergencyContactIndex($id)
+    public function emergencyContactIndex()
     {
+       
         $emergencyContact = RegisterationEmergencycontact::where('profile_id',$id)->first();
         return view('frontend.registeration.registeration-four',compact('emergencyContact'));
     }

@@ -2,9 +2,9 @@
 @push('css')
 @endpush
 @section('content')
-<form action="{{route('healthInfoCreate')}}" method="POST">
+<form action="{{route('healthInfoUpdate',$profile->id)}}" method="POST">
 @csrf
-
+@method('POST')
 	<div class="home-wrap hme-wrp2">
 		<div class="progress-outr"></div>
 		<div class="form-outr">
@@ -24,7 +24,7 @@
 							<div class="col-lg-6">
 								<div class="form-group">
 									<input type="text" class="form-control"
-										name='medical_insurance_company'   value="" />
+										name='medical_insurance_company'   value="{{$healthinfo->medical_insurance_company}}" />
 									@error('medical_insurance_company')
 									<p class="text-danger">{{$message}}</p>
 									@enderror @error('live_with')
@@ -41,7 +41,7 @@
 							<div class="col-lg-6">
 								<div class="form-group">
 								<input type="text" class="form-control"
-										name='medical_policy_number'   value="" />
+										name='medical_policy_number'   value="{{$healthinfo->medical_policy_number}}" />
 									@error('medical_policy_number')
 									<p class="text-danger">{{$message}}</p>
 									@enderror @error('live_with')
@@ -59,7 +59,7 @@
 							<div class="col-lg-6">
 								<div class="form-group">
 									<input type="text" class="form-control"
-										name='physician_name'  value="" /> @error('physician_name')
+										name='physician_name'  value="{{$healthinfo->physician_name}}" /> @error('physician_name')
 									<p class="text-danger">{{$message}}</p>
 									@enderror @error('live_with')
 									<p class="text-danger">{{$message}}</p>
@@ -75,26 +75,24 @@
 							<div class="col-lg-6">
 								<div class="form-group" style="display:flex">
 									<input type="number" class="form-control"
-										name='physician_phone1'   value=""style="width:25%;margin-right:5px;" max="3"/> @error('physician_phone1')
+										name='physician_phone1'   value=""style="width:25%;margin-right:5px;" max="3"/> <br>@error('physician_phone1')
+									<p class="text-danger" >{{$message}}</p>
+									@enderror 
+									
+									<input type="number" class="form-control"
+										name='physician_phone2' style="width:25%"   value="" max="3"/><br> @error('physician_phone2')
 									<p class="text-danger">{{$message}}</p>
 									@enderror 
 									
 									<input type="number" class="form-control"
-										name='physician_phone2'   value="" style="width:25%" max="3"/>@error('physician_phone2')
-									<p class="text-danger">{{$message}}</p>
-									@enderror 
-									
-									<input type="number" class="form-control"
-										name='physician_phone3'   value="" style="width:25%;margin-left:5px;" max="4"/> @error('physician_phone3')
+										name='physician_phone3' style="width:25%;margin-left:5px;"   value="" max="4"/><br> @error('physician_phone3')
 									<p class="text-danger">{{$message}}</p>
 									@enderror 
 									
 								</div>						
 								
 							</div>
-							
-
-
+						
 						</div>
 						<div class="row">
 							<div class="col-md-2"></div>
@@ -103,7 +101,7 @@
 									applicable , type "none"):</label>
 								<div class="form-group">
 									<textarea rows="8" cols="10" maxlength="1000"
-										name='prescribed_medication' >
+										name='prescribed_medication' >{{$healthinfo->prescribed_medication}}
                                       </textarea>
 									@error('prescribed_medication')
 									<p class="text-danger">{{$message}}</p>
@@ -121,7 +119,7 @@
 									Restrictions (If not applicable , type "none"): </label>
 								<div class="form-group">
 									<textarea rows="8" cols="10" maxlength="1000"
-										name='allergies'> 
+										name='allergies'> {{$healthinfo->allergies}}
                                       </textarea>
 									@error('allergies')
 									<p class="text-danger">{{$message}}</p>
@@ -141,8 +139,7 @@
 									applicable, type "none"):</label>
 								<div class="form-group">
 									<textarea rows="8" cols="10" maxlength="1000"
-										name='child_condition'> 
-										
+										name='child_condition'> {{$healthinfo->child_condition}}
                                       </textarea>
 									@error('child_condition')
 									<p class="text-danger">{{$message}}</p>
@@ -161,7 +158,7 @@
 
 		<div class="flx">
 			<div class="form-btn text-end mt">
-				<a href="{{route('householdIndex',$profile->id)}}" class="sub-btn">Previous</a>
+				<a href="{{route('householdIndex',['id' => $healthinfo->profile_id])}}" class="sub-btn">Previous</a>
 			</div>
 			<div class="form-btn text-end mt">
 				<button type="submit" value="Next" class="sub-btn">Next/Save</button>
