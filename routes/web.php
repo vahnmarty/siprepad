@@ -167,6 +167,8 @@ Route::get('/registration/householdIndex/{id}', [RegistrationController::class, 
 Route::post('/registration/householdUpdate/{id}', [RegistrationController::class, 'householdUpdate'])->name('householdUpdate');
 Route::get('/registration/healthInfoIndex/{id}', [RegistrationController::class, 'healthInfoIndex'])->name('healthInfoIndex');
 Route::post('/registration/healthInfoUpdate/{id}', [RegistrationController::class, 'healthInfoUpdate'])->name('healthInfoUpdate');
+Route::post('/registration/healthInfoCreate', [RegistrationController::class, 'healthInfoCreate'])->name('healthInfoCreate');
+
 Route::get('/registeration/emergencyContactIndex/{id}', [RegistrationController::class, 'emergencyContactIndex'])->name('emergencyContactIndex');
 Route::post('/registration/emergencyContactUpdate/{id}', [RegistrationController::class, 'emergencyContactUpdate'])->name('emergencyContactUpdate');
 Route::get('/registration/accomodations/{id}', [RegistrationController::class, 'accomodationsIndex'])->name('accomodationsIndex');

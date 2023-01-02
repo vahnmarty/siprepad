@@ -95,7 +95,7 @@ class NotificationController extends Controller
             }
             
             $is_read_status = Notification::where('id', $nid)->first('is_read');
-        
+            $is_read_status = Notification::where('id', $nid)->first('is_read');    
             if ($is_read_status->is_read == 0) {
                 $is_read_update = Notification::where('id', $nid)->update([
                     'is_read' => Notification::NOTIFY_READ
@@ -115,6 +115,7 @@ class NotificationController extends Controller
             if($appStatus->s2_candidate_status == Application::CANDIDATE_NOT_DEFINED ){
                 $updateCandidateStatus=StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->update(['s2_candidate_status'=>Application::CANDIDATE_READ]);
             }
+            $is_read_status = Notification::where('id', $nid)->first('is_read');    
             if ($is_read_status->is_read == 0) {
                 $is_read_update = Notification::where('id', $nid)->update([
                     'is_read' => Notification::NOTIFY_READ
@@ -133,11 +134,11 @@ class NotificationController extends Controller
             if($appStatus->s3_candidate_status == Application::CANDIDATE_NOT_DEFINED ){
                 $updateCandidateStatus=StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->update(['s3_candidate_status'=>Application::CANDIDATE_READ]);
             }
-            if ($is_read_status->is_read == 0) {
-                $is_read_update = Notification::where('id', $nid)->update([
+            $is_read_status = Notification::where('id', $nid)->first('is_read');    
+            $is_read_update = Notification::where('id', $nid)->update([
                     'is_read' => Notification::NOTIFY_READ
                 ]);
-            }
+            
             
             
         }
