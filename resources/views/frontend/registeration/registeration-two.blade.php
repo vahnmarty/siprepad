@@ -8,41 +8,18 @@
 		<div class="progress-outr"></div>
 		
 			<div class="form-outr">
-<!-- 				<div class="cmn-hdr"> -->
-<!-- 					<h4>Student Information</h4> -->
-<!-- 				</div> -->
+
 
 				<div class="school-wrap step__one">
 					<div class="form-wrap">
 						<div class="form-wrap">
-<!-- 							<div class="row"> -->
-<!-- 								<div class="col-md-4"></div> -->
-<!-- 								<div class="col-md-4"> -->
-<!-- 									<div class="form-group"> -->
-<!-- 										<label>Student Lives with </label><br> <label class="blck"><input -->
-<!-- 											type="radio" name="A1_live_with" value="Father" -->
-<!-- 											id="Father"> Father</label><br> <label class="blck"><input -->
-<!-- 											type="radio" id="Mother" name="live_with" -->
-<!-- 											value="Mother">Mother</label><br> <label class="blck"><input -->
-<!-- 											type="radio" name="live_with" id="StepFather" -->
-<!-- 											value="StepFather">StepFather</label><br> <label class="blck"><input -->
-<!-- 											type="radio" name="live_with" value="StepMother" -->
-<!-- 											id="StepMother"> StepMother</label> <br> <label class="blck"><input -->
-<!-- 											type="radio" name="live_with" value="Guradians" -->
-<!-- 											id="Guradians"> Guardians</label> @error('live_with') -->
-<!-- 										<div class="text-danger">{{ $message }}</div> -->
-<!-- 										@enderror -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-
-<!-- 							</div> -->
 
 							<div class="cmn-hdr">
 								<h4 class="text-center" style="font-size: 25px">Household
 									Information</h4>
 							</div>
 							<div class="row">
-								<div class="col-lg-3"></div>
+								<div class="col-lg-2"></div>
 								<div class="col-lg-9">
 									<div class="form-group">
 										<label>Street</label> <input type="text" value="{{$addressinfo->Address_1}}" class="form-control"
@@ -54,7 +31,7 @@
 							</div>
 							<div class="row">
 
-								<div class="col-lg-3"></div>
+								<div class="col-lg-2"></div>
 								<div class="col-lg-9">
 									<div class="form-group">
 										<label>City</label> <input type="text" value="{{$addressinfo->City_1}}" class="form-control"
@@ -65,7 +42,7 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-lg-3"></div>
+								<div class="col-lg-2"></div>
 								<div class="col-lg-9">
 									<div class="form-group">
 										<label>State</label> <input type="text" value="{{$addressinfo->State_1}}" class="form-control"
@@ -76,7 +53,7 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-lg-3"></div>
+								<div class="col-lg-2"></div>
 								<div class="col-lg-9">
 									<div class="form-group">
 										<label>Zip Code</label> <input type="number"  value="{{$addressinfo->Zipcode_1}}"
@@ -88,7 +65,7 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-lg-3"></div>
+								<div class="col-lg-2"></div>
 								<div class="col-lg-9">
 									<div class="form-group">
 										<label>Home Phone</label> <input type="number"
@@ -99,26 +76,7 @@
 									</div>
 								</div>
 							</div>
-<!-- 							<div class="row"> -->
-<!-- 								<div class="col-lg-3"></div> -->
-<!-- 								<div class="col-lg-9"> -->
-<!-- 									<div class="form-group"> -->
-<!-- 										<label>Primary Parent (for SI to contact first regarding -->
-<!-- 											school matters)</label> <select class="form-control" -->
-<!-- 											name='A1_primary_parent'> -->
-<!-- 											<option value="">-- Please Choose --</option> -->
-
-<!-- 											<option value="father">Father</option> -->
-<!-- 											<option value="mother">Mother</option> -->
-<!-- 											<option value="stepmother">Stepmother</option> -->
-<!-- 											<option value="stepfather">Stepfather</option> -->
-<!-- 											<option value="guardians">Guardians</option> -->
-<!-- 										</select> @error('A1_primary_parent') -->
-<!-- 										<p class="text-danger">{{$message}}</p> -->
-<!-- 										@enderror -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
+			
 
 							<div class="cmn-hdr">
 								<h4 class="text-center" style="font-size: 22px">Household 1 -
@@ -127,7 +85,7 @@
 							
 							<div class="form-wrap">
 								<div class="row">
-									<div class="col-lg-3"></div>
+									<div class="col-lg-2"></div>
 									<div class="col-lg-9">
 										<div class="form-group">
 											<label class="blck">Relationship to Applicant</label> <select
@@ -147,7 +105,7 @@
 								</div>
 								
 								<div class="row">
-									<div class="col-lg-3"></div>
+									<div class="col-lg-2"></div>
 									<div class="col-lg-9">
 										<div class="form-group">
 											<label class="blck">Prefix</label> <select
@@ -165,7 +123,7 @@
 								</div>
 								
 								<div class="row">
-									<div class="col-lg-3"></div>
+									<div class="col-lg-2"></div>
 									<div class="col-lg-9">
 										<div class="form-group">
 											<label class="blck">First Name</label> <input type="text"
@@ -177,7 +135,7 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-lg-3"></div>
+									<div class="col-lg-2"></div>
 									<div class="col-lg-9">
 										<div class="form-group">
 											<label class="blck">Middle Name</label> <input type="text"
@@ -189,7 +147,7 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-lg-3"></div>
+									<div class="col-lg-2"></div>
 									<div class="col-lg-9">
 										<div class="form-group">
 											<label class="blck">Last Name</label> <input type="text" value="{{$parentinfo->P1_Last_Name}}"
@@ -201,7 +159,7 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-lg-3"></div>
+									<div class="col-lg-2"></div>
 									<div class="col-lg-9">
 										<div class="form-group">
 											<label class="blck">Cell Phone</label> <input type="tel"
@@ -213,7 +171,7 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-lg-3"></div>
+									<div class="col-lg-2"></div>
 									<div class="col-lg-9">
 										<div class="form-group">
 											<label class="blck">Email Address</label> <input type="email"
@@ -225,7 +183,7 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-lg-3"></div>
+									<div class="col-lg-2"></div>
 									<div class="col-lg-9">
 										<div class="form-group">
 											<label class="blck">Employer</label> <input type="employer"
@@ -237,7 +195,7 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-lg-3"></div>
+									<div class="col-lg-2"></div>
 									<div class="col-lg-9">
 										<div class="form-group">
 											<label class="blck">Position/Title</label> <input
@@ -249,7 +207,7 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-lg-3"></div>
+									<div class="col-lg-2"></div>
 									<div class="col-lg-9">
 										<div class="form-group">
 											<label class="blck">Work Phone</label> <input type="tel"
@@ -261,7 +219,7 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-lg-3"></div>
+									<div class="col-lg-2"></div>
 									<div class="col-lg-9">
 										<div class="form-group">
 											<label class="blck">School/Colleges Attended</label>
@@ -283,7 +241,7 @@
 							
 							<div class="form-wrap">
 								<div class="row">
-									<div class="col-lg-3"></div>
+									<div class="col-lg-2"></div>
 									<div class="col-lg-9">
 										<div class="form-group">
 											<label class="blck">Relationship to Applicant</label> <select
@@ -303,7 +261,7 @@
 								</div>
 								
 								<div class="row">
-									<div class="col-lg-3"></div>
+									<div class="col-lg-2"></div>
 									<div class="col-lg-9">
 										<div class="form-group">
 											<label class="blck">Prefix</label> <select
@@ -321,7 +279,7 @@
 								</div>
 								
 								<div class="row">
-									<div class="col-lg-3"></div>
+									<div class="col-lg-2"></div>
 									<div class="col-lg-9">
 										<div class="form-group">
 											<label class="blck">First Name</label> <input type="text"
@@ -333,7 +291,7 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-lg-3"></div>
+									<div class="col-lg-2"></div>
 									<div class="col-lg-9">
 										<div class="form-group">
 											<label class="blck">Middle Name</label> <input type="text"
@@ -345,7 +303,7 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-lg-3"></div>
+									<div class="col-lg-2"></div>
 									<div class="col-lg-9">
 										<div class="form-group">
 											<label class="blck">Last Name</label> <input type="text" value="{{$parentinfo->P2_Last_Name}}"
@@ -357,7 +315,7 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-lg-3"></div>
+									<div class="col-lg-2"></div>
 									<div class="col-lg-9">
 										<div class="form-group">
 											<label class="blck">Cell Phone</label> <input type="tel"
@@ -369,7 +327,7 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-lg-3"></div>
+									<div class="col-lg-2"></div>
 									<div class="col-lg-9">
 										<div class="form-group">
 											<label class="blck">Email Address</label> <input type="email"
@@ -381,7 +339,7 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-lg-3"></div>
+									<div class="col-lg-2"></div>
 									<div class="col-lg-9">
 										<div class="form-group">
 											<label class="blck">Employer</label> <input type="employer"
@@ -393,7 +351,7 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-lg-3"></div>
+									<div class="col-lg-2"></div>
 									<div class="col-lg-9">
 										<div class="form-group">
 											<label class="blck">Position/Title</label> <input
@@ -405,7 +363,7 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-lg-3"></div>
+									<div class="col-lg-2"></div>
 									<div class="col-lg-9">
 										<div class="form-group">
 											<label class="blck">Work Phone</label> <input type="tel"
@@ -417,7 +375,7 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-lg-3"></div>
+									<div class="col-lg-2"></div>
 									<div class="col-lg-9">
 										<div class="form-group">
 											<label class="blck">School/Colleges Attended</label>
@@ -441,7 +399,7 @@
 							
 							<div class="form-wrap">
 								<div class="row">
-									<div class="col-lg-3"></div>
+									<div class="col-lg-2"></div>
 									<div class="col-lg-9">
 										<div class="form-group">
 											<label class="blck">Relationship to Applicant</label> <select
@@ -461,7 +419,7 @@
 								</div>
 								
 								<div class="row">
-									<div class="col-lg-3"></div>
+									<div class="col-lg-2"></div>
 									<div class="col-lg-9">
 										<div class="form-group">
 											<label class="blck">Prefix</label> <select
@@ -479,7 +437,7 @@
 								</div>
 								
 								<div class="row">
-									<div class="col-lg-3"></div>
+									<div class="col-lg-2"></div>
 									<div class="col-lg-9">
 										<div class="form-group">
 											<label class="blck">First Name</label> <input type="text"
@@ -491,7 +449,7 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-lg-3"></div>
+									<div class="col-lg-2"></div>
 									<div class="col-lg-9">
 										<div class="form-group">
 											<label class="blck">Middle Name</label> <input type="text"
@@ -503,7 +461,7 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-lg-3"></div>
+									<div class="col-lg-2"></div>
 									<div class="col-lg-9">
 										<div class="form-group">
 											<label class="blck">Last Name</label> <input type="text" value="{{$parentinfo->P3_Last_Name}}"
@@ -515,7 +473,7 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-lg-3"></div>
+									<div class="col-lg-2"></div>
 									<div class="col-lg-9">
 										<div class="form-group">
 											<label class="blck">Cell Phone</label> <input type="tel"
@@ -527,7 +485,7 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-lg-3"></div>
+									<div class="col-lg-2"></div>
 									<div class="col-lg-9">
 										<div class="form-group">
 											<label class="blck">Email Address</label> <input type="email"
@@ -539,7 +497,7 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-lg-3"></div>
+									<div class="col-lg-2"></div>
 									<div class="col-lg-9">
 										<div class="form-group">
 											<label class="blck">Employer</label> <input type="employer"
@@ -551,7 +509,7 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-lg-3"></div>
+									<div class="col-lg-2"></div>
 									<div class="col-lg-9">
 										<div class="form-group">
 											<label class="blck">Position/Title</label> <input
@@ -563,7 +521,7 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-lg-3"></div>
+									<div class="col-lg-2"></div>
 									<div class="col-lg-9">
 										<div class="form-group">
 											<label class="blck">Work Phone</label> <input type="tel"
@@ -575,7 +533,7 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-lg-3"></div>
+									<div class="col-lg-2"></div>
 									<div class="col-lg-9">
 										<div class="form-group">
 											<label class="blck">School/Colleges Attended</label>

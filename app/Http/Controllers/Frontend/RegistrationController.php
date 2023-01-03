@@ -366,7 +366,7 @@ class RegistrationController extends Controller
     public function healthInfoCreate(Request $request){
         
         $physician_no = $request->physician_phone1.$request->physician_phone2.$request->physician_phone3;
-//         dd($request->toArray());
+
        $profile = Auth::guard('customer')->user('id');
         $validator = validator($request->all(), [
             'medical_insurance_company' => 'required|string|max:50',
@@ -681,6 +681,7 @@ class RegistrationController extends Controller
         
         elseif (!empty($idCheck) && $langCount > LanguageChoice::LANG_COUNT)
         {
+
             $validator = validator($request->all(), [
                 'math_challenge_test' => 'required',
                 'language_placement_test' => 'required',
@@ -690,7 +691,8 @@ class RegistrationController extends Controller
                 return Redirect::back()->withInput()->withErrors($validator);
             }
 
-//             $coursePlacement = new CoursePlacementInformation();
+            $coursePlacement = new CoursePlacementInformation();
+
             $idCheck->profile_id = $request->id;
             $idCheck->english_placement = $request->english_placement;
             $idCheck->math_placement = $request->math_placement;
@@ -722,6 +724,7 @@ class RegistrationController extends Controller
         }
         elseif (!empty($idCheck) && $langCount == LanguageChoice::LANG_COUNT)
         {
+
             $validator = validator($request->all(), [
                 'math_challenge_test' => 'required',
                 'language_placement_test' => 'required',
