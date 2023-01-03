@@ -366,7 +366,6 @@ class RegistrationController extends Controller
     public function healthInfoCreate(Request $request){
         
         $physician_no = $request->physician_phone1.$request->physician_phone2.$request->physician_phone3;
-
        $profile = Auth::guard('customer')->user('id');
         $validator = validator($request->all(), [
             'medical_insurance_company' => 'required|string|max:50',
@@ -647,8 +646,8 @@ class RegistrationController extends Controller
             ]);
             if ($validator->fails()) {
                 return Redirect::back()->withInput()->withErrors($validator);
-            }
-            
+
+            }     
 
             $coursePlacement = new CoursePlacementInformation();
             $coursePlacement->profile_id = $request->id;
@@ -691,8 +690,7 @@ class RegistrationController extends Controller
                 return Redirect::back()->withInput()->withErrors($validator);
             }
 
-            $coursePlacement = new CoursePlacementInformation();
-
+//             $coursePlacement = new CoursePlacementInformation();
             $idCheck->profile_id = $request->id;
             $idCheck->english_placement = $request->english_placement;
             $idCheck->math_placement = $request->math_placement;
@@ -734,7 +732,6 @@ class RegistrationController extends Controller
                 return Redirect::back()->withInput()->withErrors($validator);
             }
 
-            //             $coursePlacement = new CoursePlacementInformation();
             $idCheck->profile_id = $request->id;
             $idCheck->english_placement = $request->english_placement;
             $idCheck->math_placement = $request->math_placement;
