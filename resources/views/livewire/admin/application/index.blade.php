@@ -134,7 +134,7 @@
 					<input type='hidden' class='last_name' name='first_name' value="{{ $student['Last_Name'] }}">
 					<input type='hidden' class='dob' name='dob' value="{{ $student['Birthday'] }}">
 					<input type='hidden' class='email' name='email' value="{{ $student['Personal_Email'] }}">
-					
+					   
 					@if($getApplicationStatus)
 						@if($getStudent->S1_Personal_Email == $student['Personal_Email'] &&  $getStudent->S1_First_Name == $student['First_Name']
 						&& $getStudent->S1_Last_Name == $student['Last_Name'] && $getStudent->S1_Birthdate == $student['Birthday'])
@@ -146,7 +146,6 @@
 						&& $getStudent->S3_Last_Name == $student['Last_Name'] && $getStudent->S3_Birthdate == $student['Birthday'])
 							<?php $studentProfile = 'student_three'; ?>
 						@endif
-						
 						@if($studentProfile == 'student_one')
 							@switch($getApplicationStatus->s1_application_status)
                                 @case(1)

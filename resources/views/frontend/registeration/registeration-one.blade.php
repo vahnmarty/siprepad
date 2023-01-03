@@ -68,8 +68,9 @@
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label>Gender </label> <select class="form-control"
-										name='S1_gender'>
+									<label>Gender </label> 
+									<select class="form-control" name='S1_gender'>
+										<option selected disabled value="">Choose One</option>
 										<option value="male" {{ $studentinfo->S1_Gender == 'male' ? 'selected' : '' }}>Male</option>
 										<option value="female" {{$studentinfo->S1_Gender == 'female' ? 'selected' : '' }}>Female</option>
 
@@ -95,6 +96,7 @@
 								<div class="form-group">
 									<label>T-Shirt Size(Adult/Unisex) </label> 
 									<select class="form-control" name='S1_tshirt_size'>
+									<option selected disabled value="" >Choose One</option>
 										<option value="small" {{ $studentinfo->s1_tshirt_size == 'small' ? 'selected' : '' }}>Small</option>
 										<option value="medium" {{ $studentinfo->s1_tshirt_size == 'medium' ? 'selected' : '' }}>Medium</option>
 										<option value="large" {{ $studentinfo->s1_tshirt_size == 'large' ? 'selected' : '' }}>Large</option>
@@ -109,9 +111,9 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
-									<label class="blck">Religion </label><select
-										class="form-control" name='S1_religion'
-										value="">
+									<label class="blck">Religion </label>
+									<select class="form-control" name='S1_religion' value="">
+										<option selected disabled value="" >Choose One</option>
 										<option value="hindu"{{$studentinfo->s1_religion == 'hindu' ? 'selected' : '' }}>Hindu</option>
 										<option value="christian"{{$studentinfo->s1_religion == 'christian' ? 'selected' : '' }}>Christian</option>
 										<option value="none"{{$studentinfo->s1_religion == 'none' ? 'selected' : '' }}>None</option>
@@ -181,9 +183,9 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
-									<label class="blck">Current School </label><select
-										class="form-control" name='S1_current_school'
-										value="">
+									<label class="blck">Current School </label>
+									<select class="form-control" name='S1_current_school' value="">
+									<option selected disabled value="" >Choose One</option>
 										<option value="school_one" {{ $studentinfo->S1_Current_School == 'school_one' ? 'selected' : ''}} >School one</option>
 										<option value="school_two" {{ $studentinfo->S1_Current_School == 'school_two' ? 'selected' : ''}} >School two</option>
 										<option value="school_three" {{ $studentinfo->S1_Current_School == 'school_three' ? 'selected' : ''}}>School three</option>
@@ -257,8 +259,9 @@
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label>Gender </label> <select class="form-control"
-										name='S2_gender'>
+									<label>Gender </label> 
+									<select class="form-control" name='S2_gender'>
+										<option selected disabled >Choose One</option>
 										<option value="male" {{ $studentinfo->S2_Gender == 'male' ? 'selected' : '' }}>Male</option>
 										<option value="female" {{$studentinfo->S2_Gender == 'female' ? 'selected' : '' }}>Female</option>
 
@@ -272,7 +275,8 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
-									<label>Student's Mobile Phone Number </label> <input type="tel"
+									<label>Student's Mobile Phone Number </label> 
+									<input type="tel"
 										class="form-control" name='S2_student_phone_number'
 										value="{{$studentinfo->S2_Mobile_Phone }}" />
 									@error('S2_student_phone_number')
@@ -284,6 +288,7 @@
 								<div class="form-group">
 									<label>T-Shirt Size(Adult/Unisex) </label> 
 									<select class="form-control" name='S2_tshirt_size'>
+										<option selected disabled >Choose One</option>
 										<option value="small" {{ $studentinfo->s2_tshirt_size == 'small' ? 'selected' : '' }}>Small</option>
 										<option value="medium" {{ $studentinfo->s2_tshirt_size == 'medium' ? 'selected' : '' }}>Medium</option>
 										<option value="large" {{ $studentinfo->s2_tshirt_size == 'large' ? 'selected' : '' }}>Large</option>
@@ -299,8 +304,8 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									<label class="blck">Religion </label><select
-										class="form-control" name='S2_religion'
-										value="">
+										class="form-control" name='S2_religion' value="">
+										<option selected disabled >Choose One</option>
 										<option value="hindu"{{$studentinfo->s2_religion == 'hindu' ? 'selected' : '' }}>Hindu</option>
 										<option value="christian"{{$studentinfo->s2_religion == 'christian' ? 'selected' : '' }}>Christian</option>
 										<option value="none"{{$studentinfo->s2_religion == 'none' ? 'selected' : '' }}>None</option>
@@ -445,8 +450,9 @@
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label>Gender </label> <select class="form-control"
-										name='S3_gender'>
+									<label>Gender </label> 
+									<select class="form-control" name='S3_gender'>
+										<option selected disabled >Choose One</option>
 										<option value="male" {{ $studentinfo->S3_Gender == 'male' ? 'selected' : '' }}>Male</option>
 										<option value="female" {{$studentinfo->S3_Gender == 'female' ? 'selected' : '' }}>Female</option>
 
@@ -472,6 +478,7 @@
 								<div class="form-group">
 									<label>T-Shirt Size(Adult/Unisex) </label> 
 									<select class="form-control" name='S3_tshirt_size'>
+										<option selected disabled >Choose One</option>
 										<option value="small" {{ $studentinfo->s3_tshirt_size == 'small' ? 'selected' : '' }}>Small</option>
 										<option value="medium" {{ $studentinfo->s3_tshirt_size == 'medium' ? 'selected' : '' }}>Medium</option>
 										<option value="large" {{ $studentinfo->s3_tshirt_size == 'large' ? 'selected' : '' }}>Large</option>
@@ -486,9 +493,9 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
-									<label class="blck">Religion </label><select
-										class="form-control" name='S3_religion'
-										value="">
+									<label class="blck">Religion </label>
+									<select class="form-control" name='S3_religion' >
+										<option selected disabled >Choose One</option>
 										<option value="hindu"{{$studentinfo->s3_religion == 'hindu' ? 'selected' : '' }}>Hindu</option>
 										<option value="christian"{{$studentinfo->s3_religion == 'christian' ? 'selected' : '' }}>Christian</option>
 										<option value="none"{{$studentinfo->s3_religion == 'none' ? 'selected' : '' }}>None</option>
