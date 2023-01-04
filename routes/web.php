@@ -103,18 +103,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:sanctum'], function () 
     Route::get('/user/registerable/{status}/{uid}',[UserController::class,'registrationChange']);
     Route::resource('application', ApplicationController::class);
     Route::post('/application/cstatus',[ApplicationController::class, 'statusSubmit'])->name('statusSubmit');
-
-
     Route::resource('recommendation', RecommendationController::class);
-
     Route::resource('promocode', PromocodeController::class);
     Route::post('users-send-email', [ApplicationController::class, 'sendEmail'])->name('send.email');
-
     Route::post('candidate_status', [ApplicationController::class, 'changestatus'])->name('changestatus');
-    
-    
-
-
     Route::resource('cms', CmsController::class)->only([
         'index', 'edit', 'update'
     ]);

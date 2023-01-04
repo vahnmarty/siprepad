@@ -465,7 +465,7 @@
                                     @foreach ($otherSchoolList as $school)
                                         <option value="{{ $school['school_name'] }}">
                                             {{ $school['school_name'] }}
-                                        </option>
+                                        </optio
                                     @endforeach
                                 </select>
                                 @error('inputs.*.Other_High_School_4')
@@ -484,7 +484,7 @@
                                         <button class="btn btn-danger btn-sm"
                                             wire:click.prevent="remove({{ $key }})">Remove student</button>
                                     @endif
-                                </div>
+                                </div
                             </div>
                         @endif
                     </div>

@@ -87,9 +87,11 @@ class NotificationController extends Controller
         if ($ntfDetail->student_profile == 'student_one') {
             $studentname = StudentInformation::where('Application_ID', $ntfDetail->application_id)->select('S1_First_Name', 'S1_Last_name')->first();
             $name = ucfirst($studentname->S1_First_Name) . ' ' . ucfirst($studentname->S1_Last_name);
-            $status = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->select('s1_application_status')->first();
+            $status = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->select('s1_application_status','s1_candidate_status')->first();
             $student_status = $status->s1_application_status;
             $candidate = 's1';
+            $student_accept_status = $status->s1_candidate_status;
+
             if($appStatus->s1_candidate_status == Application::CANDIDATE_NOT_DEFINED ){
                 $updateCandidateStatus=StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->update(['s1_candidate_status'=>Application::CANDIDATE_READ]);
             }
@@ -109,9 +111,11 @@ class NotificationController extends Controller
         if ($ntfDetail->student_profile == 'student_two') {
             $studentname = StudentInformation::where('Application_ID', $ntfDetail->application_id)->select('S2_First_Name', 'S2_Last_name')->first();
             $name = ucfirst($studentname->S2_First_Name) . ' ' . ucfirst($studentname->S2_Last_name);
-            $status = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->select('s2_application_status')->first();
+            $status = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->select('s2_application_status','s2_candidate_status')->first();
             $student_status = $status->s2_application_status;
             $candidate = 's2';
+            $student_accept_status = $status->s2_candidate_status;
+
             if($appStatus->s2_candidate_status == Application::CANDIDATE_NOT_DEFINED ){
                 $updateCandidateStatus=StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->update(['s2_candidate_status'=>Application::CANDIDATE_READ]);
             }
@@ -128,8 +132,9 @@ class NotificationController extends Controller
         if ($ntfDetail->student_profile == 'student_three') {
             $studentname = StudentInformation::where('Application_ID', $ntfDetail->application_id)->select('S3_First_Name', 'S3_Last_name')->first();
             $name = ucfirst($studentname->S3_First_Name) . ' ' . ucfirst($studentname->S3_Last_name);
-            $status = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->select('s3_application_status')->first();
+            $status = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->select('s3_application_status','s3_candidate_status')->first();
             $student_status = $status->s3_application_status;
+            $student_accept_status = $status->s3_candidate_status;
             $candidate = 's3';
             if($appStatus->s3_candidate_status == Application::CANDIDATE_NOT_DEFINED ){
                 $updateCandidateStatus=StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->update(['s3_candidate_status'=>Application::CANDIDATE_READ]);
@@ -142,8 +147,8 @@ class NotificationController extends Controller
             
             
         }
-
-        return view('frontend.notificationDetail', compact('ntfDetail', 'appDetail', 'studentDetail', 'appStatus', 'name', 'student_status', 'candidate'));
+        $pay_amount= 1500;
+        return view('frontend.notificationDetail', compact('ntfDetail', 'appDetail', 'studentDetail', 'appStatus', 'name', 'student_status', 'candidate','student_accept_status','pay_amount'));
     }
 
     public function candidateResponse(Request $request, $apid, $candidate, $rsid)
@@ -165,7 +170,7 @@ class NotificationController extends Controller
 
                     if ($updateCr) {
 
-                        $res = Mail::to($parentDetail->P1_Personal_Email)->send(new CandidateStatus($studentDetail, $rsid, $parentDetail));
+                        // $res = Mail::to($parentDetail->P1_Personal_Email)->send(new CandidateStatus($studentDetail, $rsid, $parentDetail));
                         return redirect()->back()->with('success', 'Thank you, We have recieved your response!!');
                     }
 
@@ -184,7 +189,7 @@ class NotificationController extends Controller
 
                     if ($updateCr) {
 
-                        $res = Mail::to($parentDetail->P1_Personal_Email)->send(new CandidateStatus($studentDetail, $rsid, $parentDetail));
+                        // $res = Mail::to($parentDetail->P1_Personal_Email)->send(new CandidateStatus($studentDetail, $rsid, $parentDetail));
                         return redirect()->back()->with('success', 'Thank you, We have recieved your response!!');
                     }
 
@@ -202,7 +207,7 @@ class NotificationController extends Controller
 
                     if ($updateCr) {
 
-                        $res = Mail::to($parentDetail->P1_Personal_Email)->send(new CandidateStatus($studentDetail, $rsid, $parentDetail));
+                        // $res = Mail::to($parentDetail->P1_Personal_Email)->send(new CandidateStatus($studentDetail, $rsid, $parentDetail));
                         return redirect()->back()->with('success', 'Thank you, We have recieved your response!!');
                     }
 
