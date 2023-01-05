@@ -16,8 +16,8 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class UserList extends Component
 {
-
     use WithPagination;
+ 
     use WithSorting;
     use AlertMessage;
     public $perPageList = [];
@@ -74,7 +74,7 @@ class UserList extends Component
     {
        
         return view('livewire.admin.user-list', [
-            'users' => Profile:: paginate($this->perPage)
+            'users' => Profile::paginate($this->perPage)
                
                
         ]);
@@ -126,12 +126,7 @@ class UserList extends Component
         }
         $this->showModal('success', 'Success', 'User status has been changed successfully');
     }
-    public function paginate($items, $perPage, $page = null, $options = [])
-    {
-        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
-        $items = $items instanceof Collection ? $items : Collection::make($items);
-        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
-    }
+  
     public function searchArray($array, $key, $value)
     {
         $results = array();

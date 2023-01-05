@@ -366,6 +366,7 @@ class RegistrationController extends Controller
     public function healthInfoCreate(Request $request){
         
 
+
        $profile = Auth::guard('customer')->user('id');
         $validator = validator($request->all(), [
             'medical_insurance_company' => 'required|string|max:50',

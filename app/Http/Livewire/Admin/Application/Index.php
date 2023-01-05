@@ -241,6 +241,7 @@ class Index extends Component
         $myCollectionObj = collect($studentInfo);
         //dd($studentInfo,$myCollectionObj);
         $data = $this->paginate($myCollectionObj, $this->perPage);
+      
         return view('livewire.admin.application.index', ['students' => $data]);
     }
 
