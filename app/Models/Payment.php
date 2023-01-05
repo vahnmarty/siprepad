@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Payment extends Model
 {
     use HasFactory;
+    const PayAmount = 1500;
 
     /**
      * The database table used by the model.
@@ -22,6 +23,6 @@ class Payment extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id','application_id','amount', 'response_code', 'transaction_id', 'auth_id', 'quantity', 'message_code', 'name_on_card','promo_code','promo_amount','final_amount'
+        'user_id','application_id','amount', 'response_code', 'transaction_id', 'auth_id', 'quantity', 'message_code', 'name_on_card','promo_code','promo_amount','final_amount','student_name','student_email','student_dob','student'
     ];
 }

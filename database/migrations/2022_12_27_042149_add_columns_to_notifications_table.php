@@ -13,6 +13,7 @@ class AddColumnsToNotificationsTable extends Migration
      */
     public function up()
     {
+        if(!Schema::hasColumns('notifications',['student_profile']))
         Schema::table('notifications', function (Blueprint $table) {
            
             $table->string('student_profile');
@@ -27,6 +28,7 @@ class AddColumnsToNotificationsTable extends Migration
      */
     public function down()
     {
+        if(Schema::hasColumns('notifications',['student_profile']))
         Schema::table('notifications', function (Blueprint $table) {
             
             $table->dropColumn('student_profile');
