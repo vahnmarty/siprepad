@@ -37,6 +37,7 @@ Route::get('/cicd', function () {
 
 // Route::get('/pay', [PaymentController::class, 'pay'])->name('pay');
 // Route::post('/dopay/online', [PaymentController::class, 'handleonlinepay'])->name('dopay.online');
+Route::post('/dopay/{sid}', [PaymentController::class, 'acceptPayment'])->name('dopay');
 
 Route::get('login', [UserAuthController::class, 'getLogin'])->name('login.get');
 Route::post('login', [UserAuthController::class, 'postLogin'])->name('login.post');

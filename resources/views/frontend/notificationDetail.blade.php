@@ -1,12 +1,137 @@
 @extends('layouts.frontend-layout')
 @section('title', __('page_title.home_page_title'))
 @section('content')
+<style>
+	.loading {
+		position: fixed;
+		z-index: 999;
+		height: 2em;
+		width: 2em;
+		overflow: show;
+		margin: auto;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+	}
 
+	.loading:before {
+		content: '';
+		display: block;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: radial-gradient(rgba(20, 20, 20, .8), rgba(0, 0, 0, .8));
+
+		background: -webkit-radial-gradient(rgba(20, 20, 20, .8), rgba(0, 0, 0, .8));
+	}
+
+	.loading:not(:required) {
+		font: 0/0 a;
+		color: transparent;
+		text-shadow: none;
+		background-color: transparent;
+		border: 0;
+	}
+
+	.loading:not(:required):after {
+		content: '';
+		display: block;
+		font-size: 10px;
+		width: 1em;
+		height: 1em;
+		margin-top: -0.5em;
+		-webkit-animation: spinner 150ms infinite linear;
+		-moz-animation: spinner 150ms infinite linear;
+		-ms-animation: spinner 150ms infinite linear;
+		-o-animation: spinner 150ms infinite linear;
+		animation: spinner 150ms infinite linear;
+		border-radius: 0.5em;
+		-webkit-box-shadow: rgba(255, 255, 255, 0.75) 1.5em 0 0 0, rgba(255, 255, 255, 0.75) 1.1em 1.1em 0 0, rgba(255, 255, 255, 0.75) 0 1.5em 0 0, rgba(255, 255, 255, 0.75) -1.1em 1.1em 0 0, rgba(255, 255, 255, 0.75) -1.5em 0 0 0, rgba(255, 255, 255, 0.75) -1.1em -1.1em 0 0, rgba(255, 255, 255, 0.75) 0 -1.5em 0 0, rgba(255, 255, 255, 0.75) 1.1em -1.1em 0 0;
+		box-shadow: rgba(255, 255, 255, 0.75) 1.5em 0 0 0, rgba(255, 255, 255, 0.75) 1.1em 1.1em 0 0, rgba(255, 255, 255, 0.75) 0 1.5em 0 0, rgba(255, 255, 255, 0.75) -1.1em 1.1em 0 0, rgba(255, 255, 255, 0.75) -1.5em 0 0 0, rgba(255, 255, 255, 0.75) -1.1em -1.1em 0 0, rgba(255, 255, 255, 0.75) 0 -1.5em 0 0, rgba(255, 255, 255, 0.75) 1.1em -1.1em 0 0;
+	}
+
+
+	@-webkit-keyframes spinner {
+		0% {
+			-webkit-transform: rotate(0deg);
+			-moz-transform: rotate(0deg);
+			-ms-transform: rotate(0deg);
+			-o-transform: rotate(0deg);
+			transform: rotate(0deg);
+		}
+
+		100% {
+			-webkit-transform: rotate(360deg);
+			-moz-transform: rotate(360deg);
+			-ms-transform: rotate(360deg);
+			-o-transform: rotate(360deg);
+			transform: rotate(360deg);
+		}
+	}
+
+	@-moz-keyframes spinner {
+		0% {
+			-webkit-transform: rotate(0deg);
+			-moz-transform: rotate(0deg);
+			-ms-transform: rotate(0deg);
+			-o-transform: rotate(0deg);
+			transform: rotate(0deg);
+		}
+
+		100% {
+			-webkit-transform: rotate(360deg);
+			-moz-transform: rotate(360deg);
+			-ms-transform: rotate(360deg);
+			-o-transform: rotate(360deg);
+			transform: rotate(360deg);
+		}
+	}
+
+	@-o-keyframes spinner {
+		0% {
+			-webkit-transform: rotate(0deg);
+			-moz-transform: rotate(0deg);
+			-ms-transform: rotate(0deg);
+			-o-transform: rotate(0deg);
+			transform: rotate(0deg);
+		}
+
+		100% {
+			-webkit-transform: rotate(360deg);
+			-moz-transform: rotate(360deg);
+			-ms-transform: rotate(360deg);
+			-o-transform: rotate(360deg);
+			transform: rotate(360deg);
+		}
+	}
+
+	@keyframes spinner {
+		0% {
+			-webkit-transform: rotate(0deg);
+			-moz-transform: rotate(0deg);
+			-ms-transform: rotate(0deg);
+			-o-transform: rotate(0deg);
+			transform: rotate(0deg);
+		}
+
+		100% {
+			-webkit-transform: rotate(360deg);
+			-moz-transform: rotate(360deg);
+			-ms-transform: rotate(360deg);
+			-o-transform: rotate(360deg);
+			transform: rotate(360deg);
+		}
+	}
+</style>
 <div class="home-wrap">
 	<div class="hme-inr" id='ntf-detail'>
 		<div class='ntf_image_logo'>
 			<img src="{{ asset('frontend_assets/images/lg2.png') }}" alt="" />
 		</div>
+		<div class="loading" style="display: none;">Loading</div>
 
 		<div class='ntf_candidate_detail'>
 			<p class='ntf_student_name'>Candidate Name: {{$name}}</p>
@@ -84,6 +209,12 @@
 		@endif
 		@endif
 		@endif
+		@if($student_accept_status == App\Models\Application::TYPE_ACCEPTED)
+		<a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class='btn btn-sm btn-danger mt-3'>Pay Registration Fee</a>
+		@endif
+		@if($student_accept_status =="payment_successful")
+		<p class="mt-3">Payment has been recieved</p>
+		@endif
 
 	</div>
 </div>
@@ -124,8 +255,8 @@
 		</div>
 	</div>
 </div>
-
 @if($student_accept_status == App\Models\Application::TYPE_ACCEPTED)
+
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" wire:ignore.self>
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -140,7 +271,7 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>First Name</label>
-									<input type="text" class="form-control new-controll" wire:model.defer="first_name" />
+									<input type="text" class="form-control new-controll" name="first_name" />
 									@error('first_name')
 									<span class="error error_text">{{ $message }}</span>
 									@enderror
@@ -149,7 +280,7 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Last Name</label>
-									<input type="text" class="form-control new-controll" wire:model.defer="last_name" />
+									<input type="text" class="form-control new-controll" name="last_name" />
 									@error('last_name')
 									<span class="error error_text">{{ $message }}</span>
 									@enderror
@@ -158,7 +289,7 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<label>Email</label>
-									<input type="text" class="form-control new-controll" wire:model.defer="email" />
+									<input type="text" class="form-control new-controll" name="email" />
 									@error('email')
 									<span class="error error_text">{{ $message }}</span>
 									@enderror
@@ -169,9 +300,9 @@
 									<label>Credit Card Number</label>
 									{{-- <input type="text" class="form-control new-controll"
                                             onkeypress='return formats(this,event)'
-                                            onkeyup="return numberValidation(event)" wire:model.defer="card_number" /> --}}
+                                            onkeyup="return numberValidation(event)" name="card_number" /> --}}
 
-									<input type="text" class="form-control new-controll" onKeyPress="if(this.value.length==16) return false;" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*?)\..*/g, '$1');" wire:model.defer="card_number" />
+									<input type="text" class="form-control new-controll" onKeyPress="if(this.value.length==16) return false;" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*?)\..*/g, '$1');" name="card_number" />
 									@error('card_number')
 									<span class="error error_text">{{ $message }}</span>
 									@enderror
@@ -181,7 +312,7 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									<label>CVV</label>
-									<input type="password" class="form-control new-controll" onKeyPress="if(this.value.length==4) return false;" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*?)\..*/g, '$1');" wire:model.defer="card_cvv" />
+									<input type="password" class="form-control new-controll" onKeyPress="if(this.value.length==4) return false;" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*?)\..*/g, '$1');" name="card_cvv" />
 									@error('card_cvv')
 									<span class="error error_text">{{ $message }}</span>
 									@enderror
@@ -191,7 +322,7 @@
                                     <div class="form-group">
                                         <label>Card Holder Name</label>
                                         <input type="text" class="form-control new-controll"
-                                            wire:model.defer="card_holder_name" />
+                                            name="card_holder_name" />
                                         @error('card_holder_name')
                                             <span class="error error_text">{{ $message }}</span>
 							@enderror
@@ -203,7 +334,7 @@
 					<div class="col-md-6">
 						<div class="form-group">
 							<label>Expiration Month</label>
-							<select class="form-control new-controll" wire:model.defer="card_exp_mm">
+							<select class="form-control new-controll" name="card_exp_mm">
 								<option value="">Choose Month</option>
 								@foreach ($months as $k => $v)
 								<option value="{{ $k }}" {{ old('card_exp_mm') == $k ? 'selected' : '' }}>
@@ -220,7 +351,7 @@
 					<div class="col-md-6">
 						<div class="form-group">
 							<label>Expiration Year</label>
-							<select class="form-control new-controll" wire:model.defer="card_exp_yy">
+							<select class="form-control new-controll" name="card_exp_yy">
 								<option value="">Choose Year</option>
 								@for ($i = date('Y'); $i <= date('Y') + 15; $i++) <option value="{{ $i }}">{{ $i }}</option>
 									@endfor
@@ -233,7 +364,7 @@
 					<div class="col-md-12">
 						<div class="form-group">
 							<label>Billing Address</label>
-							<input type="text" class="form-control new-controll" wire:model.defer="billing_address" />
+							<input type="text" class="form-control new-controll" name="billing_address" />
 							@error('billing_address')
 							<span class="error error_text">{{ $message }}</span>
 							@enderror
@@ -242,7 +373,7 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label>Billing City</label>
-							<input type="text" class="form-control new-controll" wire:model.defer="billing_city" />
+							<input type="text" class="form-control new-controll" name="billing_city" />
 							@error('billing_city')
 							<span class="error error_text">{{ $message }}</span>
 							@enderror
@@ -251,7 +382,7 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label>Billing State</label>
-							<input type="text" class="form-control new-controll" wire:model.defer="billing_state" />
+							<input type="text" class="form-control new-controll" name="billing_state" />
 							@error('billing_state')
 							<span class="error error_text">{{ $message }}</span>
 							@enderror
@@ -260,7 +391,7 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label>Billing Zip Code</label>
-							<input type="text" class="form-control new-controll" wire:model.defer="billing_zip_code" />
+							<input type="text" class="form-control new-controll" name="billing_zip_code" />
 							@error('billing_zip_code')
 							<span class="error error_text">{{ $message }}</span>
 							@enderror
@@ -291,18 +422,126 @@
 			<div></div>
 		</div>
 		@else
-		<button class="payment" type="submit" wire:click='payApplicationFees()'>PAY (Total
+		<button class="payment" id="submitPayment" type="submit">PAY (Total
 			${{ $pay_amount ?? 0}})</button>
 		@endif
 
 	</div>
- </div>
+</div>
 </div>
 </div>
 <script>
 	$(document).ready(function() {
-		$('#staticBackdrop').modal('show');
+		var host = "{{URL::to('/')}}";
+		$('#submitPayment').on('click', function(e) {
+			$('#staticBackdrop').modal('hide');
+			$('.loading').show();
+			var first_name = $('input[name=first_name]').val();
+			var last_name = $('input[name=last_name]').val();
+			var email = $('input[name=email]').val();
+			var card_number = $('input[name=card_number]').val();
+			var card_cvv = $('input[name=card_cvv]').val();
+			var card_exp_mm = $('select[name=card_exp_mm]').val();
+			var card_exp_yy = $('select[name=card_exp_yy]').val();
+			var billing_address = $('input[name=billing_address]').val();
+			var billing_city = $('input[name=billing_city]').val();
+			var billing_state = $('input[name=billing_state]').val();
+			var billing_zip_code = $('input[name=billing_zip_code]').val();
 
+			if (first_name == "" || first_name == null) {
+				alert("First name must be filled out");
+				$('.loading').hide();
+
+				return false;
+			}
+			if (last_name == "" || last_name == null) {
+				alert("Last name must be filled out");
+				$('.loading').hide();
+
+				return false;
+			}
+			if (email == "" || email == null) {
+				alert("Email must be filled out");
+				$('.loading').hide();
+
+				return false;
+			}
+			if (card_number == "" || card_number == null) {
+				alert("Card number must be filled out");
+				$('.loading').hide();
+
+				return false;
+			}
+			if (card_cvv == "" || card_cvv == null) {
+				alert("Card cvv must be filled out");
+				$('.loading').hide();
+
+				return false;
+			}
+			if (card_exp_mm == "" || card_exp_mm == null) {
+				alert("Card exp mm must be filled out");
+				$('.loading').hide();
+
+				return false;
+			}
+			if (card_exp_yy == "" || card_exp_yy == null) {
+				alert("Card exp yy must be filled out");
+				$('.loading').hide();
+
+				return false;
+			}
+			if (billing_address == "" || billing_address == null) {
+				alert("Billing address must be filled out");
+				$('.loading').hide();
+
+				return false;
+			}
+			if (billing_city == "" || billing_city == null) {
+				alert("Billing city must be filled out");
+				$('.loading').hide();
+
+				return false;
+			}
+			if (billing_state == "" || billing_state == null) {
+				alert("Billing state must be filled out");
+				$('.loading').hide();
+
+				return false;
+			}
+			if (billing_zip_code == "" || billing_zip_code == null) {
+				alert("Billing zip code must be filled out");
+				$('.loading').hide();
+
+				return false;
+			}
+			$.ajax({
+				type: "POST",
+				url: host + '/dopay/{{ $ntfDetail->id }}',
+				data: {
+					first_name: first_name,
+					last_name: last_name,
+					email: email,
+					card_number: card_number,
+					card_cvv: card_cvv,
+					card_exp_mm: card_exp_mm,
+					card_exp_yy: card_exp_yy,
+					billing_address: billing_address,
+					billing_city: billing_city,
+					billing_state: billing_state,
+					billing_zip_code: billing_zip_code,
+					_token: '{{csrf_token()}}'
+				},
+				success: function(response) {
+					$('.loading').hide();
+					for (var i = 0; i < response.length; i++) {
+						document.write(response[i]);
+					}
+
+				}
+			});
+
+
+		});
 	});
 </script>
 
