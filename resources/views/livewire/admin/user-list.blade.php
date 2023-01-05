@@ -111,7 +111,7 @@
        
     </x-slot>
    <x-slot name="pagination">
-        	 {{ $users->links() }}
+        	 {{ $users->links('pagination::bootstrap-4') }}
     	</x-slot>
 
     <x-slot name="showingEntries">
