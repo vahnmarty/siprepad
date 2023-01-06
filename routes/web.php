@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Frontend\StatusPdfController;
 use App\Http\Controllers\Frontend\RegistrationController;
+use App\Http\Controllers\UpdateProfileController;
 
 
 
@@ -174,7 +175,7 @@ Route::post('/registration/magisProgram/{id}', [RegistrationController::class, '
 Route::get('/registration/coursePlacementIndex/{id}', [RegistrationController::class, 'coursePlacementIndex'])->name('coursePlacementIndex');                                                           
 Route::post('/registration/coursePlacement/{id}', [RegistrationController::class, 'coursePlacementUpdate'])->name('coursePlacementUpdate');
 Route::get('/registration/thankYou' , [RegistrationController::class, 'thankYou']);
-
+// Route::put('/updatepassword',[UpdateProfileController::class,'UpdatePassword'])->name('updatepassword');
 
 
 
