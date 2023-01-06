@@ -1,26 +1,16 @@
 <?php
 
-namespace App\Actions\Fortify;
+namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\UpdatesUserPasswords;
 use App\Rules\NewOldPasswordNotSame;
-
-class UpdateUserPassword implements UpdatesUserPasswords
+class UpdateProfileController extends Controller
 {
-    use PasswordValidationRules;
-
-    /**
-     * Validate and update the user's password.
-     *
-     * @param  mixed  $user
-     * @param  array  $input
-     * @return void
-     */
-    public function updatePassword($user, array $input)
+    public function UpdatePassword($user,$input)
     {
-       
+        
         Validator::make($input, [
             'current_password' => ['required', 'string'],
             'password' => ['required', 'min:8', new NewOldPasswordNotSame($input['current_password'])],
@@ -30,10 +20,23 @@ class UpdateUserPassword implements UpdatesUserPasswords
                 $validator->errors()->add('current_password', __('The provided password does not match your current password'));
             }
         })->validateWithBag('updatePassword');
-
+        
         $user->forceFill([
             'password' => $input['password'], //Hash::make($input['password']),
         ])->save();
         return redirect()->route('admin.profile')->with('success', 'Your password has been changed successfully');
     }
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
