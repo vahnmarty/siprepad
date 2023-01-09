@@ -12,15 +12,17 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Profile extends Authenticatable
 {
-    use HasFactory, Notifiable,HasProfilePhoto;
-    
+    use HasFactory, Notifiable, HasProfilePhoto;
+
     const NOTIFICATION_OFF = 1;
     const NOTIFICATION_ON = 0;
-    
-    const Registeration_ON = 1;
-    const Registeration_OFF = 0;
-    
-    protected $guard='customer';
+
+    const REGISTERTATION_ON = 1;
+    const REGISTERTATION_OFF = 0;
+    const STUDENTTRANSFER_ON = 1;
+    const STUDENTTRANSFER_OFF = 0;
+
+    protected $guard = 'customer';
 
     /**
      * The accessors to append to the model's array form.
@@ -30,7 +32,7 @@ class Profile extends Authenticatable
     protected $appends = [
         'full_name'
     ];
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -54,7 +56,7 @@ class Profile extends Authenticatable
     {
         $this->attributes['password'] = bcrypt($password);
     }
- 
+
     public function getFullNameAttribute()
     {
         return "{$this->Pro_First_Name} {$this->Pro_Last_Name}";
@@ -63,7 +65,6 @@ class Profile extends Authenticatable
     public function application()
     {
         return $this->hasOne(Application::class);
-    
     }
 
     public function addressInfo()
@@ -71,7 +72,7 @@ class Profile extends Authenticatable
         return $this->hasOne(AddressInformation::class);
     }
 
-    
+
     public function registeration()
     {
         return $this->hasOne(StudentRegisteration::class);
@@ -80,7 +81,7 @@ class Profile extends Authenticatable
     {
         return $this->hasOne(ParentInformation::class);
     }
-    
+
     public function ApplicationStatus()
     {
         return $this->hasOne(StudentApplicationStatus::class);

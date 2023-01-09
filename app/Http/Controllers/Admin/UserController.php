@@ -11,6 +11,7 @@ use App\Models\ApplicationType;
 use App\Models\Application;
 use Illuminate\Support\Facades\Auth;
 use App\Models\GlobalRegisterable;
+use App\Models\GlobalStudentTransfer;
 
 class UserController extends Controller
 {
@@ -21,9 +22,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $notifications= Global_Notifiable::get();
-      
-        return view('admin.user.list',compact('notifications'));
+        $notifications = Global_Notifiable::get();
+
+        return view('admin.user.list', compact('notifications'));
     }
 
     /**
@@ -96,38 +97,49 @@ class UserController extends Controller
     {
         //
     }
-    
+
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $status
      * @param int $uid
      */
-    public function notificationChange(Request $request, $status , $uid)
+    public function notificationChange(Request $request, $status, $uid)
     {
-          
-          $notification = Global_Notifiable::first();
-         
-          $notification = $notification->update(['notifiable'=>$status]);
-          
-          if($notification) {
-            return redirect()->back()->with('success', "Notifcation Updated Successfully!!");
 
-          }
-         
-    }
-    
-    public function registrationChange($status){
-        
-                
-        $registeration = GlobalRegisterable::first();
-        $registeration = $registeration->update(['registerable'=>$status]);
-        if($registeration) {
-            return redirect()->back()->with('success', "Registeration Updated Successfully!!");
-            
+        $notification = Global_Notifiable::first();
+
+        $notification = $notification->update(['notifiable' => $status]);
+
+        if ($notification) {
+            return redirect()->back()->with('success', "Notifcation Updated Successfully!!");
         }
-        
-        
     }
-    
+
+    public function registrationChange($status)
+    {
+
+
+        $registeration = GlobalRegisterable::first();
+        $registeration = $registeration->update(['registerable' => $status]);
+        if ($registeration) {
+            return redirect()->back()->with('success', "Registeration Updated Successfully!!");
+        }
+    }
+    public function studentTransfer($status)
+    {
+
+
+        $registeration = GlobalStudentTransfer::first();
+       
+
+        $registeration = $registeration->update(['student_transfer' => $status]);
+        if ($registeration) {
+            return redirect()->back()->with('success', "Student Transfer Updated Successfully!!");
+        }
+        else{
+            return redirect()->back()->with('error', "Student Transfer Update Not Update Please Try Again!!");
+
+        }
+    }
 }

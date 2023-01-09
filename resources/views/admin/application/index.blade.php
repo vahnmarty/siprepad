@@ -16,7 +16,7 @@
             </x-slot>
         </x-admin.sub-header>
     </x-slot>
-    @livewire('admin.application.index', ['applications' => $app, 'notificationButton' => $notifications, 'register' =>$registerable]);
+    @livewire('admin.application.index', ['applications' => $app, 'notificationButton' => $notifications, 'register' =>$registerable,'studentTransfer'=>$studentTransfer]);
     
 </x-admin-layout>
 <script>

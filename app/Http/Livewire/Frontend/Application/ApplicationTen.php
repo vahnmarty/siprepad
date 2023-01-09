@@ -35,11 +35,12 @@ class ApplicationTen extends Component
     use AlertMessage;
     public  $isEdit = false, $release_authorization_id, $profile_id, $application_id, $releaseAuthorization = [], $is_button_clicked = false, $is_patment_compleate = false, $transaction_id, $paid_amount = 0;
     public $pay_amount = 0, $card_number, $card_holder_name, $card_cvv, $card_exp_mm, $card_exp_yy;
-    public $first_name, $last_name, $email, $billing_address, $billing_city, $billing_state, $billing_zip_code, $studentInfo;
+    public $first_name, $last_name, $email, $billing_address, $billing_city, $billing_state, $billing_zip_code, $studentInfo, $student_transfer;
 
-    public function mount($getReleaseAuthorization = null)
+    public function mount($getReleaseAuthorization = null, $student_transfer = null)
     {
         //dd($getReleaseAuthorization);
+
         $this->profile_id = Auth::guard('customer')->user()->id;
         $getApplication = Application::where('Profile_ID', $this->profile_id)->first();
         $this->application_id = $getApplication->Application_ID;
@@ -51,9 +52,8 @@ class ApplicationTen extends Component
         if ($getReleaseAuthorization) {
 
             $this->release_authorization_id = $getReleaseAuthorization->id;
-
+            $this->student_transfer = $student_transfer;
             $entranceExamInfo = [];
-
             $arr1 = [
                 "S1_Entrance_Exam_Reservation" => $getReleaseAuthorization->S1_Entrance_Exam_Reservation,
                 "S1_Other_Catholic_School_Name" => $getReleaseAuthorization->S1_Other_Catholic_School_Name,
@@ -211,21 +211,21 @@ class ApplicationTen extends Component
         $this->releaseAuthorization['S3_Other_Catholic_School_Name'] = isset($new_entrance_exam_info_arr['S3_Other_Catholic_School_Name']) ? $new_entrance_exam_info_arr['S3_Other_Catholic_School_Name'] : '';
         $this->releaseAuthorization['S3_Other_Catholic_School_Location'] = isset($new_entrance_exam_info_arr['S3_Other_Catholic_School_Location']) ? $new_entrance_exam_info_arr['S3_Other_Catholic_School_Location'] : '';
         $this->releaseAuthorization['S3_Other_Catholic_School_Date'] = isset($new_entrance_exam_info_arr['S3_Other_Catholic_School_Date']) ? $new_entrance_exam_info_arr['S3_Other_Catholic_School_Date'] : '';
-        
-        
+
+
         unset($this->releaseAuthorization['EntranceExamInfo']);
         // dd($new_entrance_exam_info_arr, $this->releaseAuthorization);
-        
-//         if ($this->isEdit) {
-//             ReleaseAuthorization::find($this->release_authorization_id)->delete();
-//         } commented for payment stop functionality
-        
-        
+
+        //         if ($this->isEdit) {
+        //             ReleaseAuthorization::find($this->release_authorization_id)->delete();
+        //         } commented for payment stop functionality
+
+
         $this->releaseAuthorization['Profile_ID'] = Auth::guard('customer')->user()->id;
         $this->releaseAuthorization['Application_ID'] = $this->application_id;
         $this->releaseAuthorization['Transaction_ID'] = $this->transaction_id;
 
-       
+
         ReleaseAuthorization::create($this->releaseAuthorization);
 
         Application::where('Application_ID', $this->application_id)->where('Profile_ID', Auth::guard('customer')->user()->id)->update(['status' => 1]);
@@ -244,13 +244,13 @@ class ApplicationTen extends Component
             "Rec_Student" => $getStudent['S3_First_Name'] . " " . $getStudent['S3_Last_Name'],
         ];
 
-        
+
         //For send mail
         $studentArr[] = $getStudent['S1_First_Name'] ? $stuarr1 : null;
         $studentArr[] = $getStudent['S2_First_Name'] ? $stuarr2 : null;
         $studentArr[] = $getStudent['S3_First_Name'] ? $stuarr3 : null;
         $getAllStudent = array();
-        
+
         foreach ($studentArr as $key => $student) {
             //dd($student);
             if (!is_null($student)) {
@@ -262,18 +262,18 @@ class ApplicationTen extends Component
             'user_first_name' => Auth::guard('customer')->user()->Pro_First_Name,
             'applicant_name' => $getAllStudent
         ];
-        
+
         $usermail = Auth::guard('customer')->user()->email;
-        
+
         return redirect()->route('thank.you')->with('success', 'Thank you for submitting an application.');
         //send to mail code here
         //Mail::to($usermail)->bcc('admissions@siprep.org')->send(new ApplicationSubmitMail($data));
-        
-//         if (Mail::failures()) {
-//             return redirect()->route('thank.you')->with('error', 'Application submitted but mail not sent');
-//         } else {
-//             return redirect()->route('thank.you')->with('success', 'Thank you for submitting an application.');
-//         } commented for payment stop functionality
+
+        //         if (Mail::failures()) {
+        //             return redirect()->route('thank.you')->with('error', 'Application submitted but mail not sent');
+        //         } else {
+        //             return redirect()->route('thank.you')->with('success', 'Thank you for submitting an application.');
+        //         } commented for payment stop functionality
     }
 
     public function render()
@@ -544,7 +544,7 @@ class ApplicationTen extends Component
                             'name_on_card' => trim($input['card_holder_name']),
                             'quantity' => 1
                         ]);
-                     } else {
+                    } else {
                         Payment::create([
                             'user_id' => Auth::guard('customer')->user()->id,
                             'application_id' => $this->application_id,

@@ -656,7 +656,6 @@
         })
 
         window.livewire.on('hidePromoCodeModal', (data) => {
-            console.log(data);
 
             if (data.status === "error") {
                 toastr.options = {

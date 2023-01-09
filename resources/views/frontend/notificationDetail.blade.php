@@ -423,7 +423,9 @@
 		</div>
 		@else
 		<button class="payment" id="submitPayment" type="submit">PAY (Total
-			${{ $pay_amount ?? 0}})</button>
+
+			${{ App\Models\Payment::PayAmount ?? 0}})</button>
+
 		@endif
 
 	</div>
@@ -451,26 +453,21 @@
 			if (first_name == "" || first_name == null) {
 				alert("First name must be filled out");
 				$('.loading').hide();
-
 				return false;
 			}
 			if (last_name == "" || last_name == null) {
 				alert("Last name must be filled out");
 				$('.loading').hide();
-
 				return false;
 			}
 			if (email == "" || email == null) {
 				alert("Email must be filled out");
 				$('.loading').hide();
-
 				return false;
 			}
 			if (card_number == "" || card_number == null) {
 				alert("Card number must be filled out");
-				$('.loading').hide();
-
-				return false;
+				$('.loading').hide();return false;
 			}
 			if (card_cvv == "" || card_cvv == null) {
 				alert("Card cvv must be filled out");
@@ -480,38 +477,30 @@
 			}
 			if (card_exp_mm == "" || card_exp_mm == null) {
 				alert("Card exp mm must be filled out");
-				$('.loading').hide();
-
-				return false;
+				$('.loading').hide();return false;
 			}
 			if (card_exp_yy == "" || card_exp_yy == null) {
 				alert("Card exp yy must be filled out");
-				$('.loading').hide();
-
-				return false;
+				$('.loading').hide();return false;
 			}
 			if (billing_address == "" || billing_address == null) {
 				alert("Billing address must be filled out");
 				$('.loading').hide();
-
 				return false;
 			}
 			if (billing_city == "" || billing_city == null) {
 				alert("Billing city must be filled out");
 				$('.loading').hide();
-
 				return false;
 			}
 			if (billing_state == "" || billing_state == null) {
 				alert("Billing state must be filled out");
 				$('.loading').hide();
-
 				return false;
 			}
 			if (billing_zip_code == "" || billing_zip_code == null) {
 				alert("Billing zip code must be filled out");
 				$('.loading').hide();
-
 				return false;
 			}
 			$.ajax({
@@ -538,10 +527,9 @@
 					}
 
 				}
+			})
 			});
 
-
-		});
 	});
 </script>
 

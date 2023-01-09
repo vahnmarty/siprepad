@@ -173,8 +173,9 @@ class NotificationController extends Controller
                 'is_read' => Notification::NOTIFY_READ
             ]);
         }
-        $pay_amount = 1500;
-        return view('frontend.notificationDetail', compact('ntfDetail', 'appDetail', 'studentDetail', 'appStatus', 'name', 'student_status', 'candidate', 'student_accept_status', 'pay_amount'));
+
+        return view('frontend.notificationDetail', compact('ntfDetail', 'appDetail', 'studentDetail', 'appStatus', 'name', 'student_status', 'candidate', 'student_accept_status'));
+
     }
 
     public function candidateResponse(Request $request, $apid, $candidate, $rsid)
