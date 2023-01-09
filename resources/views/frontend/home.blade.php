@@ -125,6 +125,8 @@
                     </span>
                 </a>
             </li>
+            @if(App\Helpers\Helper::getGlobalStudentTransfer() == App\Models\Global_Notifiable::NOTIFICATION_ON)
+
 
             @if ($application)
             <li>

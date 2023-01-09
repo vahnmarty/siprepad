@@ -16,6 +16,13 @@
  @else 
  <a href="{{  url('admin/user/studentTransfer')}}/{{App\Models\Profile::STUDENTTRANSFER_ON}}/{{$studentTransfer}}" style="color:white" class="btn btn-off mb-3">Student Transfer Off</a> 
  @endif 
+
+
+ @if($studentTransfer == '1' ) 
+  <a href="{{ url('admin/user/studentTransfer')}}/{{App\Models\Profile::StudentTransfer_OFF}}/{{$studentTransfer}}"style="color: white; background: linear-gradient(180deg, #19a74d 0%, #002664 100%) !important;"class="btn btn-on mb-3">Student Transfer On</a> 
+ @else 
+ <a href="{{  url('admin/user/studentTransfer')}}/{{App\Models\Profile::StudentTransfer_ON}}/{{$studentTransfer}}" style="color:white" class="btn btn-off mb-3">Student Transfer Off</a> 
+ @endif 
 <x-admin.table>
     <x-slot name="search">
     </x-slot>

@@ -147,9 +147,7 @@
                                 must make a payment and submit the application in the same session.<BR><BR>	
                             </p>	
                     </div>
-                    @php $studentTransfer =$student_transfer->student_transfer;
-
-                    @endphp
+               
                                         <div class="form-outr">
                     @if($studentTransfer === App\Models\GlobalStudentTransfer::STUDENTTRANSFER_ON)
 
