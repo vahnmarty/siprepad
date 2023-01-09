@@ -131,6 +131,7 @@ class UserController extends Controller
 
 
         $registeration = GlobalStudentTransfer::first();
+
        
 
         $registeration = $registeration->update(['student_transfer' => $status]);

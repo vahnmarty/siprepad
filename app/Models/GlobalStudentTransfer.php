@@ -10,6 +10,7 @@ class GlobalStudentTransfer extends Model
     use HasFactory;
 
     protected $table = 'global_student_transfer';    
+
 const STUDENTTRANSFER_OFF = 0;
 const STEP_ONE = 'one';
 const STEP_TWO = 'two'; 

@@ -7,6 +7,7 @@ use App\Models\Application;
 use Illuminate\Http\Request;
 use App\Models\Profile;
 use App\Models\Notification;
+
 use App\Models\StudentInformation;
 use App\Models\StudentApplicationStatus;
 use Illuminate\Support\Facades\DB;
@@ -34,6 +35,7 @@ class ApplicationController extends Controller
     {
         $user = Auth::guard('customer')->user('id');
         $app = Application::all();
+
 
         $notifications = $this->GlobalNotifiable;
         $registerable = $this->GlobalRegisterable;
