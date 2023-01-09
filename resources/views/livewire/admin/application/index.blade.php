@@ -6,9 +6,15 @@
  <a href="{{ url('/admin/user/notify/')}}/{{App\Models\Profile::NOTIFICATION_OFF}}/{{$notification}}" style="color:white" class="btn btn-off mb-3">Notification Off</a> 
  @endif 
  @if($registeration == '1') 
-  <a href="{{ url('admin/user/registerable')}}/{{App\Models\Profile::Registeration_OFF}}/{{$registeration}}"style="color: white; background: linear-gradient(180deg, #19a74d 0%, #002664 100%) !important;"class="btn btn-on mb-3">Registeration On</a> 
+  <a href="{{ url('admin/user/registerable')}}/{{App\Models\Profile::REGISTERTATION_OFF}}/{{$registeration}}"style="color: white; background: linear-gradient(180deg, #19a74d 0%, #002664 100%) !important;"class="btn btn-on mb-3">Registeration On</a> 
  @else 
- <a href="{{  url('admin/user/registerable')}}/{{App\Models\Profile::Registeration_ON}}/{{$registeration}}" style="color:white" class="btn btn-off mb-3">Registeration Off</a> 
+ <a href="{{  url('admin/user/registerable')}}/{{App\Models\Profile::REGISTERTATION_ON}}/{{$registeration}}" style="color:white" class="btn btn-off mb-3">Registeration Off</a> 
+ @endif 
+
+ @if($studentTransfer == '1' ) 
+  <a href="{{ url('admin/user/studentTransfer')}}/{{App\Models\Profile::STUDENTTRANSFER_OFF}}/{{$studentTransfer}}"style="color: white; background: linear-gradient(180deg, #19a74d 0%, #002664 100%) !important;"class="btn btn-on mb-3">Student Transfer On</a> 
+ @else 
+ <a href="{{  url('admin/user/studentTransfer')}}/{{App\Models\Profile::STUDENTTRANSFER_ON}}/{{$studentTransfer}}" style="color:white" class="btn btn-off mb-3">Student Transfer Off</a> 
  @endif 
 <x-admin.table>
     <x-slot name="search">
@@ -300,9 +306,7 @@
                          @break
                         @case(3)
                         {{"Notification Read"}}
-                        @break
-                        @default
-                        {{"Notification not Read"}}
+                        @breakstudent_transfer
 
                           @endswitch
                            @endif

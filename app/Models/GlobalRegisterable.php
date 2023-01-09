@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class GlobalRegisterable extends Model
 {
     use HasFactory;
-    const Registeration_OFF = 0;
+    const REGISTERTATION_OFF = 0;
     const Registeration_ON = 1;
     
     protected $fillable = [

@@ -26,10 +26,12 @@ class Index extends Component
     public $notification;
     public $registeration;
     public $appStatus;
-    public function mount($app = Null,$notificationButton = null,$register = null ,$applicationstatus = null)
+    public $studentTransfer;
+    public function mount($app = Null,$notificationButton = null,$register = null ,$applicationstatus = null,$studentTransfer= null)
     {
         $this->appStatus = $applicationstatus;
         $this->registeration = $register;
+        $this->studentTransfer = $studentTransfer;
         $this->applications =$app;
         $this->notification = $notificationButton;
         $this->perPageList = [

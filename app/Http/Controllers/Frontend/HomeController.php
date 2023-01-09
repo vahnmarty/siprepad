@@ -25,7 +25,10 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\Registeration;
 use App\Models\StudentRegisteration;
 use App\Models\GlobalRegisterable;
+use App\Models\GlobalStudentTransfer;
+
 use App\Models\StudentApplicationStatus;
+
 class HomeController extends Controller
 {
     public function home()
@@ -70,16 +73,16 @@ class HomeController extends Controller
                 }
                 $getStudentCount = count($getStudent);
             }
-
-              $notifications= Global_Notifiable::pluck('notifiable')->first();
-               
-              
-              
-              
-             $application_status=StudentApplicationStatus::Where('profile_id',$profile_id)->first();
-             $register =GlobalRegisterable::select('registerable')->first();
-                   $registerable = $register->registerable;
-            return view('frontend.home', compact('application', 'getStudentCount','notifications','application_status','registerable'));
+            $notifications = Global_Notifiable::pluck('notifiable')->first();
+            $student_transfer = GlobalStudentTransfer::select('student_transfer')->first();
+            $studentTransfer = "";
+            if ($student_transfer) {
+                $studentTransfer = $student_transfer->student_transfer;
+            }
+            $application_status = StudentApplicationStatus::Where('profile_id', $profile_id)->first();
+            $register = GlobalRegisterable::select('registerable')->first();
+            $registerable = $register->registerable;
+            return view('frontend.home', compact('application', 'getStudentCount', 'notifications', 'application_status', 'registerable', 'studentTransfer'));
         } else {
             return redirect('/login');
         }
@@ -90,75 +93,80 @@ class HomeController extends Controller
         return response()->json("You clicked on book wildcat experience", 200);
     }
 
-    public function admissionApplication($step = 'one')
+    public function admissionApplication($step = GlobalStudentTransfer::STEP_ONE)
     {
+     
 
         if (Auth::guard('customer')->check()) {
 
             $profile_id = Auth::guard('customer')->user()->id;
             $application = Application::where('Profile_ID', $profile_id)->where('status', 0)->first();
+            $student_transfer = GlobalStudentTransfer::select('student_transfer')->first();
+
             if ($application) {
-                if ($step == 'one') {
+
+                if ($step == GlobalStudentTransfer::STEP_ONE) {
                     $getStudentInfo = null;
                     if (!is_null($application)) {
                         $getStudentInfo = StudentInformation::where('Profile_ID', $profile_id)->where('Application_ID', $application->Application_ID)->first();
                     }
                     return view('frontend.application.application-one', compact('getStudentInfo'));
-                } elseif ($step == 'two') {
+                } elseif ($step == GlobalStudentTransfer::STEP_TWO) {
                     $getAddressInfo = null;
                     if (!is_null($application)) {
 
                         $getAddressInfo = AddressInformation::where('Profile_ID', $profile_id)->where('Application_ID', $application->Application_ID)->first();
                     }
                     return view('frontend.application.application-two', compact('getAddressInfo'));
-                } elseif ($step == 'three') {
+                } elseif ($step == GlobalStudentTransfer::STEP_THREE) {
                     $getParentInfo = null;
                     if (!is_null($application)) {
                         $getParentInfo = ParentInformation::where('Profile_ID', $profile_id)->where('Application_ID', $application->Application_ID)->first();
                     }
                     return view('frontend.application.application-three', compact('getParentInfo'));
-                } elseif ($step == 'four') {
+                } elseif ($step == GlobalStudentTransfer::STEP_FOUR) {
                     $getSiblingInfo = null;
                     if (!is_null($application)) {
                         $getSiblingInfo = SiblingInformation::where('Profile_ID', $profile_id)->where('Application_ID', $application->Application_ID)->first();
                     }
                     return view('frontend.application.application-four', compact('getSiblingInfo'));
-                } elseif ($step == 'five') {
+                } elseif ($step == GlobalStudentTransfer::STEP_FIVE) {
                     $getLegacyInfo = null;
                     if (!is_null($application)) {
                         $getLegacyInfo = LegacyInformation::where('Profile_ID', $profile_id)->where('Application_ID', $application->Application_ID)->first();
                     }
                     return view('frontend.application.application-five', compact('getLegacyInfo'));
-                } elseif ($step == 'six') {
+                } elseif ($step == GlobalStudentTransfer::STEP_SIX) {
                     $getParentStatement = null;
                     if (!is_null($application)) {
                         $getParentStatement = ParentStatement::where('Profile_ID', $profile_id)->where('Application_ID', $application->Application_ID)->first();
                     }
                     return view('frontend.application.application-six', ['getParentStatement' => $getParentStatement]);
-                } elseif ($step == 'seven') {
+                } elseif ($step == GlobalStudentTransfer::STEP_SEVEN) {
                     $getSpiritualCommunityInfo = null;
                     if (!is_null($application)) {
                         $getSpiritualCommunityInfo = SpiritualAndCommunityInformation::where('Profile_ID', $profile_id)->where('Application_ID', $application->Application_ID)->first();
                     }
                     return view('frontend.application.application-seven', compact('getSpiritualCommunityInfo'));
-                } elseif ($step == 'eight') {
+                } elseif ($step == GlobalStudentTransfer::STEP_EIGHT) {
                     $getStudentStatementInfo = null;
                     if (!is_null($application)) {
                         $getStudentStatementInfo = StudentStatement::where('Profile_ID', $profile_id)->where('Application_ID', $application->Application_ID)->first();
                     }
                     return view('frontend.application.application-eight', compact('getStudentStatementInfo'));
-                } elseif ($step == 'nine') {
+                } elseif ($step == GlobalStudentTransfer::STEP_NINE) {
                     $getWritingSample = null;
                     if (!is_null($application)) {
                         $getWritingSample = WritingSample::where('Profile_ID', $profile_id)->where('Application_ID', $application->Application_ID)->first();
                     }
                     return view('frontend.application.application-nine', compact('getWritingSample'));
-                } elseif ($step == 'ten') {
+                } elseif ($step == GlobalStudentTransfer::STEP_TEN) {
                     $getReleaseAuthorization = null;
                     if (!is_null($application)) {
                         $getReleaseAuthorization = ReleaseAuthorization::where('Profile_ID', $profile_id)->where('Application_ID', $application->Application_ID)->first();
                     }
-                    return view('frontend.application.application-ten', compact('getReleaseAuthorization'));
+
+                    return view('frontend.application.application-ten', compact('getReleaseAuthorization', 'student_transfer'));
                 }
             } else {
                 $getStudentInfo = null;
@@ -181,16 +189,13 @@ class HomeController extends Controller
         if (Auth::guard('customer')->check()) {
             $profile_id = Auth::guard('customer')->user()->id;
             $application = Application::where('Profile_ID', $profile_id)->where('status', 1)->first();
-            $recommendationStudent = Recommendation::where('Profile_ID', $profile_id)->select('Rec_Student')->get()->toArray();
-
             if ($application) {
-
+                $recommendationStudent = Recommendation::where('Profile_ID', $profile_id)->select('Rec_Student')->get()->toArray();
                 $getAllStudent = [];
                 $getStudent = StudentInformation::where('Application_ID', $application->Application_ID)->where('Profile_ID', $profile_id)->first()->toArray();
                 $arr1 = [
                     "Rec_Student" => $getStudent['S1_First_Name'] . " " . $getStudent['S1_Last_Name'],
                 ];
-
                 $arr2 = [
                     "Rec_Student" => $getStudent['S2_First_Name'] . " " . $getStudent['S2_Last_Name'],
                 ];
@@ -330,111 +335,98 @@ class HomeController extends Controller
     {
         return view('frontend.thankyou2');
     }
-    public function registerationApplication($step){
-     
+    public function registerationApplication($step)
+    {
+
         $profile_id = Auth::guard('customer')->user()->id;
         $registeration = Registeration::where('Profile_ID', $profile_id)->where('status', 0)->first();
-      
-        if($step == 'one'){
-            $student_info = StudentInformation::where('Profile_id',$profile_id)->first();
-          
+
+        if ($step == GlobalStudentTransfer::STEP_ONE) {
+            $student_info = StudentInformation::where('Profile_id', $profile_id)->first();
+
             $registeration_student_info = StudentRegisteration::where('Profile_ID', $profile_id)->where('id', $registeration->id)->first();
-            return view('frontend.registeration.registeration-one',compact('registeration_student_info','student_info'));
-            
-        }elseif($step == 'two'){
-            
+            return view('frontend.registeration.registeration-one', compact('registeration_student_info', 'student_info'));
+        } elseif ($step == GlobalStudentTransfer::STEP_TWO) {
 
-            $registeration=Registeration::where('last_step_complete','one')->latest('id')->first();
-            if($registeration == null){
+
+            $registeration = Registeration::where('last_step_complete', 'one')->latest('id')->first();
+            if ($registeration == null) {
                 return redirect()->back()->with('error', 'Please fill the all steps');
-                
-            }else{
+            } else {
                 $reg_id = $registeration->id;
 
-                return view('frontend.registeration.registeration-two',compact('reg_id'));
+                return view('frontend.registeration.registeration-two', compact('reg_id'));
             }
-        }elseif($step == 'three'){
-            $registeration=Registeration::where('last_step_complete','two')->latest('id')->first();
-            if($registeration == null){
+        } elseif ($step == GlobalStudentTransfer::STEP_THREE) {
+            $registeration = Registeration::where('last_step_complete', 'two')->latest('id')->first();
+            if ($registeration == null) {
                 return redirect()->back()->with('error', 'Please fill the all steps');
-                
-            }else{
-               
-                $reg_id = $registeration->id;
-                return view('frontend.registeration.registeration-three',compact('reg_id'));
-            }
-     
-        }elseif($step == 'four'){
-            
-            $registeration=Registeration::where('last_step_complete','three')->latest('id')->first();
-          
-            if($registeration == null){
-                return redirect()->back()->with('error', 'Please fill the all steps');
-                
-            }else{
-                
-            $reg_id = $registeration->id;
-            return view('frontend.registeration.registeration-four',compact('reg_id'));
-        }
-        }elseif ($step == 'five') {
-            
-            $registeration=Registeration::where('last_step_complete','four')->latest('id')->first();
-            
-            if($registeration == null){
-                return redirect()->back()->with('error', 'Please fill the all steps');
-                
-            }else{
-                
-                $reg_id = $registeration->id;
-                return view('frontend.registeration.registeration-five',compact('reg_id'));
-        }
-        }elseif($step == 'six'){
-        
-        $registeration=Registeration::where('last_step_complete','five')->latest('id')->first();
-        if($registeration == null){
-            return redirect()->back()->with('error', 'Please fill the all steps');
-            
-        }else{
-            
-            $reg_id = $registeration->id;
-        
-        
-        return view('frontend.registeration.registeration-six',compact('reg_id'));
-        }
-        }elseif ($step == 'seven'){
-            
-            $registeration=Registeration::where('last_step_complete','six')->latest('id')->first();
-           
-            if($registeration == null){
-                return redirect()->back()->with('error', 'Please fill the all steps');
-                
-            }else{
-                
-                $reg_id = $registeration->id;
-                
-                
-                return view('frontend.registeration.registeration-seven',compact('reg_id'));
-            }
-        }elseif ($step == 'final'){
+            } else {
 
-        
+                $reg_id = $registeration->id;
+                return view('frontend.registeration.registeration-three', compact('reg_id'));
+            }
+        } elseif ($step == GlobalStudentTransfer::STEP_FOUR) {
 
-        
-        $registeration=Registeration::where('last_step_complete','five')->latest('id')->first();
-        if($registeration == null){
-            return redirect()->back()->with('error', 'Please fill the all steps');
-            
-        }else{
-            
-            $reg_id = $registeration->id;
-        
-        
-        return view('frontend.registeration.registeration-six',compact('reg_id'));
-        }
-        }elseif ($step == 'seven'){
-            
+            $registeration = Registeration::where('last_step_complete', 'three')->latest('id')->first();
+
+            if ($registeration == null) {
+                return redirect()->back()->with('error', 'Please fill the all steps');
+            } else {
+
+                $reg_id = $registeration->id;
+                return view('frontend.registeration.registeration-four', compact('reg_id'));
+            }
+        } elseif ($step == GlobalStudentTransfer::STEP_FIVE) {
+
+            $registeration = Registeration::where('last_step_complete', 'four')->latest('id')->first();
+
+            if ($registeration == null) {
+                return redirect()->back()->with('error', 'Please fill the all steps');
+            } else {
+
+                $reg_id = $registeration->id;
+                return view('frontend.registeration.registeration-five', compact('reg_id'));
+            }
+        } elseif ($step == GlobalStudentTransfer::STEP_SIX) {
+
+            $registeration = Registeration::where('last_step_complete', 'five')->latest('id')->first();
+            if ($registeration == null) {
+                return redirect()->back()->with('error', 'Please fill the all steps');
+            } else {
+
+                $reg_id = $registeration->id;
+
+
+                return view('frontend.registeration.registeration-six', compact('reg_id'));
+            }
+        } elseif ($step == GlobalStudentTransfer::STEP_SEVEN) {
+
+            $registeration = Registeration::where('last_step_complete', 'six')->latest('id')->first();
+
+            if ($registeration == null) {
+                return redirect()->back()->with('error', 'Please fill the all steps');
+            } else {
+
+                $reg_id = $registeration->id;
+
+
+                return view('frontend.registeration.registeration-seven', compact('reg_id'));
+            }
+        } elseif ($step == GlobalStudentTransfer::STEP_FINAL) {
+            $registeration = Registeration::where('last_step_complete', 'five')->latest('id')->first();
+            if ($registeration == null) {
+                return redirect()->back()->with('error', 'Please fill the all steps');
+            } else {
+
+                $reg_id = $registeration->id;
+
+
+                return view('frontend.registeration.registeration-six', compact('reg_id'));
+            }
+        } elseif ($step == GlobalStudentTransfer::STEP_SEVEN) {
+
             return redirect('/')->with('success', 'You successfully fill the six steps of form');
         }
     }
-    
 }

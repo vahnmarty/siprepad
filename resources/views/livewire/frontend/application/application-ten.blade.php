@@ -147,6 +147,12 @@
                                 must make a payment and submit the application in the same session.<BR><BR>	
                             </p>	
                     </div>
+                    @php $studentTransfer =$student_transfer->student_transfer;
+
+                    @endphp
+                                        <div class="form-outr">
+                    @if($studentTransfer === App\Models\GlobalStudentTransfer::STUDENTTRANSFER_ON)
+
                     <div class="cmn-hdr">
                         <h4>Entrance Exam Information</h4>
                     </div>
@@ -219,6 +225,8 @@
                             </div>
                         </div>
                     @endforeach
+                    @endif
+
                 </div>
             </div>
 
