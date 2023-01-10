@@ -10,7 +10,7 @@
 </script>
 @endpush
 @section('content')
-@livewire('frontend.application.application-ten', ['getReleaseAuthorization' => $getReleaseAuthorization,'student_transfer'=>$student_transfer])
+@livewire('frontend.application.application-ten', ['getReleaseAuthorization' => $getReleaseAuthorization,'studentTransfer'=>$studentTransfer])
 @endsection
 @push('js')
 <script>

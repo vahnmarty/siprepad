@@ -147,9 +147,8 @@
                                 must make a payment and submit the application in the same session.<BR><BR>	
                             </p>	
                     </div>
-               
-                                        <div class="form-outr">
-                    @if($studentTransfer === App\Models\GlobalStudentTransfer::STUDENTTRANSFER_ON)
+
+            @if(App\Helpers\Helper::getGlobalStudentTransfer() == App\Models\Global_Notifiable::NOTIFICATION_ON)
 
                     <div class="cmn-hdr">
                         <h4>Entrance Exam Information</h4>
