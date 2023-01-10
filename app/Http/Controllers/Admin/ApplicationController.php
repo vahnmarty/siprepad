@@ -146,7 +146,6 @@ class ApplicationController extends Controller
         $lastName = strtolower($lastName);
 
 
-
         $studentInfo = StudentInformation::where([
             ['Profile_ID', '=', $user],
             ['Application_ID', '=', $appID]
@@ -195,7 +194,7 @@ class ApplicationController extends Controller
                     $setApplicationStatus->s1_application_status = $applicationStatus;
 
                     if ($setApplicationStatus->save()) {
-
+                        // DB::commit();
 
                         $newNotification = new Notification();
                         $newNotification->profile_id = $user;
@@ -206,15 +205,15 @@ class ApplicationController extends Controller
                         if ($newNotification->save()) {
 
                             DB::commit();
-
                             $latestNotification = $newNotification->id;
                             $appstatus =  StudentApplicationStatus::latest('id')->select('id')->first();
-                            StudentApplicationStatus::where('id', $appstatus->id)->update([   
-                                's1_notification_id' => $latestNotification,
-                            ]);
 
+                            StudentApplicationStatus::where('id', $appstatus->id)
+                                ->update([
+                                    's1_notification_id' => $latestNotification,
 
-
+                   
+                                ]);
                             return 'Application Status Submitted Successfully!!!!';
                         } else {
                             DB::rollBack();
@@ -275,10 +274,13 @@ class ApplicationController extends Controller
 
                             $latestNotification = $newNotification->id;
                             $appstatus =  StudentApplicationStatus::latest('id')->select('id')->first();
-                            StudentApplicationStatus::where('id', $appstatus->id)->update([
-                                's2_notification_id' => $latestNotification,
-                            ]);
 
+
+                            StudentApplicationStatus::where('id', $appstatus->id)
+                                ->update([
+                                    's2_notification_id' => $latestNotification,
+
+                                ]);
                             return 'Application Status Submitted Successfully!!!!';
                         } else {
                             DB::rollBack();
@@ -339,9 +341,13 @@ class ApplicationController extends Controller
                             DB::commit();
                             $latestNotification = $newNotification->id;
                             $appstatus =  StudentApplicationStatus::latest('id')->select('id')->first();
-                            StudentApplicationStatus::where('id', $appstatus->id)->update([
-                                's3_notification_id' => $latestNotification,
-                            ]);
+
+
+                            StudentApplicationStatus::where('id', $appstatus->id)
+                                ->update([
+                                    's3_notification_id' => $latestNotification,
+
+                                ]);
 
 
 

@@ -16,7 +16,6 @@ class Profile extends Authenticatable
 
     const NOTIFICATION_OFF = 1;
     const NOTIFICATION_ON = 0;
-
     const REGISTERTATION_ON = 1;
     const REGISTERTATION_OFF = 0;
     const STUDENTTRANSFER_ON = 1;

@@ -35,9 +35,9 @@ class ApplicationTen extends Component
     use AlertMessage;
     public  $isEdit = false, $release_authorization_id, $profile_id, $application_id, $releaseAuthorization = [], $is_button_clicked = false, $is_patment_compleate = false, $transaction_id, $paid_amount = 0;
     public $pay_amount = 0, $card_number, $card_holder_name, $card_cvv, $card_exp_mm, $card_exp_yy;
-    public $first_name, $last_name, $email, $billing_address, $billing_city, $billing_state, $billing_zip_code, $studentInfo, $student_transfer;
+    public $first_name, $last_name, $email, $billing_address, $billing_city, $billing_state, $billing_zip_code, $studentInfo, $studentTransfer;
 
-    public function mount($getReleaseAuthorization = null, $student_transfer = null)
+    public function mount($getReleaseAuthorization = null, $studentTransfer = null)
     {
         //dd($getReleaseAuthorization);
 
@@ -52,7 +52,7 @@ class ApplicationTen extends Component
         if ($getReleaseAuthorization) {
 
             $this->release_authorization_id = $getReleaseAuthorization->id;
-            $this->student_transfer = $student_transfer;
+            $this->studentTransfer = $studentTransfer;
             $entranceExamInfo = [];
             $arr1 = [
                 "S1_Entrance_Exam_Reservation" => $getReleaseAuthorization->S1_Entrance_Exam_Reservation,

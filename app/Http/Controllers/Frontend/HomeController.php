@@ -26,11 +26,21 @@ use App\Models\Registeration;
 use App\Models\StudentRegisteration;
 use App\Models\GlobalRegisterable;
 use App\Models\GlobalStudentTransfer;
+use App\Helpers\Helper;
 
 use App\Models\StudentApplicationStatus;
 
 class HomeController extends Controller
 {
+    public $GlobalNotifiable;
+    public $GlobalRegisterable;
+    public $GlobalStudentTransfer;
+    public function __construct()
+    {
+        $this->GlobalNotifiable = Helper::getGlobalNotifiable();
+        $this->GlobalRegisterable = Helper::getGlobalRegisterable();
+        $this->GlobalStudentTransfer = Helper::getGlobalStudentTransfer();
+    }
     public function home()
     {
         if (!is_null(Auth::guard('customer')->user())) {
@@ -73,15 +83,13 @@ class HomeController extends Controller
                 }
                 $getStudentCount = count($getStudent);
             }
-            $notifications = Global_Notifiable::pluck('notifiable')->first();
-            $student_transfer = GlobalStudentTransfer::select('student_transfer')->first();
-            $studentTransfer = "";
-            if ($student_transfer) {
-                $studentTransfer = $student_transfer->student_transfer;
-            }
+
+
+            $notifications = $this->GlobalNotifiable;
+            $registerable = $this->GlobalRegisterable;
+            $studentTransfer = $this->GlobalStudentTransfer;
             $application_status = StudentApplicationStatus::Where('profile_id', $profile_id)->first();
-            $register = GlobalRegisterable::select('registerable')->first();
-            $registerable = $register->registerable;
+
             return view('frontend.home', compact('application', 'getStudentCount', 'notifications', 'application_status', 'registerable', 'studentTransfer'));
         } else {
             return redirect('/login');
@@ -95,13 +103,13 @@ class HomeController extends Controller
 
     public function admissionApplication($step = GlobalStudentTransfer::STEP_ONE)
     {
-     
+
 
         if (Auth::guard('customer')->check()) {
 
             $profile_id = Auth::guard('customer')->user()->id;
             $application = Application::where('Profile_ID', $profile_id)->where('status', 0)->first();
-            $student_transfer = GlobalStudentTransfer::select('student_transfer')->first();
+            $studentTransfer = $this->GlobalStudentTransfer;
 
             if ($application) {
 
@@ -166,7 +174,7 @@ class HomeController extends Controller
                         $getReleaseAuthorization = ReleaseAuthorization::where('Profile_ID', $profile_id)->where('Application_ID', $application->Application_ID)->first();
                     }
 
-                    return view('frontend.application.application-ten', compact('getReleaseAuthorization', 'student_transfer'));
+                    return view('frontend.application.application-ten', compact('getReleaseAuthorization', 'studentTransfer'));
                 }
             } else {
                 $getStudentInfo = null;
