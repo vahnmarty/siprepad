@@ -208,7 +208,8 @@ class ApplicationController extends Controller
                             DB::commit();
 
                             $latestNotification = $newNotification->id;
-                            $checkStatus->update([
+                            $appstatus =  StudentApplicationStatus::latest('id')->select('id')->first();
+                            StudentApplicationStatus::where('id', $appstatus->id)->update([   
                                 's1_notification_id' => $latestNotification,
                             ]);
 
@@ -273,7 +274,8 @@ class ApplicationController extends Controller
                             DB::commit();
 
                             $latestNotification = $newNotification->id;
-                            $checkStatus->update([
+                            $appstatus =  StudentApplicationStatus::latest('id')->select('id')->first();
+                            StudentApplicationStatus::where('id', $appstatus->id)->update([
                                 's2_notification_id' => $latestNotification,
                             ]);
 
@@ -336,7 +338,8 @@ class ApplicationController extends Controller
 
                             DB::commit();
                             $latestNotification = $newNotification->id;
-                            $checkStatus->update([
+                            $appstatus =  StudentApplicationStatus::latest('id')->select('id')->first();
+                            StudentApplicationStatus::where('id', $appstatus->id)->update([
                                 's3_notification_id' => $latestNotification,
                             ]);
 
