@@ -109,8 +109,8 @@
 									applicable , type "none"):</label>
 								<div class="form-group">
 									<textarea rows="8" cols="10" maxlength="1000"
-										name='prescribed_medication' >
-                                      </textarea>
+										name='prescribed_medication' ></textarea>
+                                     
 									@error('prescribed_medication')
 									<p class="text-danger">{{$message}}</p>
 									@enderror @error('live_with')
@@ -127,8 +127,8 @@
 									Restrictions (If not applicable , type "none"): </label>
 								<div class="form-group">
 									<textarea rows="8" cols="10" maxlength="1000"
-										name='allergies'> 
-                                      </textarea>
+										name='allergies'></textarea>
+                                      
 									@error('allergies')
 									<p class="text-danger">{{$message}}</p>
 									@enderror @error('live_with')
@@ -147,9 +147,9 @@
 									applicable, type "none"):</label>
 								<div class="form-group">
 									<textarea rows="8" cols="10" maxlength="1000"
-										name='child_condition'> 
+										name='child_condition'></textarea>
 										
-                                      </textarea>
+                                      
 									@error('child_condition')
 									<p class="text-danger">{{$message}}</p>
 									@enderror @error('live_with')
