@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
@@ -18,6 +19,8 @@ use App\Models\CoursePlacementInformation;
 use App\Models\ApplyLanguageChoice;
 use App\Models\ApplytoLanguageChoice;
 use App\Models\LanguageChoice;
+use App\Models\Application;
+use App\Models\StudentApplicationStatus;
 
 class RegistrationController extends Controller
 {
@@ -39,9 +42,21 @@ class RegistrationController extends Controller
      */
     public function create()
     {
-        $profile_id = Auth::guard('customer')->user()->id;
-        $studentinfo = StudentInformation::where('Profile_ID', $profile_id)->first();
-        return view('frontend.registeration.registeration-one', compact('studentinfo'));
+        if (!is_null(Auth::guard('customer')->user())) {
+            $profile_id = Auth::guard('customer')->user()->id;
+            $appid = Application::where('Profile_ID', $profile_id)->get('Application_ID')->first();
+            $applicationId = $appid->Application_ID;
+            $application_status = StudentApplicationStatus::where('application_id', $applicationId)->first();
+            $studentinfo = StudentInformation::where('Profile_ID', $profile_id)->first();
+            $getApplication = Application::where('Application_ID', $applicationId)
+                ->first();
+            $getApplicationStatus = StudentApplicationStatus::where('application_id', $getApplication->Application_ID)
+                ->where('profile_id', $getApplication->Profile_ID)->first();
+
+            return view('frontend.registeration.registeration-one', compact('studentinfo', 'application_status', 'getApplicationStatus'));
+        } else {
+            return redirect('/')->with('error', 'you donot have any notifications yet!!!');
+        }
     }
 
     /**
@@ -87,110 +102,141 @@ class RegistrationController extends Controller
     public function update(Request $request, $id)
     {
         $profile_id = Auth::guard('customer')->user()->id;
-
+        $appid = Application::where('Profile_ID', $profile_id)->get('Application_ID')->first();
+        $applicationId = $appid->Application_ID;
         $studentinfo = StudentInformation::where('Profile_ID', $profile_id)->first();
-        if ($studentinfo->S1_First_Name) {
-            $validatorS1 = validator($request->all(), [
-                'S1_first_name' => 'required|string|max:30',
-                'S1_middle_name' => 'nullable|string|max:30',
-                'S1_last_name' => 'required|string|max:30',
-                'S1_preffered_first_name' => 'nullable|string|max:30',
-                'S1_date_of_birth' => 'required|before:today',
-                'S1_gender' => 'required',
-                'S1_student_phone_number' => 'required|regex:/[0-9]/|not_regex:/[a-z]/|min:10|max:12',
-                'S1_tshirt_size' => 'required',
-                'S1_religion' => 'nullable|string',
-                'S1_racial' => 'nullable|string',
-                'S1_ethnicity' => 'nullable|string',
-                'S1_current_school' => 'nullable|string'
-            ]);
-            if ($validatorS1->fails()) {
-                return Redirect::back()->withInput()->withErrors($validatorS1);
+        $getApplication = Application::where('Application_ID', $applicationId)->first();
+        $getApplicationStatus = StudentApplicationStatus::where('application_id', $getApplication->Application_ID)
+            ->where('profile_id', $getApplication->Profile_ID)->first();
+        $studentinfo = StudentInformation::where('Profile_ID', $profile_id)->first();
+        if ($getApplicationStatus) {
+            if ($getApplicationStatus->s1_application_status == Application::CANDIDATE_ACCEPTED && $getApplicationStatus->s1_candidate_status == Application::CANDIDATE_ACCEPTED) {
+                $studentProfileOne = Application::STUDENT_ONE;
+            } else {
+                $studentProfileOne = '';
+            }
+            if ($getApplicationStatus->s2_application_status == Application::CANDIDATE_ACCEPTED && $getApplicationStatus->s2_candidate_status == Application::CANDIDATE_ACCEPTED) {
+                $studentProfileTwo = Application::STUDENT_TWO;
+            } else {
+                $studentProfileTwo = '';
+            }
+
+
+            if ($getApplicationStatus->s3_application_status == Application::CANDIDATE_ACCEPTED && $getApplicationStatus->s3_candidate_status == Application::CANDIDATE_ACCEPTED) {
+                $studentProfileThree = Application::STUDENT_THREE;
+            } else {
+                $studentProfileThree = '';
             }
         }
-
-        if ($studentinfo->S2_First_Name) {
-            $validatorS2 = validator($request->all(), [
-                'S2_first_name' => 'required|string|max:30',
-                'S2_middle_name' => 'nullable|string|max:30',
-                'S2_last_name' => 'required|string|max:30',
-                'S2_preffered_first_name' => 'nullable|string|max:30',
-                'S2_date_of_birth' => 'required|before:today',
-                'S2_gender' => 'required',
-                'S2_student_phone_number' => 'required|regex:/[0-9]/|not_regex:/[a-z]/|min:10|max:12',
-                'S2_tshirt_size' => 'required',
-                'S2_religion' => 'nullable|string',
-                'S2_racial' => 'nullable|string',
-                'S2_ethnicity' => 'nullable|string',
-                'S2_current_school' => 'nullable|string'
-            ]);
-
-            if ($validatorS2->fails()) {
-                return Redirect::back()->withInput()->withErrors($validatorS2);
+        if ($studentProfileOne == Application::STUDENT_ONE) {
+            if ($studentinfo->S1_First_Name) {
+                $validatorS1 = validator($request->all(), [
+                    'S1_first_name' => 'required|string|max:30',
+                    'S1_middle_name' => 'nullable|string|max:30',
+                    'S1_last_name' => 'required|string|max:30',
+                    'S1_preffered_first_name' => 'nullable|string|max:30',
+                    'S1_date_of_birth' => 'required|before:today',
+                    'S1_gender' => 'required',
+                    'S1_student_phone_number' => 'required|regex:/[0-9]/|not_regex:/[a-z]/|min:10|max:12',
+                    'S1_tshirt_size' => 'required',
+                    'S1_religion' => 'nullable|string',
+                    'S1_racial' => 'nullable|string',
+                    'S1_ethnicity' => 'nullable|string',
+                    'S1_current_school' => 'nullable|string'
+                ]);
+                if ($validatorS1->fails()) {
+                    return Redirect::back()->withInput()->withErrors($validatorS1);
+                }
             }
         }
+        if ($studentProfileTwo == Application::STUDENT_TWO) {
+            if ($studentinfo->S2_First_Name) {
+                $validatorS2 = validator($request->all(), [
+                    'S2_first_name' => 'required|string|max:30',
+                    'S2_middle_name' => 'nullable|string|max:30',
+                    'S2_last_name' => 'required|string|max:30',
+                    'S2_preffered_first_name' => 'nullable|string|max:30',
+                    'S2_date_of_birth' => 'required|before:today',
+                    'S2_gender' => 'required',
+                    'S2_student_phone_number' => 'required|regex:/[0-9]/|not_regex:/[a-z]/|min:10|max:12',
+                    'S2_tshirt_size' => 'required',
+                    'S2_religion' => 'nullable|string',
+                    'S2_racial' => 'nullable|string',
+                    'S2_ethnicity' => 'nullable|string',
+                    'S2_current_school' => 'nullable|string'
+                ]);
 
-        if ($studentinfo->S3_First_Name) {
-            $validatorS3 = validator($request->all(), [
-                'S3_first_name' => 'required|string|max:30',
-                'S3_middle_name' => 'nullable|string|max:30',
-                'S3_last_name' => 'required|string|max:30',
-                'S3_preffered_first_name' => 'nullable|string|max:30',
-                'S3_date_of_birth' => 'required|before:today',
-                'S3_gender' => 'required',
-                'S3_student_phone_number' => 'required|regex:/[0-9]/|not_regex:/[a-z]/|min:10|max:12',
-                'S3_tshirt_size' => 'required',
-                'S3_religion' => 'nullable|string',
-                'S3_racial' => 'nullable|string',
-                'S3_ethnicity' => 'nullable|string',
-                'S3_current_school' => 'nullable|string'
-            ]);
-
-            if ($validatorS3->fails()) {
-                return Redirect::back()->withInput()->withErrors($validatorS3);
+                if ($validatorS2->fails()) {
+                    return Redirect::back()->withInput()->withErrors($validatorS2);
+                }
             }
         }
+        if ($studentProfileThree == Application::STUDENT_THREE) {
+            if ($studentinfo->S3_First_Name) {
+                $validatorS3 = validator($request->all(), [
+                    'S3_first_name' => 'required|string|max:30',
+                    'S3_middle_name' => 'nullable|string|max:30',
+                    'S3_last_name' => 'required|string|max:30',
+                    'S3_preffered_first_name' => 'nullable|string|max:30',
+                    'S3_date_of_birth' => 'required|before:today',
+                    'S3_gender' => 'required',
+                    'S3_student_phone_number' => 'required|regex:/[0-9]/|not_regex:/[a-z]/|min:10|max:12',
+                    'S3_tshirt_size' => 'required',
+                    'S3_religion' => 'nullable|string',
+                    'S3_racial' => 'nullable|string',
+                    'S3_ethnicity' => 'nullable|string',
+                    'S3_current_school' => 'nullable|string'
+                ]);
 
+                if ($validatorS3->fails()) {
+                    return Redirect::back()->withInput()->withErrors($validatorS3);
+                }
+            }
+        }
         $studentinfo = StudentInformation::find($id);
-        $studentinfo->S1_First_Name = $request->S1_first_name;
-        $studentinfo->S1_Middle_Name = $request->S1_middle_name;
-        $studentinfo->S1_Last_Name = $request->S1_last_name;
-        $studentinfo->S1_Preferred_First_Name = $request->S1_preffered_first_name;
-        $studentinfo->S1_Birthdate = $request->S1_date_of_birth;
-        $studentinfo->S1_Gender = $request->S1_gender;
-        $studentinfo->S1_Mobile_Phone = $request->S1_student_phone_number;
-        $studentinfo->s1_tshirt_size = $request->S1_tshirt_size;
-        $studentinfo->s1_religion = $request->S1_religion;
-        $studentinfo->S1_Race = $request->S1_racial;
-        $studentinfo->S1_Ethnicity = $request->S1_ethnicity;
-        $studentinfo->S1_Current_School = $request->S1_current_school;
+        if ($studentProfileTwo == Application::STUDENT_ONE) {
+            $studentinfo->S1_First_Name = $request->S1_first_name;
+            $studentinfo->S1_Middle_Name = $request->S1_middle_name;
+            $studentinfo->S1_Last_Name = $request->S1_last_name;
+            $studentinfo->S1_Preferred_First_Name = $request->S1_preffered_first_name;
+            $studentinfo->S1_Birthdate = $request->S1_date_of_birth;
+            $studentinfo->S1_Gender = $request->S1_gender;
+            $studentinfo->S1_Mobile_Phone = $request->S1_student_phone_number;
+            $studentinfo->s1_tshirt_size = $request->S1_tshirt_size;
+            $studentinfo->s1_religion = $request->S1_religion;
+            $studentinfo->S1_Race = $request->S1_racial;
+            $studentinfo->S1_Ethnicity = $request->S1_ethnicity;
+            $studentinfo->S1_Current_School = $request->S1_current_school;
+        }
+        if ($studentProfileTwo == Application::STUDENT_TWO) {
 
-        $studentinfo->S2_First_Name = $request->S2_first_name;
-        $studentinfo->S2_Middle_Name = $request->S2_middle_name;
-        $studentinfo->S2_Last_Name = $request->S2_last_name;
-        $studentinfo->S2_Preferred_First_Name = $request->S2_preffered_first_name;
-        $studentinfo->S2_Birthdate = $request->S2_date_of_birth;
-        $studentinfo->S2_Gender = $request->S2_gender;
-        $studentinfo->S2_Mobile_Phone = $request->S2_student_phone_number;
-        $studentinfo->s2_tshirt_size = $request->S2_tshirt_size;
-        $studentinfo->s2_religion = $request->S2_religion;
-        $studentinfo->S2_Race = $request->S2_racial;
-        $studentinfo->S2_Ethnicity = $request->S2_ethnicity;
-        $studentinfo->S2_Current_School = $request->S2_current_school;
-
-        $studentinfo->S3_First_Name = $request->S3_first_name;
-        $studentinfo->S3_Middle_Name = $request->S3_middle_name;
-        $studentinfo->S3_Last_Name = $request->S3_last_name;
-        $studentinfo->S3_Preferred_First_Name = $request->S3_preffered_first_name;
-        $studentinfo->S3_Birthdate = $request->S3_date_of_birth;
-        $studentinfo->S3_Gender = $request->S3_gender;
-        $studentinfo->S3_Mobile_Phone = $request->S3_student_phone_number;
-        $studentinfo->s3_tshirt_size = $request->S3_tshirt_size;
-        $studentinfo->s3_religion = $request->S3_religion;
-        $studentinfo->S3_Race = $request->S3_racial;
-        $studentinfo->S3_Ethnicity = $request->S3_ethnicity;
-        $studentinfo->S3_Current_School = $request->S3_current_school;
-
+            $studentinfo->S2_First_Name = $request->S2_first_name;
+            $studentinfo->S2_Middle_Name = $request->S2_middle_name;
+            $studentinfo->S2_Last_Name = $request->S2_last_name;
+            $studentinfo->S2_Preferred_First_Name = $request->S2_preffered_first_name;
+            $studentinfo->S2_Birthdate = $request->S2_date_of_birth;
+            $studentinfo->S2_Gender = $request->S2_gender;
+            $studentinfo->S2_Mobile_Phone = $request->S2_student_phone_number;
+            $studentinfo->s2_tshirt_size = $request->S2_tshirt_size;
+            $studentinfo->s2_religion = $request->S2_religion;
+            $studentinfo->S2_Race = $request->S2_racial;
+            $studentinfo->S2_Ethnicity = $request->S2_ethnicity;
+            $studentinfo->S2_Current_School = $request->S2_current_school;
+        }
+        if ($studentProfileTwo == Application::STUDENT_THREE) {
+            $studentinfo->S3_First_Name = $request->S3_first_name;
+            $studentinfo->S3_Middle_Name = $request->S3_middle_name;
+            $studentinfo->S3_Last_Name = $request->S3_last_name;
+            $studentinfo->S3_Preferred_First_Name = $request->S3_preffered_first_name;
+            $studentinfo->S3_Birthdate = $request->S3_date_of_birth;
+            $studentinfo->S3_Gender = $request->S3_gender;
+            $studentinfo->S3_Mobile_Phone = $request->S3_student_phone_number;
+            $studentinfo->s3_tshirt_size = $request->S3_tshirt_size;
+            $studentinfo->s3_religion = $request->S3_religion;
+            $studentinfo->S3_Race = $request->S3_racial;
+            $studentinfo->S3_Ethnicity = $request->S3_ethnicity;
+            $studentinfo->S3_Current_School = $request->S3_current_school;
+        }
         if ($studentinfo->update()) {
             return redirect('registration/householdIndex/' . $profile_id)->with('success', "Updated successfully");
         } else {
@@ -205,7 +251,8 @@ class RegistrationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {}
+    {
+    }
 
     public function householdIndex($id)
     {
@@ -214,17 +261,17 @@ class RegistrationController extends Controller
         return view('frontend.registeration.registeration-two', compact('addressinfo', 'parentinfo'));
     }
 
-  
 
-    
+
+
     public function householdUpdate(Request $request, $id)
     {
         DB::beginTransaction();
-        
+
         $addressinfo = AddressInformation::with('profile')->with('parentInfo')->where('Profile_ID', $id)->first();
         $parentInfo = $addressinfo->profile->parentInfo;
-        
-        if ($addressinfo->profile->parentInfo->P1_First_Name ) {
+
+        if ($addressinfo->profile->parentInfo->P1_First_Name) {
             $validatorP1 = validator($request->all(), [
                 'A1_street' => 'required|string|max:30',
                 'A1_city' => 'required|string|max:30',
@@ -354,20 +401,21 @@ class RegistrationController extends Controller
     {
 
         $healthinfo = RegisterationHealthInformation::where('profile_id', $id)->first();
-          $profile = Auth::guard('customer')->user('id');
-         
-          if(!empty($healthinfo)){
-        return view('frontend.registeration.registeration-three-update', compact('healthinfo','profile'));
-          }else {
-              return view('frontend.registeration.registeration-three',compact('profile'));
-          }
+        $profile = Auth::guard('customer')->user('id');
+
+        if (!empty($healthinfo)) {
+            return view('frontend.registeration.registeration-three-update', compact('healthinfo', 'profile'));
+        } else {
+            return view('frontend.registeration.registeration-three', compact('profile'));
+        }
     }
-    
-    public function healthInfoCreate(Request $request){
-        
+
+    public function healthInfoCreate(Request $request)
+    {
 
 
-       $profile = Auth::guard('customer')->user('id');
+
+        $profile = Auth::guard('customer')->user('id');
         $validator = validator($request->all(), [
             'medical_insurance_company' => 'required|string|max:50',
             'medical_policy_number' => 'required|string|max:30',
@@ -379,31 +427,30 @@ class RegistrationController extends Controller
             'allergies' => 'required|string',
             'child_condition' => 'required|string'
         ]);
-        
+
         if ($validator->fails()) {
             return redirect()->route('emergencyContactIndex');
         }
-        
+
         $healthinfo = new RegisterationHealthInformation();
         $healthinfo->medical_insurance_company = $request->medical_insurance_company;
         $healthinfo->medical_policy_number = $request->medical_policy_number;
         $healthinfo->physician_name = $request->physician_name;
-        $healthinfo->physician_phone = $request->physician_phone1.$request->physician_phone2.$request->physician_phone3;
+        $healthinfo->physician_phone = $request->physician_phone1 . $request->physician_phone2 . $request->physician_phone3;
         $healthinfo->prescribed_medication = $request->prescribed_medication;
         $healthinfo->allergies = $request->allergies;
         $healthinfo->child_condition = $request->child_condition;
         $healthinfo->profile_id = $profile->id;
-        
-        if($healthinfo->save()){
-            return redirect('registeration/emergencyContactIndex/'.$healthinfo->profile_id)->with('success', "Saved successfully");
+
+        if ($healthinfo->save()) {
+            return redirect('registeration/emergencyContactIndex/' . $healthinfo->profile_id)->with('success', "Saved successfully");
         }
-   
     }
-    
-    
+
+
     public function healthInfoUpdate(Request $request, $id)
     {
-        
+
         $validator = validator($request->all(), [
             'medical_insurance_company' => 'required|string|max:50',
             'medical_policy_number' => 'required|string|max:30',
@@ -418,38 +465,34 @@ class RegistrationController extends Controller
         if ($validator->fails()) {
             return Redirect::back()->withInput()->withErrors($validator);
         }
-        
+
         $healthinfo = RegisterationHealthInformation::where('profile_id', $id)->first();
         $healthinfo->medical_insurance_company = $request->medical_insurance_company;
         $healthinfo->medical_policy_number = $request->medical_policy_number;
         $healthinfo->physician_name = $request->physician_name;
-        $healthinfo->physician_phone = $request->physician_phone1.$request->physician_phone2.$request->physician_phone3;
+        $healthinfo->physician_phone = $request->physician_phone1 . $request->physician_phone2 . $request->physician_phone3;
         $healthinfo->prescribed_medication = $request->prescribed_medication;
         $healthinfo->allergies = $request->allergies;
         $healthinfo->child_condition = $request->child_condition;
-        if($healthinfo->update())
-        {
-            return redirect('registeration/emergencyContactIndex/'.$healthinfo->profile_id)->with('success', "Updated successfully");
+        if ($healthinfo->update()) {
+            return redirect('registeration/emergencyContactIndex/' . $healthinfo->profile_id)->with('success', "Updated successfully");
         }
     }
-    
+
     public function emergencyContactIndex()
     {
-       
-        $emergencyContact = RegisterationEmergencycontact::where('profile_id',$id)->first();
-        if($emergencyContact)
-        {
-            return view('frontend.registeration.registeration-four-update',compact('emergencyContact'));
-        }
-        else
-        {
-            return view('frontend.registeration.registeration-four',compact('emergencyContact','id'));
+
+        $emergencyContact = RegisterationEmergencycontact::where('profile_id', $id)->first();
+        if ($emergencyContact) {
+            return view('frontend.registeration.registeration-four-update', compact('emergencyContact'));
+        } else {
+            return view('frontend.registeration.registeration-four', compact('emergencyContact', 'id'));
         }
     }
-    
+
     public function emergencyContactSave(Request $request)
     {
-        
+
         $profile = Auth::guard('customer')->user('id');
 
         $validator = validator($request->all(), [
@@ -462,7 +505,7 @@ class RegistrationController extends Controller
         if ($validator->fails()) {
             return Redirect::back()->withInput()->withErrors($validator);
         }
-        
+
         $emergencyInfo = new RegisterationEmergencycontact();
         $emergencyInfo->emergency_contact_name = $request->emergency_contact_name;
         $emergencyInfo->relation_to_student = $request->relation_to_student;
@@ -470,13 +513,11 @@ class RegistrationController extends Controller
         $emergencyInfo->mobile_phone = $request->mobile_phone;
         $emergencyInfo->work_phone = $request->work_phone;
         $emergencyInfo->profile_id = $profile->id;
-        if($emergencyInfo->save())
-        {
-            return redirect('registration/accomodations/'.$emergencyInfo->profile_id)->with('success', "Updated successfully");
+        if ($emergencyInfo->save()) {
+            return redirect('registration/accomodations/' . $emergencyInfo->profile_id)->with('success', "Updated successfully");
         }
-        
     }
-    
+
     public function emergencyContactUpdate(Request $request, $id)
     {
 
@@ -490,7 +531,7 @@ class RegistrationController extends Controller
         if ($validator->fails()) {
             return Redirect::back()->withInput()->withErrors($validator);
         }
-        
+
         $emergencyInfo = RegisterationEmergencycontact::where('profile_id', $id)->first();
         $emergencyInfo->emergency_contact_name = $request->emergency_contact_name;
         $emergencyInfo->relation_to_student = $request->relation_to_student;
@@ -498,148 +539,130 @@ class RegistrationController extends Controller
         $emergencyInfo->mobile_phone = $request->mobile_phone;
         $emergencyInfo->work_phone = $request->work_phone;
 
-        if($emergencyInfo->update())
-        {
-            return redirect('registration/accomodations/'.$emergencyInfo->profile_id)->with('success', "Updated successfully");
+        if ($emergencyInfo->update()) {
+            return redirect('registration/accomodations/' . $emergencyInfo->profile_id)->with('success', "Updated successfully");
         }
     }
     public function accomodationsIndex($id)
     {
-        $accomodations = RegisterationSchoolAccomodation::where('profile_id',$id)->first();
-        if($accomodations)
-        {
-            return view('frontend.registeration.registeration-five-update',compact('accomodations','id')); 
+        $accomodations = RegisterationSchoolAccomodation::where('profile_id', $id)->first();
+        if ($accomodations) {
+            return view('frontend.registeration.registeration-five-update', compact('accomodations', 'id'));
+        } else {
+            return view('frontend.registeration.registeration-five', compact('accomodations', 'id'));
         }
-        else 
-        {
-            return view('frontend.registeration.registeration-five',compact('accomodations','id')); 
-        } 
     }
-    
+
     public function accomodationsSave(Request $request)
     {
-        
+
         $profile = Auth::guard('customer')->user('id');
-        
+
         $accomodations = new RegisterationSchoolAccomodation();
         $accomodations->formal_accomodations_provided = $request->formal_accomodations_provided;
         $accomodations->informal_accomodations_provided = $request->informal_accomodations_provided;
         $accomodations->profile_id = $profile->id;
-        
-        if($accomodations->save())
-        {
-            
-            return redirect('registration/magisProgram/'.$accomodations->profile_id)->with('success', "Updated successfully");
+
+        if ($accomodations->save()) {
+
+            return redirect('registration/magisProgram/' . $accomodations->profile_id)->with('success', "Updated successfully");
         }
-        
     }
-    
+
     public function accomodationsUpdate(Request $request, $id)
     {
-        $accomodations = RegisterationSchoolAccomodation::where('profile_id',$id)->first();
+        $accomodations = RegisterationSchoolAccomodation::where('profile_id', $id)->first();
         $accomodations->formal_accomodations_provided = $request->formal_accomodations_provided;
         $accomodations->informal_accomodations_provided = $request->informal_accomodations_provided;
-        
-        if($accomodations->update())
-        {
 
-            return redirect('registration/magisProgram/'.$accomodations->profile_id)->with('success', "Updated successfully");
+        if ($accomodations->update()) {
+
+            return redirect('registration/magisProgram/' . $accomodations->profile_id)->with('success', "Updated successfully");
         }
     }
-    
+
     public function magisProgramIndex($id)
     {
-        $magisProgram = StudentInformation::where('profile_id',$id)->first();
-        if($magisProgram)
-        {
+        $magisProgram = StudentInformation::where('profile_id', $id)->first();
+        if ($magisProgram) {
             return view('frontend.registeration.registeration-six-update', compact('magisProgram'));
-        }
-        else 
-        {
+        } else {
             return view('frontend.registeration.registeration-six', compact('magisProgram'));
         }
     }
-    
+
     public function magisProgramSave(Request $request)
     {
-        
+
         $profile = Auth::guard('customer')->user('id');
-        
+
         $validator = validator($request->all(), [
             'first_generation_college_bound_student' => 'required',
         ]);
         if ($validator->fails()) {
             return Redirect::back()->withInput()->withErrors($validator);
         }
-        
+
         $magisProgram = new StudentInformation();
         $magisProgram->s1_first_generation = $request->first_generation_college_bound_student;
         $magisProgram->s2_first_generation = $request->second_generation_college_bound_student;
         $magisProgram->s3_first_generation = $request->third_generation_college_bound_student;
-        
-        if($magisProgram->update())
-        {
-            return redirect('registration/coursePlacementIndex/'.$magisProgram->Profile_ID)->with('success', "Updated successfully");
+
+        if ($magisProgram->update()) {
+            return redirect('registration/coursePlacementIndex/' . $magisProgram->Profile_ID)->with('success', "Updated successfully");
         }
-        
     }
-    
+
     public function magisProgramUpdate(Request $request, $id)
-    { 
+    {
         $validator = validator($request->all(), [
             'first_generation_college_bound_student' => 'required',
         ]);
         if ($validator->fails()) {
             return Redirect::back()->withInput()->withErrors($validator);
         }
-        
-        $magisProgram = StudentInformation::where('Profile_ID',$id)->first();
+
+        $magisProgram = StudentInformation::where('Profile_ID', $id)->first();
         $magisProgram->s1_first_generation = $request->first_generation_college_bound_student;
         $magisProgram->s2_first_generation = $request->second_generation_college_bound_student;
         $magisProgram->s3_first_generation = $request->third_generation_college_bound_student;
 
-        if($magisProgram->update())
-        {
-            return redirect('registration/coursePlacementIndex/'.$magisProgram->Profile_ID)->with('success', "Updated successfully");
+        if ($magisProgram->update()) {
+            return redirect('registration/coursePlacementIndex/' . $magisProgram->Profile_ID)->with('success', "Updated successfully");
         }
     }
-    
+
     public function coursePlacementIndex($id)
-    {   
-        $idCheck = CoursePlacementInformation::where('profile_id',$id)->first();
-        $languageCheck = LanguageChoice::where('profile_id',$id)->get();
+    {
+        $idCheck = CoursePlacementInformation::where('profile_id', $id)->first();
+        $languageCheck = LanguageChoice::where('profile_id', $id)->get();
         $language = LanguageChoice::getLanguageAttributes();
-        
+
         $totalValues = count($languageCheck);
         $languageValues = [];
-        for($i=0; $i<$totalValues; $i++) {
+        for ($i = 0; $i < $totalValues; $i++) {
             $languageValues[] = $languageCheck[$i]->language_id;
         }
-         
 
-        if($idCheck)
-        { 
-            return view('frontend.registeration.registeration-seven',compact('idCheck','languageValues', 'language' ,'id' ));
 
-        }
-        else 
-        {
-            return view('frontend.registeration.registeration-seven', compact('language','id'));
+        if ($idCheck) {
+            return view('frontend.registeration.registeration-seven', compact('idCheck', 'languageValues', 'language', 'id'));
+        } else {
+            return view('frontend.registeration.registeration-seven', compact('language', 'id'));
         }
     }
-    
+
     public function coursePlacementUpdate(Request $request, $id)
     {
         DB::beginTransaction();
-        
-        $idCheck = CoursePlacementInformation::where('profile_id',$id)->first();
-        $languageCheck = LanguageChoice::where('profile_id',$id)->get();
-        
+
+        $idCheck = CoursePlacementInformation::where('profile_id', $id)->first();
+        $languageCheck = LanguageChoice::where('profile_id', $id)->get();
+
 
         $langCount =  count($languageCheck);
-    
-        if(empty($idCheck) && $langCount == LanguageChoice::LANG_COUNT)
-        {   
+
+        if (empty($idCheck) && $langCount == LanguageChoice::LANG_COUNT) {
             $validator = validator($request->all(), [
                 'math_challenge_test' => 'required',
                 'language_placement_test' => 'required',
@@ -647,8 +670,7 @@ class RegistrationController extends Controller
             ]);
             if ($validator->fails()) {
                 return Redirect::back()->withInput()->withErrors($validator);
-
-            }     
+            }
 
             $coursePlacement = new CoursePlacementInformation();
             $coursePlacement->profile_id = $request->id;
@@ -658,29 +680,23 @@ class RegistrationController extends Controller
             $coursePlacement->language_selection = $request->language_selection;
             $coursePlacement->language_placement_test = $request->language_placement_test;
             $coursePlacement->choose_other_language = $request->open_to_choosing_another_language;
-            
+
             $apply_to_language = $request->checks_apply_to_language;
-            if(!empty($apply_to_language))
-            {
-                foreach($apply_to_language as $languages)
-                {
+            if (!empty($apply_to_language)) {
+                foreach ($apply_to_language as $languages) {
                     $applyLanguageChoice = new LanguageChoice();
                     $applyLanguageChoice->profile_id = $request->id;
                     $applyLanguageChoice->language_id = $languages;
                     $applyLanguageChoice->save();
                 }
             }
-            
-            if($coursePlacement->save())
-            {
 
-                DB::commit();               
+            if ($coursePlacement->save()) {
+
+                DB::commit();
                 return view('frontend.registeration.thankYou')->with('success', "Updated successfully");
             }
-        }
-        
-        elseif (!empty($idCheck) && $langCount > LanguageChoice::LANG_COUNT)
-        {
+        } elseif (!empty($idCheck) && $langCount > LanguageChoice::LANG_COUNT) {
 
             $validator = validator($request->all(), [
                 'math_challenge_test' => 'required',
@@ -700,30 +716,25 @@ class RegistrationController extends Controller
             $idCheck->language_selection = $request->language_selection;
             $idCheck->language_placement_test = $request->language_placement_test;
             $idCheck->choose_other_language = $request->open_to_choosing_another_language;
-            
-            $delete = LanguageChoice::where('profile_id',$id)->delete();
-   
+
+            $delete = LanguageChoice::where('profile_id', $id)->delete();
+
             $apply_to_language = $request->checks_apply_to_language;
-            if(!empty($apply_to_language))
-            {
-                foreach($apply_to_language as $languages)
-                {
+            if (!empty($apply_to_language)) {
+                foreach ($apply_to_language as $languages) {
                     $applyLanguageChoice = new LanguageChoice();
                     $applyLanguageChoice->profile_id = $id;
                     $applyLanguageChoice->language_id = $languages;
                     $applyLanguageChoice->save();
                 }
             }
-            
-            if($idCheck->update())
-            {
+
+            if ($idCheck->update()) {
                 DB::commit();
 
                 return view('frontend.registeration.thankYou')->with('success', "Updated successfully");
             }
-        }
-        elseif (!empty($idCheck) && $langCount == LanguageChoice::LANG_COUNT)
-        {
+        } elseif (!empty($idCheck) && $langCount == LanguageChoice::LANG_COUNT) {
 
             $validator = validator($request->all(), [
                 'math_challenge_test' => 'required',
@@ -741,38 +752,27 @@ class RegistrationController extends Controller
             $idCheck->language_selection = $request->language_selection;
             $idCheck->language_placement_test = $request->language_placement_test;
             $idCheck->choose_other_language = $request->open_to_choosing_another_language;
-            
+
             $apply_to_language = $request->checks_apply_to_language;
-            if(!empty($apply_to_language))
-            {
-                foreach($apply_to_language as $languages)
-                {
+            if (!empty($apply_to_language)) {
+                foreach ($apply_to_language as $languages) {
                     $applyLanguageChoice = new LanguageChoice();
                     $applyLanguageChoice->profile_id = $request->id;
                     $applyLanguageChoice->language_id = $languages;
                     $applyLanguageChoice->save();
                 }
             }
-            
-            if($idCheck->update())
-            {
+
+            if ($idCheck->update()) {
                 DB::commit();
 
                 return view('frontend.registeration.thankYou')->with('success', "Updated successfully");
-
             }
         }
-        
     }
-    
+
     public function thankYou()
     {
         return view('frontend.registeration.thankYou');
     }
-    
 }
-
-
-
-
-
