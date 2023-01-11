@@ -25,18 +25,15 @@
 										accommodations at their current school (Learning Plan, IEP,
 
 										504 Plan, Other)?</label>
-										<div class="radio-wrapper">
-									<input type="radio" id="yes" name="formal_accomodations_provided" value="{{App\Models\RegisterationSchoolAccomodation::ACCOMODATION_PROVIDED}}">
-									<label class="blck" for="yes">Yes</label><br>
+									<div class="radio-wrapper">
+										<input type="radio" id="yes" name="formal_accomodations_provided" value="{{App\Models\RegisterationSchoolAccomodation::ACCOMODATION_PROVIDED}}">
+										<label class="blck" for="yes">Yes</label><br>
 
 
+										<input type="radio" id="no" name="formal_accomodations_provided" value="{{App\Models\RegisterationSchoolAccomodation::ACCOMODATION_NOT_PROVIDED}}">
 
-									<input type="radio" id="no" name="formal_accomodations_provided" value="{{App\Models\RegisterationSchoolAccomodation::ACCOMODATION_NOT_PROVIDED}}">
-
-									<label class="blck" for="no">No</label>
-										</div>
-
-						<label class="blck" for="no">No</label>
+										<label class="blck" for="no">No</label>
+									</div>
 									@error('accomodations_provided')
 									<p class="text-danger">{{$message}}</p>
 									@enderror
@@ -51,7 +48,6 @@
 									<label class="blck">Does the student receive informal academic
 										accommodations at their current school (e.g., extended time,
 										preferred seating)?</label>
-
 									<div class="radio-wrapper">
 										<input type="radio" id="yes" name="informal_accomodations_provided" value="{{App\Models\RegisterationSchoolAccomodation::ACCOMODATION_PROVIDED}}">
 										<label class="blck" for="yes">Yes</label><br>
@@ -59,14 +55,6 @@
 
 										<label class="blck" for="no">No</label>
 									</div>
-
-										<input type="radio" id="yes" name="informal_accomodations_provided" value="{{App\Models\RegisterationSchoolAccomodation::ACCOMODATION_PROVIDED}}"> 
-									<label class="blck" for="yes">Yes</label>
-										<input type="radio" id="no" name="informal_accomodations_provided"
-										name="informal_accomodations_provided" value="{{App\Models\RegisterationSchoolAccomodation::ACCOMODATION_NOT_PROVIDED}}">
-
-									<label class="blck" for="no">No</label>
-
 									@error('accomodations_provided')
 									<p class="text-danger">{{$message}}</p>
 									@enderror
