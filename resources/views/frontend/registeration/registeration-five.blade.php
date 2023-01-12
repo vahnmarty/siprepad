@@ -23,6 +23,16 @@
 								<div class="form-group">
 									<label class="blck">Does the student receive formal academic
 										accommodations at their current school (Learning Plan, IEP,
+										504 Plan, Other)?</label>
+										<div class="radio-wrapper">
+									<input type="radio" id="yes" name="formal_accomodations_provided" value="{{App\Models\RegisterationSchoolAccomodation::ACCOMODATION_PROVIDED}}">
+									<label class="blck" for="yes">Yes</label><br>
+
+
+									<input type="radio" id="no" name="formal_accomodations_provided" value="{{App\Models\RegisterationSchoolAccomodation::ACCOMODATION_NOT_PROVIDED}}">
+
+									<label class="blck" for="no">No</label>
+										</div>
 
 										504 Plan, Other)?</label>
 									<div class="radio-wrapper">
@@ -34,6 +44,7 @@
 
 										<label class="blck" for="no">No</label>
 									</div>
+
 									@error('accomodations_provided')
 									<p class="text-danger">{{$message}}</p>
 									@enderror

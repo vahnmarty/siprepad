@@ -75,7 +75,7 @@ class ApplicationController extends Controller
     public function show($id)
     {
         $application = Application::where('Application_ID', $id)->first();
-        // dd($application);
+      
         if (!is_null($application)) {
             return view('admin.application.show', [
                 'application' => $application
@@ -133,7 +133,6 @@ class ApplicationController extends Controller
     public function statusSubmit(Request $request)
     {
 
-
         $appID = $request->post('app_id');
 
         $user = $request->profile_id;
@@ -184,16 +183,17 @@ class ApplicationController extends Controller
                     ['profile_id', '=', $user]
                 ])->first();
 
-
+                  
                 if (empty($checkStatus)) {
 
-
+                   
                     $setApplicationStatus = new StudentApplicationStatus();
                     $setApplicationStatus->application_id = $appID;
                     $setApplicationStatus->profile_id = $user;
                     $setApplicationStatus->s1_application_status = $applicationStatus;
-
+                          
                     if ($setApplicationStatus->save()) {
+                     
                         $newNotification = new Notification();
                         $newNotification->profile_id = $user;
                         $newNotification->application_id = $appID;
@@ -201,6 +201,7 @@ class ApplicationController extends Controller
                         $newNotification->message = $message;
                         $newNotification->notification_type = $ntfType;
                         if ($newNotification->save()) {
+                          
 
                             DB::commit();
                             $latestNotification = $newNotification->id;
@@ -220,10 +221,11 @@ class ApplicationController extends Controller
                         return 'Something went wrong';
                     }
                 } else {
+                  
                     $checkStatus->update([
                         's1_application_status' => $applicationStatus,
                     ]);
-
+                            
                     $newNotification = new Notification();
                     $newNotification->profile_id = $user;
                     $newNotification->application_id = $appID;
