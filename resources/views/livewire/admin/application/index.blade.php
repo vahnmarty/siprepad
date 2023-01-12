@@ -1,25 +1,23 @@
 <div class="notification_action">
-    @if($notification == '1')
+    @if($notification == App/Models/Global_Notifiable::NOTIFICATION_ON)
     <a href="{{ url('/admin/user/notify/')}}/{{App\Models\Profile::NOTIFICATION_ON}}/{{$notification}}" style="color: white; background: linear-gradient(180deg, #19a74d 0%, #002664 100%) !important;" class="btn btn-on mb-3">Notification On</a>
     @else
     <a href="{{ url('/admin/user/notify/')}}/{{App\Models\Profile::NOTIFICATION_OFF}}/{{$notification}}" style="color:white" class="btn btn-off mb-3">Notification Off</a>
     @endif
-    @if($registeration == '1')
+    @if($registeration ==  App/Models/GlobalRegisterable::Registeration_ON)
     <a href="{{ url('admin/user/registerable')}}/{{App\Models\Profile::REGISTERTATION_OFF}}/{{$registeration}}" style="color: white; background: linear-gradient(180deg, #19a74d 0%, #002664 100%) !important;" class="btn btn-on mb-3">Registeration On</a>
     @else
     <a href="{{  url('admin/user/registerable')}}/{{App\Models\Profile::REGISTERTATION_ON}}/{{$registeration}}" style="color:white" class="btn btn-off mb-3">Registeration Off</a>
-    @endif
-
-    @if($studentTransfer == '1' )
-    <a href="{{ url('admin/user/studentTransfer')}}/{{App\Models\Profile::STUDENTTRANSFER_OFF}}/{{$studentTransfer}}" style="color: white; background: linear-gradient(180deg, #19a74d 0%, #002664 100%) !important;" class="btn btn-on mb-3">Student Transfer On</a>
-    @else
-    <a href="{{  url('admin/user/studentTransfer')}}/{{App\Models\Profile::STUDENTTRANSFER_ON}}/{{$studentTransfer}}" style="color:white" class="btn btn-off mb-3">Student Transfer Off</a>
     @endif
     <x-admin.table>
         <x-slot name="search">
         </x-slot>
 
-        <x-slot name="perPage">
+<x-admin.table>
+    <x-slot name="search">
+    </x-slot>
+    <x-slot name="perPage">
+        
             <label>Show
                 <x-admin.dropdown wire:model="perPage" class="custom-select custom-select-sm form-control form-control-sm">
 
@@ -35,6 +33,7 @@
                 </th>
 
                 <th tabindex="0" aria-controls="kt_table_1" rowspan="1" colspan="1" style="width: 15%;" aria-label="Company Email: activate to sort column ascending">Student Last Name<i class="fa fa-fw fa-sort pull-right" style="cursor: pointer;" wire:click="sortByName('last_name')"></i></th>
+
 
 
                 <th tabindex="0" aria-controls="kt_table_1" rowspan="1" colspan="1" style="width: 20%;" aria-label="Company Agent: activate to sort column ascending">Student Email

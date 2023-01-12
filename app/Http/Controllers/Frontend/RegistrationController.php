@@ -49,7 +49,9 @@ class RegistrationController extends Controller
             $application_status = StudentApplicationStatus::where('application_id', $applicationId)->first();
             $studentinfo = StudentInformation::where('Profile_ID', $profile_id)->first();
             $getApplication = Application::where('Application_ID', $applicationId)
-                ->first();
+
+                ->get()->first();
+
             $getApplicationStatus = StudentApplicationStatus::where('application_id', $getApplication->Application_ID)
                 ->where('profile_id', $getApplication->Profile_ID)->first();
 
@@ -105,7 +107,10 @@ class RegistrationController extends Controller
         $appid = Application::where('Profile_ID', $profile_id)->get('Application_ID')->first();
         $applicationId = $appid->Application_ID;
         $studentinfo = StudentInformation::where('Profile_ID', $profile_id)->first();
-        $getApplication = Application::where('Application_ID', $applicationId)->first();
+
+        $getApplication = Application::where('Application_ID', $applicationId)
+            ->get()->first();
+
         $getApplicationStatus = StudentApplicationStatus::where('application_id', $getApplication->Application_ID)
             ->where('profile_id', $getApplication->Profile_ID)->first();
         $studentinfo = StudentInformation::where('Profile_ID', $profile_id)->first();
