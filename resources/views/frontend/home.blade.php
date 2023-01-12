@@ -41,7 +41,7 @@
             @if(!empty($application_status))
 
             <li>
-                <a target="_blank" href="{{url('/notification')}}">
+                <a href="{{url('/notification')}}">
 
                     <em>
                         <img src="{{ asset('frontend_assets/images/j1.svg') }}" alt="" />
@@ -56,7 +56,7 @@
             @endif
 
             <li>
-                <a target="_blank" href="https://www.siprep.org/admissions/visit/wildcat-experience">
+                <a  href="https://www.siprep.org/admissions/visit/wildcat-experience">
                     <em>
                         <img src="{{ asset('frontend_assets/images/j1.svg') }}" alt="" />
                     </em>

@@ -7,7 +7,7 @@
     @if($registeration ==  App/Models/GlobalRegisterable::Registeration_ON)
     <a href="{{ url('admin/user/registerable')}}/{{App\Models\Profile::REGISTERTATION_OFF}}/{{$registeration}}" style="color: white; background: linear-gradient(180deg, #19a74d 0%, #002664 100%) !important;" class="btn btn-on mb-3">Registeration On</a>
     @else
-    <a href="{{  url('admin/user/registerable')}}/{{App\Models\Profile::REGISTERTATION_ON}}/{{$registeration}}" style="color:white" class="btn btn-off mb-3">Registeration Off</a>
+    <a href="{{  url('admin/user/registerable')}}/{{App\Models\Profile::REGISTERTATION_ON}}/{{$registeration}}" style="color:white" class="btn btn-off mb-3">Registration Off</a>
     @endif
     <x-admin.table>
         <x-slot name="search">
@@ -126,18 +126,21 @@
                     <input type='hidden' class='dob' name='dob' value="{{ $student['Birthday'] }}">
                     <input type='hidden' class='email' name='email' value="{{ $student['Personal_Email'] }}">
 
+                    <?php $studentProfile = ''; ?>
                     @if($getApplicationStatus)
-                    @if($getStudent->S1_Personal_Email == $student['Personal_Email'] && $getStudent->S1_First_Name == $student['First_Name']
-                    && $getStudent->S1_Last_Name == $student['Last_Name'] && $getStudent->S1_Birthdate == $student['Birthday'])
-                    <?php $studentProfile = 'student_one'; ?>
-                    @elseif($getStudent->S2_Personal_Email == $student['Personal_Email'] && $getStudent->S2_First_Name == $student['First_Name']
-                    && $getStudent->S2_Last_Name == $student['Last_Name'] && $getStudent->S2_Birthdate == $student['Birthday'])
-                    <?php $studentProfile = 'student_two'; ?>
-                    @elseif($getStudent->S3_Personal_Email == $student['Personal_Email'] && $getStudent->S3_First_Name == $student['First_Name']
-                    && $getStudent->S3_Last_Name == $student['Last_Name'] && $getStudent->S3_Birthdate == $student['Birthday'])
-                    <?php $studentProfile = 'student_three'; ?>
+                    @if($student['student_type']==App\Models\Application::STUDENT_ONE)
+                    <?php $studentProfile = App\Models\Application::STUDENT_ONE; ?>
+                    @elseif($student['student_type']==App\Models\Application::STUDENT_TWO)
+                    <?php $studentProfile = App\Models\Application::STUDENT_TWO; ?>
+                    @elseif($student['student_type']==App\Models\Application::STUDENT_THREE)
+                    <?php $studentProfile = App\Models\Application::STUDENT_THREE; ?>
                     @endif
-                    @if($studentProfile == 'student_one')
+                    @endif
+                    @if($studentProfile == App\Models\Application::STUDENT_ONE)
+
+
+
+                    
                     @switch($getApplicationStatus->s1_application_status)
                     @case(1)
                     <select name='candidate-status' required class='state_select-box'>
@@ -170,8 +173,17 @@
                             <option value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
                         </select>
                         @endswitch
+                        @else
+                        @if(empty($studentProfile))
+                        <select name='candidate-status' required class='state_select-box'>
+                            <option value='' selected disabled>Select</option>
+                            <option value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
+                            <option value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
+                            <option value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
+                        </select>
                         @endif
-                        @if($studentProfile == 'student_two')
+                        @endif
+                        @if($studentProfile == App\Models\Application::STUDENT_TWO)
                         @switch($getApplicationStatus->s2_application_status)
                         @case(1)
                         <select name='candidate-status' required class='state_select-box'>
@@ -205,7 +217,7 @@
                             </select>
                             @endswitch
                             @endif
-                            @if($studentProfile == 'student_three')
+                            @if($studentProfile == App\Models\Application::STUDENT_THREE)
                             @switch($getApplicationStatus->s3_application_status)
                             @case(1)
                             <select name='candidate-status' required class='state_select-box'>
@@ -238,30 +250,27 @@
                                     <option value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
                                 </select>
                                 @endswitch
+                                
                                 @endif
-                                @else
-                                <select name='candidate-status' required class='state_select-box'>
-                                    <option value='' selected>Select</option>
-                                    <option value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
-                                    <option value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
-                                    <option value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
-                                </select>
-                                @endif
+
                 </td>
                 <td>
-                    @if($getApplicationStatus)
-                    @if($getStudent->S1_Personal_Email == $student['Personal_Email'] && $getStudent->S1_First_Name == $student['First_Name']
-                    && $getStudent->S1_Last_Name == $student['Last_Name'] && $getStudent->S1_Birthdate == $student['Birthday'])
-                    <?php $studentProfile = 'student_one'; ?>
-                    @elseif($getStudent->S2_Personal_Email == $student['Personal_Email'] && $getStudent->S2_First_Name == $student['First_Name']
-                    && $getStudent->S2_Last_Name == $student['Last_Name'] && $getStudent->S2_Birthdate == $student['Birthday'])
-                    <?php $studentProfile = 'student_two'; ?>
-                    @elseif($getStudent->S3_Personal_Email == $student['Personal_Email'] && $getStudent->S3_First_Name == $student['First_Name']
-                    && $getStudent->S3_Last_Name == $student['Last_Name'] && $getStudent->S3_Birthdate == $student['Birthday'])
-                    <?php $studentProfile = 'student_three'; ?>
-                    @endif
+                    <?php $studentProfile = "" ?>
 
-                    @if($studentProfile == 'student_one')
+
+                    @if($getApplicationStatus)
+              
+                    @if($student['student_type']==App\Models\Application::STUDENT_ONE)
+                    <?php $studentProfile = App\Models\Application::STUDENT_ONE; ?>
+                    @elseif($student['student_type']==App\Models\Application::STUDENT_TWO)
+                    <?php $studentProfile = App\Models\Application::STUDENT_TWO; ?>
+                    @elseif($student['student_type']==App\Models\Application::STUDENT_THREE)
+                    <?php $studentProfile = App\Models\Application::STUDENT_THREE; ?>
+                    @endif
+                
+                       
+                    @if($studentProfile ==App\Models\Application::STUDENT_ONE)
+                    @if($getApplicationStatus->s1_notification_id)
                     @switch($getApplicationStatus->s1_candidate_status)
                     @case(0)
                     {{"No Response"}}
@@ -277,14 +286,19 @@
                     @break
                     @endswitch
                     @endif
+                    @endif
 
-                    @if($studentProfile == 'student_two')
+
+
+
+
+                    @if($studentProfile == App\Models\Application::STUDENT_TWO)
+                    @if($getApplicationStatus->s2_notification_id)
                     @switch($getApplicationStatus->s2_candidate_status)
                     @case(0)
                     {{"No Response"}}
                     @break
                     @case(1)
-
                     {{"Accepted"}}
                     @break
                     @case(2)
@@ -293,12 +307,12 @@
                     @case(3)
                     {{"Notification Read"}}
                     @break
-
                     @endswitch
                     @endif
+                    @endif
 
-
-                    @if($studentProfile == 'student_three')
+                    @if($studentProfile == App\Models\Application::STUDENT_THREE)
+                    @if($getApplicationStatus->s3_notification_id)
                     @switch($getApplicationStatus->s3_candidate_status)
                     @case(0)
                     {{"No Response"}}
@@ -317,6 +331,7 @@
                     {{"Notification not Read"}}
 
                     @endswitch
+                    @endif
                     @endif
                     @endif
                 </td>
@@ -350,4 +365,5 @@
             {{ $students->total() }}
             entries
         </x-slot>
+        
     </x-admin.table>

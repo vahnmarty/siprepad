@@ -17,6 +17,7 @@ class Application extends Model
     const TYPE_WAIT_LISTED = 2;
     const TYPE_NOT_ACCEPTED = 3;
     
+    const No_RESPONSE = 4;
     const CANDIDATE_NOT_DEFINED = 0;
     const CANDIDATE_ACCEPTED = 1;
     const CANDIDATE_REJECTED = 2;
