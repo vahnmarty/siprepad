@@ -60,7 +60,7 @@ class NotificationController extends Controller
     }
 
     public function show(Request $request, $nid)
-    {
+    {   
         $ntfStatus = Global_Notifiable::select('notifiable')->first();
 
         if ($ntfStatus->notifiable == Global_Notifiable::NOTIFICATION_OFF) {
@@ -99,6 +99,7 @@ class NotificationController extends Controller
                 }
 
                 if ($appStatus->s1_candidate_status == Application::CANDIDATE_NOT_DEFINED) {
+                 
                     $updateCandidateStatus = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->update(['s1_candidate_status' => Application::CANDIDATE_READ]);
                 }
             } else {
@@ -189,7 +190,7 @@ class NotificationController extends Controller
 
                     if ($updateCr) {
 
-                       $res = Mail::to($parentDetail->P1_Personal_Email)->send(new CandidateStatus($studentDetail, $rsid, $parentDetail));
+                    //    $res = Mail::to($parentDetail->P1_Personal_Email)->send(new CandidateStatus($studentDetail, $rsid, $parentDetail));
                         return redirect()->back()->with('success', 'Thank you, We have recieved your response!!');
                     }
 
@@ -208,7 +209,7 @@ class NotificationController extends Controller
 
                     if ($updateCr) {
 
-                       $res = Mail::to($parentDetail->P1_Personal_Email)->send(new CandidateStatus($studentDetail, $rsid, $parentDetail));
+                    //    $res = Mail::to($parentDetail->P1_Personal_Email)->send(new CandidateStatus($studentDetail, $rsid, $parentDetail));
                         return redirect()->back()->with('success', 'Thank you, We have recieved your response!!');
                     }
 
@@ -226,7 +227,7 @@ class NotificationController extends Controller
 
                     if ($updateCr) {
 
-                        $res = Mail::to($parentDetail->P1_Personal_Email)->send(new CandidateStatus($studentDetail, $rsid, $parentDetail));
+                        // $res = Mail::to($parentDetail->P1_Personal_Email)->send(new CandidateStatus($studentDetail, $rsid, $parentDetail));
                         return redirect()->back()->with('success', 'Thank you, We have recieved your response!!');
                     }
 

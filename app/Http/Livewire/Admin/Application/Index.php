@@ -11,6 +11,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Application;
 
 class Index extends Component
 {
@@ -137,7 +138,8 @@ class Index extends Component
                     "Other_High_School_3" =>  $getStudentInfo->S1_Other_High_School_3,
                     "Other_High_School_4" =>  $getStudentInfo->S1_Other_High_School_4,
                     "last_step_complete" => $getStudentInfo->last_step_complete,
-                    "status" => $getStudentInfo->status
+                    "status" => $getStudentInfo->status,
+                    "student_type"=>Application::STUDENT_ONE
                 ];
 
                 $student2 = [
@@ -161,7 +163,9 @@ class Index extends Component
                     "Other_High_School_3" =>  $getStudentInfo->S2_Other_High_School_3,
                     "Other_High_School_4" =>  $getStudentInfo->S2_Other_High_School_4,
                     "last_step_complete" => $getStudentInfo->last_step_complete,
-                    "status" => $getStudentInfo->status
+                    "status" => $getStudentInfo->status,
+                    "student_type"=>Application::STUDENT_TWO
+
                 ];
 
                 $student3 = [
@@ -185,7 +189,9 @@ class Index extends Component
                     "Other_High_School_3" =>  $getStudentInfo->S3_Other_High_School_3,
                     "Other_High_School_4" =>  $getStudentInfo->S3_Other_High_School_4,
                     "last_step_complete" => $getStudentInfo->last_step_complete,
-                    "status" => $getStudentInfo->status
+                    "status" => $getStudentInfo->status,
+                    "student_type"=>Application::STUDENT_THREE
+
                 ];
 
                 $studentArr[] = $getStudentInfo->S1_First_Name ? $student1 : null;

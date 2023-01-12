@@ -137,6 +137,7 @@ class ApplicationController extends Controller
 
         $user = $request->profile_id;
         $applicationStatus = $request->post('app_type_id');
+
         $firstName = $request->first_name;
         $lastName = $request->last_name;
         $email = $request->email;
@@ -175,8 +176,9 @@ class ApplicationController extends Controller
 
             DB::beginTransaction();
 
+            // dd($studentInfo);
 
-            if (strtolower($studentInfo->S1_First_Name) == $firstName  &&  strtolower(trim($studentInfo->S1_Last_Name)) == trim($lastName)) {
+            if (strtolower(trim($studentInfo->S1_First_Name)) == trim($firstName)  &&  strtolower(trim($studentInfo->S1_Last_Name)) == trim($lastName)) {
 
                 $checkStatus = StudentApplicationStatus::where([
                     ['application_id', '=', $appID],
@@ -243,8 +245,8 @@ class ApplicationController extends Controller
                     return "Application Status has been registered";
                 }
             } else if (
-                strtolower($studentInfo->S2_First_Name) == $firstName && $studentInfo->S2_Last_Name == $lastName
-                && $studentInfo->S2_Personal_Email == $email && $studentInfo->S2_Birthdate == $dob
+                strtolower(trim($studentInfo->S2_First_Name)) == trim($firstName) && trim($studentInfo->S2_Last_Name) == trim($lastName)
+                && trim($studentInfo->S2_Personal_Email) == trim($email) && trim($studentInfo->S2_Birthdate) == trim($dob)
             ) {
                 $checkStatus = StudentApplicationStatus::where([
                     ['application_id', '=', $appID],
@@ -258,7 +260,7 @@ class ApplicationController extends Controller
                     $setApplicationStatus->s2_application_status = $applicationStatus;
 
                     if ($setApplicationStatus->save()) {
-
+                             
                         $newNotification = new Notification();
                         $newNotification->profile_id = $user;
                         $newNotification->application_id = $appID;
@@ -310,8 +312,8 @@ class ApplicationController extends Controller
                     return "Application Status has been registered";
                 }
             } else if (
-                strtolower($studentInfo->S3_First_Name) == $firstName && $studentInfo->S3_Last_Name == $lastName
-                && $studentInfo->S3_Personal_Email == $email && $studentInfo->S3_Birthdate == $dob
+                strtolower(trim($studentInfo->S3_First_Name)) == trim($firstName) && trim($studentInfo->S3_Last_Name) == trim($lastName)
+                && trim($studentInfo->S3_Personal_Email) == trim($email) && trim($studentInfo->S3_Birthdate) == trim($dob)
             ) {
                 $checkStatus = StudentApplicationStatus::where([
                     ['application_id', '=', $appID],
