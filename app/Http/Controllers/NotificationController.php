@@ -89,6 +89,10 @@ class NotificationController extends Controller
 
             $status = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->select('s1_application_status', 's1_candidate_status')->first();
             $student_status = $status->s1_application_status;
+            if ($appStatus->s1_candidate_status == Application::CANDIDATE_NOT_DEFINED) {
+                
+                $updateCandidateStatus = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->update(['s1_candidate_status' => Application::CANDIDATE_READ]);
+            }
             $candidate = 's1';
             $checkPayment = Payment::where('Application_ID', $ntfDetail->application_id)->where('student', 's1')->select('student')->first();
             if ($checkPayment) {
@@ -98,10 +102,7 @@ class NotificationController extends Controller
                     $student_accept_status = $status->s1_candidate_status;
                 }
 
-                if ($appStatus->s1_candidate_status == Application::CANDIDATE_NOT_DEFINED) {
-                 
-                    $updateCandidateStatus = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->update(['s1_candidate_status' => Application::CANDIDATE_READ]);
-                }
+               
             } else {
                 $student_accept_status = $status->s1_candidate_status;
             }
