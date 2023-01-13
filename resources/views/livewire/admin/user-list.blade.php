@@ -31,10 +31,7 @@
             <th class="align-center" tabindex="0" aria-controls="kt_table_1" rowspan="1" colspan="1"
                 style="width: 15%;" aria-label="Company Agent: activate to sort column ascending">Phone</th>
 
-            
-                
 
-                
             <th class="align-center" rowspan="1" colspan="1" style="width: 20%;" aria-label="Actions">Actions</th>
         </tr>
 
