@@ -27,20 +27,21 @@ class UserList extends Component
     public $notificationButton;
     protected $paginationTheme = 'bootstrap';
     public $valueStatus;
-
-    public $searchFirstName, $searchLastName, $searchEmail, $searchPhone, $perPage = 5,$select_value;
+      public $userlist;
+    public $searchFirstName, $searchLastName, $searchEmail, $searchPhone, $select_value;
     protected $listeners = ['deleteConfirm', 'changeStatus', 'deleteSelected'];
 
     public function mount($notificationButton = null)
     {
         $this->notificationButton = $notificationButton;
-        $this->perPageList = [
-            ['value' => 5, 'text' => "5"],
-            ['value' => 10, 'text' => "10"],
-            ['value' => 20, 'text' => "20"],
-            ['value' => 50, 'text' => "50"],
-            ['value' => 100, 'text' => "100"]
-        ];
+        // $this->perPageList = [
+        //     ['value' => 5, 'text' => "5"],
+        //     ['value' => 10, 'text' => "10"],
+        //     ['value' => 20, 'text' => "20"],
+        //     ['value' => 50, 'text' => "50"],
+        //     ['value' => 100, 'text' => "100"]
+        // ];
+
     }
     public function getRandomColor()
     {
@@ -72,13 +73,13 @@ class UserList extends Component
 
     public function render()
     {
+    
+            return view('livewire.admin.user-list', [
+                'users' => Profile::paginate(2),
+            ]);
+        }
        
-        return view('livewire.admin.user-list', [
-            'users' => Profile::paginate($this->perPage)
-               
-               
-        ]);
-    }
+    
     public function deleteConfirm($id)
     {
         Profile::destroy($id);
@@ -148,6 +149,8 @@ class UserList extends Component
     
     public function sortByName($data)
     {
+
+        dd($data);
         if ($data == "first_name") {
             $this->first_name_sort_by = ($this->first_name_sort_by == 'asc') ? 'desc' : 'asc';
             $this->last_name_sort = false;
@@ -159,6 +162,9 @@ class UserList extends Component
         }
     }
     
+
+
+
     
     
     public function exportUsers()

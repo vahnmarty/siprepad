@@ -102,6 +102,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:sanctum'], function () 
     ]);
 
     Route::get('/user/notify/{status}/{uid}',[UserController::class, 'notificationChange']);
+    Route::post('perpage',[UserController::class ,'PerPage'])->name('perpage');
     Route::get('/user/registerable/{status}/{uid}',[UserController::class,'registrationChange']);
     Route::get('/user/studentTransfer/{status}/{uid}',[UserController::class,'studentTransfer']);
     Route::resource('application', ApplicationController::class);

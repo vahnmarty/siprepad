@@ -30,7 +30,7 @@
 
     });
 	$('document').ready(function(){
-
+        
 	  $(".state_select-box").change(function() {
      var app_type_id = $(this).val();
      var email =$(this).prev().val();

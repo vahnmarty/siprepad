@@ -4,9 +4,7 @@
    <x-slot name="perPage">
         <label>Show
             <x-admin.dropdown wire:model="perPage" class="custom-select custom-select-sm form-control form-control-sm">
-                @foreach ($perPageList as $page)
-                    <x-admin.dropdown-item :value="$page['value']" :text="$page['text']" />
-                @endforeach
+                
             </x-admin.dropdown> entries
         </label>
     </x-slot>
@@ -70,10 +68,9 @@
             </th>
         </tr>
     </x-slot>
-
-    <x-slot name="tbody">
+    <x-slot name="tbody" id="user-list">
         @foreach($users as $user)
-            <tr role="row" class="odd">
+            <tr role="row" class="odd" id="dataU">
             	<td class="align-center">{{ $user->Pro_First_Name ?? '---' }}</td>
 
                 <td class="align-center">{{ $user->Pro_Last_Name ?? '---' }}</td>
