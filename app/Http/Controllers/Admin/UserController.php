@@ -20,10 +20,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(Request $request)
+    {   
+       
         $notifications = Global_Notifiable::get();
-
+            
         return view('admin.user.list', compact('notifications'));
     }
 
@@ -97,7 +98,7 @@ class UserController extends Controller
     {
         //
     }
-
+  
     /**
      * Remove the specified resource from storage.
      *
@@ -143,4 +144,30 @@ class UserController extends Controller
 
         }
     }
+
+    public function PerPage(Request $request)
+    {
+      
+       $perPage = Profile::paginate($request->PerPage);
+       $data = [];
+       $count = 0;
+       foreach($perPage as $item)
+       {
+
+        $getApplication = Application::where('Profile_ID', $item->id)->pluck('status')->first();
+        $data[$count]['application_status'] = $getApplication;
+        $data[$count]['first_name'] = $item->Pro_First_Name;
+        $data[$count]['last_name'] = $item->Pro_Last_Name;
+        $data[$count]['email'] = $item->email;
+        $data[$count]['phone'] = $item->Pro_Mobile;
+        $data[$count]['id'] = $item->id;
+        $count++;    
+    }
+       
+           return $data;
+    
+    }
+
+
+
 }

@@ -13,18 +13,7 @@
 
     <x-admin.table>
         <x-slot name="search">
-        </x-slot>
 
-        <x-slot name="perPage">
-            <label>Show
-                <x-admin.dropdown wire:model="perPage" class="custom-select custom-select-sm form-control form-control-sm">
-
-                    @foreach ($perPageList as $page)
-                    <x-admin.dropdown-item :value="$page['value']" :text="$page['text']" />
-                    @endforeach
-                </x-admin.dropdown> entries
-            </label>
-        </x-slot>
         <x-slot name="thead">
             <tr role="row">
                 <th tabindex="0" aria-controls="kt_table_1" rowspan="1" colspan="1" style="width: 15%;" aria-sort="ascending" aria-label="Agent: activate to sort column descending">Student First Name<i class="fa fa-fw fa-sort pull-right" style="cursor: pointer;" wire:click="sortByName('first_name')"></i>
