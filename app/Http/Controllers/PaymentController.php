@@ -160,6 +160,7 @@ class PaymentController extends Controller
             $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
             $merchantAuthentication->setName(config('app.merchant_login_id'));
             $merchantAuthentication->setTransactionKey(config('app.merchant_transaction_key'));
+           
 
             // Set the transaction's refId
             $refId = 'ref' . time();
@@ -196,7 +197,7 @@ class PaymentController extends Controller
             // Create a TransactionRequestType object and add the previous objects to it
             $transactionRequestType = new AnetAPI\TransactionRequestType();
             $transactionRequestType->setTransactionType("authCaptureTransaction");
-            $pay_amount = Payment::PayAmount;
+            $pay_amount = Payment::PAYAMOUNT;
             $transactionRequestType->setAmount($pay_amount);
             $transactionRequestType->setOrder($order);
             $transactionRequestType->setPayment($paymentOne);

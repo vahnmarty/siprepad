@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Payment extends Model
 {
     use HasFactory;
-    const PayAmount = 1500;
+    const PAYAMOUNT = 1500;
 
     /**
      * The database table used by the model.
