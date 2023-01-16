@@ -209,10 +209,24 @@
 		@endif
 		@endif
 		@endif
-		@if($student_accept_status == App\Models\Application::TYPE_ACCEPTED)
+		@if($student_accept_status == App\Models\Application::TYPE_ACCEPTED && $ntfDetail->student_profile == App\Models\Application::STUDENT_ONE && $appStatus->s1_application_status == App\Models\Application::TYPE_ACCEPTED)
 		<a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class='btn btn-sm btn-danger mt-3'>Pay Registration Fee</a>
 		@endif
-		@if($student_accept_status =="payment_successful")
+		@if($student_accept_status == App\Models\Application::TYPE_ACCEPTED && $ntfDetail->student_profile == App\Models\Application::STUDENT_TWO && $appStatus->s2_application_status == App\Models\Application::TYPE_ACCEPTED)
+		<a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class='btn btn-sm btn-danger mt-3'>Pay Registration Fee</a>
+		@endif
+		@if($student_accept_status == App\Models\Application::TYPE_ACCEPTED && $ntfDetail->student_profile == App\Models\Application::STUDENT_THREE && $appStatus->s3_application_status == App\Models\Application::TYPE_ACCEPTED)
+		<a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class='btn btn-sm btn-danger mt-3'>Pay Registration Fee</a>
+
+		@endif
+
+		@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_ONE && $appStatus->s1_application_status == App\Models\Application::TYPE_ACCEPTED)
+		<p class="mt-3">Payment has been recieved</p>
+		@endif
+		@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_TWO && $appStatus->s2_application_status == App\Models\Application::TYPE_ACCEPTED)
+		<p class="mt-3">Payment has been recieved</p>
+		@endif
+		@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_THREE && $appStatus->s3_application_status == App\Models\Application::TYPE_ACCEPTED)
 		<p class="mt-3">Payment has been recieved</p>
 		@endif
 
@@ -424,7 +438,7 @@
 		@else
 		<button class="payment" id="submitPayment" type="submit">PAY (Total
 
-			${{ App\Models\Payment::PayAmount ?? 0}})</button>
+			${{ App\Models\Payment::PAYAMOUNT ?? 0}})</button>
 
 		@endif
 
@@ -467,7 +481,8 @@
 			}
 			if (card_number == "" || card_number == null) {
 				alert("Card number must be filled out");
-				$('.loading').hide();return false;
+				$('.loading').hide();
+				return false;
 			}
 			if (card_cvv == "" || card_cvv == null) {
 				alert("Card cvv must be filled out");
@@ -477,11 +492,13 @@
 			}
 			if (card_exp_mm == "" || card_exp_mm == null) {
 				alert("Card exp mm must be filled out");
-				$('.loading').hide();return false;
+				$('.loading').hide();
+				return false;
 			}
 			if (card_exp_yy == "" || card_exp_yy == null) {
 				alert("Card exp yy must be filled out");
-				$('.loading').hide();return false;
+				$('.loading').hide();
+				return false;
 			}
 			if (billing_address == "" || billing_address == null) {
 				alert("Billing address must be filled out");
@@ -529,7 +546,7 @@
 				}
 
 			})
-			});
+		});
 
 	});
 </script>

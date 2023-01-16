@@ -9,7 +9,7 @@ class GlobalRegisterable extends Model
 {
     use HasFactory;
     const REGISTERTATION_OFF = 0;
-    const Registeration_ON = 1;
+    const REGISTRATION_ON = 1;
     
     protected $fillable = [
         'registerable'
