@@ -331,9 +331,6 @@
                     @endif
 
 
-
-
-
                     @if($studentProfile == App\Models\Application::STUDENT_TWO)
                     @if($getApplicationStatus->s2_notification_id)
                     @switch($getApplicationStatus->s2_candidate_status)

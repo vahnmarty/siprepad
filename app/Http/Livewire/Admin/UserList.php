@@ -28,19 +28,23 @@ class UserList extends Component
     protected $paginationTheme = 'bootstrap';
     public $valueStatus;
       public $userlist;
+
     public $searchFirstName, $searchLastName, $searchEmail, $searchPhone, $select_value;
+
     protected $listeners = ['deleteConfirm', 'changeStatus', 'deleteSelected'];
 
     public function mount($notificationButton = null)
     {
         $this->notificationButton = $notificationButton;
-        // $this->perPageList = [
-        //     ['value' => 5, 'text' => "5"],
-        //     ['value' => 10, 'text' => "10"],
-        //     ['value' => 20, 'text' => "20"],
-        //     ['value' => 50, 'text' => "50"],
-        //     ['value' => 100, 'text' => "100"]
-        // ];
+
+        $this->perPageList = [
+            ['value' => 5, 'text' => "5"],
+            ['value' => 10, 'text' => "10"],
+            ['value' => 20, 'text' => "20"],
+            ['value' => 50, 'text' => "50"],
+            ['value' => 100, 'text' => "100"]
+        ];
+              
 
     }
     public function getRandomColor()
@@ -75,10 +79,9 @@ class UserList extends Component
     {
     
             return view('livewire.admin.user-list', [
-                'users' => Profile::paginate(2),
-            ]);
-        }
-       
+
+                'users' => Profile::paginate($this->perPage),
+
     
     public function deleteConfirm($id)
     {
