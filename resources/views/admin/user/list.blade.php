@@ -35,6 +35,7 @@
         }
 
     });
+
 	$('document').ready(function(){
               
 		$("#page-list").change(function() {
@@ -47,6 +48,34 @@
        url:"{{route('perpage')}}",
 
        data:{PerPage:PerPage},
+      success:function(data){
+		$('#kt_table_1 tbody').empty();
+		var dataItems = data;
+
+		console.log(dataItems);
+
+		$(dataItems).each(function(index){
+			// get the phone number of the user
+			var phone =  this.phone;
+			if(phone) {
+				phone = phone;
+			} else {
+				phone = '';
+			}
+
+			// get the button of the view application
+			var applicationStatus = this.application_status;
+
+			if(applicationStatus) {
+				var button = '<div class="action__btn"><a class="btn" href="http://localhost/admission-portal-web-1854/admin/application/'+this.id+'"><i class="la la-eye"></i>View Submitted Application.</a></div>';
+			} else {
+				var button = 'No application Found';
+			}
+
+			var row = "<tr><td>"+this.first_name+"</td><td>"+this.last_name+"</td><td>"+this.email+"</td><td>"+phone+"</td><td>"+button+"</td></tr>";
+			$('#kt_table_1 tbody').append(row);
+		});
+	}
 
       success:function(data){
 		

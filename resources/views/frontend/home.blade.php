@@ -39,7 +39,6 @@
 
             @if($notifications == App\Models\Global_Notifiable::NOTIFICATION_ON)
             @if(!empty($application_status))
-
             <li>
                 <a href="{{url('/notification')}}">
 

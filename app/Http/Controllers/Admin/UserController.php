@@ -162,11 +162,8 @@ class UserController extends Controller
         $data[$count]['phone'] = $item->Pro_Mobile;
         $data[$count]['id'] = $item->id;
         $count++;    
-    }
+
        
-           return $data;
-    
-    }
 
 
 
