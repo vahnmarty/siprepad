@@ -172,7 +172,7 @@
 		</div>
 		@else
 		<div class='get_response'>
-			<p>Thankyou for your response. We have recieved your response.</p>
+			<p>Thankyou for your response. We have received your response.</p>
 		</div>
 		@endif
 		@endif
@@ -189,7 +189,7 @@
 		</div>
 		@else
 		<div class='get_response'>
-			<p>Thankyou for your response. We have recieved your response.</p>
+			<p>Thankyou for your response. We have received your response.</p>
 		</div>
 		@endif
 		@endif
@@ -204,7 +204,7 @@
 		</div>
 		@else
 		<div class='get_response'>
-			<p>Thankyou for your response. We have recieved your response.</p>
+			<p>Thankyou for your response. We have received your response.</p>
 		</div>
 		@endif
 		@endif
@@ -221,15 +221,35 @@
 		@endif
 
 		@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_ONE && $appStatus->s1_application_status == App\Models\Application::TYPE_ACCEPTED)
-		<p class="mt-3">Payment has been recieved</p>
+		<p class="mt-3">Payment has been received</p>
 		@endif
 		@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_TWO && $appStatus->s2_application_status == App\Models\Application::TYPE_ACCEPTED)
-		<p class="mt-3">Payment has been recieved</p>
+		<p class="mt-3">Payment has been received</p>
 		@endif
 		@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_THREE && $appStatus->s3_application_status == App\Models\Application::TYPE_ACCEPTED)
-		<p class="mt-3">Payment has been recieved</p>
+		<p class="mt-3">Payment has been received</p>
+		@endif -->
+		@if(!empty($student_accept_status))
+		@if($student_accept_status == App\Models\Application::TYPE_ACCEPTED && $ntfDetail->student_profile == App\Models\Application::STUDENT_ONE && $appStatus->s1_application_status == App\Models\Application::TYPE_ACCEPTED)
+		<a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class='btn btn-sm btn-danger mt-3'>Pay Registration Fee</a>
+		@endif
+		@if($student_accept_status == App\Models\Application::TYPE_ACCEPTED && $ntfDetail->student_profile == App\Models\Application::STUDENT_TWO && $appStatus->s2_application_status == App\Models\Application::TYPE_ACCEPTED)
+		<a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class='btn btn-sm btn-danger mt-3'>Pay Registration Fee</a>
+		@endif
+		@if($student_accept_status == App\Models\Application::TYPE_ACCEPTED && $ntfDetail->student_profile == App\Models\Application::STUDENT_THREE && $appStatus->s3_application_status == App\Models\Application::TYPE_ACCEPTED)
+		<a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class='btn btn-sm btn-danger mt-3'>Pay Registration Fee</a>
 		@endif
 
+		@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_ONE && $appStatus->s1_application_status == App\Models\Application::TYPE_ACCEPTED)
+		<p class="mt-3">Payment has been received</p>
+		@endif
+		@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_TWO && $appStatus->s2_application_status == App\Models\Application::TYPE_ACCEPTED)
+		<p class="mt-3">Payment has been received</p>
+		@endif
+		@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_THREE && $appStatus->s3_application_status == App\Models\Application::TYPE_ACCEPTED)
+		<p class="mt-3">Payment has been received</p>
+		@endif
+		@endif
 	</div>
 </div>
 <!-- Accept Modal -->
