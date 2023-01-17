@@ -202,7 +202,7 @@ class NotificationController extends Controller
                     if ($updateCr) {
 
                     //    $res = Mail::to($parentDetail->P1_Personal_Email)->send(new CandidateStatus($studentDetail, $rsid, $parentDetail));
-                        return redirect()->back()->with('success', 'Thank you, We have recieved your response!!');
+                        return redirect()->back()->with('success', 'Thank you, We have received your response!!');
                     }
 
                     return redirect()->back()->with('error', 'Something went wrong! Please check after sometime');
@@ -221,7 +221,7 @@ class NotificationController extends Controller
                     if ($updateCr) {
 
                     //    $res = Mail::to($parentDetail->P1_Personal_Email)->send(new CandidateStatus($studentDetail, $rsid, $parentDetail));
-                        return redirect()->back()->with('success', 'Thank you, We have recieved your response!!');
+                        return redirect()->back()->with('success', 'Thank you, We have received your response!!');
                     }
 
                     return redirect()->back()->with('error', 'Something went wrong! Please check after sometime');
@@ -239,7 +239,7 @@ class NotificationController extends Controller
                     if ($updateCr) {
 
                         // $res = Mail::to($parentDetail->P1_Personal_Email)->send(new CandidateStatus($studentDetail, $rsid, $parentDetail));
-                        return redirect()->back()->with('success', 'Thank you, We have recieved your response!!');
+                        return redirect()->back()->with('success', 'Thank you, We have received your response!!');
                     }
 
                     return redirect()->back()->with('error', 'Something went wrong! Please check after sometime');
