@@ -269,9 +269,9 @@ class ApplicationSeven extends Component
         return [
 
             'spiritualCommunityInfo.Applicant_Religion' => ['required'],
-            'spiritualCommunityInfo.Impact_to_Community' => ['required', 'max:1000', new MaxWordsRule(75)],
+            'spiritualCommunityInfo.Impact_to_Community' => ['required', 'max:75', new MaxWordsRule(75)],
             'spiritualCommunityInfo.Describe_Family_Spirituality' => ['required'],
-            'spiritualCommunityInfo.Describe_Practice_in_Detail' => ['required', 'max:1000', new MaxWordsRule(75)],
+            'spiritualCommunityInfo.Describe_Practice_in_Detail' => ['required', 'max:75', new MaxWordsRule(75)],
             'spiritualCommunityInfo.Religious_Studies_Classes' => ['required'],
             'spiritualCommunityInfo.School_Liturgies' => ['required'],
             'spiritualCommunityInfo.Retreats' => ['required'],
@@ -287,9 +287,9 @@ class ApplicationSeven extends Component
     {
         return [
             'spiritualCommunityInfo.Applicant_Religion' => ['required'],
-            'spiritualCommunityInfo.Impact_to_Community' => ['required', 'max:1000', new MaxWordsRule(75)],
+            'spiritualCommunityInfo.Impact_to_Community' => ['required', 'max:75', new MaxWordsRule(75)],
             'spiritualCommunityInfo.Describe_Family_Spirituality' => ['required'],
-            'spiritualCommunityInfo.Describe_Practice_in_Detail' => ['required', 'max:1000', new MaxWordsRule(75)],
+            'spiritualCommunityInfo.Describe_Practice_in_Detail' => ['required', 'max:75', new MaxWordsRule(75)],
             'spiritualCommunityInfo.Religious_Studies_Classes' => ['required'],
             'spiritualCommunityInfo.School_Liturgies' => ['required'],
             'spiritualCommunityInfo.Retreats' => ['required'],
@@ -308,9 +308,9 @@ class ApplicationSeven extends Component
     {
         return [
             'spiritualCommunityInfo.Applicant_Religion' => ['required'],
-            'spiritualCommunityInfo.Impact_to_Community' => ['required', 'max:1000', new MaxWordsRule(75)],
+            'spiritualCommunityInfo.Impact_to_Community' => ['required', 'max:75', new MaxWordsRule(75)],
             'spiritualCommunityInfo.Describe_Family_Spirituality' => ['required'],
-            'spiritualCommunityInfo.Describe_Practice_in_Detail' => ['required', 'max:1000', new MaxWordsRule(75)],
+            'spiritualCommunityInfo.Describe_Practice_in_Detail' => ['required', 'max:75', new MaxWordsRule(75)],
             'spiritualCommunityInfo.Religious_Studies_Classes' => ['required'],
             'spiritualCommunityInfo.School_Liturgies' => ['required'],
             'spiritualCommunityInfo.Retreats' => ['required'],

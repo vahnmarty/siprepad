@@ -152,10 +152,10 @@ class ApplicationSix extends Component
     public function parentStatementOneValidation(): array
     {
         return [
-            'parentStatement.0.S1_Endearing_Quality_and_Growth' => ['required', 'max:1000', new MaxWordsRule(75)],
-            'parentStatement.0.S1_About_Child_Not_on_App' => ['required', 'max:1000', new MaxWordsRule(75)],
+            'parentStatement.0.S1_Endearing_Quality_and_Growth' => ['required', 'max:75', new MaxWordsRule(75)],
+            'parentStatement.0.S1_About_Child_Not_on_App' => ['required', 'max:75', new MaxWordsRule(75)],
 
-            'Why_SI_for_Child' => ['required', 'max:1000', new MaxWordsRule(75)],
+            'Why_SI_for_Child' => ['required', 'max:75', new MaxWordsRule(75)],
             'Parent_Statement_Submitted_By' => ['required', 'max:40'],
             'Parent_Statement_Relationship' => ['required', 'max:40']
         ];
@@ -163,13 +163,13 @@ class ApplicationSix extends Component
     public function parentStatementTwoValidation(): array
     {
         return [
-            'parentStatement.0.S1_Endearing_Quality_and_Growth' => ['required', 'max:1000', new MaxWordsRule(75)],
-            'parentStatement.0.S1_About_Child_Not_on_App' => ['required', 'max:1000', new MaxWordsRule(75)],
+            'parentStatement.0.S1_Endearing_Quality_and_Growth' => ['required', 'max:75', new MaxWordsRule(75)],
+            'parentStatement.0.S1_About_Child_Not_on_App' => ['required', 'max:75', new MaxWordsRule(75)],
 
-            'parentStatement.1.S2_Endearing_Quality_and_Growth' => ['required', 'max:1000', new MaxWordsRule(75)],
-            'parentStatement.1.S2_About_Child_Not_on_App' => ['required', 'max:1000', new MaxWordsRule(75)],
+            'parentStatement.1.S2_Endearing_Quality_and_Growth' => ['required', 'max:75', new MaxWordsRule(75)],
+            'parentStatement.1.S2_About_Child_Not_on_App' => ['required', 'max:75', new MaxWordsRule(75)],
 
-            'Why_SI_for_Child' => ['required', 'max:1000', new MaxWordsRule(75)],
+            'Why_SI_for_Child' => ['required', 'max:75', new MaxWordsRule(75)],
             'Parent_Statement_Submitted_By' => ['required', 'max:40'],
             'Parent_Statement_Relationship' => ['required', 'max:40']
         ];
@@ -177,16 +177,16 @@ class ApplicationSix extends Component
     public function parentStatementThreeValidation(): array
     {
         return [
-            'parentStatement.0.S1_Endearing_Quality_and_Growth' => ['required', 'max:1000', new MaxWordsRule(75)],
-            'parentStatement.0.S1_About_Child_Not_on_App' => ['required', 'max:1000', new MaxWordsRule(75)],
+            'parentStatement.0.S1_Endearing_Quality_and_Growth' => ['required', 'max:75', new MaxWordsRule(75)],
+            'parentStatement.0.S1_About_Child_Not_on_App' => ['required', 'max:75', new MaxWordsRule(75)],
 
-            'parentStatement.1.S2_Endearing_Quality_and_Growth' => ['required', 'max:1000', new MaxWordsRule(75)],
-            'parentStatement.1.S2_About_Child_Not_on_App' => ['required', 'max:1000', new MaxWordsRule(75)],
+            'parentStatement.1.S2_Endearing_Quality_and_Growth' => ['required', 'max:75', new MaxWordsRule(75)],
+            'parentStatement.1.S2_About_Child_Not_on_App' => ['required', 'max:75', new MaxWordsRule(75)],
 
-            'parentStatement.2.S3_Endearing_Quality_and_Growth' => ['required', 'max:1000', new MaxWordsRule(75)],
-            'parentStatement.2.S3_About_Child_Not_on_App' => ['required', 'max:1000', new MaxWordsRule(75)],
+            'parentStatement.2.S3_Endearing_Quality_and_Growth' => ['required', 'max:75', new MaxWordsRule(75)],
+            'parentStatement.2.S3_About_Child_Not_on_App' => ['required', 'max:75', new MaxWordsRule(75)],
 
-            'Why_SI_for_Child' => ['required', 'max:1000', new MaxWordsRule(75)],
+            'Why_SI_for_Child' => ['required', 'max:75', new MaxWordsRule(75)],
             'Parent_Statement_Submitted_By' => ['required', 'max:40'],
             'Parent_Statement_Relationship' => ['required', 'max:40']
         ];

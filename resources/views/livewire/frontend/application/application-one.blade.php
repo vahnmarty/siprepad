@@ -375,7 +375,7 @@
                                 <label>Current School:</label>
                                 <select
                                     class="form-control {{ $errors->has('inputs.' . $key . '.Current_School') ? 'is-invalid' : '' }}"
-                                    wire:model='inputs.{{ $key }}.Current_School'>
+                                    wire:model.defer='inputs.{{ $key }}.Current_School'>
                                     <option value="">-- Please Choose --</option>
                                     @foreach ($schoolList as $school)
                                         <option value="{{ $school['school_name'] }}">{{ $school['school_name'] }}
