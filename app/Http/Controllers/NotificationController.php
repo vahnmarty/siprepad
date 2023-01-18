@@ -105,8 +105,7 @@ class NotificationController extends Controller
         if ($ntfDetail->student_profile == Application::STUDENT_ONE) {
             $studentname = StudentInformation::where('Application_ID', $ntfDetail->application_id)->select('S1_First_Name', 'S1_Last_name')->first();
             $name = ucfirst($studentname->S1_First_Name) . ' ' . ucfirst($studentname->S1_Last_name);
-             $address = AddressInformation::where('Application_ID', $ntfDetail->application_id)->first();
-
+            $address = AddressInformation::where('Application_ID', $ntfDetail->application_id)->first();
             $status = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->select('s1_application_status', 's1_candidate_status')->first();
             if ($appStatus->s1_candidate_status == Application::CANDIDATE_NOT_DEFINED) {
                     

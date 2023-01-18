@@ -141,9 +141,9 @@ class ApplicationNine extends Component
     public function writingSampleOneValidation(): array
     {
         return [
-            'writingSample.0.S1_Writing_Sample' => ['required'],
-            'writingSample.0.S1_Writing_Sample_Submitted_By' => ['required'],
-            'writingSample.0.S1_Writing_Sample_Acknowledgment' => ['accepted'],
+            'writingSample.0.S1_Writing_Sample' => ['required','max:250'],
+            'writingSample.0.S1_Writing_Sample_Submitted_By' => ['required','max:250'],
+            'writingSample.0.S1_Writing_Sample_Acknowledgment' => ['accepted','max:250'],
         ];
     }
 
@@ -153,7 +153,6 @@ class ApplicationNine extends Component
             'writingSample.0.S1_Writing_Sample' => ['required'],
             'writingSample.0.S1_Writing_Sample_Submitted_By' => ['required'],
             'writingSample.0.S1_Writing_Sample_Acknowledgment' => ['accepted'],
-
             'writingSample.1.S2_Writing_Sample' => ['required'],
             'writingSample.1.S2_Writing_Sample_Submitted_By' => ['required'],
             'writingSample.1.S2_Writing_Sample_Acknowledgment' => ['accepted'],

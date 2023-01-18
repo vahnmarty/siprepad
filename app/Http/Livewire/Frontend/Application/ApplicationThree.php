@@ -340,7 +340,7 @@ class ApplicationThree extends Component
             'parentInfo.*.Address_Type' => ['required'],
             'parentInfo.*.Mobile_Phone' => ['required','min:10'],
             'parentInfo.*.Personal_Email' => ['required', 'email:rfc,dns'],
-            'parentInfo.*.Schools' => ['required', 'max:1500', new MaxWordsRule(500)],
+            'parentInfo.*.Schools' => ['required', 'max:75', new MaxWordsRule(500)],
             'parentInfo.*.Living_Situation' => ['required', 'max:255'],
             'parentInfo.*.Work_Phone' => ['nullable','min:10'],
         ];

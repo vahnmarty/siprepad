@@ -525,35 +525,35 @@ class ApplicationEight extends Component
     public function customOneValidation(): array
     {
         return [
-            'studentStatementInfo.Students_Statement.0.S1_Why_did_you_decide_to_apply_to_SI' => ['required', 'max:1000',new MaxWordsRule(75)],
-            'studentStatementInfo.Students_Statement.0.S1_Greatest_Challenge' => ['required', 'max:1000',new MaxWordsRule(75)],
-            'studentStatementInfo.Students_Statement.0.S1_Religious_Activities_for_Growth' => ['required', 'max:1000',new MaxWordsRule(75)],
-            'studentStatementInfo.Students_Statement.0.S1_Favorite_and_most_difficult_subjects' => ['required', 'max:1000',new MaxWordsRule(75)],
+            'studentStatementInfo.Students_Statement.0.S1_Why_did_you_decide_to_apply_to_SI' => ['required', 'max:75',new MaxWordsRule(75)],
+            'studentStatementInfo.Students_Statement.0.S1_Greatest_Challenge' => ['required', 'max:75',new MaxWordsRule(75)],
+            'studentStatementInfo.Students_Statement.0.S1_Religious_Activities_for_Growth' => ['required', 'max:75',new MaxWordsRule(75)],
+            'studentStatementInfo.Students_Statement.0.S1_Favorite_and_most_difficult_subjects' => ['required', 'max:75',new MaxWordsRule(75)],
 
             'studentStatementInfo.Extracurricular_Activities.*.Activity.*.*' => ['required'],
 
-            'studentStatementInfo.Future_Activities.0.S1_Most_Passionate_Activity' => ['required', 'max:1000',new MaxWordsRule(75)],
-            'studentStatementInfo.Future_Activities.0.S1_Extracurricular_Activity_at_SI' => ['required', 'max:1000',new MaxWordsRule(75)],
+            'studentStatementInfo.Future_Activities.0.S1_Most_Passionate_Activity' => ['required', 'max:75',new MaxWordsRule(75)],
+            'studentStatementInfo.Future_Activities.0.S1_Extracurricular_Activity_at_SI' => ['required', 'max:75',new MaxWordsRule(75)],
         ];
     }
     public function customTwoValidation(): array
     {
         return [
-            'studentStatementInfo.Students_Statement.0.S1_Why_did_you_decide_to_apply_to_SI' => ['required', 'max:1000',new MaxWordsRule(75)],
-            'studentStatementInfo.Students_Statement.0.S1_Greatest_Challenge' => ['required', 'max:1000',new MaxWordsRule(75)],
-            'studentStatementInfo.Students_Statement.0.S1_Religious_Activities_for_Growth' => ['required', 'max:1000',new MaxWordsRule(75)],
-            'studentStatementInfo.Students_Statement.0.S1_Favorite_and_most_difficult_subjects' => ['required', 'max:1000',new MaxWordsRule(75)],
-            'studentStatementInfo.Students_Statement.1.S2_Why_did_you_decide_to_apply_to_SI' => ['required', 'max:1000',new MaxWordsRule(75)],
-            'studentStatementInfo.Students_Statement.1.S2_Greatest_Challenge' => ['required', 'max:1000',new MaxWordsRule(75)],
-            'studentStatementInfo.Students_Statement.1.S2_Religious_Activities_for_Growth' => ['required', 'max:1000',new MaxWordsRule(75)],
-            'studentStatementInfo.Students_Statement.1.S2_Favorite_and_most_difficult_subjects' => ['required', 'max:1000',new MaxWordsRule(75)],
+            'studentStatementInfo.Students_Statement.0.S1_Why_did_you_decide_to_apply_to_SI' => ['required', 'max:75',new MaxWordsRule(75)],
+            'studentStatementInfo.Students_Statement.0.S1_Greatest_Challenge' => ['required', 'max:75',new MaxWordsRule(75)],
+            'studentStatementInfo.Students_Statement.0.S1_Religious_Activities_for_Growth' => ['required', 'max:75',new MaxWordsRule(75)],
+            'studentStatementInfo.Students_Statement.0.S1_Favorite_and_most_difficult_subjects' => ['required', 'max:75',new MaxWordsRule(75)],
+            'studentStatementInfo.Students_Statement.1.S2_Why_did_you_decide_to_apply_to_SI' => ['required', 'max:75',new MaxWordsRule(75)],
+            'studentStatementInfo.Students_Statement.1.S2_Greatest_Challenge' => ['required', 'max:75',new MaxWordsRule(75)],
+            'studentStatementInfo.Students_Statement.1.S2_Religious_Activities_for_Growth' => ['required', 'max:75',new MaxWordsRule(75)],
+            'studentStatementInfo.Students_Statement.1.S2_Favorite_and_most_difficult_subjects' => ['required', 'max:75',new MaxWordsRule(75)],
             //
             'studentStatementInfo.Extracurricular_Activities.*.Activity.*.*' => ['required'],
             //
-            'studentStatementInfo.Future_Activities.0.S1_Most_Passionate_Activity' => ['required', 'max:1000',new MaxWordsRule(75)],
-            'studentStatementInfo.Future_Activities.0.S1_Extracurricular_Activity_at_SI' => ['required', 'max:1000',new MaxWordsRule(75)],
-            'studentStatementInfo.Future_Activities.1.S2_Most_Passionate_Activity' => ['required', 'max:1000',new MaxWordsRule(75)],
-            'studentStatementInfo.Future_Activities.1.S2_Extracurricular_Activity_at_SI' => ['required', 'max:1000',new MaxWordsRule(75)],
+            'studentStatementInfo.Future_Activities.0.S1_Most_Passionate_Activity' => ['required', 'max:75',new MaxWordsRule(75)],
+            'studentStatementInfo.Future_Activities.0.S1_Extracurricular_Activity_at_SI' => ['required', 'max:75',new MaxWordsRule(75)],
+            'studentStatementInfo.Future_Activities.1.S2_Most_Passionate_Activity' => ['required', 'max:75',new MaxWordsRule(75)],
+            'studentStatementInfo.Future_Activities.1.S2_Extracurricular_Activity_at_SI' => ['required', 'max:75',new MaxWordsRule(75)],
 
         ];
     }
@@ -561,28 +561,28 @@ class ApplicationEight extends Component
     {
         return [
             //
-            'studentStatementInfo.Students_Statement.0.S1_Why_did_you_decide_to_apply_to_SI' => ['required', 'max:1000',new MaxWordsRule(75)],
-            'studentStatementInfo.Students_Statement.0.S1_Greatest_Challenge' => ['required', 'max:1000',new MaxWordsRule(75)],
-            'studentStatementInfo.Students_Statement.0.S1_Religious_Activities_for_Growth' => ['required', 'max:1000',new MaxWordsRule(75)],
-            'studentStatementInfo.Students_Statement.0.S1_Favorite_and_most_difficult_subjects' => ['required', 'max:1000',new MaxWordsRule(75)],
-            'studentStatementInfo.Students_Statement.1.S2_Why_did_you_decide_to_apply_to_SI' => ['required', 'max:1000',new MaxWordsRule(75)],
-            'studentStatementInfo.Students_Statement.1.S2_Greatest_Challenge' => ['required', 'max:1000',new MaxWordsRule(75)],
-            'studentStatementInfo.Students_Statement.1.S2_Religious_Activities_for_Growth' => ['required', 'max:1000',new MaxWordsRule(75)],
-            'studentStatementInfo.Students_Statement.1.S2_Favorite_and_most_difficult_subjects' => ['required', 'max:1000',new MaxWordsRule(75)],
-            'studentStatementInfo.Students_Statement.2.S3_Why_did_you_decide_to_apply_to_SI' => ['required', 'max:1000',new MaxWordsRule(75)],
-            'studentStatementInfo.Students_Statement.2.S3_Greatest_Challenge' => ['required', 'max:1000',new MaxWordsRule(75)],
-            'studentStatementInfo.Students_Statement.2.S3_Religious_Activities_for_Growth' => ['required', 'max:1000',new MaxWordsRule(75)],
-            'studentStatementInfo.Students_Statement.2.S3_Favorite_and_most_difficult_subjects' => ['required', 'max:1000',new MaxWordsRule(75)],
+            'studentStatementInfo.Students_Statement.0.S1_Why_did_you_decide_to_apply_to_SI' => ['required', 'max:75',new MaxWordsRule(75)],
+            'studentStatementInfo.Students_Statement.0.S1_Greatest_Challenge' => ['required', 'max:75',new MaxWordsRule(75)],
+            'studentStatementInfo.Students_Statement.0.S1_Religious_Activities_for_Growth' => ['required', 'max:75',new MaxWordsRule(75)],
+            'studentStatementInfo.Students_Statement.0.S1_Favorite_and_most_difficult_subjects' => ['required', 'max:75',new MaxWordsRule(75)],
+            'studentStatementInfo.Students_Statement.1.S2_Why_did_you_decide_to_apply_to_SI' => ['required', 'max:75',new MaxWordsRule(75)],
+            'studentStatementInfo.Students_Statement.1.S2_Greatest_Challenge' => ['required', 'max:75',new MaxWordsRule(75)],
+            'studentStatementInfo.Students_Statement.1.S2_Religious_Activities_for_Growth' => ['required', 'max:75',new MaxWordsRule(75)],
+            'studentStatementInfo.Students_Statement.1.S2_Favorite_and_most_difficult_subjects' => ['required', 'max:75',new MaxWordsRule(75)],
+            'studentStatementInfo.Students_Statement.2.S3_Why_did_you_decide_to_apply_to_SI' => ['required', 'max:75',new MaxWordsRule(75)],
+            'studentStatementInfo.Students_Statement.2.S3_Greatest_Challenge' => ['required', 'max:75',new MaxWordsRule(75)],
+            'studentStatementInfo.Students_Statement.2.S3_Religious_Activities_for_Growth' => ['required', 'max:75',new MaxWordsRule(75)],
+            'studentStatementInfo.Students_Statement.2.S3_Favorite_and_most_difficult_subjects' => ['required', 'max:75',new MaxWordsRule(75)],
 
             //
             'studentStatementInfo.Extracurricular_Activities.*.Activity.*.*' => ['required'],
             //
-            'studentStatementInfo.Future_Activities.0.S1_Most_Passionate_Activity' => ['required', 'max:1000',new MaxWordsRule(75)],
-            'studentStatementInfo.Future_Activities.0.S1_Extracurricular_Activity_at_SI' => ['required', 'max:1000',new MaxWordsRule(75)],
-            'studentStatementInfo.Future_Activities.1.S2_Most_Passionate_Activity' => ['required', 'max:1000',new MaxWordsRule(75)],
-            'studentStatementInfo.Future_Activities.1.S2_Extracurricular_Activity_at_SI' => ['required', 'max:1000',new MaxWordsRule(75)],
-            'studentStatementInfo.Future_Activities.2.S3_Most_Passionate_Activity' => ['required', 'max:1000',new MaxWordsRule(75)],
-            'studentStatementInfo.Future_Activities.2.S3_Extracurricular_Activity_at_SI' => ['required', 'max:1000',new MaxWordsRule(75)],
+            'studentStatementInfo.Future_Activities.0.S1_Most_Passionate_Activity' => ['required', 'max:75',new MaxWordsRule(75)],
+            'studentStatementInfo.Future_Activities.0.S1_Extracurricular_Activity_at_SI' => ['required', 'max:75',new MaxWordsRule(75)],
+            'studentStatementInfo.Future_Activities.1.S2_Most_Passionate_Activity' => ['required', 'max:75',new MaxWordsRule(75)],
+            'studentStatementInfo.Future_Activities.1.S2_Extracurricular_Activity_at_SI' => ['required', 'max:75',new MaxWordsRule(75)],
+            'studentStatementInfo.Future_Activities.2.S3_Most_Passionate_Activity' => ['required', 'max:75',new MaxWordsRule(75)],
+            'studentStatementInfo.Future_Activities.2.S3_Extracurricular_Activity_at_SI' => ['required', 'max:75',new MaxWordsRule(75)],
 
         ];
     }
