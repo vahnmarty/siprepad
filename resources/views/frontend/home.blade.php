@@ -25,7 +25,7 @@
                     <em>
                         <img src="{{ asset('frontend_assets/images/j2.svg') }}" alt="" />
                     </em>
-                    <p>Online Registeration</p>
+                    <p>Online Registration</p>
                     <span>
                         <img src="{{ asset('frontend_assets/images/rgt-arrw.svg') }}" alt="" />
                     </span>
@@ -39,13 +39,16 @@
 
             @if($notifications == App\Models\Global_Notifiable::NOTIFICATION_ON)
             @if(!empty($application_status))
+
+            @if($notification_list >= App\Models\Notification::NOTIFY_LENGTH)
+
             <li>
                 <a href="{{url('/notification')}}">
 
                     <em>
                         <img src="{{ asset('frontend_assets/images/j1.svg') }}" alt="" />
                     </em>
-                    <p>Notification</p>
+                    <p>Notifications</p>
                     <span>
                         <img src="{{ asset('frontend_assets/images/rgt-arrw.svg') }}" alt="" />
                     </span>
@@ -53,7 +56,7 @@
             </li>
             @endif
             @endif
-
+            @endif
             <li>
                 <a  href="https://www.siprep.org/admissions/visit/wildcat-experience">
                     <em>

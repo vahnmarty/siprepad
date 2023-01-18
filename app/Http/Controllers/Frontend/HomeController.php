@@ -27,7 +27,7 @@ use App\Models\StudentRegisteration;
 use App\Models\GlobalRegisterable;
 use App\Models\GlobalStudentTransfer;
 use App\Helpers\Helper;
-
+use App\Models\Notification;
 use App\Models\StudentApplicationStatus;
 
 class HomeController extends Controller
@@ -89,8 +89,15 @@ class HomeController extends Controller
             $registerable = $this->GlobalRegisterable;
             $studentTransfer = $this->GlobalStudentTransfer;
             $application_status = StudentApplicationStatus::Where('profile_id', $profile_id)->first();
+            if(!empty($application_status)){
+                $notification_array=array($application_status->s1_notification_id,$application_status->s2_notification_id,$application_status->s3_notification_id);
+                $notification_list =  count(array_filter($notification_array));
 
-            return view('frontend.home', compact('application', 'getStudentCount', 'notifications', 'application_status', 'registerable', 'studentTransfer'));
+            }else{
+                $notification_list = Notification::NOTIFY_NO_STATUS;
+            }
+          
+            return view('frontend.home', compact('application', 'getStudentCount', 'notifications', 'application_status', 'registerable', 'studentTransfer','notification_list'));
         } else {
             return redirect('/login');
         }

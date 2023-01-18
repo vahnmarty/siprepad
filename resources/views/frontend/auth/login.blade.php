@@ -34,7 +34,7 @@
         <section class="acnt-sec">
             <div class="container">
                 <div class="acnt-wrap">
-                    <a href="/" class="logo">
+                    <a href="{{url('/')}}" class="logo">
                         <img src="{{ asset('frontend_assets/images/lg2.png') }}" alt="" />
                     </a>
                     <div class="form-outr">

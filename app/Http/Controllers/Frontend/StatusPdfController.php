@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\StudentInformation;
 use App\Models\Notification;
-
+use \Mpdf\Mpdf as PDF;
 class StatusPdfController extends Controller
 {
     public function index(Request $request, $ntid, $uid) {
