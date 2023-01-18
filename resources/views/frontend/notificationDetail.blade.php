@@ -126,34 +126,34 @@
 		}
 	}
 </style>
-<div class="home-wrap">
-	<div class="hme-inr" id='ntf-detail'>
-		<div class='ntf_image_logo'>
-			<img src="{{ asset('frontend_assets/images/lg2.png') }}" alt="" />
-		</div>
-		<div class="loading" style="display: none;">Loading</div>
 
-		<div class='ntf_candidate_detail'>
-			<p class='ntf_student_name'>Candidate Name: {{$name}}</p>
-			<p class='ntf_app_status'>Application Status:
-				@switch($ntfDetail->notification_type)
-				@case(1)
-				Accepted
-				@break
-				@case(2)
-				In Waiting List
-				@break
-				@case(3)
-				Rejected
-				@break
-				@default
-				No Status yet
-				@endswitch
+<div class="home-wrap">
+<div class="row">
+			<div class="col-md-4" style="max-width: 133px;">
+				<div class='ntf_image_logo'>
+					<img src="{{ asset('frontend_assets/images/lg2.png') }}" alt="" />
+				</div>
+			</div>
+			<div class="col-md-8"style="max-width: 266px;">
+				<p> St. Ignatius College Preparatory
+				2001 37th Avenue<br>       
+				San Francisco, CA 94116<br>
+				(415) 731-7500
 			</p>
+			</div>
 		</div>
-		<div class='application_message'>
-			<p class='short_message'>{{ $ntfDetail->message; }}</p>
+		<div class="row mb-3 mt-3">
+
+			<div class="col-md-8"style="max-width: 266px;">
+				<p> 123 Main Street<br>
+				San Francisco, CA 94116<br>
+				(415) 731-7500<br><br>
+				{{$notification_time}}<br><br>
+			</p>
+			</div>
 		</div>
+	<div class="hme-inr" id='ntf-detail'>
+		
 		<div class='application_download'>
 			<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}' class="btn btn-sm btn-danger">Download</a>
 		</div>
@@ -253,13 +253,115 @@
 		@endif
 		@endif
 	</div>
+
+	<div class="loading" style="display: none;">Loading</div>
+
+	<div class='ntf_candidate_detail'>
+		<!-- <p class='ntf_student_name'>Candidate Name: {{$name}}</p> -->
+		<p class='ntf_app_status'>
+			@switch($ntfDetail->notification_type)
+			@case(1)
+			<p>Congratulations! {{$name}} has been Accepted to St. Ignatius College Preparatory.  Welcome to our school community!</p>
+			@break
+			@case(2)
+			In Waiting List
+			@break
+			@case(3)
+			Rejected
+			@break
+			@default
+			No Status yet
+			@endswitch
+		</p>
+	</div>
+	<!-- <div class='application_message'>
+		<p class='short_message'>{{ $ntfDetail->message; }}</p>
+	</div> -->
+	<div class='application_download'>
+		<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}' class="btn btn-danger mt-3">Print as Pdf</a>
+	</div>
+
+	@if($student_status == App\Models\Application::TYPE_ACCEPTED && $ntfDetail->notification_type == App\Models\Notification::NOTIFY_ACCEPTED)
+
+	@if($candidate == 's1')
+
+	@if($appStatus->s1_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s1_candidate_status == App\Models\Application::CANDIDATE_READ)
+	<div class='student_btns'>
+		<!-- <a href="{{ url('/candidate/response') }}/{{ $appStatus->application_id }}/{{$candidate}}/{{App\Models\Application::CANDIDATE_ACCEPTED}}" class='btn btn_accept'>Accept</a> -->
+		<a data-bs-toggle="modal" data-bs-target="#acceptModel" class='btn btn_accept btn-success mt-3 btn-sm'>Accept</a>
+		<!-- <a href="{{ url('/candidate/response') }}/{{ $appStatus->application_id  }}/{{$candidate}}/{{App\Models\Application::CANDIDATE_REJECTED}}" class='btn btn_reject'>Reject</a> -->
+		<a data-bs-toggle="modal" data-bs-target="#rejectModel" class='btn btn-sm btn-danger mt-3'>Reject</a>
+
+	</div>
+	@else
+	<div class='get_response'>
+		<p>Thank you for your response. We have received your response.</p>
+	</div>
+	@endif
+	@endif
+	@if($candidate == 's2')
+
+	@if($appStatus->s2_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s2_candidate_status == App\Models\Application::CANDIDATE_READ)
+	<div class='student_btns'>
+		<!-- <a href="{{ url('/candidate/response') }}/{{ $appStatus->application_id }}/{{$candidate}}/{{App\Models\Application::CANDIDATE_ACCEPTED}}" class='btn btn_accept'>Accept</a> -->
+		<a data-bs-toggle="modal" data-bs-target="#acceptModel" class='btn btn_accept btn-success mt-3 btn-sm'>Accept</a>
+
+		<!-- <a href="{{ url('/candidate/response') }}/{{ $appStatus->application_id  }}/{{$candidate}}/{{App\Models\Application::CANDIDATE_REJECTED}}" class='btn btn_reject'>Reject</a> -->
+		<a data-bs-toggle="modal" data-bs-target="#rejectModel" class='btn btn-sm btn-danger mt-3'>Reject</a>
+
+	</div>
+	@else
+	<div class='get_response'>
+		<p>Thank you for your response. We have received your response.</p>
+	</div>
+	@endif
+	@endif
+	@if($candidate == 's3')
+
+	@if($appStatus->s3_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s3_candidate_status == App\Models\Application::CANDIDATE_READ)
+	<div class='student_btns'>
+		<!-- <a href="{{ url('/candidate/response') }}/{{ $appStatus->application_id }}/{{$candidate}}/{{App\Models\Application::CANDIDATE_ACCEPTED}}" class='btn btn-sm btn-success mt-3'>Accept</a> -->
+		<a data-bs-toggle="modal" data-bs-target="#acceptModel" class='btn btn_accept btn-success mt-3 btn-sm'>Accept</a>
+		<!-- <a href="{{ url('/candidate/response') }}/{{ $appStatus->application_id  }}/{{$candidate}}/{{App\Models\Application::CANDIDATE_REJECTED}}" class='btn btn-sm btn-danger mt-3'>Reject</a> -->
+		<a data-bs-toggle="modal" data-bs-target="#rejectModel" class='btn btn-sm btn-danger mt-3'>Reject</a>
+	</div>
+	@else
+	<div class='get_response'>
+		<p>Thank you for your response. We have received your response.</p>
+	</div>
+	@endif
+	@endif
+	@endif
+
+
+	@if(!empty($student_accept_status))
+	@if($student_accept_status == App\Models\Application::TYPE_ACCEPTED && $ntfDetail->student_profile == App\Models\Application::STUDENT_ONE && $appStatus->s1_application_status == App\Models\Application::TYPE_ACCEPTED)
+	<a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class='btn btn-sm btn-danger mt-3'>Pay Registration Fee</a>
+	@endif
+	@if($student_accept_status == App\Models\Application::TYPE_ACCEPTED && $ntfDetail->student_profile == App\Models\Application::STUDENT_TWO && $appStatus->s2_application_status == App\Models\Application::TYPE_ACCEPTED)
+	<a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class='btn btn-sm btn-danger mt-3'>Pay Registration Fee</a>
+	@endif
+	@if($student_accept_status == App\Models\Application::TYPE_ACCEPTED && $ntfDetail->student_profile == App\Models\Application::STUDENT_THREE && $appStatus->s3_application_status == App\Models\Application::TYPE_ACCEPTED)
+	<a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class='btn btn-sm btn-danger mt-3'>Pay Registration Fee</a>
+	@endif
+	@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_ONE && $appStatus->s1_application_status == App\Models\Application::TYPE_ACCEPTED)
+	<p class="mt-3">Payment has been received</p>
+	@endif
+	@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_TWO && $appStatus->s2_application_status == App\Models\Application::TYPE_ACCEPTED)
+	<p class="mt-3">Payment has been received</p>
+	@endif
+	@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_THREE && $appStatus->s3_application_status == App\Models\Application::TYPE_ACCEPTED)
+	<p class="mt-3">Payment has been received</p>
+	@endif
+	@endif
+</div>
 </div>
 <!-- Accept Modal -->
 <div class="modal fade" id="acceptModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Accept Notification</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Save Your response</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
@@ -278,7 +380,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Reject Notification</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Save Your response</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">

@@ -11,9 +11,11 @@ use App\Models\Global_Notifiable;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\CandidateStatus;
 use App\Models\ParentInformation;
+use App\Models\AddressInformation;
 use App\Models\GlobalRegisterable;
 use App\Models\Payment;
 use App\Models\StudentApplicationStatus;
+use Carbon\Carbon;
 
 class NotificationController extends Controller
 {
@@ -37,8 +39,14 @@ class NotificationController extends Controller
             $applicationId = $appid->Application_ID;
 
             $studentinfo = StudentInformation::where('Application_ID', $applicationId)->first();
-            $application_status = StudentApplicationStatus::where('application_id', $applicationId)->first();
-
+            $application_status = StudentApplicationStatus::where('application_id', $applicationId)->select('s1_notification_id','s2_notification_id','s3_notification_id')->first();
+            if(!empty($application_status)){
+                $notification_array=array($application_status->s1_notification_id,$application_status->s2_notification_id,$application_status->s3_notification_id);
+                $notification_list =  count(array_filter($notification_array));
+            }else{
+                $notification_list = Notification::NOTIFY_NO_STATUS;
+            }
+        
             if (!empty($notifications)) {
 
                 $application = Application::Where('Profile_ID', $user->id)->first();
@@ -46,14 +54,14 @@ class NotificationController extends Controller
                 $studentinfo = StudentInformation::where('Application_ID', $application->Application_ID)->first();
 
                 if (!empty($application)) {
+                    
                     if ($application->candidate_status == Application::CANDIDATE_NOT_DEFINED) {
                         $application->update([
                             'candidate_status' => Application::CANDIDATE_READ
                         ]);
                     }
                 }
-
-                return view('frontend.notification_list', compact('application_status', 'studentinfo'));
+                return view('frontend.notification_list', compact('application_status', 'studentinfo','notification_list'));
             } else {
                 return redirect('/')->with('error', 'you donot have any notifications yet!!!');
             }
@@ -84,16 +92,21 @@ class NotificationController extends Controller
             ]
         ])->first();
        
-        
+        $time = Carbon::now();
+         $year = date('Y');
+         $date =date('d');
+       
+        $monthName = $time->format('F');
+      $notification_time = $monthName . ' '.$date.', '.$year;
      
-
-
+  
 
         $student = StudentInformation::where('Application_ID', $ntfDetail->application_id)->first();
         if ($ntfDetail->student_profile == Application::STUDENT_ONE) {
             $studentname = StudentInformation::where('Application_ID', $ntfDetail->application_id)->select('S1_First_Name', 'S1_Last_name')->first();
             $name = ucfirst($studentname->S1_First_Name) . ' ' . ucfirst($studentname->S1_Last_name);
-             
+             $address = AddressInformation::where('Application_ID', $ntfDetail->application_id)->first();
+
             $status = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->select('s1_application_status', 's1_candidate_status')->first();
             if ($appStatus->s1_candidate_status == Application::CANDIDATE_NOT_DEFINED) {
                     
@@ -127,6 +140,8 @@ class NotificationController extends Controller
         if ($ntfDetail->student_profile == Application::STUDENT_TWO) {
             $studentname = StudentInformation::where('Application_ID', $ntfDetail->application_id)->select('S2_First_Name', 'S2_Last_name')->first();
             $name = ucfirst($studentname->S2_First_Name) . ' ' . ucfirst($studentname->S2_Last_name);
+            $address = AddressInformation::where('Application_ID', $ntfDetail->application_id)->first();
+
             $status = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->select('s2_application_status', 's2_candidate_status')->first();
             $student_status = $status->s2_application_status;
             $candidate = 's2';
@@ -153,6 +168,7 @@ class NotificationController extends Controller
         }
         if ($ntfDetail->student_profile == Application::STUDENT_THREE) {
             $studentname = StudentInformation::where('Application_ID', $ntfDetail->application_id)->select('S3_First_Name', 'S3_Last_name')->first();
+            $address = AddressInformation::where('Application_ID', $ntfDetail->application_id)->first();
 
             $name = ucfirst($studentname->S3_First_Name) . ' ' . ucfirst($studentname->S3_Last_name);
             $status = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->select('s3_application_status', 's3_candidate_status')->first();
@@ -179,7 +195,7 @@ class NotificationController extends Controller
             ]);
         }
 
-        return view('frontend.notificationDetail', compact('ntfDetail', 'appDetail', 'studentDetail', 'appStatus', 'name', 'student_status', 'candidate', 'student_accept_status'));
+        return view('frontend.notificationDetail', compact('ntfDetail', 'appDetail', 'studentDetail', 'appStatus', 'name', 'student_status', 'candidate', 'student_accept_status','notification_time'));
     }
 
     public function candidateResponse(Request $request, $apid, $candidate, $rsid)

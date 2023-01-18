@@ -6,20 +6,21 @@
                 <div class="col-sm-12 col-md-6">
                     <div class="dataTables_length" id="kt_table_1_length">
 
-                        <!-- {{ $perPage }} -->
+
                     
-<!--                        <label>Show  -->
+                       <label>Show 
 
-<!--                             <select name="kt_table_1_length" aria-controls="kt_table_1" name="perpage" id="page-list" value="" class="custom-select custom-select-sm form-control form-control-sm"> -->
-<!--                             <option value="2">2</option> -->
+                            <select name="kt_table_1_length" aria-controls="kt_table_1" name="perpage" id="page-list" value="" class="custom-select custom-select-sm form-control form-control-sm">
+                                <option value="5">5</option>
 
-<!--                                 <option value="10">10</option> -->
-<!--                                 <option value="25">25</option> -->
-<!--                                 <option value="50">50</option> -->
-<!--                                 <option value="100">100</option> -->
-<!--                             </select> entries -->
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select> entries
 
-<!--                         </label> -->
+                        </label>
+
 
                     </div>
                 </div>

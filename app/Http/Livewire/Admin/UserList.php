@@ -27,13 +27,14 @@ class UserList extends Component
     public $notificationButton;
     protected $paginationTheme = 'bootstrap';
     public $valueStatus;
-      public $userlist;
+    public $userlist;
 
-    public $searchFirstName, $searchLastName, $searchEmail, $searchPhone, $select_value;
+    public $searchFirstName, $searchLastName, $searchEmail, $searchPhone, $select_value, $perPage=5;
+
 
     protected $listeners = ['deleteConfirm', 'changeStatus', 'deleteSelected'];
 
-    public function mount($notificationButton = null)
+    public function mount($notificationButton = null , $perPage = null)
     {
         $this->notificationButton = $notificationButton;
 
@@ -44,7 +45,7 @@ class UserList extends Component
             ['value' => 50, 'text' => "50"],
             ['value' => 100, 'text' => "100"]
         ];
-              
+
 
     }
     public function getRandomColor()
@@ -82,7 +83,10 @@ class UserList extends Component
 
                 'users' => Profile::paginate($this->perPage),
 
-    
+
+            ]);
+        }
+
     public function deleteConfirm($id)
     {
         Profile::destroy($id);

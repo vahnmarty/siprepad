@@ -8,7 +8,6 @@
             </x-admin.dropdown> entries
         </label>
     </x-slot>
-
     <x-slot name="thead">
         <tr role="row">
             <th class="align-center" tabindex="0" aria-controls="kt_table_1" rowspan="1" colspan="1"
