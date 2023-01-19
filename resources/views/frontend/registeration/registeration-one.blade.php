@@ -88,8 +88,9 @@
 									<label>Gender </label>
 									<select class="form-control" name='S1_gender'>
 										<option selected disabled value="">Choose One</option>
-										<option value="male" {{ $studentinfo->S1_Gender == 'male' ? 'selected' : '' }}>Male</option>
-										<option value="female" {{$studentinfo->S1_Gender == 'female' ? 'selected' : '' }}>Female</option>
+									
+										<option value="male" {{ $studentinfo->S1_Gender == 'Male' ? 'selected' : '' }}>Male</option>
+										<option value="female" {{$studentinfo->S1_Gender == 'Female' ? 'selected' : '' }}>Female</option>
 
 									</select> @error('S1_gender')
 									<p class="text-danger">{{'Gender is required'}}</p>
@@ -270,8 +271,8 @@
 										<label>Gender </label>
 										<select class="form-control" name='S2_gender'>
 											<option selected disabled>Choose One</option>
-											<option value="male" {{ $studentinfo->S2_Gender == 'male' ? 'selected' : '' }}>Male</option>
-											<option value="female" {{$studentinfo->S2_Gender == 'female' ? 'selected' : '' }}>Female</option>
+											<option value="male" {{ $studentinfo->S2_Gender == 'Male' ? 'selected' : '' }}>Male</option>
+											<option value="female" {{$studentinfo->S2_Gender == 'Female' ? 'selected' : '' }}>Female</option>
 
 										</select> @error('S2_gender')
 										<p class="text-danger">{{'Gender is required'}}</p>
@@ -448,8 +449,8 @@
 										<label>Gender </label>
 										<select class="form-control" name='S3_gender'>
 											<option selected disabled>Choose One</option>
-											<option value="male" {{ $studentinfo->S3_Gender == 'male' ? 'selected' : '' }}>Male</option>
-											<option value="female" {{$studentinfo->S3_Gender == 'female' ? 'selected' : '' }}>Female</option>
+											<option value="male" {{ $studentinfo->S3_Gender == 'Male' ? 'selected' : '' }}>Male</option>
+											<option value="female" {{$studentinfo->S3_Gender == 'Female' ? 'selected' : '' }}>Female</option>
 
 										</select> @error('S3_gender')
 										<p class="text-danger">{{'Gender is required'}}</p>
