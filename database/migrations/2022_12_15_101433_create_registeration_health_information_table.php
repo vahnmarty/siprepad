@@ -15,6 +15,8 @@ class CreateRegisterationHealthInformationTable extends Migration
     {
         Schema::create('registeration_health_information', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('profile_id');
+            $table->foreign('profile_id')->references('id')->on('profiles')->onDelete('cascade');
             $table->string('medical_insurance_company');
             $table->string('medical_policy_number');
             $table->string('physician_name');

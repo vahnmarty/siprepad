@@ -32,6 +32,11 @@
 	$('document').ready(function(){
         
 	  $(".state_select-box").change(function() {
+        var student_type = $(this).find(':selected').attr('student_type');
+            if (!student_type) {
+                alert('Something went wrong');
+                return false;
+            }
      var app_type_id = $(this).val();
      var email =$(this).prev().val();
      var dob =$(this).prev().prev().val();
@@ -39,7 +44,6 @@
      var first_name =$(this).prev().prev().prev().prev().val();
      var app_id =$(this).prev().prev().prev().prev().prev().val();
     var profile_id =$(this).prev().prev().prev().prev().prev().prev().val();
-       
     
  $.ajax({
 
@@ -47,7 +51,8 @@
 
            url:"{{ route('statusSubmit') }}",
 
-           data:{app_type_id:app_type_id, app_id:app_id,first_name:first_name,last_name:last_name,dob:dob,email:email,profile_id:profile_id},
+   
+           data:{app_type_id:app_type_id, app_id:app_id,first_name:first_name,last_name:last_name,dob:dob,email:email,profile_id:profile_id,student_type: student_type},
            
            success:function(data){
 

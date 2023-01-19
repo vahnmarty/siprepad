@@ -134,6 +134,7 @@ class ApplicationController extends Controller
     {
 
         $appID = $request->post('app_id');
+        $student_type = $request->student_type;
 
         $user = $request->profile_id;
         $applicationStatus = $request->post('app_type_id');
@@ -177,8 +178,8 @@ class ApplicationController extends Controller
             DB::beginTransaction();
 
             // dd($studentInfo);
-
-            if (strtolower(trim($studentInfo->S1_First_Name)) == trim($firstName)  &&  strtolower(trim($studentInfo->S1_Last_Name)) == trim($lastName)) {
+            if ($student_type == Application::STUDENT_ONE){
+            // if (strtolower(trim($studentInfo->S1_First_Name)) == trim($firstName)  &&  strtolower(trim($studentInfo->S1_Last_Name)) == trim($lastName)) {
 
                 $checkStatus = StudentApplicationStatus::where([
                     ['application_id', '=', $appID],
@@ -267,10 +268,7 @@ class ApplicationController extends Controller
                         return "Application Status has been registered";
                     }
                 }
-            } else if (
-                strtolower(trim($studentInfo->S2_First_Name)) == trim($firstName) && trim($studentInfo->S2_Last_Name) == trim($lastName)
-                && trim($studentInfo->S2_Personal_Email) == trim($email) && trim($studentInfo->S2_Birthdate) == trim($dob)
-            ) {
+            } else if ($student_type == Application::STUDENT_TWO)  {
                 $checkStatus = StudentApplicationStatus::where([
                     ['application_id', '=', $appID],
                     ['profile_id', '=', $user]
@@ -359,10 +357,7 @@ class ApplicationController extends Controller
                     return "Application Status has been registered";
                 }
             }
-            } else if (
-                strtolower(trim($studentInfo->S3_First_Name)) == trim($firstName) && trim($studentInfo->S3_Last_Name) == trim($lastName)
-                && trim($studentInfo->S3_Personal_Email) == trim($email) && trim($studentInfo->S3_Birthdate) == trim($dob)
-            ) {
+            } else if ($student_type == Application::STUDENT_THREE) { 
                 $checkStatus = StudentApplicationStatus::where([
                     ['application_id', '=', $appID],
                     ['profile_id', '=', $user]
