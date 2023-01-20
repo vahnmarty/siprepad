@@ -19,7 +19,7 @@
 			</x-admin.sub-header>
     </x-slot>
 
-@livewire('admin.user-list',['notificationButton' => $notifications]);
+@livewire('admin.user-list',['notificationButton' => $notifications])
 
 
 </x-admin-layout>

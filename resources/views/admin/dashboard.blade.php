@@ -28,7 +28,7 @@
                         </div>
                         <div class="progress progress--sm">
                             <div class="progress-bar kt-bg-danger" role="progressbar"
-                                style="width: {{ $count['applicationCount'] }}%;" aria-valuenow="50" aria-valuemin="0"
+                                style="width: {{ $count['applicationCount'] }}%" aria-valuenow = "50" aria-valuemin="0"
                                 aria-valuemax="100"></div>
                         </div>
                         <div class="kt-widget24__action">
@@ -147,6 +147,8 @@
                                 </h4>
                                
                             </div>
+                   
+
                             <span class="kt-widget24__stats kt-font-danger">
                                 {{ $count['applicationAcceptedCount'] }}
                             </span>

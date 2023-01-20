@@ -68,135 +68,136 @@ class NotificationController extends Controller
         }
     }
 
-    public function show(Request $request, $nid)
-    {   
-        $ntfStatus = Global_Notifiable::select('notifiable')->first();
-
-        if ($ntfStatus->notifiable == Global_Notifiable::NOTIFICATION_OFF) {
-            return redirect()->back()->with('error', 'You are not allowed to access this page');
-        }
-
-        $profile_id = Auth::guard('customer')->user()->id;
-        $studentDetail = StudentInformation::where('Profile_ID', $profile_id)->first();
-        $ntfDetail = Notification::where('id', $nid)->first();
-        $appDetail = Application::where('Profile_ID', $profile_id)->first();
+    // public function show(Request $request, $nid)
+    // {   
         
-        $appStatus = StudentApplicationStatus::where([
-            [
-                'profile_id',
-                $ntfDetail->profile_id
-            ],
-            [
-                'application_id',
-                $ntfDetail->application_id
-            ]
-        ])->first();
+    //     $ntfStatus = Global_Notifiable::select('notifiable')->first();
+
+    //     if ($ntfStatus->notifiable == Global_Notifiable::NOTIFICATION_OFF) {
+    //         return redirect()->back()->with('error', 'You are not allowed to access this page');
+    //     }
+
+    //     $profile_id = Auth::guard('customer')->user()->id;
+    //     $studentDetail = StudentInformation::where('Profile_ID', $profile_id)->first();
+    //     $ntfDetail = Notification::where('id', $nid)->first();
+    //     $appDetail = Application::where('Profile_ID', $profile_id)->first();
+        
+    //     $appStatus = StudentApplicationStatus::where([
+    //         [
+    //             'profile_id',
+    //             $ntfDetail->profile_id
+    //         ],
+    //         [
+    //             'application_id',
+    //             $ntfDetail->application_id
+    //         ]
+    //     ])->first();
        
-        $time = Carbon::now();
-         $year = date('Y');
-         $date =date('d');
+    //     $time = Carbon::now();
+    //      $year = date('Y');
+    //      $date =date('d');
        
-        $monthName = $time->format('F');
-      $notification_time = $monthName . ' '.$date.', '.$year;
+    //     $monthName = $time->format('F');
+    //   $notification_time = $monthName . ' '.$date.', '.$year;
      
   
 
-        $student = StudentInformation::where('Application_ID', $ntfDetail->application_id)->first();
-        if ($ntfDetail->student_profile == Application::STUDENT_ONE) {
-            $studentname = StudentInformation::where('Application_ID', $ntfDetail->application_id)->select('S1_First_Name', 'S1_Last_name')->first();
-            $name = ucfirst($studentname->S1_First_Name) . ' ' . ucfirst($studentname->S1_Last_name);
+    //     $student = StudentInformation::where('Application_ID', $ntfDetail->application_id)->first();
+    //     if ($ntfDetail->student_profile == Application::STUDENT_ONE) {
+    //         $studentname = StudentInformation::where('Application_ID', $ntfDetail->application_id)->select('S1_First_Name', 'S1_Last_name')->first();
+    //         $name = ucfirst($studentname->S1_First_Name) . ' ' . ucfirst($studentname->S1_Last_name);
 
-            $address = AddressInformation::where('Application_ID', $ntfDetail->application_id)->first();
-            $status = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->select('s1_application_status', 's1_candidate_status')->first();
-            if ($appStatus->s1_candidate_status == Application::CANDIDATE_NOT_DEFINED) {
+    //         $address = AddressInformation::where('Application_ID', $ntfDetail->application_id)->first();
+    //         $status = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->select('s1_application_status', 's1_candidate_status')->first();
+    //         if ($appStatus->s1_candidate_status == Application::CANDIDATE_NOT_DEFINED) {
                     
-                $updateCandidateStatus = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->update(['s1_candidate_status' => Application::CANDIDATE_READ]);
-            }
-            $student_status = $status->s1_application_status;
-            if ($appStatus->s1_candidate_status == Application::CANDIDATE_NOT_DEFINED) {
+    //             $updateCandidateStatus = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->update(['s1_candidate_status' => Application::CANDIDATE_READ]);
+    //         }
+    //         $student_status = $status->s1_application_status;
+    //         if ($appStatus->s1_candidate_status == Application::CANDIDATE_NOT_DEFINED) {
                 
-                $updateCandidateStatus = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->update(['s1_candidate_status' => Application::CANDIDATE_READ]);
-            }
-            $candidate = 's1';
-            $checkPayment = Payment::where('Application_ID', $ntfDetail->application_id)->where('student', 's1')->select('student')->first();
-            if ($checkPayment) {
-                if ($checkPayment->student == 's1') {
-                    $student_accept_status = 'payment_successful';
-                } else {
-                    $student_accept_status = $status->s1_candidate_status;
-                }
+    //             $updateCandidateStatus = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->update(['s1_candidate_status' => Application::CANDIDATE_READ]);
+    //         }
+    //         $candidate = 's1';
+    //         $checkPayment = Payment::where('Application_ID', $ntfDetail->application_id)->where('student', 's1')->select('student')->first();
+    //         if ($checkPayment) {
+    //             if ($checkPayment->student == 's1') {
+    //                 $student_accept_status = 'payment_successful';
+    //             } else {
+    //                 $student_accept_status = $status->s1_candidate_status;
+    //             }
 
-            } else {
-                $student_accept_status = $status->s1_candidate_status;
-            }
+    //         } else {
+    //             $student_accept_status = $status->s1_candidate_status;
+    //         }
 
-            $is_read_status = Notification::where('id', $nid)->first('is_read');
-            if ($is_read_status->is_read == 0) {
-                $is_read_update = Notification::where('id', $nid)->update([
-                    'is_read' => Notification::NOTIFY_READ
-                ]);
-            }
-        }
-        if ($ntfDetail->student_profile == Application::STUDENT_TWO) {
-            $studentname = StudentInformation::where('Application_ID', $ntfDetail->application_id)->select('S2_First_Name', 'S2_Last_name')->first();
-            $name = ucfirst($studentname->S2_First_Name) . ' ' . ucfirst($studentname->S2_Last_name);
-            $address = AddressInformation::where('Application_ID', $ntfDetail->application_id)->first();
+    //         $is_read_status = Notification::where('id', $nid)->first('is_read');
+    //         if ($is_read_status->is_read == 0) {
+    //             $is_read_update = Notification::where('id', $nid)->update([
+    //                 'is_read' => Notification::NOTIFY_READ
+    //             ]);
+    //         }
+    //     }
+    //     if ($ntfDetail->student_profile == Application::STUDENT_TWO) {
+    //         $studentname = StudentInformation::where('Application_ID', $ntfDetail->application_id)->select('S2_First_Name', 'S2_Last_name')->first();
+    //         $name = ucfirst($studentname->S2_First_Name) . ' ' . ucfirst($studentname->S2_Last_name);
+    //         $address = AddressInformation::where('Application_ID', $ntfDetail->application_id)->first();
 
-            $status = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->select('s2_application_status', 's2_candidate_status')->first();
-            $student_status = $status->s2_application_status;
-            $candidate = 's2';
-            $checkPayment = Payment::where('Application_ID', $ntfDetail->application_id)->where('student', 's2')->select('student')->first();
-            if ($checkPayment) {
-                if ($checkPayment->student == 's2') {
-                    $student_accept_status = "payment_successful";
-                } else {
-                    $student_accept_status = $status->s2_candidate_status;
-                }
-            } else {
-                $student_accept_status = $status->s2_candidate_status;
-            }
-            if ($appStatus->s2_candidate_status == Application::CANDIDATE_NOT_DEFINED) {
-                $updateCandidateStatus = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->update(['s2_candidate_status' => Application::CANDIDATE_READ]);
-            }
-            $is_read_status = Notification::where('id', $nid)->first('is_read');
+    //         $status = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->select('s2_application_status', 's2_candidate_status')->first();
+    //         $student_status = $status->s2_application_status;
+    //         $candidate = 's2';
+    //         $checkPayment = Payment::where('Application_ID', $ntfDetail->application_id)->where('student', 's2')->select('student')->first();
+    //         if ($checkPayment) {
+    //             if ($checkPayment->student == 's2') {
+    //                 $student_accept_status = "payment_successful";
+    //             } else {
+    //                 $student_accept_status = $status->s2_candidate_status;
+    //             }
+    //         } else {
+    //             $student_accept_status = $status->s2_candidate_status;
+    //         }
+    //         if ($appStatus->s2_candidate_status == Application::CANDIDATE_NOT_DEFINED) {
+    //             $updateCandidateStatus = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->update(['s2_candidate_status' => Application::CANDIDATE_READ]);
+    //         }
+    //         $is_read_status = Notification::where('id', $nid)->first('is_read');
             
-            if ($is_read_status->is_read == 0) {
-                $is_read_update = Notification::where('id', $nid)->update([
-                    'is_read' => Notification::NOTIFY_READ
-                ]);
-            }
-        }
-        if ($ntfDetail->student_profile == Application::STUDENT_THREE) {
-            $studentname = StudentInformation::where('Application_ID', $ntfDetail->application_id)->select('S3_First_Name', 'S3_Last_name')->first();
-            $address = AddressInformation::where('Application_ID', $ntfDetail->application_id)->first();
+    //         if ($is_read_status->is_read == 0) {
+    //             $is_read_update = Notification::where('id', $nid)->update([
+    //                 'is_read' => Notification::NOTIFY_READ
+    //             ]);
+    //         }
+    //     }
+    //     if ($ntfDetail->student_profile == Application::STUDENT_THREE) {
+    //         $studentname = StudentInformation::where('Application_ID', $ntfDetail->application_id)->select('S3_First_Name', 'S3_Last_name')->first();
+    //         $address = AddressInformation::where('Application_ID', $ntfDetail->application_id)->first();
 
-            $name = ucfirst($studentname->S3_First_Name) . ' ' . ucfirst($studentname->S3_Last_name);
-            $status = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->select('s3_application_status', 's3_candidate_status')->first();
-            $student_status = $status->s3_application_status;
-            $student_accept_status = $status->s3_candidate_status;
-            $checkPayment = Payment::where('Application_ID', $ntfDetail->application_id)->where('student', 's3')->select('student')->first();
+    //         $name = ucfirst($studentname->S3_First_Name) . ' ' . ucfirst($studentname->S3_Last_name);
+    //         $status = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->select('s3_application_status', 's3_candidate_status')->first();
+    //         $student_status = $status->s3_application_status;
+    //         $student_accept_status = $status->s3_candidate_status;
+    //         $checkPayment = Payment::where('Application_ID', $ntfDetail->application_id)->where('student', 's3')->select('student')->first();
 
-            if ($checkPayment) {
-                if ($checkPayment->student == 's3') {
-                    $student_accept_status = 'payment_successful';
-                } else {
-                    $student_accept_status = $status->s3_candidate_status;
-                }
-            } else {
-                $student_accept_status = $status->s3_candidate_status;
-            }
-            $candidate = 's3';
-            if ($appStatus->s3_candidate_status == Application::CANDIDATE_NOT_DEFINED) {
-                $updateCandidateStatus = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->update(['s3_candidate_status' => Application::CANDIDATE_READ]);
-            }
-            $is_read_status = Notification::where('id', $nid)->first('is_read');
-            $is_read_update = Notification::where('id', $nid)->update([
-                'is_read' => Notification::NOTIFY_READ
-            ]);
-        }
+    //         if ($checkPayment) {
+    //             if ($checkPayment->student == 's3') {
+    //                 $student_accept_status = 'payment_successful';
+    //             } else {
+    //                 $student_accept_status = $status->s3_candidate_status;
+    //             }
+    //         } else {
+    //             $student_accept_status = $status->s3_candidate_status;
+    //         }
+    //         $candidate = 's3';
+    //         if ($appStatus->s3_candidate_status == Application::CANDIDATE_NOT_DEFINED) {
+    //             $updateCandidateStatus = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->update(['s3_candidate_status' => Application::CANDIDATE_READ]);
+    //         }
+    //         $is_read_status = Notification::where('id', $nid)->first('is_read');
+    //         $is_read_update = Notification::where('id', $nid)->update([
+    //             'is_read' => Notification::NOTIFY_READ
+    //         ]);
+    //     }
 
-        return view('frontend.notificationDetail', compact('ntfDetail', 'appDetail', 'studentDetail', 'appStatus', 'name', 'student_status', 'candidate', 'student_accept_status','notification_time'));
-    }
+    //     return view('frontend.notificationDetail', compact('ntfDetail', 'appDetail', 'studentDetail', 'appStatus', 'name', 'student_status', 'candidate', 'student_accept_status','notification_time'));
+    // }
 
     public function candidateResponse(Request $request, $apid, $candidate, $rsid)
     {
@@ -270,30 +271,132 @@ class NotificationController extends Controller
 
     public function ShowStudentNotification($notificationid)
     {
-        $notification = Notification::find($notificationid);
-        if ($notification) {
-            if (!is_null(Auth::guard('customer')->user())) {
-                $profile_id = Auth::guard('customer')->user()->id;
-                $notifications = Notification::where('profile_id', $profile_id)->get();
-                $appid = Application::where('Profile_ID', $profile_id)->get('Application_ID')->first();
-                $applicationId = $appid->Application_ID;
-                $studentinfo = StudentInformation::where('Application_ID', $applicationId)->first();
-                $application_status = StudentApplicationStatus::where('application_id', $applicationId)->first();
-                if ($notification->student_profile == Application::STUDENT_ONE) {
-                    $notifications = Notification::where('id', $application_status->s1_notification_id)->latest()->first();
-                }
-                if ($notification->student_profile == Application::STUDENT_TWO) {
-                    $notifications = Notification::where('id', $application_status->s2_notification_id)->latest()->first();
-                }
-                if ($notification->student_profile == Application::STUDENT_THREE) {
-                    $notifications = Notification::where('id', $application_status->s3_notification_id)->latest()->first();
-                }
-                return view('frontend.notification', compact('notifications'));
-            } else {
-                return redirect('/')->with('error', 'you donot have any notifications yet!!!');
-            }
-        } else {
-            return redirect('/')->with('error', 'you donot have any notifications yet!!!');
+
+        $ntfStatus = Global_Notifiable::select('notifiable')->first();
+
+        if ($ntfStatus->notifiable == Global_Notifiable::NOTIFICATION_OFF) {
+            return redirect()->back()->with('error', 'You are not allowed to access this page');
         }
+
+        $profile_id = Auth::guard('customer')->user()->id;
+        $studentDetail = StudentInformation::where('Profile_ID', $profile_id)->first();
+        $ntfDetail = Notification::where('id', $notificationid)->first();
+        $appDetail = Application::where('Profile_ID', $profile_id)->first();
+        
+        $appStatus = StudentApplicationStatus::where([
+            [
+                'profile_id',
+                $ntfDetail->profile_id
+            ],
+            [
+                'application_id',
+                $ntfDetail->application_id
+            ]
+        ])->first();
+       
+        $time = Carbon::now();
+         $year = date('Y');
+         $date =date('d');
+       
+        $monthName = $time->format('F');
+      $notification_time = $monthName . ' '.$date.', '.$year;
+     
+  
+
+        $student = StudentInformation::where('Application_ID', $ntfDetail->application_id)->first();
+        if ($ntfDetail->student_profile == Application::STUDENT_ONE) {
+            $studentname = StudentInformation::where('Application_ID', $ntfDetail->application_id)->select('S1_First_Name', 'S1_Last_name')->first();
+            $name = ucfirst($studentname->S1_First_Name) . ' ' . ucfirst($studentname->S1_Last_name);
+
+            $address = AddressInformation::where('Application_ID', $ntfDetail->application_id)->first();
+            $status = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->select('s1_application_status', 's1_candidate_status')->first();
+            if ($appStatus->s1_candidate_status == Application::CANDIDATE_NOT_DEFINED) {
+                    
+                $updateCandidateStatus = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->update(['s1_candidate_status' => Application::CANDIDATE_READ]);
+            }
+            $student_status = $status->s1_application_status;
+            if ($appStatus->s1_candidate_status == Application::CANDIDATE_NOT_DEFINED) {
+                
+                $updateCandidateStatus = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->update(['s1_candidate_status' => Application::CANDIDATE_READ]);
+            }
+            $candidate = 's1';
+            $checkPayment = Payment::where('Application_ID', $ntfDetail->application_id)->where('student', 's1')->select('student')->first();
+            if ($checkPayment) {
+                if ($checkPayment->student == 's1') {
+                    $student_accept_status = 'payment_successful';
+                } else {
+                    $student_accept_status = $status->s1_candidate_status;
+                }
+
+            } else {
+                $student_accept_status = $status->s1_candidate_status;
+            }
+
+            $is_read_status = Notification::where('id', $notificationid)->first('is_read');
+            if ($is_read_status->is_read == 0) {
+                $is_read_update = Notification::where('id', $notificationid)->update([
+                    'is_read' => Notification::NOTIFY_READ
+                ]);
+            }
+        }
+        if ($ntfDetail->student_profile == Application::STUDENT_TWO) {
+            $studentname = StudentInformation::where('Application_ID', $ntfDetail->application_id)->select('S2_First_Name', 'S2_Last_name')->first();
+            $name = ucfirst($studentname->S2_First_Name) . ' ' . ucfirst($studentname->S2_Last_name);
+            $address = AddressInformation::where('Application_ID', $ntfDetail->application_id)->first();
+
+            $status = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->select('s2_application_status', 's2_candidate_status')->first();
+            $student_status = $status->s2_application_status;
+            $candidate = 's2';
+            $checkPayment = Payment::where('Application_ID', $ntfDetail->application_id)->where('student', 's2')->select('student')->first();
+            if ($checkPayment) {
+                if ($checkPayment->student == 's2') {
+                    $student_accept_status = "payment_successful";
+                } else {
+                    $student_accept_status = $status->s2_candidate_status;
+                }
+            } else {
+                $student_accept_status = $status->s2_candidate_status;
+            }
+            if ($appStatus->s2_candidate_status == Application::CANDIDATE_NOT_DEFINED) {
+                $updateCandidateStatus = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->update(['s2_candidate_status' => Application::CANDIDATE_READ]);
+            }
+            $is_read_status = Notification::where('id', $notificationid)->first('is_read');
+            
+            if ($is_read_status->is_read == 0) {
+                $is_read_update = Notification::where('id', $notificationid)->update([
+                    'is_read' => Notification::NOTIFY_READ
+                ]);
+            }
+        }
+        if ($ntfDetail->student_profile == Application::STUDENT_THREE) {
+            $studentname = StudentInformation::where('Application_ID', $ntfDetail->application_id)->select('S3_First_Name', 'S3_Last_name')->first();
+            $address = AddressInformation::where('Application_ID', $ntfDetail->application_id)->first();
+
+            $name = ucfirst($studentname->S3_First_Name) . ' ' . ucfirst($studentname->S3_Last_name);
+            $status = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->select('s3_application_status', 's3_candidate_status')->first();
+            $student_status = $status->s3_application_status;
+            $student_accept_status = $status->s3_candidate_status;
+            $checkPayment = Payment::where('Application_ID', $ntfDetail->application_id)->where('student', 's3')->select('student')->first();
+
+            if ($checkPayment) {
+                if ($checkPayment->student == 's3') {
+                    $student_accept_status = 'payment_successful';
+                } else {
+                    $student_accept_status = $status->s3_candidate_status;
+                }
+            } else {
+                $student_accept_status = $status->s3_candidate_status;
+            }
+            $candidate = 's3';
+            if ($appStatus->s3_candidate_status == Application::CANDIDATE_NOT_DEFINED) {
+                $updateCandidateStatus = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->update(['s3_candidate_status' => Application::CANDIDATE_READ]);
+            }
+            $is_read_status = Notification::where('id', $notificationid)->first('is_read');
+            $is_read_update = Notification::where('id', $notificationid)->update([
+                'is_read' => Notification::NOTIFY_READ
+            ]);
+        }
+
+        return view('frontend.notificationDetail', compact('ntfDetail', 'appDetail', 'studentDetail', 'appStatus', 'name', 'student_status', 'candidate', 'student_accept_status','notification_time'));
     }
 }
