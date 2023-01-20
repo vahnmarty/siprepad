@@ -262,8 +262,12 @@ class RegistrationController extends Controller
     public function householdIndex($id)
     {
         $addressinfo = AddressInformation::with('profile')->with('parentInfo')->where('Profile_ID', $id)->first();
-        $parentinfo = $addressinfo->profile->parentInfo;
-        return view('frontend.registeration.registeration-two', compact('addressinfo', 'parentinfo'));
+        if (!empty($addressinfo)) {
+            $parentinfo = $addressinfo->profile->parentInfo;
+            return view('frontend.registeration.registeration-two', compact('addressinfo', 'parentinfo'));
+        } else {
+            return redirect('/')->with('error', 'You are not allowed to access this page');
+        }
     }
 
 

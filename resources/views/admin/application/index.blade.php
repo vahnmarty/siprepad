@@ -75,3 +75,23 @@
             });
         });
     </script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/b-1.5.4/b-html5-1.5.4/datatables.min.css" />
+    <script src="{{ asset('/') }}js/jquery.dataTables.min.js" defer></script>
+
+    <script>
+        $(function() {
+
+            $('#kt_table_1Arsh').DataTable({
+                paging: true,
+                lengthChange: true,
+                searching: true,
+                ordering: true,
+                info: true,
+                autoWidth: true,
+                responsive: true,
+                dom: 'lBfrtip',
+                pageLength: 4,
+                lengthMenu: [ 4, 10, 20, 50, 100, 200, 500],
+            });
+        });
+    </script>
