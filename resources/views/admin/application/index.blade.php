@@ -16,7 +16,7 @@
                 </x-slot>
             </x-admin.sub-header>
         </x-slot>
-        @livewire('admin.application.index', ['applications' => $app, 'notificationButton' => $notifications, 'register' =>$registerable,'studentTransfer'=>$studentTransfer]);
+        @livewire('admin.application.index', ['applications' => $app, 'notificationButton' => $notifications, 'register' =>$registerable,'studentTransfer'=>$studentTransfer])
 
     </x-admin-layout>
     <script>
@@ -81,7 +81,7 @@
     <script>
         $(function() {
 
-            $('#kt_table_1Arsh').DataTable({
+            $('#kt_table_1').DataTable({
                 paging: true,
                 lengthChange: true,
                 searching: true,
@@ -90,8 +90,8 @@
                 autoWidth: true,
                 responsive: true,
                 dom: 'lBfrtip',
-                pageLength: 4,
-                lengthMenu: [ 4, 10, 20, 50, 100, 200, 500],
+                pageLength: 5,
+                lengthMenu: [ 5,10,25,50,100],
             });
         });
     </script>

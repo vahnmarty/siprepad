@@ -5,12 +5,6 @@
             <div class="row">
                 <div class="col-sm-12 col-md-6">
                     <div class="dataTables_length" id="kt_table_1_length">
-
-
-                    
-                       
-
-
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-6">
@@ -26,7 +20,7 @@
                 <div class="col-sm-12">
                     <table
                         class="table table-responsive table-striped- table-bordered table-hover table-checkable dataTable no-footer dtr-inline"
-                        id="kt_table_1Arsh" role="grid" aria-describedby="kt_table_1_info" style="width: 1115px;">
+                        id="kt_table_1" role="grid" aria-describedby="kt_table_1_info" style="width:1115px">
                         <thead>
                             {{ $thead }}
                         </thead>

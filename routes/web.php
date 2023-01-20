@@ -59,8 +59,8 @@ Route::group(['middleware' => 'auth:customer'], function () {
     Route::get("/", [HomeController::class, 'home']);
 
     Route::get('/notification', [NotificationController::class, 'list']);
-    Route::get('/notification/show/{nid}', [NotificationController::class, 'show']);
-    Route::get('/notification/{notificationid}', [NotificationController::class, 'ShowStudentNotification'])->name('studentNotification');
+    Route::get('/notification/show/{nid}', [NotificationController::class, 'ShowStudentNotification'])->name('studentNotification');
+    // Route::get('/notification/{notificationid}', [NotificationController::class, 'ShowStudentNotification'])->name('studentNotification');
     
     Route::get('/candidate/response/{apid}/{cid}/{rsid}', [NotificationController::class, 'candidateResponse']);
     
@@ -89,7 +89,7 @@ Route::get('/written-recommendation/{id}', [HomeController::class, 'writtenRecom
 Route::post('/written-recommendation', [HomeController::class, 'submitWritten'])->name('written-recommendation-submit');
 
 
-//Admin Portal All routs
+//Admin Portal All routes
 Route::redirect('/admin', 'admin');
 Route::redirect('admin', 'admin/login');
 Route::get('admin/login', [AdminAuthController::class, 'getLogin'])->name('admin.login.get');
@@ -178,6 +178,5 @@ Route::get('/registration/coursePlacementIndex/{id}', [RegistrationController::c
 Route::post('/registration/coursePlacement/{id}', [RegistrationController::class, 'coursePlacementUpdate'])->name('coursePlacementUpdate');
 Route::get('/registration/thankYou' , [RegistrationController::class, 'thankYou']);
 // Route::put('/updatepassword',[UpdateProfileController::class,'UpdatePassword'])->name('updatepassword');
-
 
 

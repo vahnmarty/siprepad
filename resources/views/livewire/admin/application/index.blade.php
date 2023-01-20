@@ -57,6 +57,7 @@
                 }
                 @endphp
                 @php
+                
                 $getApplication = App\Models\Application::where('Application_ID','=' ,$student['Application_ID'])
                 ->where('last_step_complete','=','ten')
                 ->get()->first();
@@ -173,7 +174,6 @@
 
                                 </select>
                                 @endif
-                              
                                 @if($student['student_type']==App\Models\Application::STUDENT_THREE)
 
                                 <select name='candidate-status' required class='state_select-box'>
@@ -184,7 +184,6 @@
                                     <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
 
                                 </select>
-                                
                                 @endif
                                 @endif
                                 @endif
