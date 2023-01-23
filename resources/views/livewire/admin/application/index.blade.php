@@ -19,26 +19,58 @@
         <x-slot name="search">
             <x-slot name="thead">
                 <tr role="row">
-                    <th tabindex="0" aria-controls="kt_table_1" rowspan="1" colspan="1" style="width: 15%;" aria-sort="ascending" aria-label="Agent: activate to sort column descending">Student First Name
+                    <th class="text-center" tabindex="0" aria-controls="kt_table_1" rowspan="1" colspan="1" style="width: 15%;" aria-sort="ascending" aria-label="Agent: activate to sort column descending">Student First Name
                     </th>
 
-                    <th tabindex="0" aria-controls="kt_table_1" rowspan="1" colspan="1" style="width: 15%;" aria-label="Company Email: activate to sort column ascending">Student Last Name</th>
+                    <th class="text-center" tabindex="0" aria-controls="kt_table_1" rowspan="1" colspan="1" style="width: 15%;" aria-label="Company Email: activate to sort column ascending">Student Last Name</th>
 
 
-                    <th tabindex="0" aria-controls="kt_table_1" rowspan="1" colspan="1" style="width: 20%;" aria-label="Company Agent: activate to sort column ascending">Student Email
+                    <th class="text-center" tabindex="0" aria-controls="kt_table_1" rowspan="1" colspan="1" style="width: 20%;" aria-label="Company Agent: activate to sort column ascending">Student Email
                     </th>
 
-                    <th tabindex="0" aria-controls="kt_table_1" rowspan="1" colspan="1" style="width: 20%;" aria-label="Company Agent: activate to sort column ascending">Student Phone
+                    <th class="text-center" tabindex="0" aria-controls="kt_table_1" rowspan="1" colspan="1" style="width: 20%;" aria-label="Company Agent: activate to sort column ascending">Student Phone
                     </th>
-                    <th tabindex="0" aria-controls="kt_table_1" style="width: 10%;" aria-label="Company Agent: activate to sort column ascending">Status
+                    <th class="text-center" tabindex="0" aria-controls="kt_table_1" style="width: 10%;" aria-label="Company Agent: activate to sort column ascending">Status
                     </th>
-                    <th tabindex="0" aria-controls="kt_table_1" style="width: 10%;" aria-label="Company Agent: activate to sort column ascending">Decision
+                    <th class="text-center" tabindex="0" aria-controls="kt_table_1" style="width: 10%;" aria-label="Company Agent: activate to sort column ascending">Decision
                     </th>
 
-                    <th class="align-center" rowspan="1" colspan="1" style="width: 30%;" aria-label="Actions">Actions</th>
+                    <th class="text-center" class="align-center" rowspan="1" colspan="1" style="width: 30%;" aria-label="Actions">Actions</th>
+                </tr>
+                <tr>
+                    <th class="text-center">
+                        <input type="text" id="searchFirstName">
+
+                    </th>
+                    <th class="text-center">
+                        <input type="text" id="searchLastName">
+
+                    </th>
+                    <th class="text-center">
+                        <input type="text" id="searchEmail">
+
+
+                    </th>
+                    <th class="text-center">
+                        <input type="text" id="searchPhone">
+
+                    </th>
+                    <th>
+
+                    </th>
+                    <th>
+
+                    </th>
+                    <th>
+                        <div class="row text-center">
+                            <div class="col-md-6"><a class="btn btn-primery text-light" id="serachData">Search</a></div>
+                            <div class="col-md-6"><a class="btn btn-primery text-light" id="resetData">Reset</a></div>
+                        </div>
+
+
+                    </th>
                 </tr>
 
-             
             </x-slot>
 
 
@@ -52,7 +84,6 @@
                 //if userid changed from last iteration, store new userid and change color
                 if ($lastId !== $student['Application_ID']) {
                 $lastId = $student['Application_ID'];
-              
                 }
                 @endphp
                 @php
@@ -471,5 +502,4 @@
                 @endforelse
             </x-slot>
 
-           
     </x-admin.table>

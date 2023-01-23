@@ -2,8 +2,7 @@
 <script src='{{ asset("/admin_assets/js/jquery.min.js") }}'></script>
 <div class="kt-footer kt-grid__item kt-grid kt-grid--desktop kt-grid--ver-desktop">
     <div class="kt-footer__copyright">
-        {{ date('Y') }}&nbsp;&copy;&nbsp;<a href="{{ route('admin.dashboard') }}"
-            class="kt-link">{{ config('app.name', 'Laravel') }} </a>
+        {{ date('Y') }}&nbsp;&copy;&nbsp;<a href="{{ route('admin.dashboard') }}" class="kt-link">{{ config('app.name', 'Laravel') }} </a>
     </div>
     <div class="kt-footer__menu">
         {{-- <a href="#"  class="kt-footer__menu-link kt-link">About</a>

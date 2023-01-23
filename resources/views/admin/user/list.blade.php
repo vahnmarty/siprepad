@@ -27,3 +27,6 @@
 
 
   
+
+@extends('components.admin-includes.customDatatable')
+    

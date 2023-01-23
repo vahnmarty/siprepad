@@ -75,23 +75,5 @@
             });
         });
     </script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/b-1.5.4/b-html5-1.5.4/datatables.min.css" />
-    <script src="{{ asset('/') }}js/jquery.dataTables.min.js" defer></script>
 
-    <script>
-        $(function() {
-
-            $('#kt_table_1').DataTable({
-                paging: true,
-                lengthChange: true,
-                searching: true,
-                ordering: true,
-                info: true,
-                autoWidth: true,
-                responsive: true,
-                dom: 'lBfrtip',
-                pageLength: 5,
-                lengthMenu: [ 5,10,25,50,100],
-            });
-        });
-    </script>
+@extends('components.admin-includes.customDatatable')
