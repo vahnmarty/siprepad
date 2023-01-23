@@ -310,7 +310,7 @@
     <link rel="shortcut icon" href="{{ asset('admin_assets/media/logos/favicon.png') }}" />
     <script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
     <!--begin::Page Custom Styles(used by this page) -->
-    <link href="{{ asset('admin_assets/app/custom/wizard/wizard-v2.default.css') }}" rel="stylesheet"
+    <!-- <link href="{{ asset('admin_assets/app/custom/wizard/wizard-v2.default.css') }}" rel="stylesheet" -->
         type="text/css" />
     @stack('style')
 </head>
@@ -531,7 +531,7 @@
     <!--end::Global Theme Bundle -->
 
     <!--begin::Page Scripts(used by this page) -->
-    <script src="{{ asset('admin_assets/app/custom/wizard/wizard-v2.js') }}" type="text/javascript"></script>
+    <!-- <script src="{{ asset('admin_assets/app/custom/wizard/wizard-v2.js') }}" type="text/javascript"></script> -->
 
     <!--end::Page Scripts -->
 
