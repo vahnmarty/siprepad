@@ -5,6 +5,12 @@
             <div class="row">
                 <div class="col-sm-12 col-md-6">
                     <div class="dataTables_length" id="kt_table_1_length">
+
+
+
+
+
+
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-6">
@@ -18,11 +24,10 @@
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <table
-                        class="table table-responsive table-striped- table-bordered table-hover table-checkable dataTable no-footer dtr-inline"
-                        id="kt_table_1" role="grid" aria-describedby="kt_table_1_info" style="width:1115px">
+                    <table class="table table-responsive table-striped- table-bordered table-hover table-checkable dataTable no-footer dtr-inline" id="kt_table_1Arsh" role="grid" aria-describedby="kt_table_1_info" style="width: 1115px;">
                         <thead>
                             {{ $thead }}
+                           
                         </thead>
                         <tbody>
                             {{ $tbody }}
@@ -31,7 +36,6 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
 </div>
-
