@@ -17,7 +17,6 @@
     @endif
     <x-admin.table>
         <x-slot name="search">
-
             <x-slot name="thead">
                 <tr role="row">
                     <th tabindex="0" aria-controls="kt_table_1" rowspan="1" colspan="1" style="width: 15%;" aria-sort="ascending" aria-label="Agent: activate to sort column descending">Student First Name
@@ -72,8 +71,7 @@
                 @endphp
 
 
-
-                <tr role="row" class="odd odd">
+                <tr role="row" class="odd {{ $rowClass }}">
                     <td>{{ ucfirst($student['First_Name']) ?? '---' }}</td>
                     <td>{{ ucfirst($student['Last_Name']) ?? '---' }}</td>
                     <td>{{ $student['Personal_Email'] ?? '---' }}</td>
@@ -100,7 +98,8 @@
 
 
 
-
+                        @if($getApplicationStatus->s1_candidate_status != App\Models\Application::CANDIDATE_ACCEPTED )
+                        @if($getApplicationStatus->s1_candidate_status != App\Models\Application::CANDIDATE_REJECTED )
                         @switch($getApplicationStatus->s1_application_status)
                         @case(1)
                         <select name='candidate-status' required class='state_select-box'>
@@ -130,6 +129,8 @@
                             <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}' selected>Not Accepted</option>
                             <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
 
+
+
                             @break
                             @case(4)
                             <select name='candidate-status' required class='state_select-box'>
@@ -150,6 +151,29 @@
 
                                 </select>
                                 @endswitch
+                                @else
+                                <select name='candidate-status' required class='state_select-box' disabled>
+                                    <option value='' disabled>Select</option>
+                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_ACCEPTED}}' selected>Accepted</option>
+                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
+                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
+                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
+
+                                </select>
+                                @endif
+                                @else
+
+                                <select name='candidate-status' required class='state_select-box' disabled>
+                                    <option value='' disabled>Select</option>
+                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_ACCEPTED}}' selected>Accepted</option>
+                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
+                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
+                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
+
+                                </select>
+
+                                @endif
+
                                 @else
                                 @if(empty($studentProfile))
                                 @if($student['student_type']==App\Models\Application::STUDENT_ONE)
@@ -188,6 +212,9 @@
                                 @endif
                                 @endif
                                 @if($studentProfile == App\Models\Application::STUDENT_TWO)
+
+                                @if($getApplicationStatus->s2_candidate_status != App\Models\Application::CANDIDATE_ACCEPTED )
+                                @if($getApplicationStatus->s2_candidate_status != App\Models\Application::CANDIDATE_REJECTED )
                                 @switch($getApplicationStatus->s2_application_status)
                                 @case(1)
                                 <select name='candidate-status' required class='state_select-box'>
@@ -237,8 +264,34 @@
 
                                         </select>
                                         @endswitch
+                                        @else
+                                        <select name='candidate-status' required class='state_select-box' disabled>
+                                            <option value='' disabled>Select</option>
+                                            <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_ACCEPTED}}' selected>Accepted</option>
+                                            <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
+                                            <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
+                                            <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
+
+                                        </select>
+                                        @endif
+                                        @else
+
+                                        <select name='candidate-status' required class='state_select-box' disabled>
+                                            <option value='' disabled>Select</option>
+                                            <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_ACCEPTED}}' selected>Accepted</option>
+                                            <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
+                                            <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
+                                            <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
+
+                                        </select>
+
+                                        @endif
                                         @endif
                                         @if($studentProfile == App\Models\Application::STUDENT_THREE)
+
+
+                                        @if($getApplicationStatus->s3_candidate_status != App\Models\Application::CANDIDATE_ACCEPTED )
+                                        @if($getApplicationStatus->s3_candidate_status != App\Models\Application::CANDIDATE_REJECTED )
                                         @switch($getApplicationStatus->s3_application_status)
                                         @case(1)
                                         <select name='candidate-status' required class='state_select-box'>
@@ -287,10 +340,32 @@
                                                     <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
                                                 </select>
                                                 @endswitch
+                                                @else
+                                                <select name='candidate-status' required class='state_select-box' disabled>
+                                                    <option value='' disabled>Select</option>
+                                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_ACCEPTED}}' selected>Accepted</option>
+                                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
+                                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
+                                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
 
+                                                </select>
+                                                @endif
+                                                @else
+
+                                                <select name='candidate-status' required class='state_select-box' disabled>
+                                                    <option value='' disabled>Select</option>
+                                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_ACCEPTED}}' selected>Accepted</option>
+                                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
+                                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
+                                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
+
+                                                </select>
+
+                                                @endif
                                                 @endif
 
                     </td>
+
                     <td>
                         <?php $studentProfile = "" ?>
 
