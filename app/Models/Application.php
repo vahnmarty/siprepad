@@ -43,4 +43,5 @@ class Application extends Model
     {
         return $this->hasOne(StudentApplicationStatus::class,'application_id');
     }
+ 
 }

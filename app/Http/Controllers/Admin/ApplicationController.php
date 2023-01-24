@@ -43,6 +43,37 @@ class ApplicationController extends Controller
         return view('admin.application.index', compact('app', 'notifications', 'registerable', 'studentTransfer'));
     }
 
+
+    public function showDashboardValues(Request $request,$data)
+    {
+        // dd($data);
+
+            $notifications = $this->GlobalNotifiable;
+            $registerable = $this->GlobalRegisterable;
+            $studentTransfer = $this->GlobalStudentTransfer;
+        if($data=="applicationIncompleteCount"){
+
+            $user = Auth::guard('customer')->user('id');
+            $app = Application::where("status",'=',0)->get()->toArray();
+            // $status = [];
+            // foreach ($apps as $key => $result) {
+            //     $status[$key] = $result;
+            // }
+            // dd($apps);
+            // $count_status = array_count_values($status);
+        return view('admin.application.dashboardtable', compact('app', 'notifications', 'registerable', 'studentTransfer'));
+
+        }
+        else{
+            $user = Auth::guard('customer')->user('id');
+            $app = Application::all();
+    
+    
+            // return view('admin.application.dashboardtable', compact('app', 'notifications', 'registerable', 'studentTransfer'));
+        }
+       
+    }
+
     /**
      * Show the form for creating a new resource.
      *

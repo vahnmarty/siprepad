@@ -573,7 +573,22 @@
 }
 
 table tr th button.kt-btn--icon {
-    height: 46px!important;
+    height: 46px !important;
     margin: 0 3px;
     margin-top: 0 !important;
+}
+
+.dataTables_wrapper .dataTable td .action__btn {
+    width: 100%;
+}
+
+.dataTables_wrapper .dataTable td .action__btn .btn {
+    white-space: nowrap;
+    padding: 0.65rem;
+    min-width: auto;
+}
+
+.kt-subheader .kt-subheader__main .kt-subheader__breadcrumbs .kt-subheader__breadcrumbs-link {
+    line-height: 1;
+    margin-top: 5px;
 }

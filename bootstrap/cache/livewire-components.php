@@ -1,5 +1,6 @@
 <?php return array (
   'admin.application.create-edit' => 'App\\Http\\Livewire\\Admin\\Application\\CreateEdit',
+  'admin.application.dashboardtable' => 'App\\Http\\Livewire\\Admin\\Application\\Dashboardtable',
   'admin.application.index' => 'App\\Http\\Livewire\\Admin\\Application\\Index',
   'admin.application.show' => 'App\\Http\\Livewire\\Admin\\Application\\Show',
   'admin.application.step-eight' => 'App\\Http\\Livewire\\Admin\\Application\\StepEight',
@@ -22,6 +23,7 @@
   'admin.user-create-edit' => 'App\\Http\\Livewire\\Admin\\UserCreateEdit',
   'admin.user-list' => 'App\\Http\\Livewire\\Admin\\UserList',
   'admin.user-view' => 'App\\Http\\Livewire\\Admin\\UserView',
+  'dashboardtable' => 'App\\Http\\Livewire\\Dashboardtable',
   'frontend.application.application-eight' => 'App\\Http\\Livewire\\Frontend\\Application\\ApplicationEight',
   'frontend.application.application-five' => 'App\\Http\\Livewire\\Frontend\\Application\\ApplicationFive',
   'frontend.application.application-four' => 'App\\Http\\Livewire\\Frontend\\Application\\ApplicationFour',
