@@ -1,5 +1,4 @@
 <meta name="csrf-token" content="{{ csrf_token() }}" />
- 
 
 <x-admin-layout title="User Management">               
     <x-slot name="subHeader">

@@ -105,6 +105,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:sanctum'], function () 
     Route::post('perpage',[UserController::class ,'PerPage'])->name('perpage');
     Route::get('/user/registerable/{status}/{uid}',[UserController::class,'registrationChange']);
     Route::get('/user/studentTransfer/{status}/{uid}',[UserController::class,'studentTransfer']);
+    Route::get('/dasboard-table/{data}',[ApplicationController::class,'showDashboardValues'])->name('application.showDashboardValues');
     Route::resource('application', ApplicationController::class);
     Route::post('/application/cstatus',[ApplicationController::class, 'statusSubmit'])->name('statusSubmit');
     Route::resource('recommendation', RecommendationController::class);
