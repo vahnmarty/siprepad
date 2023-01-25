@@ -50,7 +50,6 @@ class AdminDashboard extends Controller
                 ->select('student_information.*', 'applications.status', 'applications.last_step_complete')
                 ->where('applications.last_step_complete', 'ten')
                 ->get();
-
             if (count($getData) > 0) {
                 foreach ($getData as $key => $getStudentInfo) {
                     $studentInfo = [];
@@ -85,26 +84,21 @@ class AdminDashboard extends Controller
             } else {
                 $count['applicationRejectedCount'] = 0;
             }
-
             if (array_key_exists(3, $count_status)) {
                 $count['applicationReadCount'] = $count_status[3];
             } else {
                 $count['applicationReadCount'] = 0;
             }
-            // NOTIFICATIONS SUMMARY SECTION 
             $getStudentApplicationStatus = StudentApplicationStatus::get()->toArray();
-            if ($getStudentApplicationStatus) {
-                $candidateStatuss['TotalNotifications'] = count($getStudentApplicationStatus);
-
-                foreach ($getStudentApplicationStatus as $key => $value) {
-                    $candidateStatus[$key]['s1_candidate_status'] = $value['s1_candidate_status'];
-                    $candidateStatus[$key]['s2_candidate_status'] =  $value['s2_candidate_status'];
-                    $candidateStatus[$key]['s3_candidate_status'] = $value['s3_candidate_status'];
-                }
-                $candidateStatusValuees = array();
-                $studentCountValues = $this->array_count_values($candidateStatus);
+            $candidateStatuss['TotalNotifications'] = Notification::count();
+            $candidateStatus = array();
+            foreach ($getStudentApplicationStatus as $key => $value) {
+                $candidateStatus[$key]['s1_candidate_status'] = $value['s1_candidate_status'];
+                $candidateStatus[$key]['s2_candidate_status'] =  $value['s2_candidate_status'];
+                $candidateStatus[$key]['s3_candidate_status'] = $value['s3_candidate_status'];
             }
-
+            $candidateStatusValuees = array();
+            $studentCountValues = $this->array_count_values($candidateStatus);
             if (array_key_exists(0, $studentCountValues)) {
                 $candidateStatuss['candidateStatusNoDef'] = $studentCountValues[0];
             } else {
@@ -132,6 +126,7 @@ class AdminDashboard extends Controller
             }
             // NOTIFICATIONS STATUS SUMMARY SECTION
             $notification = Notification::select("is_read")->get()->toArray();
+            $notificationReadOrNot =[]; 
             foreach ($notification as $fetchNotification) {
                 $notificationReadOrNot[] = $fetchNotification['is_read'];
             }
@@ -159,9 +154,10 @@ class AdminDashboard extends Controller
     {
 
         $arr2 = array();
-
-        if (!is_array($arr['0'])) {
-            $arr = array($arr);
+        if (!empty($arr)) {
+            if (!is_array($arr['0'])) {
+                $arr = array($arr);
+            }
         }
 
         foreach ($arr as $k => $v) {

@@ -63,7 +63,7 @@
                             <div class="progress-bar kt-bg-danger" role="progressbar" style="width: {{ $count['applicationCompleteCount'] }}%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                         <div class="kt-widget24__action">
-                            <a class="kt-widget24__change" href="{{ route('application.index') }}">
+                            <a class="kt-widget24__change" href="{{ route('application.showDashboardValues','applicationCompleteCount' ) }}">
                                 View
                             </a>
                         </div>
@@ -88,7 +88,7 @@
                             <div class="progress-bar kt-bg-danger" role="progressbar" style="width: {{ $count['applicationCount'] }}%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                         <div class="kt-widget24__action">
-                            <a class="kt-widget24__change" href="{{ route('application.index') }}">
+                            <a class="kt-widget24__change" href="{{ route('application.showDashboardValues','applicationCount' ) }}">
                                 View
                             </a>
                         </div>
@@ -141,7 +141,7 @@
                             <div class="progress-bar kt-bg-warning" role="progressbar" style="width: {{ $count['studentCount'] }}%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                         <div class="kt-widget24__action">
-                            <a class="kt-widget24__change" href="{{ route('application.index') }}">
+                            <a class="kt-widget24__change" href="{{ route('application.showDashboardValues','applicationCount' ) }}">
                                 View
                             </a>
                         </div>
@@ -178,7 +178,7 @@
                             <div class="progress-bar kt-bg-danger" role="progressbar" style="width: {{ $count['applicationCompleteCount'] }}%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                         <div class="kt-widget24__action">
-                            <a class="kt-widget24__change" href="{{ route('application.index') }}">
+                            <a class="kt-widget24__change" href="{{ route('application.showDashboardValues','applicationsAccepted' ) }}">
                                 View
                             </a>
                         </div>
@@ -201,7 +201,7 @@
                             <div class="progress-bar kt-bg-danger" role="progressbar" style="width: {{ $candidateStatuss['candidateStatusWaitListed'] }}%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                         <div class="kt-widget24__action">
-                            <a class="kt-widget24__change" href="{{ route('application.index') }}">
+                            <a class="kt-widget24__change" href="{{ route('application.showDashboardValues','applicationsWaitListed' ) }}">
                                 View
                             </a>
                         </div>
@@ -227,7 +227,7 @@
                             <div class="progress-bar kt-bg-danger" role="progressbar" style="width: {{ $candidateStatuss['candidateStatusRejected'] }}%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                         <div class="kt-widget24__action">
-                            <a class="kt-widget24__change" href="{{ route('application.index') }}">
+                            <a class="kt-widget24__change" href="{{ route('application.showDashboardValues','applicationsReject' ) }}">
                                 View
                             </a>
                         </div>
@@ -250,7 +250,7 @@
                             <div class="progress-bar kt-bg-danger" role="progressbar" style="width: {{ $candidateStatuss['TotalNotifications'] }}%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                         <div class="kt-widget24__action">
-                            <a class="kt-widget24__change" href="{{ route('application.index') }}">
+                            <a class="kt-widget24__change" href="{{ route('application.showDashboardValues','totalNotifications' ) }}">
                                 View
                             </a>
                         </div>
@@ -273,7 +273,7 @@
                             <div class="progress-bar kt-bg-danger" role="progressbar" style="width: {{ $candidateStatuss['candidateStatusNoDef'] }}%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                         <div class="kt-widget24__action">
-                            <a class="kt-widget24__change" href="{{ route('application.index') }}">
+                            <a class="kt-widget24__change" href="{{ route('application.showDashboardValues','candidateStatusNoDef' ) }}">
                                 View
                             </a>
                         </div>
@@ -316,7 +316,7 @@
                             <div class="progress-bar kt-bg-danger" role="progressbar" style="width: {{ $candidateStatuss['notificationNotRead'] }}%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                         <div class="kt-widget24__action">
-                            <a class="kt-widget24__change" href="{{ route('application.index') }}">
+                            <a class="kt-widget24__change" href="{{ route('application.showDashboardValues','notRead' ) }}">
                                 View
                             </a>
                         </div>
@@ -339,7 +339,7 @@
                             <div class="progress-bar kt-bg-danger" role="progressbar" style="width: {{ $candidateStatuss['notificationRead'] }}%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                         <div class="kt-widget24__action">
-                            <a class="kt-widget24__change" href="{{ route('application.index') }}">
+                            <a class="kt-widget24__change" href="{{ route('application.showDashboardValues','read' ) }}">
                                 View
                             </a>
                         </div>
@@ -365,7 +365,7 @@
                             <div class="progress-bar kt-bg-danger" role="progressbar" style="width:  {{ $candidateStatuss['applicationCompleteCount'] }}%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                         <div class="kt-widget24__action">
-                            <a class="kt-widget24__change" href="{{ route('application.index') }}">
+                            <a class="kt-widget24__change" href="{{ route('application.showDashboardValues','acceptedOffer' ) }}">
                                 View
                             </a>
                         </div>
@@ -388,7 +388,7 @@
                             <div class="progress-bar kt-bg-danger" role="progressbar" style="width: {{ $candidateStatuss['candidateStatusRejected'] }}%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                         <div class="kt-widget24__action">
-                            <a class="kt-widget24__change" href="{{ route('application.index') }}">
+                            <a class="kt-widget24__change" href="{{ route('application.showDashboardValues','rejectedOffer' ) }}">
                                 View
                             </a>
                         </div>
@@ -412,7 +412,7 @@
                             <div class="progress-bar kt-bg-danger" role="progressbar" style="width:  {{ $candidateStatuss['payment'] }}%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                         <div class="kt-widget24__action">
-                            <a class="kt-widget24__change" href="{{ route('application.index') }}">
+                            <a class="kt-widget24__change" href="{{ route('application.showDashboardValues','depositPaid' ) }}">
                                 View
                             </a>
                         </div>
@@ -456,7 +456,7 @@
                             <div class="progress-bar kt-bg-danger" role="progressbar" style="width: {{ $candidateStatuss['payment'] }}%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                         <div class="kt-widget24__action">
-                            <a class="kt-widget24__change" href="{{ route('application.index') }}">
+                            <a class="kt-widget24__change" href="{{ route('application.showDashboardValues','depositPaid' ) }}">
                                 View
                             </a>
                         </div>
@@ -479,7 +479,7 @@
                             <div class="progress-bar kt-bg-danger" role="progressbar" style="width:  {{ $candidateStatuss['payment'] }}%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                         <div class="kt-widget24__action">
-                            <a class="kt-widget24__change" href="{{ route('application.index') }}">
+                            <a class="kt-widget24__change" href="{{ route('application.showDashboardValues','depositPaid' ) }}">
                                 View
                             </a>
                         </div>
@@ -497,14 +497,14 @@
 
                             </div>
                             <span class="kt-widget24__stats kt-font-danger">
-                            {{ $count['studentCount'] -$candidateStatuss['payment'] }}
+                                {{ $count['studentCount'] -$candidateStatuss['payment'] }}
                             </span>
                         </div>
                         <div class="progress progress--sm">
                             <div class="progress-bar kt-bg-danger" role="progressbar" style="width: {{ $count['studentCount'] -$candidateStatuss['payment'] }}%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                         <div class="kt-widget24__action">
-                            <a class="kt-widget24__change" href="{{ route('application.index') }}">
+                            <a class="kt-widget24__change" href="{{ route('application.showDashboardValues','incompleteRegistration' ) }}">
                                 View
                             </a>
                         </div>
