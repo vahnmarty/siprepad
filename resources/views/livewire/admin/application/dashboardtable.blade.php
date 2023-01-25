@@ -1,20 +1,5 @@
 <div class="notification_action">
-    @if($notification == App\Models\Global_Notifiable::NOTIFICATION_ON)
-    <a href="{{ url('/admin/user/notify/')}}/{{App\Models\Profile::NOTIFICATION_ON}}/{{$notification}}" style="color: white; background: linear-gradient(180deg, #19a74d 0%, #002664 100%) !important;" class="btn btn-on mb-3">Notification On</a>
-    @else
-    <a href="{{ url('/admin/user/notify/')}}/{{App\Models\Profile::NOTIFICATION_OFF}}/{{$notification}}" style="color:white" class="btn btn-off mb-3">Notification Off</a>
-    @endif
-    @if($registeration == App\Models\GlobalRegisterable::REGISTRATION_ON)
-    <a href="{{ url('admin/user/registerable')}}/{{App\Models\Profile::REGISTERTATION_OFF}}/{{$registeration}}" style="color: white; background: linear-gradient(180deg, #19a74d 0%, #002664 100%) !important;" class="btn btn-on mb-3">Registration On</a>
-    @else
-    <a href="{{  url('admin/user/registerable')}}/{{App\Models\Profile::REGISTERTATION_ON}}/{{$registeration}}" style="color:white" class="btn btn-off mb-3">Registration Off</a>
-    @endif
 
-    @if($studentTransfer == App\Models\GlobalStudentTransfer::STUDENTTRANSFER_ON )
-    <a href="{{ url('admin/user/studentTransfer')}}/{{App\Models\Profile::STUDENTTRANSFER_OFF}}/{{$studentTransfer}}" style="color: white; background: linear-gradient(180deg, #19a74d 0%, #002664 100%) !important;" class="btn btn-on mb-3">Student Transfer On</a>
-    @else
-    <a href="{{  url('admin/user/studentTransfer')}}/{{App\Models\Profile::STUDENTTRANSFER_ON}}/{{$studentTransfer}}" style="color:white" class="btn btn-off mb-3">Student Transfer Off</a>
-    @endif
     <x-admin.table>
         <x-slot name="search">
             <x-slot name="thead">
@@ -89,7 +74,6 @@
                 @php
                 
                 $getApplication = App\Models\Application::where('Application_ID','=' ,$student['Application_ID'])
-                ->where('last_step_complete','=','ten')
                 ->get()->first();
                 if($getApplication){
                 $getStudent = App\Models\StudentInformation::where('Application_ID', $getApplication->Application_ID)

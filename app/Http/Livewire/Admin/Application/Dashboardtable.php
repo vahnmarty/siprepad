@@ -4,6 +4,9 @@ namespace App\Http\Livewire\Admin\Application;
 
 use App\Http\Livewire\Traits\AlertMessage;
 use App\Models\StudentInformation;
+use App\Models\Payment;
+use App\Models\StudentApplicationStatus;
+
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Pagination\Paginator;
@@ -27,24 +30,11 @@ class Dashboardtable extends Component
     public $notification;
     public $registeration;
     public $appStatus;
-    public $studentTransfer;
-    public function mount($app = Null,$notificationButton = null,$register = null ,$applicationstatus = null,$studentTransfer= null)
+    public $dashboardViewData;
+    public function mount($dashboardView = null)
     {
-        $this->appStatus = $applicationstatus;
-        $this->registeration = $register;
-        $this->studentTransfer = $studentTransfer;
-        $this->applications =$app;
-        $this->notification = $notificationButton;
-        $this->perPageList = [
-            ['value' => 5, 'text' => "5"],
-            ['value' => 10, 'text' => "10"],
-            ['value' => 20, 'text' => "20"],
-            ['value' => 50, 'text' => "50"],
-            ['value' => 100, 'text' => "100"]
-        ];
-        $this->status = request('status');
-        $this->first_name_sort_by = 'asc';
-        $this->last_name_sort_by = 'asc';
+
+        $this->dashboardViewData = $dashboardView;
     }
     public function getRandomColor()
     {
@@ -64,6 +54,7 @@ class Dashboardtable extends Component
 
     public function resetSearch()
     {
+
         $this->searchFirstName = "";
         $this->searchLastName = "";
         $this->searchEmail = "";
@@ -72,52 +63,218 @@ class Dashboardtable extends Component
 
     public function render()
     {
-        dd($this->applications);
-        //$this->first_name_sort_by = ($this->first_name_sort_by == 'asc') ? 'desc' : 'asc';
 
-        $dbQuery = StudentInformation::query();
+        if ($this->dashboardViewData == "applicationIncompleteCount") {
+            $dbQuery = StudentInformation::query();
+            $getData = $dbQuery
+                ->join('applications', function ($join) {
+                    $join->on('applications.Application_ID', '=', 'student_information.Application_ID')
+                        ->where('applications.status', '=', 0);
+                })
+                ->get();
+            $data = self::getStudentInfo($getData);
+            return view('livewire.admin.application.dashboardtable', ['students' => $data]);
+        } elseif ($this->dashboardViewData == "applicationCompleteCount") {
+            $dbQuery = StudentInformation::query();
+            $getData = $dbQuery
+                ->join('applications', function ($join) {
+                    $join->on('applications.Application_ID', '=', 'student_information.Application_ID')
+                        ->where('applications.status', '=', 1);
+                })
+                ->get();
+            $data = self::getStudentInfo($getData);
+            return view('livewire.admin.application.dashboardtable', ['students' => $data]);
+        } elseif ($this->dashboardViewData == "applicationCount") {
+            $dbQuery = StudentInformation::query();
+            $getData = $dbQuery
+                ->join('applications', function ($join) {
+                    $join->on('applications.Application_ID', '=', 'student_information.Application_ID');
+                })
+                ->get();
+            $data = self::getStudentInfo($getData);
+            return view('livewire.admin.application.dashboardtable', ['students' => $data]);
+        } elseif ($this->dashboardViewData == "applicationsAccepted") {
+            $dbQuery = StudentInformation::query();
+            $getData = $dbQuery
+                ->join('applications', function ($join) {
+                    $join->on('applications.Application_ID', '=', 'student_information.Application_ID');
+                })
+                ->get();
+            $StudentApplicationStatus = StudentApplicationStatus::get();
+            if (count($StudentApplicationStatus) > 0) {
+                $data = self::getApplicationsAccepted($getData, $StudentApplicationStatus, 1);
+                return view('livewire.admin.application.dashboardtable', ['students' => $data]);
+            } else {
+                $data = [];
+                return view('livewire.admin.application.dashboardtable', ['students' => $data]);
+            }
+        } elseif ($this->dashboardViewData == "applicationsWaitListed") {
+            $dbQuery = StudentInformation::query();
+            $getData = $dbQuery
+                ->join('applications', function ($join) {
+                    $join->on('applications.Application_ID', '=', 'student_information.Application_ID');
+                })
+                ->get();
+            $StudentApplicationStatus = StudentApplicationStatus::get();
 
-        if ($this->searchFirstName) {
-            $dbQuery->where(function ($query) {
-                $query->where('S1_First_Name', 'like', '%' . trim($this->searchFirstName) . '%')
-                    ->orWhere('S2_First_Name', 'like', '%' . trim($this->searchFirstName) . '%')
-                    ->orWhere('S3_First_Name', 'like', '%' . trim($this->searchFirstName) . '%');
-            });
+
+
+
+
+            if (count($StudentApplicationStatus) > 0) {
+                $data = self::getApplicationsAccepted($getData, $StudentApplicationStatus, 2);
+                return view('livewire.admin.application.dashboardtable', ['students' => $data]);
+            } else {
+                $data = [];
+                return view('livewire.admin.application.dashboardtable', ['students' => $data]);
+            }
+        } elseif ($this->dashboardViewData == "applicationsReject") {
+            $dbQuery = StudentInformation::query();
+            $getData = $dbQuery
+                ->join('applications', function ($join) {
+                    $join->on('applications.Application_ID', '=', 'student_information.Application_ID');
+                })
+                ->get();
+            $StudentApplicationStatus = StudentApplicationStatus::get();
+
+
+
+            if (count($StudentApplicationStatus) > 0) {
+                $data = self::getApplicationsAccepted($getData, $StudentApplicationStatus, 3);
+                return view('livewire.admin.application.dashboardtable', ['students' => $data]);
+            } else {
+                $data = [];
+                return view('livewire.admin.application.dashboardtable', ['students' => $data]);
+            }
+        } elseif ($this->dashboardViewData == "totalNotifications") {
+            $dbQuery = StudentInformation::query();
+            $getData = $dbQuery
+                ->join('applications', function ($join) {
+                    $join->on('applications.Application_ID', '=', 'student_information.Application_ID');
+                })
+                ->get();
+            $StudentApplicationStatus = StudentApplicationStatus::get();
+
+
+            if (count($StudentApplicationStatus) > 0) {
+                $data = self::getApplicationsAccepted($getData, $StudentApplicationStatus, 3);
+                return view('livewire.admin.application.dashboardtableNotification', ['students' => $data]);
+            } else {
+                $data = [];
+                return view('livewire.admin.application.dashboardtable', ['students' => $data]);
+            }
+        } elseif ($this->dashboardViewData == "candidateStatusNoDef") {
+            $dbQuery = StudentInformation::query();
+            $getData = $dbQuery
+                ->join('applications', function ($join) {
+                    $join->on('applications.Application_ID', '=', 'student_information.Application_ID');
+                })
+                ->get();
+            $StudentApplicationStatus = StudentApplicationStatus::get();
+            if (count($StudentApplicationStatus) > 0) {
+                $data = self::getApplicationsAccepted($getData, $StudentApplicationStatus, 0);
+                return view('livewire.admin.application.dashboardtable', ['students' => $data]);
+            } else {
+                $data = [];
+                return view('livewire.admin.application.dashboardtable', ['students' => $data]);
+            }
+        } elseif ($this->dashboardViewData == "notRead") {
+            $dbQuery = StudentInformation::query();
+            $getData = $dbQuery
+                ->join('applications', function ($join) {
+                    $join->on('applications.Application_ID', '=', 'student_information.Application_ID');
+                })
+                ->get();
+            $StudentApplicationStatus = StudentApplicationStatus::get();
+
+
+            if (count($StudentApplicationStatus) > 0) {
+                $data = self::getReadOrNotRead($getData, $StudentApplicationStatus, 0, '');
+                return view('livewire.admin.application.dashboardtable', ['students' => $data]);
+            } else {
+                $data = [];
+                return view('livewire.admin.application.dashboardtable', ['students' => $data]);
+            }
+        } elseif ($this->dashboardViewData == "read") {
+            $dbQuery = StudentInformation::query();
+            $getData = $dbQuery
+                ->join('applications', function ($join) {
+                    $join->on('applications.Application_ID', '=', 'student_information.Application_ID');
+                })
+                ->get();
+            $StudentApplicationStatus = StudentApplicationStatus::get();
+            if (count($StudentApplicationStatus) > 0) {
+                $data = self::getReadOrNotRead($getData, $StudentApplicationStatus, 0, '!');
+                return view('livewire.admin.application.dashboardtable', ['students' => $data]);
+            } else {
+                $data = [];
+                return view('livewire.admin.application.dashboardtable', ['students' => $data]);
+            }
+        } elseif ($this->dashboardViewData == "acceptedOffer") {
+            $dbQuery = StudentInformation::query();
+            $getData = $dbQuery
+                ->join('applications', function ($join) {
+                    $join->on('applications.Application_ID', '=', 'student_information.Application_ID');
+                })
+                ->get();
+            $StudentApplicationStatus = StudentApplicationStatus::get();
+
+
+
+            if (count($StudentApplicationStatus) > 0) {
+                $data = self::getCandidateAccepted($getData, $StudentApplicationStatus, 1);
+                return view('livewire.admin.application.dashboardtable', ['students' => $data]);
+            } else {
+                $data = [];
+                return view('livewire.admin.application.dashboardtable', ['students' => $data]);
+            }
+        } elseif ($this->dashboardViewData == "rejectedOffer") {
+            $dbQuery = StudentInformation::query();
+            $getData = $dbQuery
+                ->join('applications', function ($join) {
+                    $join->on('applications.Application_ID', '=', 'student_information.Application_ID');
+                })
+                ->get();
+            $StudentApplicationStatus = StudentApplicationStatus::get();
+
+
+            if (count($StudentApplicationStatus) > 0) {
+                $data = self::getCandidateAccepted($getData, $StudentApplicationStatus, 3);
+                return view('livewire.admin.application.dashboardtable', ['students' => $data]);
+            } else {
+                $data = [];
+                return view('livewire.admin.application.dashboardtable', ['students' => $data]);
+            }
+        } elseif ($this->dashboardViewData == "depositPaid") {
+            $dbQuery = Payment::get();
+
+            $data = self::getPayDepositCandidate($dbQuery);
+
+            return view('livewire.admin.application.dashboardtableDepositPay', ['students' => $data]);
+        } elseif ($this->dashboardViewData == "incompleteRegistration") {
+            $dbQueryPayment = Payment::get();
+            $dbQuery = StudentInformation::query();
+            $getData = $dbQuery->join('applications', 'applications.Application_ID', 'student_information.Application_ID')
+                ->select('student_information.*', 'applications.status', 'applications.last_step_complete')
+                ->orderBy('Application_ID', 'desc')
+                ->get();
+            if (count($dbQueryPayment) > 0) {
+                $data = self::getNotDepositPayment($getData, $dbQueryPayment);
+                return view('livewire.admin.application.dashboardtable', ['students' => $data]);
+            } else {
+                $data = [];
+                return view('livewire.admin.application.dashboardtable', ['students' => $data]);
+            }
+        } else {
+
+            $data = [];
+            return view('livewire.admin.application.dashboardtable', ['students' => $data]);
         }
-
-        if ($this->searchLastName) {
-            $dbQuery->where(function ($query) {
-                $query->where('S1_Last_Name', 'like', '%' . trim($this->searchLastName) . '%')
-                    ->orWhere('S2_Last_Name', 'like', '%' . trim($this->searchLastName) . '%')
-                    ->orWhere('S3_Last_Name', 'like', '%' . trim($this->searchLastName) . '%');
-            });
-        }
-
-        if ($this->searchEmail) {
-            $dbQuery->where(function ($query) {
-                $query->where('S1_Personal_Email', 'like', '%' . trim($this->searchEmail) . '%')
-                    ->orWhere('S2_Personal_Email', 'like', '%' . trim($this->searchEmail) . '%')
-                    ->orWhere('S3_Personal_Email', 'like', '%' . trim($this->searchEmail) . '%');
-            });
-        }
-
-        if ($this->searchPhone) {
-            $dbQuery->where(function ($query) {
-                $query->where('S1_Mobile_Phone', 'like', '%' . trim($this->searchPhone) . '%')
-                    ->orWhere('S2_Mobile_Phone', 'like', '%' . trim($this->searchPhone) . '%')
-                    ->orWhere('S3_Mobile_Phone', 'like', '%' . trim($this->searchPhone) . '%');
-            });
-        }
-
-        $getData = $dbQuery->join('applications', 'applications.Application_ID', 'student_information.Application_ID')
-            ->select('student_information.*', 'applications.status', 'applications.last_step_complete')
-            ->orderBy('Application_ID', 'desc')
-            ->get();
-        //dd($getData);
-
+    }
+    private function getStudentInfo($getData)
+    {
         if (count($getData) > 0) {
             foreach ($getData as $key => $getStudentInfo) {
-
                 $student1 = [
                     "Application_ID" => $getStudentInfo->Application_ID,
                     "Photo" =>  $getStudentInfo->S1_Photo,
@@ -140,9 +297,8 @@ class Dashboardtable extends Component
                     "Other_High_School_4" =>  $getStudentInfo->S1_Other_High_School_4,
                     "last_step_complete" => $getStudentInfo->last_step_complete,
                     "status" => $getStudentInfo->status,
-                    "student_type"=>Application::STUDENT_ONE
+                    "student_type" => Application::STUDENT_ONE
                 ];
-
                 $student2 = [
                     "Application_ID" => $getStudentInfo->Application_ID,
                     "Photo" =>  $getStudentInfo->S2_Photo,
@@ -165,10 +321,9 @@ class Dashboardtable extends Component
                     "Other_High_School_4" =>  $getStudentInfo->S2_Other_High_School_4,
                     "last_step_complete" => $getStudentInfo->last_step_complete,
                     "status" => $getStudentInfo->status,
-                    "student_type"=>Application::STUDENT_TWO
+                    "student_type" => Application::STUDENT_TWO
 
                 ];
-
                 $student3 = [
                     "Application_ID" => $getStudentInfo->Application_ID,
                     "Photo" =>  $getStudentInfo->S3_Photo,
@@ -191,15 +346,253 @@ class Dashboardtable extends Component
                     "Other_High_School_4" =>  $getStudentInfo->S3_Other_High_School_4,
                     "last_step_complete" => $getStudentInfo->last_step_complete,
                     "status" => $getStudentInfo->status,
-                    "student_type"=>Application::STUDENT_THREE
+                    "student_type" => Application::STUDENT_THREE
 
                 ];
-
                 $studentArr[] = $getStudentInfo->S1_First_Name ? $student1 : null;
                 $studentArr[] = $getStudentInfo->S2_First_Name ? $student2 : null;
                 $studentArr[] = $getStudentInfo->S3_First_Name ? $student3 : null;
 
-                //dd($studentArr);
+                $studentInfo = [];
+                foreach ($studentArr as $student) {
+                    if (!is_null($student)) {
+                        array_push($studentInfo, $student);
+                    }
+                }
+            }
+        } else {
+            $studentInfo = [];
+        }
+        $myCollectionObj = collect($studentInfo);
+        return $data = $this->paginate($myCollectionObj, $this->perPage);
+    }
+    private function getApplicationsAccepted($getData, $StudentApplicationStatus, $applicationType)
+    {
+
+        foreach ($StudentApplicationStatus as $key => $StudentApplicationStatusResult) {
+            $StudentApplicationStatusResults[$key]['s1_application_status'] = $StudentApplicationStatusResult['s1_application_status'];
+            $StudentApplicationStatusResults[$key]['s2_application_status'] = $StudentApplicationStatusResult['s2_application_status'];
+            $StudentApplicationStatusResults[$key]['s3_application_status'] = $StudentApplicationStatusResult['s3_application_status'];
+            $StudentApplicationStatusResults[$key]['application_id'] = $StudentApplicationStatusResult['application_id'];
+        }
+        if (count($getData) > 0) {
+            foreach ($getData as $key => $getStudentInfo) {
+                $student1 = [
+                    "Application_ID" => $getStudentInfo->Application_ID,
+                    "Photo" =>  $getStudentInfo->S1_Photo,
+                    "First_Name" => Str::lower($getStudentInfo->S1_First_Name),
+                    "Middle_Name" =>  $getStudentInfo->S1_Middle_Name,
+                    "Last_Name" =>  Str::lower($getStudentInfo->S1_Last_Name),
+                    "Suffix" =>  $getStudentInfo->S1_Suffix,
+                    "Preferred_First_Name" =>  $getStudentInfo->S1_Preferred_First_Name,
+                    "Birthday" =>  $getStudentInfo->S1_Birthdate,
+                    "Gender" =>  $getStudentInfo->S1_Gender,
+                    "Personal_Email" =>  $getStudentInfo->S1_Personal_Email,
+                    "Mobile_Phone" =>  $getStudentInfo->S1_Mobile_Phone,
+                    "Race" => $getStudentInfo->S1_Race,
+                    "Ethnicity" =>  $getStudentInfo->S1_Ethnicity,
+                    "Current_School" =>  $getStudentInfo->S1_Current_School,
+                    "Current_School_Not_Listed" =>  $getStudentInfo->S1_Current_School_Not_Listed,
+                    "Other_High_School_1" =>  $getStudentInfo->S1_Other_High_School_1,
+                    "Other_High_School_2" =>  $getStudentInfo->S1_Other_High_School_2,
+                    "Other_High_School_3" =>  $getStudentInfo->S1_Other_High_School_3,
+                    "Other_High_School_4" =>  $getStudentInfo->S1_Other_High_School_4,
+                    "last_step_complete" => $getStudentInfo->last_step_complete,
+                    "status" => $getStudentInfo->status,
+                    "student_type" => Application::STUDENT_ONE
+                ];
+                $student2 = [
+                    "Application_ID" => $getStudentInfo->Application_ID,
+                    "Photo" =>  $getStudentInfo->S2_Photo,
+                    "First_Name" => Str::lower($getStudentInfo->S2_First_Name),
+                    "Middle_Name" =>  $getStudentInfo->S2_Middle_Name,
+                    "Last_Name" =>  Str::lower($getStudentInfo->S2_Last_Name),
+                    "Suffix" =>  $getStudentInfo->S2_Suffix,
+                    "Preferred_First_Name" =>  $getStudentInfo->S2_Preferred_First_Name,
+                    "Birthday" =>  $getStudentInfo->S2_Birthdate,
+                    "Gender" =>  $getStudentInfo->S2_Gender,
+                    "Personal_Email" =>  $getStudentInfo->S2_Personal_Email,
+                    "Mobile_Phone" =>  $getStudentInfo->S2_Mobile_Phone,
+                    "Race" =>  $getStudentInfo->S2_Race,
+                    "Ethnicity" =>  $getStudentInfo->S2_Ethnicity,
+                    "Current_School" =>  $getStudentInfo->S2_Current_School,
+                    "Current_School_Not_Listed" =>  $getStudentInfo->S2_Current_School_Not_Listed,
+                    "Other_High_School_1" =>  $getStudentInfo->S2_Other_High_School_1,
+                    "Other_High_School_2" =>  $getStudentInfo->S2_Other_High_School_2,
+                    "Other_High_School_3" =>  $getStudentInfo->S2_Other_High_School_3,
+                    "Other_High_School_4" =>  $getStudentInfo->S2_Other_High_School_4,
+                    "last_step_complete" => $getStudentInfo->last_step_complete,
+                    "status" => $getStudentInfo->status,
+                    "student_type" => Application::STUDENT_TWO
+
+                ];
+                $student3 = [
+                    "Application_ID" => $getStudentInfo->Application_ID,
+                    "Photo" =>  $getStudentInfo->S3_Photo,
+                    "First_Name" => Str::lower($getStudentInfo->S3_First_Name),
+                    "Middle_Name" =>  $getStudentInfo->S3_Middle_Name,
+                    "Last_Name" =>  Str::lower($getStudentInfo->S3_Last_Name),
+                    "Suffix" =>  $getStudentInfo->S3_Suffix,
+                    "Preferred_First_Name" =>  $getStudentInfo->S3_Preferred_First_Name,
+                    "Birthday" =>  $getStudentInfo->S3_Birthdate,
+                    "Gender" =>  $getStudentInfo->S3_Gender,
+                    "Personal_Email" =>  $getStudentInfo->S3_Personal_Email,
+                    "Mobile_Phone" =>  $getStudentInfo->S3_Mobile_Phone,
+                    "Race" =>  $getStudentInfo->S3_Race,
+                    "Ethnicity" =>  $getStudentInfo->S3_Ethnicity,
+                    "Current_School" =>  $getStudentInfo->S3_Current_School,
+                    "Current_School_Not_Listed" =>  $getStudentInfo->S3_Current_School_Not_Listed,
+                    "Other_High_School_1" =>  $getStudentInfo->S3_Other_High_School_1,
+                    "Other_High_School_2" =>  $getStudentInfo->S3_Other_High_School_2,
+                    "Other_High_School_3" =>  $getStudentInfo->S3_Other_High_School_3,
+                    "Other_High_School_4" =>  $getStudentInfo->S3_Other_High_School_4,
+                    "last_step_complete" => $getStudentInfo->last_step_complete,
+                    "status" => $getStudentInfo->status,
+                    "student_type" => Application::STUDENT_THREE
+
+                ];
+                foreach ($StudentApplicationStatusResults as $result) {
+                    if ($getStudentInfo->Application_ID == $result['application_id']) {
+                        if ($result['s1_application_status'] == $applicationType) {
+                            $studentArr[] = $getStudentInfo->S1_First_Name ? $student1 : null;
+                        } else {
+
+                            $studentArr[] = $student1 = null;
+                        }
+                        if ($result['s2_application_status'] == $applicationType) {
+                            $studentArr[] = $getStudentInfo->S2_First_Name ? $student2 : null;
+                        } else {
+
+                            $studentArr[] = $student1 = null;
+                        }
+                        if ($result['s3_application_status'] == $applicationType) {
+                            $studentArr[] = $getStudentInfo->S3_First_Name ? $student3 : null;
+                        } else {
+
+                            $studentArr[] = $student1 = null;
+                            $studentArr[] = $student2 = null;
+                            $studentArr[] = $student3 = null;
+                        }
+                    }
+                }
+                $studentInfo = [];
+                foreach ($studentArr as $student) {
+                    if (!is_null($student)) {
+                        array_push($studentInfo, $student);
+                    }
+                }
+            }
+        } else {
+            $studentInfo = [];
+        }
+        $myCollectionObj = collect($studentInfo);
+        return $data = $this->paginate($myCollectionObj, $this->perPage);
+    }
+    private function getNotDepositPayment($getData, $StudentApplicationStatus)
+    {
+
+        foreach ($StudentApplicationStatus as $key => $StudentApplicationStatusResult) {
+            $StudentApplicationStatusResults[$key]['s1_application_status'] = $StudentApplicationStatusResult['student'];
+            $StudentApplicationStatusResults[$key]['application_id'] = $StudentApplicationStatusResult['application_id'];
+        }
+        if (count($getData) > 0) {
+            foreach ($getData as $key => $getStudentInfo) {
+                $student1 = [
+                    "Application_ID" => $getStudentInfo->Application_ID,
+                    "Photo" =>  $getStudentInfo->S1_Photo,
+                    "First_Name" => Str::lower($getStudentInfo->S1_First_Name),
+                    "Middle_Name" =>  $getStudentInfo->S1_Middle_Name,
+                    "Last_Name" =>  Str::lower($getStudentInfo->S1_Last_Name),
+                    "Suffix" =>  $getStudentInfo->S1_Suffix,
+                    "Preferred_First_Name" =>  $getStudentInfo->S1_Preferred_First_Name,
+                    "Birthday" =>  $getStudentInfo->S1_Birthdate,
+                    "Gender" =>  $getStudentInfo->S1_Gender,
+                    "Personal_Email" =>  $getStudentInfo->S1_Personal_Email,
+                    "Mobile_Phone" =>  $getStudentInfo->S1_Mobile_Phone,
+                    "Race" => $getStudentInfo->S1_Race,
+                    "Ethnicity" =>  $getStudentInfo->S1_Ethnicity,
+                    "Current_School" =>  $getStudentInfo->S1_Current_School,
+                    "Current_School_Not_Listed" =>  $getStudentInfo->S1_Current_School_Not_Listed,
+                    "Other_High_School_1" =>  $getStudentInfo->S1_Other_High_School_1,
+                    "Other_High_School_2" =>  $getStudentInfo->S1_Other_High_School_2,
+                    "Other_High_School_3" =>  $getStudentInfo->S1_Other_High_School_3,
+                    "Other_High_School_4" =>  $getStudentInfo->S1_Other_High_School_4,
+                    "last_step_complete" => $getStudentInfo->last_step_complete,
+                    "status" => $getStudentInfo->status,
+                    "student_type" => Application::STUDENT_ONE
+                ];
+                $student2 = [
+                    "Application_ID" => $getStudentInfo->Application_ID,
+                    "Photo" =>  $getStudentInfo->S2_Photo,
+                    "First_Name" => Str::lower($getStudentInfo->S2_First_Name),
+                    "Middle_Name" =>  $getStudentInfo->S2_Middle_Name,
+                    "Last_Name" =>  Str::lower($getStudentInfo->S2_Last_Name),
+                    "Suffix" =>  $getStudentInfo->S2_Suffix,
+                    "Preferred_First_Name" =>  $getStudentInfo->S2_Preferred_First_Name,
+                    "Birthday" =>  $getStudentInfo->S2_Birthdate,
+                    "Gender" =>  $getStudentInfo->S2_Gender,
+                    "Personal_Email" =>  $getStudentInfo->S2_Personal_Email,
+                    "Mobile_Phone" =>  $getStudentInfo->S2_Mobile_Phone,
+                    "Race" =>  $getStudentInfo->S2_Race,
+                    "Ethnicity" =>  $getStudentInfo->S2_Ethnicity,
+                    "Current_School" =>  $getStudentInfo->S2_Current_School,
+                    "Current_School_Not_Listed" =>  $getStudentInfo->S2_Current_School_Not_Listed,
+                    "Other_High_School_1" =>  $getStudentInfo->S2_Other_High_School_1,
+                    "Other_High_School_2" =>  $getStudentInfo->S2_Other_High_School_2,
+                    "Other_High_School_3" =>  $getStudentInfo->S2_Other_High_School_3,
+                    "Other_High_School_4" =>  $getStudentInfo->S2_Other_High_School_4,
+                    "last_step_complete" => $getStudentInfo->last_step_complete,
+                    "status" => $getStudentInfo->status,
+                    "student_type" => Application::STUDENT_TWO
+
+                ];
+                $student3 = [
+                    "Application_ID" => $getStudentInfo->Application_ID,
+                    "Photo" =>  $getStudentInfo->S3_Photo,
+                    "First_Name" => Str::lower($getStudentInfo->S3_First_Name),
+                    "Middle_Name" =>  $getStudentInfo->S3_Middle_Name,
+                    "Last_Name" =>  Str::lower($getStudentInfo->S3_Last_Name),
+                    "Suffix" =>  $getStudentInfo->S3_Suffix,
+                    "Preferred_First_Name" =>  $getStudentInfo->S3_Preferred_First_Name,
+                    "Birthday" =>  $getStudentInfo->S3_Birthdate,
+                    "Gender" =>  $getStudentInfo->S3_Gender,
+                    "Personal_Email" =>  $getStudentInfo->S3_Personal_Email,
+                    "Mobile_Phone" =>  $getStudentInfo->S3_Mobile_Phone,
+                    "Race" =>  $getStudentInfo->S3_Race,
+                    "Ethnicity" =>  $getStudentInfo->S3_Ethnicity,
+                    "Current_School" =>  $getStudentInfo->S3_Current_School,
+                    "Current_School_Not_Listed" =>  $getStudentInfo->S3_Current_School_Not_Listed,
+                    "Other_High_School_1" =>  $getStudentInfo->S3_Other_High_School_1,
+                    "Other_High_School_2" =>  $getStudentInfo->S3_Other_High_School_2,
+                    "Other_High_School_3" =>  $getStudentInfo->S3_Other_High_School_3,
+                    "Other_High_School_4" =>  $getStudentInfo->S3_Other_High_School_4,
+                    "last_step_complete" => $getStudentInfo->last_step_complete,
+                    "status" => $getStudentInfo->status,
+                    "student_type" => Application::STUDENT_THREE
+
+                ];
+                $studentArr = [];
+                foreach ($StudentApplicationStatusResults as $result) {
+                    if ($getStudentInfo->Application_ID == $result['application_id']) {
+                        if (!$result['s1_application_status'] == 's1') {
+                            $studentArr[] = $student1 = null;
+                        } else {
+
+                            $studentArr[] = $getStudentInfo->S1_First_Name ? $student1 : null;
+                        }
+                        if ($result['s1_application_status'] == 's2') {
+                            $studentArr[] = $student1 = null;
+                        } else {
+                            $studentArr[] = $getStudentInfo->S2_First_Name ? $student2 : null;
+                        }
+                        if ($result['s1_application_status'] == 's3') {
+                            $studentArr[] = $student3 = null;
+                        } else {
+
+                            $studentArr[] = $getStudentInfo->S3_First_Name ? $student3 : null;
+                        }
+                    }
+                }
                 $studentInfo = [];
                 foreach ($studentArr as $student) {
                     if (!is_null($student)) {
@@ -211,49 +604,307 @@ class Dashboardtable extends Component
             $studentInfo = [];
         }
 
-        if ($this->searchFirstName) {
-            $studentInfo = $this->searchArray($studentInfo, 'First_Name', Str::lower(trim($this->searchFirstName)));
-            //dd($studentInfo);
+        $myCollectionObj = collect($studentInfo);
+        return $data = $this->paginate($myCollectionObj, $this->perPage);
+    }
+    private function getPayDepositCandidate($getData)
+    {
+        if (count($getData) > 0) {
+            foreach ($getData as $key => $getStudentInfo) {
+                $student1 = [
+                    "Application_ID" => $getStudentInfo->Application_ID,
+                    "Photo" =>  $getStudentInfo->S1_Photo,
+                    "student_dob" => Str::lower($getStudentInfo->student_dob),
+                    "student_name" =>  $getStudentInfo->student_name,
+                    "email" =>  Str::lower($getStudentInfo->student_email)
+                ];
+
+                $studentArr[] = $getStudentInfo->S1_First_Name ? $student1 : null;
+
+                $studentInfo = [];
+                foreach ($studentArr as $student) {
+                    if (!is_null($student)) {
+                        array_push($studentInfo, $student);
+                    }
+                }
+            }
+        } else {
+            $studentInfo = [];
         }
-        if ($this->searchLastName) {
-            $studentInfo = $this->searchArray($studentInfo, 'Last_Name', Str::lower(trim($this->searchLastName)));
-            //dd($studentInfo);
+        $myCollectionObj = collect($studentInfo);
+        return $data = $this->paginate($myCollectionObj, $this->perPage);
+    }
+    private function getCandidateAccepted($getData, $StudentApplicationStatus, $applicationType)
+    {
+
+        foreach ($StudentApplicationStatus as $key => $StudentApplicationStatusResult) {
+            $StudentApplicationStatusResults[$key]['s1_application_status'] = $StudentApplicationStatusResult['s1_candidate_status'];
+            $StudentApplicationStatusResults[$key]['s2_application_status'] = $StudentApplicationStatusResult['s2_candidate_status'];
+            $StudentApplicationStatusResults[$key]['s3_application_status'] = $StudentApplicationStatusResult['s3_candidate_status'];
+            $StudentApplicationStatusResults[$key]['application_id'] = $StudentApplicationStatusResult['application_id'];
         }
-        if ($this->searchEmail) {
-            $studentInfo = $this->searchArray($studentInfo, 'Personal_Email', Str::lower(trim($this->searchEmail)));
-            //dd($studentInfo);
+        if (count($getData) > 0) {
+            foreach ($getData as $key => $getStudentInfo) {
+                $student1 = [
+                    "Application_ID" => $getStudentInfo->Application_ID,
+                    "Photo" =>  $getStudentInfo->S1_Photo,
+                    "First_Name" => Str::lower($getStudentInfo->S1_First_Name),
+                    "Middle_Name" =>  $getStudentInfo->S1_Middle_Name,
+                    "Last_Name" =>  Str::lower($getStudentInfo->S1_Last_Name),
+                    "Suffix" =>  $getStudentInfo->S1_Suffix,
+                    "Preferred_First_Name" =>  $getStudentInfo->S1_Preferred_First_Name,
+                    "Birthday" =>  $getStudentInfo->S1_Birthdate,
+                    "Gender" =>  $getStudentInfo->S1_Gender,
+                    "Personal_Email" =>  $getStudentInfo->S1_Personal_Email,
+                    "Mobile_Phone" =>  $getStudentInfo->S1_Mobile_Phone,
+                    "Race" => $getStudentInfo->S1_Race,
+                    "Ethnicity" =>  $getStudentInfo->S1_Ethnicity,
+                    "Current_School" =>  $getStudentInfo->S1_Current_School,
+                    "Current_School_Not_Listed" =>  $getStudentInfo->S1_Current_School_Not_Listed,
+                    "Other_High_School_1" =>  $getStudentInfo->S1_Other_High_School_1,
+                    "Other_High_School_2" =>  $getStudentInfo->S1_Other_High_School_2,
+                    "Other_High_School_3" =>  $getStudentInfo->S1_Other_High_School_3,
+                    "Other_High_School_4" =>  $getStudentInfo->S1_Other_High_School_4,
+                    "last_step_complete" => $getStudentInfo->last_step_complete,
+                    "status" => $getStudentInfo->status,
+                    "student_type" => Application::STUDENT_ONE
+                ];
+                $student2 = [
+                    "Application_ID" => $getStudentInfo->Application_ID,
+                    "Photo" =>  $getStudentInfo->S2_Photo,
+                    "First_Name" => Str::lower($getStudentInfo->S2_First_Name),
+                    "Middle_Name" =>  $getStudentInfo->S2_Middle_Name,
+                    "Last_Name" =>  Str::lower($getStudentInfo->S2_Last_Name),
+                    "Suffix" =>  $getStudentInfo->S2_Suffix,
+                    "Preferred_First_Name" =>  $getStudentInfo->S2_Preferred_First_Name,
+                    "Birthday" =>  $getStudentInfo->S2_Birthdate,
+                    "Gender" =>  $getStudentInfo->S2_Gender,
+                    "Personal_Email" =>  $getStudentInfo->S2_Personal_Email,
+                    "Mobile_Phone" =>  $getStudentInfo->S2_Mobile_Phone,
+                    "Race" =>  $getStudentInfo->S2_Race,
+                    "Ethnicity" =>  $getStudentInfo->S2_Ethnicity,
+                    "Current_School" =>  $getStudentInfo->S2_Current_School,
+                    "Current_School_Not_Listed" =>  $getStudentInfo->S2_Current_School_Not_Listed,
+                    "Other_High_School_1" =>  $getStudentInfo->S2_Other_High_School_1,
+                    "Other_High_School_2" =>  $getStudentInfo->S2_Other_High_School_2,
+                    "Other_High_School_3" =>  $getStudentInfo->S2_Other_High_School_3,
+                    "Other_High_School_4" =>  $getStudentInfo->S2_Other_High_School_4,
+                    "last_step_complete" => $getStudentInfo->last_step_complete,
+                    "status" => $getStudentInfo->status,
+                    "student_type" => Application::STUDENT_TWO
+
+                ];
+                $student3 = [
+                    "Application_ID" => $getStudentInfo->Application_ID,
+                    "Photo" =>  $getStudentInfo->S3_Photo,
+                    "First_Name" => Str::lower($getStudentInfo->S3_First_Name),
+                    "Middle_Name" =>  $getStudentInfo->S3_Middle_Name,
+                    "Last_Name" =>  Str::lower($getStudentInfo->S3_Last_Name),
+                    "Suffix" =>  $getStudentInfo->S3_Suffix,
+                    "Preferred_First_Name" =>  $getStudentInfo->S3_Preferred_First_Name,
+                    "Birthday" =>  $getStudentInfo->S3_Birthdate,
+                    "Gender" =>  $getStudentInfo->S3_Gender,
+                    "Personal_Email" =>  $getStudentInfo->S3_Personal_Email,
+                    "Mobile_Phone" =>  $getStudentInfo->S3_Mobile_Phone,
+                    "Race" =>  $getStudentInfo->S3_Race,
+                    "Ethnicity" =>  $getStudentInfo->S3_Ethnicity,
+                    "Current_School" =>  $getStudentInfo->S3_Current_School,
+                    "Current_School_Not_Listed" =>  $getStudentInfo->S3_Current_School_Not_Listed,
+                    "Other_High_School_1" =>  $getStudentInfo->S3_Other_High_School_1,
+                    "Other_High_School_2" =>  $getStudentInfo->S3_Other_High_School_2,
+                    "Other_High_School_3" =>  $getStudentInfo->S3_Other_High_School_3,
+                    "Other_High_School_4" =>  $getStudentInfo->S3_Other_High_School_4,
+                    "last_step_complete" => $getStudentInfo->last_step_complete,
+                    "status" => $getStudentInfo->status,
+                    "student_type" => Application::STUDENT_THREE
+
+                ];
+                foreach ($StudentApplicationStatusResults as $result) {
+                    if ($getStudentInfo->Application_ID == $result['application_id']) {
+                        if ($result['s1_application_status'] == $applicationType) {
+                            $studentArr[] = $getStudentInfo->S1_First_Name ? $student1 : null;
+                        } else {
+
+                            $studentArr[] = $student1 = null;
+                        }
+                        if ($result['s2_application_status'] == $applicationType) {
+                            $studentArr[] = $getStudentInfo->S2_First_Name ? $student2 : null;
+                        } else {
+
+                            $studentArr[] = $student1 = null;
+                        }
+                        if ($result['s3_application_status'] == $applicationType) {
+                            $studentArr[] = $getStudentInfo->S3_First_Name ? $student3 : null;
+                        } else {
+
+                            $studentArr[] = $student1 = null;
+                            $studentArr[] = $student2 = null;
+                            $studentArr[] = $student3 = null;
+                        }
+                    }
+                }
+                $studentInfo = [];
+                foreach ($studentArr as $student) {
+                    if (!is_null($student)) {
+                        array_push($studentInfo, $student);
+                    }
+                }
+            }
+        } else {
+            $studentInfo = [];
         }
-        if ($this->searchPhone) {
-            $studentInfo = $this->searchArray($studentInfo, 'Mobile_Phone', Str::lower(trim($this->searchPhone)));
-            //dd($studentInfo);
+        $myCollectionObj = collect($studentInfo);
+        return $data = $this->paginate($myCollectionObj, $this->perPage);
+    }
+    private function getReadOrNotRead($getData, $StudentApplicationStatus, $applicationType, $notNullOrNull)
+    {
+
+        foreach ($StudentApplicationStatus as $key => $StudentApplicationStatusResult) {
+            $StudentApplicationStatusResults[$key]['s1_application_status'] = $StudentApplicationStatusResult['s1_candidate_status'];
+            $StudentApplicationStatusResults[$key]['s2_application_status'] = $StudentApplicationStatusResult['s2_candidate_status'];
+            $StudentApplicationStatusResults[$key]['s3_application_status'] = $StudentApplicationStatusResult['s3_candidate_status'];
+            $StudentApplicationStatusResults[$key]['application_id'] = $StudentApplicationStatusResult['application_id'];
         }
 
-        //dd($this->first_name_sort_by);
-        if ($this->first_name_sort) {
-            $First_Name = array_column($studentInfo, 'First_Name');
-            if ($this->first_name_sort_by == "asc") {
-                array_multisort($First_Name, SORT_ASC, $studentInfo);
-            } else {
-                array_multisort($First_Name, SORT_DESC, $studentInfo);
-            }
-        }
+        if (count($getData) > 0) {
+            foreach ($getData as $key => $getStudentInfo) {
+                $student1 = [
+                    "Application_ID" => $getStudentInfo->Application_ID,
+                    "Photo" =>  $getStudentInfo->S1_Photo,
+                    "First_Name" => Str::lower($getStudentInfo->S1_First_Name),
+                    "Middle_Name" =>  $getStudentInfo->S1_Middle_Name,
+                    "Last_Name" =>  Str::lower($getStudentInfo->S1_Last_Name),
+                    "Suffix" =>  $getStudentInfo->S1_Suffix,
+                    "Preferred_First_Name" =>  $getStudentInfo->S1_Preferred_First_Name,
+                    "Birthday" =>  $getStudentInfo->S1_Birthdate,
+                    "Gender" =>  $getStudentInfo->S1_Gender,
+                    "Personal_Email" =>  $getStudentInfo->S1_Personal_Email,
+                    "Mobile_Phone" =>  $getStudentInfo->S1_Mobile_Phone,
+                    "Race" => $getStudentInfo->S1_Race,
+                    "Ethnicity" =>  $getStudentInfo->S1_Ethnicity,
+                    "Current_School" =>  $getStudentInfo->S1_Current_School,
+                    "Current_School_Not_Listed" =>  $getStudentInfo->S1_Current_School_Not_Listed,
+                    "Other_High_School_1" =>  $getStudentInfo->S1_Other_High_School_1,
+                    "Other_High_School_2" =>  $getStudentInfo->S1_Other_High_School_2,
+                    "Other_High_School_3" =>  $getStudentInfo->S1_Other_High_School_3,
+                    "Other_High_School_4" =>  $getStudentInfo->S1_Other_High_School_4,
+                    "last_step_complete" => $getStudentInfo->last_step_complete,
+                    "status" => $getStudentInfo->status,
+                    "student_type" => Application::STUDENT_ONE
+                ];
+                $student2 = [
+                    "Application_ID" => $getStudentInfo->Application_ID,
+                    "Photo" =>  $getStudentInfo->S2_Photo,
+                    "First_Name" => Str::lower($getStudentInfo->S2_First_Name),
+                    "Middle_Name" =>  $getStudentInfo->S2_Middle_Name,
+                    "Last_Name" =>  Str::lower($getStudentInfo->S2_Last_Name),
+                    "Suffix" =>  $getStudentInfo->S2_Suffix,
+                    "Preferred_First_Name" =>  $getStudentInfo->S2_Preferred_First_Name,
+                    "Birthday" =>  $getStudentInfo->S2_Birthdate,
+                    "Gender" =>  $getStudentInfo->S2_Gender,
+                    "Personal_Email" =>  $getStudentInfo->S2_Personal_Email,
+                    "Mobile_Phone" =>  $getStudentInfo->S2_Mobile_Phone,
+                    "Race" =>  $getStudentInfo->S2_Race,
+                    "Ethnicity" =>  $getStudentInfo->S2_Ethnicity,
+                    "Current_School" =>  $getStudentInfo->S2_Current_School,
+                    "Current_School_Not_Listed" =>  $getStudentInfo->S2_Current_School_Not_Listed,
+                    "Other_High_School_1" =>  $getStudentInfo->S2_Other_High_School_1,
+                    "Other_High_School_2" =>  $getStudentInfo->S2_Other_High_School_2,
+                    "Other_High_School_3" =>  $getStudentInfo->S2_Other_High_School_3,
+                    "Other_High_School_4" =>  $getStudentInfo->S2_Other_High_School_4,
+                    "last_step_complete" => $getStudentInfo->last_step_complete,
+                    "status" => $getStudentInfo->status,
+                    "student_type" => Application::STUDENT_TWO
 
-        if ($this->last_name_sort) {
-            $Last_Name = array_column($studentInfo, 'Last_Name');
-            if ($this->last_name_sort_by == "asc") {
-                array_multisort($Last_Name, SORT_ASC, $studentInfo);
-            } else {
-                array_multisort($Last_Name, SORT_DESC, $studentInfo);
+                ];
+                $student3 = [
+                    "Application_ID" => $getStudentInfo->Application_ID,
+                    "Photo" =>  $getStudentInfo->S3_Photo,
+                    "First_Name" => Str::lower($getStudentInfo->S3_First_Name),
+                    "Middle_Name" =>  $getStudentInfo->S3_Middle_Name,
+                    "Last_Name" =>  Str::lower($getStudentInfo->S3_Last_Name),
+                    "Suffix" =>  $getStudentInfo->S3_Suffix,
+                    "Preferred_First_Name" =>  $getStudentInfo->S3_Preferred_First_Name,
+                    "Birthday" =>  $getStudentInfo->S3_Birthdate,
+                    "Gender" =>  $getStudentInfo->S3_Gender,
+                    "Personal_Email" =>  $getStudentInfo->S3_Personal_Email,
+                    "Mobile_Phone" =>  $getStudentInfo->S3_Mobile_Phone,
+                    "Race" =>  $getStudentInfo->S3_Race,
+                    "Ethnicity" =>  $getStudentInfo->S3_Ethnicity,
+                    "Current_School" =>  $getStudentInfo->S3_Current_School,
+                    "Current_School_Not_Listed" =>  $getStudentInfo->S3_Current_School_Not_Listed,
+                    "Other_High_School_1" =>  $getStudentInfo->S3_Other_High_School_1,
+                    "Other_High_School_2" =>  $getStudentInfo->S3_Other_High_School_2,
+                    "Other_High_School_3" =>  $getStudentInfo->S3_Other_High_School_3,
+                    "Other_High_School_4" =>  $getStudentInfo->S3_Other_High_School_4,
+                    "last_step_complete" => $getStudentInfo->last_step_complete,
+                    "status" => $getStudentInfo->status,
+                    "student_type" => Application::STUDENT_THREE
+
+                ];
+                foreach ($StudentApplicationStatusResults as $result) {
+                    if ($getStudentInfo->Application_ID == $result['application_id']) {
+                        if ($notNullOrNull == "!") {
+                            if (!$result['s1_application_status'] == $applicationType) {
+                                $studentArr[] = $getStudentInfo->S1_First_Name ? $student1 : null;
+                            } else {
+
+                                $studentArr[] = $student1 = null;
+                            }
+                            if (!$result['s2_application_status'] == $applicationType) {
+                                $studentArr[] = $getStudentInfo->S2_First_Name ? $student2 : null;
+                            } else {
+
+                                $studentArr[] = $student1 = null;
+                            }
+                            if (!$result['s3_application_status'] == $applicationType) {
+                                $studentArr[] = $getStudentInfo->S3_First_Name ? $student3 : null;
+                            } else {
+
+
+                                $studentArr[] = $student1 = null;
+                                $studentArr[] = $student2 = null;
+                                $studentArr[] = $student3 = null;
+                            }
+                        } else {
+                            if ($result['s1_application_status'] == $applicationType) {
+                                $studentArr[] = $getStudentInfo->S1_First_Name ? $student1 : null;
+                            } else {
+
+                                $studentArr[] = $student1 = null;
+                            }
+                            if ($result['s2_application_status'] == $applicationType) {
+                                $studentArr[] = $getStudentInfo->S2_First_Name ? $student2 : null;
+                            } else {
+
+                                $studentArr[] = $student1 = null;
+                            }
+                            if ($result['s3_application_status'] == $applicationType) {
+                                $studentArr[] = $getStudentInfo->S3_First_Name ? $student3 : null;
+                            } else {
+
+                                $studentArr[] = $student1 = null;
+                                $studentArr[] = $student2 = null;
+                                $studentArr[] = $student3 = null;
+                            }
+                        }
+                    }
+                }
+
+                $studentInfo = [];
+                foreach ($studentArr as $student) {
+                    if (!is_null($student)) {
+                        array_push($studentInfo, $student);
+                    }
+                }
             }
+        } else {
+            $studentInfo = [];
         }
 
         $myCollectionObj = collect($studentInfo);
-//          dd($myCollectionObj);
-        $data = $this->paginate($myCollectionObj, $this->perPage);
-        
-        return view('livewire.admin.application.dashboardtable', ['students' => $data]);
+        return $data = $this->paginate($myCollectionObj, $this->perPage);
     }
-
     /**
      * The attributes that are mass assignable.
      *

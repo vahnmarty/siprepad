@@ -16,7 +16,7 @@
             </x-slot>
         </x-admin.sub-header>
     </x-slot>
-    @livewire('admin.application.dashboardtable', ['dashboardView'=>$dashboardView])
+    @livewire('admin.application.dashboardtableNotification', ['dashboardView'=>$dashboardView])
 
 </x-admin-layout>
 <script>
