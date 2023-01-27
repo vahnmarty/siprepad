@@ -81,7 +81,7 @@ class UserList extends Component
     
             return view('livewire.admin.user-list', [
 
-                'users' => Profile::paginate($this->perPage),
+                'users' => Profile::paginate(),
 
 
             ]);

@@ -381,11 +381,11 @@
 
                             </div>
                             <span class="kt-widget24__stats kt-font-danger">
-                                {{ $candidateStatuss['candidateStatusRejected'] }}
+                                {{ $candidateStatuss['candidateStatusReject'] }}
                             </span>
                         </div>
                         <div class="progress progress--sm">
-                            <div class="progress-bar kt-bg-danger" role="progressbar" style="width: {{ $candidateStatuss['candidateStatusRejected'] }}%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar kt-bg-danger" role="progressbar" style="width: {{ $candidateStatuss['candidateStatusReject'] }}%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                         <div class="kt-widget24__action">
                             <a class="kt-widget24__change" href="{{ route('application.showDashboardValues','rejectedOffer' ) }}">

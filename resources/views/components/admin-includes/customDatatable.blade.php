@@ -16,6 +16,7 @@
             autoWidth: true,
             responsive: true,
             dom: 'lBfrtip',
+            processing: true,
             pageLength: 4,
             lengthMenu: [4, 10, 20, 50, 100, 200, 500],
         });
