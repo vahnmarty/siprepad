@@ -6,7 +6,7 @@
             <x-admin.breadcrumbs>
                 <x-admin.breadcrumbs-item href="{{ route('admin.dashboard') }}" value="Dashboard" />
                 <x-admin.breadcrumbs-separator />
-                <x-admin.breadcrumbs-item href="{{ route('application.index') }}" value="Applications" />
+                <x-admin.breadcrumbs-item href="{{ route('application.index') }}" value="Applicationsa" />
             </x-admin.breadcrumbs>
 
             <x-slot name="toolbar">

@@ -219,6 +219,7 @@ class ApplicationController extends Controller
                             $newNotification->student_profile = 'student_one';
                             $newNotification->message = $message;
                             $newNotification->notification_type = $ntfType;
+                            Notification::where('student_profile', '=', 'student_one')->where('application_id', '=', $appID)->delete();
                             if ($newNotification->save()) {
                                 $latestNotification = $newNotification->id;
                                 $appstatus =  StudentApplicationStatus::latest('id')->select('id')->first();
@@ -247,6 +248,8 @@ class ApplicationController extends Controller
                         $newNotification->student_profile = 'student_one';
                         $newNotification->message = $message;
                         $newNotification->notification_type = $ntfType;
+                        Notification::where('student_profile', '=', 'student_one')->where('application_id', '=', $appID)->delete();
+
                         if ($newNotification->save()) {
                             $latestNotification = $newNotification->id;
                             $checkStatus->update([
@@ -300,7 +303,10 @@ class ApplicationController extends Controller
                             $newNotification->student_profile = 'student_two';
                             $newNotification->message = $message;
                             $newNotification->notification_type = $ntfType;
+                            Notification::where('student_profile', '=', 'student_two')->where('application_id', '=', $appID)->delete();
+
                             if ($newNotification->save()) {
+
                                 $latestNotification = $newNotification->id;
                                 $appstatus =  StudentApplicationStatus::latest('id')->select('id')->first();
                                 StudentApplicationStatus::where('id', $appstatus->id)
@@ -329,7 +335,10 @@ class ApplicationController extends Controller
                         $newNotification->student_profile = 'student_two';
                         $newNotification->message = $message;
                         $newNotification->notification_type = $ntfType;
+                        Notification::where('student_profile', '=', 'student_two')->where('application_id', '=', $appID)->delete();
+
                         if ($newNotification->save()) {
+
                             $latestNotification = $newNotification->id;
                             $checkStatus->update([
                                 's2_notification_id' => $latestNotification,
@@ -380,7 +389,10 @@ class ApplicationController extends Controller
                             $newNotification->student_profile = 'student_three';
                             $newNotification->message = $message;
                             $newNotification->notification_type = $ntfType;
+                            Notification::where('student_profile', '=', 'student_three')->where('application_id', '=', $appID)->delete();
+
                             if ($newNotification->save()) {
+
                                 $latestNotification = $newNotification->id;
                                 $appstatus =  StudentApplicationStatus::latest('id')->select('id')->first();
                                 StudentApplicationStatus::where('id', $appstatus->id)
@@ -407,7 +419,10 @@ class ApplicationController extends Controller
                         $newNotification->student_profile = 'student_three';
                         $newNotification->message = $message;
                         $newNotification->notification_type = $ntfType;
+                        Notification::where('student_profile', '=', 'student_three')->where('application_id', '=', $appID)->delete();
+
                         if ($newNotification->save()) {
+
                             $latestNotification = $newNotification->id;
                             $checkStatus->update([
                                 's3_notification_id' => $latestNotification,

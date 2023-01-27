@@ -93,21 +93,46 @@ class AdminDashboard extends Controller
             $candidateStatuss['TotalNotifications'] = Notification::count();
             $candidateStatus = array();
             foreach ($getStudentApplicationStatus as $key => $value) {
-                $candidateStatus[$key]['s1_candidate_status'] = $value['s1_candidate_status'];
-                $candidateStatus[$key]['s2_candidate_status'] =  $value['s2_candidate_status'];
-                $candidateStatus[$key]['s3_candidate_status'] = $value['s3_candidate_status'];
+                $candidateStatus[$key]['s1_application_status'] = $value['s1_application_status'];
+                $candidateStatus[$key]['s2_application_status'] =  $value['s2_application_status'];
+                $candidateStatus[$key]['s3_application_status'] = $value['s3_application_status'];
+            }
+
+            foreach ($getStudentApplicationStatus as $key => $values) {
+                $candidate_status[$key]['s1_candidate_status'] = $values['s1_candidate_status'];
+                $candidate_status[$key]['s2_candidate_status'] = $values['s2_candidate_status'];
+                $candidate_status[$key]['s3_candidate_status'] = $values['s3_candidate_status'];
             }
             $candidateStatusValuees = array();
             $studentCountValues = $this->array_count_values($candidateStatus);
+            $candidate_statuss = $this->array_count_values($candidate_status);
+            // dd($studentCountValues);
+
+            // if (array_key_exists(2, $candidate_status)) {
+            //     $candidateStatuss['candidateStatusRejected'] = $candidate_status[2];
+            // } else {
+            //     $candidateStatuss['candidateStatusRejected'] = 0;
+            // }
+            if (array_key_exists(1, $candidate_statuss)) {
+                $candidateStatuss['candidateStatusAccept'] = $candidate_statuss[1];
+            } else {
+                $candidateStatuss['candidateStatusAccept'] = StudentApplicationStatus::CANDIDATE_NOT_DEFINED;
+            }
+            if (array_key_exists(3, $candidate_statuss)) {
+                $candidateStatuss['candidateStatusReject'] = $candidate_statuss[3];
+            } else {
+                $candidateStatuss['candidateStatusReject'] = StudentApplicationStatus::CANDIDATE_NOT_DEFINED;
+            }
+
             if (array_key_exists(0, $studentCountValues)) {
                 $candidateStatuss['candidateStatusNoDef'] = $studentCountValues[0];
             } else {
-                $candidateStatuss['candidateStatusNoDef'] = 0;
+                $candidateStatuss['candidateStatusNoDef'] = StudentApplicationStatus::CANDIDATE_NOT_DEFINED;
             }
             if (array_key_exists(1, $studentCountValues)) {
                 $candidateStatuss['applicationCompleteCount'] = $studentCountValues[1];
             } else {
-                $candidateStatuss['applicationCompleteCount'] = 0;
+                $candidateStatuss['applicationCompleteCount'] = StudentApplicationStatus::CANDIDATE_NOT_DEFINED;
             }
             if (array_key_exists(2, $studentCountValues)) {
                 $candidateStatuss['candidateStatusWaitListed'] = $studentCountValues[2];
@@ -117,16 +142,16 @@ class AdminDashboard extends Controller
             if (array_key_exists(3, $studentCountValues)) {
                 $candidateStatuss['candidateStatusRejected'] = $studentCountValues[3];
             } else {
-                $candidateStatuss['candidateStatusRejected'] = 0;
+                $candidateStatuss['candidateStatusRejected'] = StudentApplicationStatus::CANDIDATE_NOT_DEFINED;
             }
             if (array_key_exists(4, $studentCountValues)) {
                 $candidateStatuss['candidateStatusNoResponse'] = $studentCountValues[4];
             } else {
-                $candidateStatuss['candidateStatusNoResponse'] = 0;
+                $candidateStatuss['candidateStatusNoResponse'] = StudentApplicationStatus::CANDIDATE_NOT_DEFINED;
             }
             // NOTIFICATIONS STATUS SUMMARY SECTION
             $notification = Notification::select("is_read")->get()->toArray();
-            $notificationReadOrNot =[]; 
+            $notificationReadOrNot = [];
             foreach ($notification as $fetchNotification) {
                 $notificationReadOrNot[] = $fetchNotification['is_read'];
             }
@@ -135,12 +160,26 @@ class AdminDashboard extends Controller
             if (array_key_exists(1, $notificationValue)) {
                 $candidateStatuss['notificationRead'] = $notificationValue[1];
             } else {
-                $candidateStatuss['notificationRead'] = 0;
+                $candidateStatuss['notificationRead'] = StudentApplicationStatus::CANDIDATE_NOT_DEFINED;
             }
             if (array_key_exists(0, $notificationValue)) {
-                $candidateStatuss['notificationNotRead'] = $notificationValue[0];
+                $dbQuery = StudentInformation::query();
+                $getData = $dbQuery
+                    ->join('applications', function ($join) {
+                        $join->on('applications.Application_ID', '=', 'student_information.Application_ID');
+                    })
+                    ->get();
+                $StudentApplicationStatus = StudentApplicationStatus::get();
+
+
+                
+                if (count($StudentApplicationStatus) > 0) {
+                    $candidateStatuss['notificationNotRead'] =  self::getReadOrNotRead($getData, $StudentApplicationStatus, 0, '');
+                } else {
+                    $candidateStatuss['notificationNotRead'] = StudentApplicationStatus::CANDIDATE_NOT_DEFINED;
+                }
             } else {
-                $candidateStatuss['notificationNotRead'] = 0;
+                $candidateStatuss['notificationNotRead'] = StudentApplicationStatus::CANDIDATE_NOT_DEFINED;
             }
             $payment = Payment::count();
             $candidateStatuss['payment'] = $payment;
@@ -150,6 +189,90 @@ class AdminDashboard extends Controller
             return view('auth.admin-login');
         }
     }
+
+
+    private function getReadOrNotRead($getData, $StudentApplicationStatus, $applicationType, $notNullOrNull)
+    {
+        foreach ($StudentApplicationStatus as $key => $StudentApplicationStatusResult) {
+            $StudentApplicationStatusResults[$key]['s1_application_status'] = $StudentApplicationStatusResult['s1_candidate_status'];
+            $StudentApplicationStatusResults[$key]['s2_application_status'] = $StudentApplicationStatusResult['s2_candidate_status'];
+            $StudentApplicationStatusResults[$key]['s3_application_status'] = $StudentApplicationStatusResult['s3_candidate_status'];
+            $StudentApplicationStatusResults[$key]['application_id'] = $StudentApplicationStatusResult['application_id'];
+        }
+        if (count($getData) > 0) {
+            foreach ($getData as $key => $getStudentInfo) {
+                $student1 = [
+                    "First_Name" => Str::lower($getStudentInfo->S1_First_Name),
+                ];
+                $student2 = [
+                    "First_Name" => Str::lower($getStudentInfo->S2_First_Name),
+                ];
+                $student3 = [
+                    "First_Name" => Str::lower($getStudentInfo->S3_First_Name),
+                ];
+                foreach ($StudentApplicationStatusResults as $result) {
+                    if ($getStudentInfo->Application_ID == $result['application_id']) {
+                        if ($notNullOrNull == "!") {
+                            if (!$result['s1_application_status'] == $applicationType) {
+                                $studentArr[] = $getStudentInfo->S1_First_Name ? $student1 : null;
+                            } else {
+
+                                $studentArr[] = $student1 = null;
+                            }
+                            if (!$result['s2_application_status'] == $applicationType) {
+                                $studentArr[] = $getStudentInfo->S2_First_Name ? $student2 : null;
+                            } else {
+
+                                $studentArr[] = $student2 = null;
+                            }
+                            if (!$result['s3_application_status'] == $applicationType) {
+                                $studentArr[] = $getStudentInfo->S3_First_Name ? $student3 : null;
+                            } else {
+
+
+
+                                $studentArr[] = $student3 = null;
+                            }
+                        } else {
+
+                            if ($result['s1_application_status'] == $applicationType) {
+                                $studentArr[] = $getStudentInfo->S1_First_Name ? $student1 : null;
+                            } else {
+
+                                $studentArr[] = $student1 = null;
+                            }
+                            if ($result['s2_application_status'] == $applicationType) {
+                                $studentArr[] = $getStudentInfo->S2_First_Name ? $student2 : null;
+                            } else {
+
+                                $studentArr[] = $student2 = null;
+                            }
+                            if ($result['s3_application_status'] == $applicationType) {
+                                $studentArr[] = $getStudentInfo->S3_First_Name ? $student3 : null;
+                            } else {
+
+
+                                $studentArr[] = $student3 = null;
+                            }
+                        }
+                    }
+                }
+
+
+                $studentInfo = [];
+                foreach ($studentArr as $student) {
+                    if (!is_null($student)) {
+                        array_push($studentInfo, $student);
+                    }
+                }
+            }
+        } else {
+            $studentInfo = [];
+        }
+
+        return count(array_filter($studentInfo));
+    }
+
     function array_count_values($arr, $lower = true)
     {
 

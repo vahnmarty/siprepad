@@ -247,10 +247,10 @@ class Index extends Component
         }
 
         $myCollectionObj = collect($studentInfo);
-//          dd($myCollectionObj);
-        $data = $this->paginate($myCollectionObj, $this->perPage);
-        
-        return view('livewire.admin.application.index', ['students' => $data]);
+        //  dd($myCollectionObj);
+        // $data = $this->paginate($myCollectionObj, $this->perPage);
+      
+        return view('livewire.admin.application.index', ['students' => $myCollectionObj]);
     }
 
     /**
