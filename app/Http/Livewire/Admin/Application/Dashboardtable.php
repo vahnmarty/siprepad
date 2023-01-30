@@ -103,6 +103,7 @@ class Dashboardtable extends Component
             $StudentApplicationStatus = StudentApplicationStatus::get();
             if (count($StudentApplicationStatus) > 0) {
                 $data = self::getApplicationsAccepted($getData, $StudentApplicationStatus, 1);
+
                 return view('livewire.admin.application.dashboardtable', ['students' => $data]);
             } else {
                 $data = [];
@@ -116,11 +117,6 @@ class Dashboardtable extends Component
                 })
                 ->get();
             $StudentApplicationStatus = StudentApplicationStatus::get();
-
-
-
-
-
             if (count($StudentApplicationStatus) > 0) {
                 $data = self::getApplicationsAccepted($getData, $StudentApplicationStatus, 2);
                 return view('livewire.admin.application.dashboardtable', ['students' => $data]);
@@ -253,12 +249,13 @@ class Dashboardtable extends Component
             return view('livewire.admin.application.dashboardtableDepositPay', ['students' => $data]);
         } elseif ($this->dashboardViewData == "incompleteRegistration") {
             $dbQueryPayment = Payment::get();
-            $dbQuery = StudentInformation::query();
-            $getData = $dbQuery->join('applications', 'applications.Application_ID', 'student_information.Application_ID')
-                ->select('student_information.*', 'applications.status', 'applications.last_step_complete')
-                ->orderBy('Application_ID', 'desc')
-                ->get();
+            $getData = StudentInformation::join('applications', 'applications.Application_ID', 'student_information.Application_ID')
+            ->select('student_information.*', 'applications.status', 'applications.last_step_complete')
+            ->where('applications.last_step_complete', 'ten')
+            ->get();
+               
             if (count($dbQueryPayment) > 0) {
+                
                 $data = self::getNotDepositPayment($getData, $dbQueryPayment);
                 return view('livewire.admin.application.dashboardtable', ['students' => $data]);
             } else {
@@ -491,7 +488,7 @@ class Dashboardtable extends Component
         } else {
             $studentInfo = [];
         }
-            return $myCollectionObj = collect($studentInfo);
+        return $myCollectionObj = collect($studentInfo);
         // return $data = $this->paginate($myCollectionObj, $this->perPage);
     }
     private function getNotDepositPayment($getData, $StudentApplicationStatus)
@@ -501,7 +498,10 @@ class Dashboardtable extends Component
             $StudentApplicationStatusResults[$key]['s1_application_status'] = $StudentApplicationStatusResult['student'];
             $StudentApplicationStatusResults[$key]['application_id'] = $StudentApplicationStatusResult['application_id'];
         }
+    
         if (count($getData) > 0) {
+            $studentArr = [];
+
             foreach ($getData as $key => $getStudentInfo) {
                 $student1 = [
                     "Application_ID" => $getStudentInfo->Application_ID,
@@ -577,7 +577,6 @@ class Dashboardtable extends Component
                     "student_type" => Application::STUDENT_THREE
 
                 ];
-                $studentArr = [];
                 foreach ($StudentApplicationStatusResults as $result) {
                     if ($getStudentInfo->Application_ID == $result['application_id']) {
                         if ($result['s1_application_status'] == 's1') {
@@ -587,7 +586,7 @@ class Dashboardtable extends Component
                             $studentArr[] = $getStudentInfo->S1_First_Name ? $student1 : null;
                         }
                         if ($result['s1_application_status'] == 's2') {
-                            $studentArr[] = $student1 = null;
+                            $studentArr[] = $student2 = null;
                         } else {
                             $studentArr[] = $getStudentInfo->S2_First_Name ? $student2 : null;
                         }
@@ -598,7 +597,14 @@ class Dashboardtable extends Component
                             $studentArr[] = $getStudentInfo->S3_First_Name ? $student3 : null;
                         }
                     }
+                    else {
+                        $studentArr[] = $getStudentInfo->S1_First_Name ? $student1 : null;
+                        $studentArr[] = $getStudentInfo->S2_First_Name ? $student2 : null;
+                        $studentArr[] = $getStudentInfo->S3_First_Name ? $student3 : null;
+
+                    }
                 }
+
                 $studentInfo = [];
                 foreach ($studentArr as $student) {
                     if (!is_null($student)) {
@@ -609,7 +615,8 @@ class Dashboardtable extends Component
         } else {
             $studentInfo = [];
         }
-            return $myCollectionObj = collect($studentInfo);
+        // dd($studentArr);
+        return $myCollectionObj = collect($studentInfo);
         // return $data = $this->paginate($myCollectionObj, $this->perPage);
     }
     private function getPayDepositCandidate($getData)
@@ -636,7 +643,7 @@ class Dashboardtable extends Component
         } else {
             $studentInfo = [];
         }
-            return $myCollectionObj = collect($studentInfo);
+        return $myCollectionObj = collect($studentInfo);
         // return $data = $this->paginate($myCollectionObj, $this->perPage);
     }
     private function getApplicationAccepted($getData, $StudentApplicationStatus, $applicationType)
@@ -757,7 +764,7 @@ class Dashboardtable extends Component
         } else {
             $studentInfo = [];
         }
-            return $myCollectionObj = collect($studentInfo);
+        return $myCollectionObj = collect($studentInfo);
         // return $data = $this->paginate($myCollectionObj, $this->perPage);
     }
     private function getCandidateAccepted($getData, $StudentApplicationStatus, $applicationType)
@@ -877,7 +884,7 @@ class Dashboardtable extends Component
         } else {
             $studentInfo = [];
         }
-            return $myCollectionObj = collect($studentInfo);
+        return $myCollectionObj = collect($studentInfo);
         // return $data = $this->paginate($myCollectionObj, $this->perPage);
     }
     private function getReadOrNotRead($getData, $StudentApplicationStatus, $applicationType, $notNullOrNull)
@@ -1024,7 +1031,7 @@ class Dashboardtable extends Component
             $studentInfo = [];
         }
 
-            return $myCollectionObj = collect($studentInfo);
+        return $myCollectionObj = collect($studentInfo);
         // return $data = $this->paginate($myCollectionObj, $this->perPage);
     }
     /**

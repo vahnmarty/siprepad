@@ -171,11 +171,11 @@
 
                             </div>
                             <span class="kt-widget24__stats kt-font-danger">
-                                {{$candidateStatuss['applicationCompleteCount']}}
+                                {{$count['applicationsAccepted']}}
                             </span>
                         </div>
                         <div class="progress progress--sm">
-                            <div class="progress-bar kt-bg-danger" role="progressbar" style="width: {{ $count['applicationCompleteCount'] }}%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar kt-bg-danger" role="progressbar" style="width: {{ $count['applicationsAccepted'] }}%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                         <div class="kt-widget24__action">
                             <a class="kt-widget24__change" href="{{ route('application.showDashboardValues','applicationsAccepted' ) }}">
@@ -497,16 +497,16 @@
 
                             </div>
                             <span class="kt-widget24__stats kt-font-danger">
-                                {{ $count['studentCount'] -$candidateStatuss['payment'] }}
+                                {{ $count['studentCount'] - $candidateStatuss['payment'] }}
                             </span>
                         </div>
                         <div class="progress progress--sm">
                             <div class="progress-bar kt-bg-danger" role="progressbar" style="width: {{ $count['studentCount'] -$candidateStatuss['payment'] }}%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                         <div class="kt-widget24__action">
-                            <a class="kt-widget24__change" href="{{ route('application.showDashboardValues','incompleteRegistration' ) }}">
+                            <!-- <a class="kt-widget24__change" href="{{ route('application.showDashboardValues','incompleteRegistration' ) }}">
                                 View
-                            </a>
+                            </a> -->
                         </div>
                     </div>
                 </div>
