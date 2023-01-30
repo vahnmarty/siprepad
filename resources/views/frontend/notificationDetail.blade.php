@@ -152,13 +152,14 @@
 			</p>
 			</div>
 		</div>
+	
 	<div class="hme-inr" id='ntf-detail'>
 		
 		
 	<div class="loading" style="display: none;">Loading</div>
 
 	<div class='ntf_candidate_detail'>
-		<!-- <p class='ntf_student_name'>Candidate Name: {{$name}}</p> -->
+		<p class='ntf_student_name'>Candidate Name: {{$name}}</p>
 		<p class='ntf_app_status'>
 			@switch($ntfDetail->notification_type)
 			@case(1)

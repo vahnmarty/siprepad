@@ -185,7 +185,9 @@ class ApplicationController extends Controller
                     ['application_id', '=', $appID],
                     ['profile_id', '=', $user]
                 ])->first();
+
                 if ($applicationStatus == Application::No_RESPONSE) {
+
                     if (empty($checkStatus)) {
                         $setApplicationStatus = new StudentApplicationStatus();
                         $setApplicationStatus->application_id = $appID;
@@ -193,6 +195,8 @@ class ApplicationController extends Controller
                         $setApplicationStatus->s1_application_status = $applicationStatus;
 
                         if ($setApplicationStatus->save()) {
+
+
                             DB::commit();
                             return 'Application Status Submitted Successfully!!!!';
                         } else {
@@ -202,6 +206,7 @@ class ApplicationController extends Controller
                     } else {
                         $checkStatus->update([
                             's1_application_status' => $applicationStatus,
+                            's1_notification_id' => null
                         ]);
                         DB::commit();
                         return "Application Status has been registered";
@@ -274,6 +279,8 @@ class ApplicationController extends Controller
                         $setApplicationStatus->application_id = $appID;
                         $setApplicationStatus->profile_id = $user;
                         $setApplicationStatus->s2_application_status = $applicationStatus;
+                        $setApplicationStatus->s2_notification_id = null;
+
 
                         if ($setApplicationStatus->save()) {
                             DB::commit();
@@ -286,6 +293,8 @@ class ApplicationController extends Controller
                     } else {
                         $checkStatus->update([
                             's2_application_status' => $applicationStatus,
+                            's2_notification_id' => null
+
                         ]);
                         DB::commit();
                         return "Application Status has been registered";
@@ -362,6 +371,8 @@ class ApplicationController extends Controller
                         $setApplicationStatus->application_id = $appID;
                         $setApplicationStatus->profile_id = $user;
                         $setApplicationStatus->s3_application_status = $applicationStatus;
+                        $setApplicationStatus->s3_notification_id = null;
+
                         if ($setApplicationStatus->save()) {
                             DB::commit();
                             return 'Application Status Submitted Successfully!!!!';
@@ -372,6 +383,8 @@ class ApplicationController extends Controller
                     } else {
                         $checkStatus->update([
                             's3_application_status' => $applicationStatus,
+                            's3_notification_id' => null
+
                         ]);
                         DB::commit();
                         return "Application Status has been registered";

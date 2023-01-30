@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\StudentInformation;
 use App\Models\Notification;
 use App\Models\Payment;
+use App\Models\StudentApplicationStatus;
+
 
 class StatusPdfController extends Controller
 {
@@ -29,8 +31,9 @@ class StatusPdfController extends Controller
                     $studentType = 's3';
                 }
             }
+   
             $checkPayment = Payment::where('Application_ID', $studentDetail->Application_ID)->where('student', $studentType)->select('student')->first();
-       
+
             if ($checkPayment) {
                 $html = '
             <h1>St. Ignatius College Preparatory</h1>

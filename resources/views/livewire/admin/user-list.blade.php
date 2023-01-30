@@ -89,14 +89,6 @@
 
 
     </x-slot>
-    <x-slot name="pagination">
-        {{ $users->links('pagination::bootstrap-4') }}
-    </x-slot>
 
-    <x-slot name="showingEntries">
-        Showing {{ $users->firstitem() ?? 0 }} to {{ $users->lastitem() ?? 0 }} of
-        {{ $users->total() }}
-        entries
-    </x-slot>
 
 </x-admin.table>

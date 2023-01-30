@@ -592,3 +592,5 @@ table tr th button.kt-btn--icon {
     line-height: 1;
     margin-top: 5px;
 }
+#serachData{cursor: pointer}
+#resetData{cursor: pointer}
