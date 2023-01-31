@@ -34,7 +34,9 @@ class NotificationController extends Controller
         if (!is_null(Auth::guard('customer')->user())) {
             $profile_id = Auth::guard('customer')->user()->id;
             $notifications = Notification::where('profile_id', $profile_id)->get();
-
+            if (!count($notifications) > 0) {
+                return redirect('/')->with('error', 'You are not allowed to access this page');
+            }
             $appid = Application::where('Profile_ID', $profile_id)->get('Application_ID')->first();
             $applicationId = $appid->Application_ID;
 
@@ -148,9 +150,13 @@ class NotificationController extends Controller
             return redirect()->back()->with('error', 'You are not allowed to access this page');
         }
 
+
         $profile_id = Auth::guard('customer')->user()->id;
         $studentDetail = StudentInformation::where('Profile_ID', $profile_id)->first();
         $ntfDetail = Notification::where('id', $notificationid)->first();
+        if (!$ntfDetail) {
+            return redirect('/')->with('error', 'You are not allowed to access this page');
+        }
         $appDetail = Application::where('Profile_ID', $profile_id)->first();
 
         $appStatus = StudentApplicationStatus::where([
@@ -177,9 +183,9 @@ class NotificationController extends Controller
         if ($ntfDetail->student_profile == Application::STUDENT_ONE) {
 
 
-            if ($appStatus->s1_notification_id == null || $appStatus->s1_notification_id == "") {
-                return redirect('/')->with('error', 'You are not allowed to access this page');
-            }
+            // if ($appStatus->s1_notification_id == null || $appStatus->s1_notification_id == "") {
+            //     return redirect('/')->with('error', 'You are not allowed to access this page');
+            // }
             $studentname = StudentInformation::where('Application_ID', $ntfDetail->application_id)->select('S1_First_Name', 'S1_Last_name')->first();
             $name = ucfirst($studentname->S1_First_Name) . ' ' . ucfirst($studentname->S1_Last_name);
 
@@ -214,9 +220,9 @@ class NotificationController extends Controller
             }
         }
         if ($ntfDetail->student_profile == Application::STUDENT_TWO) {
-            if ($appStatus->s2_notification_id == null || $appStatus->s1_notification_id == "") {
-                return redirect('/')->with('error', 'You are not allowed to access this page');
-            }
+            // if ($appStatus->s2_notification_id == null || $appStatus->s1_notification_id == "") {
+            //     return redirect('/')->with('error', 'You are not allowed to access this page');
+            // }
             $studentname = StudentInformation::where('Application_ID', $ntfDetail->application_id)->select('S2_First_Name', 'S2_Last_name')->first();
             $name = ucfirst($studentname->S2_First_Name) . ' ' . ucfirst($studentname->S2_Last_name);
             $address = AddressInformation::where('Application_ID', $ntfDetail->application_id)->first();
@@ -246,9 +252,9 @@ class NotificationController extends Controller
             }
         }
         if ($ntfDetail->student_profile == Application::STUDENT_THREE) {
-            if ($appStatus->s3_notification_id == null || $appStatus->s1_notification_id == "") {
-                return redirect('/')->with('error', 'You are not allowed to access this page');
-            }
+            // if ($appStatus->s3_notification_id == null || $appStatus->s1_notification_id == "") {
+            //     return redirect('/')->with('error', 'You are not allowed to access this page');
+            // }
             $studentname = StudentInformation::where('Application_ID', $ntfDetail->application_id)->select('S3_First_Name', 'S3_Last_name')->first();
             $address = AddressInformation::where('Application_ID', $ntfDetail->application_id)->first();
 

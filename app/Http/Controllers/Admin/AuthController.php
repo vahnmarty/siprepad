@@ -40,9 +40,10 @@ class AuthController extends Controller
         return redirect()->route('admin.login.get')->withErrors('Oops! You have entered invalid credentials.');
     }
 
-    public function signout()
+    public function signout(Request $request)
     {
         Auth::logout();
+        $request->session()->invalidate();
         return redirect('/admin/dashboard')->withSuccess('You have successfully logged out');
     }
 }
