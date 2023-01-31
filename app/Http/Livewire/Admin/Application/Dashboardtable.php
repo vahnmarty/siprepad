@@ -15,6 +15,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Application;
+use App\Models\Notification;
 
 class Dashboardtable extends Component
 {
@@ -149,6 +150,7 @@ class Dashboardtable extends Component
                     $join->on('applications.Application_ID', '=', 'student_information.Application_ID');
                 })
                 ->get();
+                // dd($getData);
             $StudentApplicationStatus = StudentApplicationStatus::get();
 
 
@@ -250,12 +252,12 @@ class Dashboardtable extends Component
         } elseif ($this->dashboardViewData == "incompleteRegistration") {
             $dbQueryPayment = Payment::get();
             $getData = StudentInformation::join('applications', 'applications.Application_ID', 'student_information.Application_ID')
-            ->select('student_information.*', 'applications.status', 'applications.last_step_complete')
-            ->where('applications.last_step_complete', 'ten')
-            ->get();
-               
+                ->select('student_information.*', 'applications.status', 'applications.last_step_complete')
+                ->where('applications.last_step_complete', 'ten')
+                ->get();
+
             if (count($dbQueryPayment) > 0) {
-                
+
                 $data = self::getNotDepositPayment($getData, $dbQueryPayment);
                 return view('livewire.admin.application.dashboardtable', ['students' => $data]);
             } else {
@@ -371,7 +373,7 @@ class Dashboardtable extends Component
     }
     private function getApplicationsAccepted($getData, $StudentApplicationStatus, $applicationType)
     {
-
+        $studentArr = [];
         foreach ($StudentApplicationStatus as $key => $StudentApplicationStatusResult) {
             $StudentApplicationStatusResults[$key]['s1_application_status'] = $StudentApplicationStatusResult['s1_application_status'];
             $StudentApplicationStatusResults[$key]['s2_application_status'] = $StudentApplicationStatusResult['s2_application_status'];
@@ -498,7 +500,7 @@ class Dashboardtable extends Component
             $StudentApplicationStatusResults[$key]['s1_application_status'] = $StudentApplicationStatusResult['student'];
             $StudentApplicationStatusResults[$key]['application_id'] = $StudentApplicationStatusResult['application_id'];
         }
-    
+
         if (count($getData) > 0) {
             $studentArr = [];
 
@@ -596,12 +598,10 @@ class Dashboardtable extends Component
 
                             $studentArr[] = $getStudentInfo->S3_First_Name ? $student3 : null;
                         }
-                    }
-                    else {
+                    } else {
                         $studentArr[] = $getStudentInfo->S1_First_Name ? $student1 : null;
                         $studentArr[] = $getStudentInfo->S2_First_Name ? $student2 : null;
                         $studentArr[] = $getStudentInfo->S3_First_Name ? $student3 : null;
-
                     }
                 }
 
@@ -648,6 +648,7 @@ class Dashboardtable extends Component
     }
     private function getApplicationAccepted($getData, $StudentApplicationStatus, $applicationType)
     {
+        $studentArr=[];
         foreach ($StudentApplicationStatus as $key => $StudentApplicationStatusResult) {
             $StudentApplicationStatusResults[$key]['s1_application_status'] = $StudentApplicationStatusResult['s1_application_status'];
             $StudentApplicationStatusResults[$key]['s2_application_status'] = $StudentApplicationStatusResult['s2_application_status'];
@@ -769,6 +770,8 @@ class Dashboardtable extends Component
     }
     private function getCandidateAccepted($getData, $StudentApplicationStatus, $applicationType)
     {
+        $studentArr=[];
+
         foreach ($StudentApplicationStatus as $key => $StudentApplicationStatusResult) {
             $StudentApplicationStatusResults[$key]['s1_application_status'] = $StudentApplicationStatusResult['s1_candidate_status'];
             $StudentApplicationStatusResults[$key]['s2_application_status'] = $StudentApplicationStatusResult['s2_candidate_status'];
@@ -889,12 +892,15 @@ class Dashboardtable extends Component
     }
     private function getReadOrNotRead($getData, $StudentApplicationStatus, $applicationType, $notNullOrNull)
     {
+        $studentArr=[];
+
         foreach ($StudentApplicationStatus as $key => $StudentApplicationStatusResult) {
             $StudentApplicationStatusResults[$key]['s1_application_status'] = $StudentApplicationStatusResult['s1_candidate_status'];
             $StudentApplicationStatusResults[$key]['s2_application_status'] = $StudentApplicationStatusResult['s2_candidate_status'];
             $StudentApplicationStatusResults[$key]['s3_application_status'] = $StudentApplicationStatusResult['s3_candidate_status'];
             $StudentApplicationStatusResults[$key]['application_id'] = $StudentApplicationStatusResult['application_id'];
         }
+
         if (count($getData) > 0) {
             foreach ($getData as $key => $getStudentInfo) {
                 $student1 = [
@@ -971,23 +977,45 @@ class Dashboardtable extends Component
                     "student_type" => Application::STUDENT_THREE
 
                 ];
+                $studentInfo = [];
+                $studentArr = [];
+
                 foreach ($StudentApplicationStatusResults as $result) {
+
                     if ($getStudentInfo->Application_ID == $result['application_id']) {
                         if ($notNullOrNull == "!") {
                             if (!$result['s1_application_status'] == $applicationType) {
-                                $studentArr[] = $getStudentInfo->S1_First_Name ? $student1 : null;
+                                $notificationOne = Notification::where('application_id', '=', $result['application_id'])->where('student_profile', '=', 'student_one')->get()->where('is_read', '=', 1)->toArray();
+                                if (count($notificationOne) > 0) {
+                                    $studentArr[] = $getStudentInfo->S1_First_Name ? $student1 : null;
+                                } else {
+
+                                    $studentArr[] = $student1 = null;
+                                }
                             } else {
 
                                 $studentArr[] = $student1 = null;
                             }
                             if (!$result['s2_application_status'] == $applicationType) {
-                                $studentArr[] = $getStudentInfo->S2_First_Name ? $student2 : null;
+                                $notificationTwo = Notification::where('application_id', '=', $result['application_id'])->where('student_profile', '=', 'student_two')->where('is_read', '=', 1)->get();
+                                if (count($notificationTwo) > 0) {
+                                    $studentArr[] = $getStudentInfo->S2_First_Name ? $student2 : null;
+                                } else {
+
+                                    $studentArr[] = $student1 = null;
+                                }
                             } else {
 
                                 $studentArr[] = $student2 = null;
                             }
                             if (!$result['s3_application_status'] == $applicationType) {
-                                $studentArr[] = $getStudentInfo->S3_First_Name ? $student3 : null;
+                                $notificationThree = Notification::where('application_id', '=', $result['application_id'])->where('student_profile', '=', 'student_three')->where('is_read', '=', 1)->get();
+                                if (count($notificationThree) > 0) {
+                                    $studentArr[] = $getStudentInfo->S3_First_Name ? $student3 : null;
+                                } else {
+
+                                    $studentArr[] = $student1 = null;
+                                }
                             } else {
 
 
@@ -996,23 +1024,40 @@ class Dashboardtable extends Component
                             }
                         } else {
 
+
                             if ($result['s1_application_status'] == $applicationType) {
-                                $studentArr[] = $getStudentInfo->S1_First_Name ? $student1 : null;
+
+                                $notificationOne = Notification::where('application_id', '=', $result['application_id'])->where('student_profile', '=', 'student_one')->get();
+                                if (count($notificationOne) > 0) {
+                                    $studentArr[] = $getStudentInfo->S1_First_Name ? $student1 : null;
+                                } else {
+                                    $studentArr[] = $student1 = null;
+                                }
                             } else {
 
                                 $studentArr[] = $student1 = null;
                             }
                             if ($result['s2_application_status'] == $applicationType) {
-                                $studentArr[] = $getStudentInfo->S2_First_Name ? $student2 : null;
+                                $notificationTwo = Notification::where('application_id', '=', $result['application_id'])->where('student_profile', '=', 'student_two')->get();
+                                if (count($notificationTwo) > 0) {
+
+                                    $studentArr[] = $getStudentInfo->S2_First_Name ? $student2 : null;
+                                } else {
+
+                                    $studentArr[] = $student2 = null;
+                                }
                             } else {
 
                                 $studentArr[] = $student2 = null;
                             }
                             if ($result['s3_application_status'] == $applicationType) {
-                                $studentArr[] = $getStudentInfo->S3_First_Name ? $student3 : null;
+                                $notificationThree = Notification::where('application_id', '=', $result['application_id'])->where('student_profile', '=', 'student_three')->get();
+                                if (count($notificationThree) > 0) {
+                                    $studentArr[] = $getStudentInfo->S3_First_Name ? $student3 : null;
+                                } else {
+                                    $studentArr[] = $student3 = null;
+                                }
                             } else {
-
-
                                 $studentArr[] = $student3 = null;
                             }
                         }
@@ -1020,7 +1065,6 @@ class Dashboardtable extends Component
                 }
 
 
-                $studentInfo = [];
                 foreach ($studentArr as $student) {
                     if (!is_null($student)) {
                         array_push($studentInfo, $student);

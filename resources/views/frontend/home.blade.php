@@ -58,7 +58,7 @@
             @endif
             @endif
             <li>
-                <a  href="https://www.siprep.org/admissions/visit/wildcat-experience">
+                <a href="https://www.siprep.org/admissions/visit/wildcat-experience">
                     <em>
                         <img src="{{ asset('frontend_assets/images/j1.svg') }}" alt="" />
                     </em>

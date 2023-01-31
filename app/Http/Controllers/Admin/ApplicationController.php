@@ -163,15 +163,15 @@ class ApplicationController extends Controller
 
         switch ($applicationStatus) {
             case 1:
-                $message = 'Congratulations! Your application has been accepted.';
+                $message = 'Congratulations '.ucfirst($firstName) .''.$lastName.'! Your application has been accepted.';
                 $ntfType = Notification::NOTIFY_ACCEPTED;
                 break;
             case 2:
-                $message = 'Your application is in Waiting List. We will in touch with you shortly.';
+                $message = ucfirst($firstName) .''.$lastName.' Your application is in Waiting List. We will in touch with you shortly.';
                 $ntfType = Notification::NOTIFY_WAITLIST;
                 break;
             case 3:
-                $message = 'Sorry! Your application has been rejected. Better Luck next time.';
+                $message = 'Sorry ' .ucfirst($firstName) .''.$lastName.'! Your application has been rejected. Better Luck next time.';
                 $ntfType = Notification::NOTIFY_REJECTED;
                 break;
             default:
@@ -196,6 +196,7 @@ class ApplicationController extends Controller
 
                         if ($setApplicationStatus->save()) {
 
+                            Notification::where('student_profile', '=', 'student_one')->where('application_id', '=', $appID)->delete();
 
                             DB::commit();
                             return 'Application Status Submitted Successfully!!!!';
@@ -208,6 +209,8 @@ class ApplicationController extends Controller
                             's1_application_status' => $applicationStatus,
                             's1_notification_id' => null
                         ]);
+                        Notification::where('student_profile', '=', 'student_one')->where('application_id', '=', $appID)->delete();
+
                         DB::commit();
                         return "Application Status has been registered";
                     }
@@ -283,6 +286,8 @@ class ApplicationController extends Controller
 
 
                         if ($setApplicationStatus->save()) {
+                           Notification::where('student_profile', '=', 'student_two')->where('application_id', '=', $appID)->delete();
+                        
                             DB::commit();
 
                             return 'Application Status Submitted Successfully!!!!';
@@ -296,6 +301,8 @@ class ApplicationController extends Controller
                             's2_notification_id' => null
 
                         ]);
+                        Notification::where('student_profile', '=', 'student_two')->where('application_id', '=', $appID)->delete();
+
                         DB::commit();
                         return "Application Status has been registered";
                     }
@@ -361,12 +368,14 @@ class ApplicationController extends Controller
                     }
                 }
             } else if ($student_type == Application::STUDENT_THREE) {
+
                 $checkStatus = StudentApplicationStatus::where([
                     ['application_id', '=', $appID],
                     ['profile_id', '=', $user]
                 ])->first();
                 if ($applicationStatus == Application::No_RESPONSE) {
                     if (empty($checkStatus)) {
+
                         $setApplicationStatus = new StudentApplicationStatus();
                         $setApplicationStatus->application_id = $appID;
                         $setApplicationStatus->profile_id = $user;
@@ -374,6 +383,8 @@ class ApplicationController extends Controller
                         $setApplicationStatus->s3_notification_id = null;
 
                         if ($setApplicationStatus->save()) {
+                            Notification::where('student_profile', '=', 'student_three')->where('application_id', '=', $appID)->delete();
+
                             DB::commit();
                             return 'Application Status Submitted Successfully!!!!';
                         } else {
@@ -386,6 +397,8 @@ class ApplicationController extends Controller
                             's3_notification_id' => null
 
                         ]);
+                        Notification::where('student_profile', '=', 'student_three')->where('application_id', '=', $appID)->delete();
+
                         DB::commit();
                         return "Application Status has been registered";
                     }

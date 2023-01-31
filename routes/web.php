@@ -100,6 +100,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:sanctum'], function () 
     Route::resources([
         'users' => UserController::class
     ]);
+ 
 
     Route::get('/user/notify/{status}/{uid}',[UserController::class, 'notificationChange']);
     Route::post('perpage',[UserController::class ,'PerPage'])->name('perpage');
@@ -116,8 +117,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:sanctum'], function () 
         'index', 'edit', 'update'
     ]);
 });
-Route::get('admin/logout', [AdminAuthController::class, 'signout'])->name('admin.logout');
-
+Route::get('/logout', [AdminAuthController::class, 'signout'])->name('admin.logout');
 Route::get('clear', function () {
     Artisan::call('optimize:clear');
     Artisan::call('config:clear');
