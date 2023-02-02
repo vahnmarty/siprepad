@@ -94,7 +94,7 @@ Route::redirect('/admin', 'admin');
 Route::redirect('admin', 'admin/login');
 Route::get('/admin/login', [AdminAuthController::class, 'getLogin'])->name('admin.login.get');
 Route::post('admin/login', [AdminAuthController::class, 'postLogin'])->name('admin.login.post');
-Route::group(['prefix' => 'admin', 'middleware' => 'auth:sanctum'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'prevent-back-history'], function () {
     Route::get('profile', [ProfileController::class, 'getProfile'])->name('admin.profile');
     Route::get('/dashboard', [AdminDashboard::class, 'getDashboard'])->name('admin.dashboard');
     Route::resources([
