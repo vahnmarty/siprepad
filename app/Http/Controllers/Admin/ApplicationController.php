@@ -33,6 +33,9 @@ class ApplicationController extends Controller
      */
     public function index()
     {
+        if (!Auth::check()) {
+            return view('auth.admin-login');
+         }
         $user = Auth::guard('customer')->user('id');
         $app = Application::all();
 

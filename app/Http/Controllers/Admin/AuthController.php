@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Rules\EmailOrUsername;
+use Illuminate\Support\Facades\Lang;
+
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
@@ -38,12 +41,28 @@ class AuthController extends Controller
         }
 
         return redirect()->route('admin.login.get')->withErrors('Oops! You have entered invalid credentials.');
+
+        // $input = $request->all();
+
+        // $request->validate([
+        //     'email' => ['required', 'string', new EmailOrUsername],
+        //     'password' => ['required'],
+        // ], [
+        //     'email.required' => Lang::get('validation.values.login_email.required')
+        // ]);
+
+        // $fieldType = filter_var($request->email, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        // if (Auth::guard('customer')->attempt([$fieldType => $input['email'], 'password' => $input['password']])) {
+        //     return redirect('/admin')->withSuccess('You have successfully logged in');
+
+        // } else {
+        //     return redirect()->route('admin.login.get')->withErrors('Oops! You have entered invalid credentials.');
+        // }
     }
 
     public function signout(Request $request)
     {
         Auth::logout();
-        $request->session()->invalidate();
-        return redirect('/admin/dashboard')->withSuccess('You have successfully logged out');
+        return redirect('/admin')->withSuccess('You have successfully logged out');
     }
 }

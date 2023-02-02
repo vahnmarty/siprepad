@@ -22,7 +22,9 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {   
-       
+        if (!Auth::check()) {
+            return view('auth.admin-login');
+         }
         $notifications = Global_Notifiable::get();
             
         return view('admin.user.list', compact('notifications'));
