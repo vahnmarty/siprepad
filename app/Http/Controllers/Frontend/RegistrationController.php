@@ -42,6 +42,7 @@ class RegistrationController extends Controller
      */
     public function create()
     {
+        // dd('i am ');
         if (!is_null(Auth::guard('customer')->user())) {
             $profile_id = Auth::guard('customer')->user()->id;
             $appid = Application::where('Profile_ID', $profile_id)->get('Application_ID')->first();

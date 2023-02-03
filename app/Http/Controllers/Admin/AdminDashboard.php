@@ -19,8 +19,8 @@ class AdminDashboard extends Controller
 {
     public function getDashboard()
     {
-     
-       
+
+
 
         if (Auth::check()) {
 
@@ -43,11 +43,11 @@ class AdminDashboard extends Controller
                 $count['applicationIncompleteCount'] = 0;
             }
 
-          
+
             $count['applicationsAccepted'] = self::getAppliactionAccepted();
 
             $count['applicationCompleteCount'] = self::submittedApplications();
-            
+
 
             $getData = StudentInformation::join('applications', 'applications.Application_ID', 'student_information.Application_ID')
                 ->select('student_information.*', 'applications.status', 'applications.last_step_complete')
@@ -113,11 +113,11 @@ class AdminDashboard extends Controller
                 $candidate_status[$key]['s2_candidate_status'] = $values['s2_candidate_status'];
                 $candidate_status[$key]['s3_candidate_status'] = $values['s3_candidate_status'];
             }
-// dd($candidate_status);
+            // dd($candidate_status);
             $candidateStatusValuees = array();
             $studentCountValues = $this->array_count_values($candidateStatus);
             $candidate_statuss = $this->array_count_values($candidate_status);
-       
+
             if (array_key_exists(1, $candidate_statuss)) {
                 $candidateStatuss['candidateStatusAccept'] = $candidate_statuss[1];
             } else {
@@ -163,8 +163,8 @@ class AdminDashboard extends Controller
             }
             $notificationValue =    array_count_values($notificationReadOrNot);
 
-          
-// dd($candidateStatuss);
+
+            // dd($candidateStatuss);
             if (array_key_exists(0, $notificationValue)) {
                 $dbQuery = StudentInformation::query();
                 $getData = $dbQuery
@@ -174,7 +174,7 @@ class AdminDashboard extends Controller
                     ->get();
                 $StudentApplicationStatus = StudentApplicationStatus::get();
 
-                
+
                 if (count($StudentApplicationStatus) > 0) {
                     $candidateStatuss['notificationNotRead'] =  self::getNotRead($getData, $StudentApplicationStatus, 0, '');
                     //$candidateStatuss['notificationRead'] = self::getRead($getData, $StudentApplicationStatus, 0, '!');
@@ -195,7 +195,7 @@ class AdminDashboard extends Controller
                     ->get();
                 $StudentApplicationStatus = StudentApplicationStatus::get();
 
-                
+
                 if (count($StudentApplicationStatus) > 0) {
                     $candidateStatuss['notificationRead'] = self::getRead($getData, $StudentApplicationStatus, 0, '!');
                 } else {
@@ -210,7 +210,7 @@ class AdminDashboard extends Controller
 
 
 
-       
+
 
 
             $payment = Payment::count();
@@ -221,8 +221,9 @@ class AdminDashboard extends Controller
             return view('auth.admin-login');
         }
     }
-    private function getIncompleteApplicationForm(){
-        $studentArr=[];
+    private function getIncompleteApplicationForm()
+    {
+        $studentArr = [];
         $dbQuery = StudentInformation::query();
         $studentDetail = $dbQuery
             ->join('applications', function ($join) {
@@ -262,7 +263,7 @@ class AdminDashboard extends Controller
     }
     private function getIncompleteRegistration()
     {
-        $studentArr=[];
+        $studentArr = [];
         $getData = StudentInformation::join('applications', 'applications.Application_ID', 'student_information.Application_ID')
             ->select('student_information.*', 'applications.status', 'applications.last_step_complete')
             ->where('applications.last_step_complete', 'ten')
@@ -337,7 +338,7 @@ class AdminDashboard extends Controller
     private function getNotRead($getData, $StudentApplicationStatus, $applicationType, $notNullOrNull)
     {
 
-                $studentArr = [];
+        $studentArr = [];
 
         foreach ($StudentApplicationStatus as $key => $StudentApplicationStatusResult) {
             $StudentApplicationStatusResults[$key]['s1_application_status'] = $StudentApplicationStatusResult['s1_candidate_status'];
@@ -510,7 +511,7 @@ class AdminDashboard extends Controller
             $StudentApplicationStatusResults[$key]['s3_application_status'] = $StudentApplicationStatusResult['s3_candidate_status'];
             $StudentApplicationStatusResults[$key]['application_id'] = $StudentApplicationStatusResult['application_id'];
         }
-  $studentArr = [];
+        $studentArr = [];
         if (count($getData) > 0) {
             foreach ($getData as $key => $getStudentInfo) {
                 $student1 = [

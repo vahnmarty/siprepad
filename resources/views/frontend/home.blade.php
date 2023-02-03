@@ -41,7 +41,57 @@
             @if(!empty($application_status))
 
             @if($notification_list >= App\Models\Notification::NOTIFY_LENGTH)
+            @if(count($studentCount)==1)
+         
+            @if($studentCount[App\Models\Application::TYPE_PENDING]['student_type']==App\Models\Application::STUDENT_ONE)
 
+            <li>
+                <a href="{{route('studentNotification',$application_status->s1_notification_id)}}">
+
+                    <em>
+                        <img src="{{ asset('frontend_assets/images/j1.svg') }}" alt="" />
+                    </em>
+                    <p>Notification</p>
+                    <span>
+                        <img src="{{ asset('frontend_assets/images/rgt-arrw.svg') }}" alt="" />
+                    </span>
+                </a>
+            </li>
+
+            @endif
+            @if($studentCount[App\Models\Application::TYPE_PENDING]['student_type']==App\Models\Application::STUDENT_TWO)
+
+            <li>
+                <a href="{{route('studentNotification',$application_status->s2_notification_id)}}">
+
+                    <em>
+                        <img src="{{ asset('frontend_assets/images/j1.svg') }}" alt="" />
+                    </em>
+                    <p>Notification</p>
+                    <span>
+                        <img src="{{ asset('frontend_assets/images/rgt-arrw.svg') }}" alt="" />
+                    </span>
+                </a>
+            </li>
+
+            @endif
+            @if($studentCount[App\Models\Application::TYPE_PENDING]['student_type']==App\Models\Application::STUDENT_THREE))
+
+            <li>
+                <a href="{{route('studentNotification',$application_status->s3_notification_id)}}">
+
+                    <em>
+                        <img src="{{ asset('frontend_assets/images/j1.svg') }}" alt="" />
+                    </em>
+                    <p>Notification</p>
+                    <span>
+                        <img src="{{ asset('frontend_assets/images/rgt-arrw.svg') }}" alt="" />
+                    </span>
+                </a>
+            </li>
+
+            @endif
+            @else
             <li>
                 <a href="{{url('/notification')}}">
 
@@ -54,6 +104,7 @@
                     </span>
                 </a>
             </li>
+            @endif
             @endif
             @endif
             @endif

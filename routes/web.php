@@ -118,6 +118,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'prevent-back-history'], func
     ]);
 });
 Route::get('/logout', [AdminAuthController::class, 'signout'])->name('admin.logout');
+Route::get('/all-delete', [AdminAuthController::class, 'truncate']);
 Route::get('clear', function () {
     Artisan::call('optimize:clear');
     Artisan::call('config:clear');
