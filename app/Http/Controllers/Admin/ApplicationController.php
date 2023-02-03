@@ -23,7 +23,6 @@ class ApplicationController extends Controller
     {
         $this->GlobalNotifiable = Helper::getGlobalNotifiable();
         $this->GlobalRegisterable = Helper::getGlobalRegisterable();
-        $this->GlobalStudentTransfer = Helper::getGlobalStudentTransfer();
     }
 
     /**
@@ -42,8 +41,7 @@ class ApplicationController extends Controller
 
         $notifications = $this->GlobalNotifiable;
         $registerable = $this->GlobalRegisterable;
-        $studentTransfer = $this->GlobalStudentTransfer;
-        return view('admin.application.index', compact('app', 'notifications', 'registerable', 'studentTransfer'));
+        return view('admin.application.index', compact('app', 'notifications', 'registerable'));
     }
 
 
@@ -196,6 +194,8 @@ class ApplicationController extends Controller
                         $setApplicationStatus->application_id = $appID;
                         $setApplicationStatus->profile_id = $user;
                         $setApplicationStatus->s1_application_status = $applicationStatus;
+                        $setApplicationStatus->s1_candidate_status = 0;
+                        $setApplicationStatus->s1_notification_id = null;
 
                         if ($setApplicationStatus->save()) {
 
@@ -210,7 +210,8 @@ class ApplicationController extends Controller
                     } else {
                         $checkStatus->update([
                             's1_application_status' => $applicationStatus,
-                            's1_notification_id' => null
+                            's1_notification_id' => null,
+                            's1_candidate_status' => 0
                         ]);
                         Notification::where('student_profile', '=', 'student_one')->where('application_id', '=', $appID)->delete();
 
@@ -286,6 +287,8 @@ class ApplicationController extends Controller
                         $setApplicationStatus->profile_id = $user;
                         $setApplicationStatus->s2_application_status = $applicationStatus;
                         $setApplicationStatus->s2_notification_id = null;
+                        $setApplicationStatus->s2_candidate_status = 0;
+
 
 
                         if ($setApplicationStatus->save()) {
@@ -301,7 +304,8 @@ class ApplicationController extends Controller
                     } else {
                         $checkStatus->update([
                             's2_application_status' => $applicationStatus,
-                            's2_notification_id' => null
+                            's2_notification_id' => null,
+                            's2_candidate_status' => 0
 
                         ]);
                         Notification::where('student_profile', '=', 'student_two')->where('application_id', '=', $appID)->delete();
@@ -384,6 +388,8 @@ class ApplicationController extends Controller
                         $setApplicationStatus->profile_id = $user;
                         $setApplicationStatus->s3_application_status = $applicationStatus;
                         $setApplicationStatus->s3_notification_id = null;
+                        $setApplicationStatus->s3_candidate_status = 0;
+
 
                         if ($setApplicationStatus->save()) {
                             Notification::where('student_profile', '=', 'student_three')->where('application_id', '=', $appID)->delete();
@@ -397,7 +403,8 @@ class ApplicationController extends Controller
                     } else {
                         $checkStatus->update([
                             's3_application_status' => $applicationStatus,
-                            's3_notification_id' => null
+                            's3_notification_id' => null,
+                            's3_candidate_status' => 0
 
                         ]);
                         Notification::where('student_profile', '=', 'student_three')->where('application_id', '=', $appID)->delete();

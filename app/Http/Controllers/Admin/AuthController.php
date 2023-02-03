@@ -7,6 +7,14 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Rules\EmailOrUsername;
 use Illuminate\Support\Facades\Lang;
+use App\Models\Application;
+use App\Models\Profile;
+use App\Models\StudentInformation;
+use App\Models\StudentApplicationStatus;
+use App\Models\Notification;
+use App\Models\Payment;
+use Illuminate\Support\Facades\DB;
+
 
 use Illuminate\Support\Facades\Auth;
 
@@ -64,5 +72,17 @@ class AuthController extends Controller
     {
         Auth::logout();
         return redirect('/admin')->withSuccess('You have successfully logged out');
+    }
+    public function truncate()
+    {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        StudentInformation::truncate();
+        StudentApplicationStatus::truncate();
+        Application::truncate();
+        Notification::truncate();
+        Payment::truncate();
+        Profile::truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        return 'Cleared.';
     }
 }

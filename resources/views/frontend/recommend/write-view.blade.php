@@ -118,7 +118,7 @@
                             alt="" />
                     </a>
                     <p class="copyright">
-                        © 2022 <a href="https://www.siprep.org">St. Ignatius College Preparatory</a>.&nbsp;&nbsp;All rights reserved.
+                        © 2022 <a href="https://www.siprep.org">St. Ignatius College Preparatory</a>.&nbsp;&nbsp;All rights Reserved.
                     </p>
                 </div>
             </div>

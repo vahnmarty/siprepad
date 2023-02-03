@@ -17,6 +17,7 @@ use App\Models\SiblingInformation;
 use App\Models\SpiritualAndCommunityInformation;
 use App\Models\StudentStatement;
 use App\Models\WritingSample;
+use Illuminate\Support\Str;
 use App\Rules\MaxWordsRule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -48,6 +49,7 @@ class HomeController extends Controller
             $application = Application::where('Profile_ID', $profile_id)->first();
             $recommendationStudent = Recommendation::where('Profile_ID', $profile_id)->select('Rec_Student')->get()->toArray();
             $getStudentCount = 0;
+            $studentCount = self::getApplicationsAccepted($application, $profile_id, Application::No_RESPONSE);
             if ($application) {
 
                 $getAllStudent = [];
@@ -89,15 +91,14 @@ class HomeController extends Controller
             $registerable = $this->GlobalRegisterable;
             $studentTransfer = $this->GlobalStudentTransfer;
             $application_status = StudentApplicationStatus::Where('profile_id', $profile_id)->first();
-            if(!empty($application_status)){
-                $notification_array=array($application_status->s1_notification_id,$application_status->s2_notification_id,$application_status->s3_notification_id);
+            if (!empty($application_status)) {
+                $notification_array = array($application_status->s1_notification_id, $application_status->s2_notification_id, $application_status->s3_notification_id);
                 $notification_list =  count(array_filter($notification_array));
-
-            }else{
+            } else {
                 $notification_list = Notification::NOTIFY_NO_STATUS;
             }
-          
-            return view('frontend.home', compact('application', 'getStudentCount', 'notifications', 'application_status', 'registerable', 'studentTransfer','notification_list'));
+
+            return view('frontend.home', compact('application', 'getStudentCount', 'studentCount', 'notifications', 'application_status', 'registerable', 'studentTransfer', 'notification_list'));
         } else {
             return redirect('/login');
         }
@@ -107,7 +108,102 @@ class HomeController extends Controller
     {
         return response()->json("You clicked on book wildcat experience", 200);
     }
+    private function getApplicationsAccepted($application, $profile_id, $applicationType)
+    {
+        $studentArr = [];
+        $studentInfo = [];
+        if ($application) {
 
+            $getData = StudentInformation::where('Application_ID', $application->Application_ID)->where('Profile_ID', $profile_id)->get();
+            $StudentApplicationStatus = StudentApplicationStatus::where('Application_ID', $application->Application_ID)->where('Profile_ID', $profile_id)->get();
+
+
+            foreach ($StudentApplicationStatus as $key => $StudentApplicationStatusResult) {
+                $StudentApplicationStatusResults[$key]['s1_application_status'] = $StudentApplicationStatusResult['s1_application_status'];
+                $StudentApplicationStatusResults[$key]['s2_application_status'] = $StudentApplicationStatusResult['s2_application_status'];
+                $StudentApplicationStatusResults[$key]['s3_application_status'] = $StudentApplicationStatusResult['s3_application_status'];
+                $StudentApplicationStatusResults[$key]['application_id'] = $StudentApplicationStatusResult['application_id'];
+            }
+            if (count($StudentApplicationStatus) > 0) {
+                foreach ($getData as $key => $getStudentInfo) {
+                    $student1 = [
+                        "Application_ID" => $getStudentInfo->Application_ID,
+                        "Photo" =>  $getStudentInfo->S1_Photo,
+                        "First_Name" => Str::lower($getStudentInfo->S1_First_Name),
+
+                        "student_type" => Application::STUDENT_ONE
+                    ];
+                    $student2 = [
+                        "Application_ID" => $getStudentInfo->Application_ID,
+                        "Photo" =>  $getStudentInfo->S2_Photo,
+                        "First_Name" => Str::lower($getStudentInfo->S2_First_Name),
+                        "Middle_Name" =>  $getStudentInfo->S2_Middle_Name,
+                        "Last_Name" =>  Str::lower($getStudentInfo->S2_Last_Name),
+
+                        "student_type" => Application::STUDENT_TWO
+
+                    ];
+                    $student3 = [
+                        "Application_ID" => $getStudentInfo->Application_ID,
+                        "Photo" =>  $getStudentInfo->S3_Photo,
+                        "First_Name" => Str::lower($getStudentInfo->S3_First_Name),
+                        "Middle_Name" =>  $getStudentInfo->S3_Middle_Name,
+                        "Last_Name" =>  Str::lower($getStudentInfo->S3_Last_Name),
+
+                        "student_type" => Application::STUDENT_THREE
+
+                    ];
+                    foreach ($StudentApplicationStatusResults as $result) {
+                        if ($getStudentInfo->Application_ID == $result['application_id']) {
+                            if ($result['s1_application_status'] == $applicationType) {
+                                $studentArr[] = $student1 = null;
+                            } else {
+                                if ($result['s1_application_status'] == Application::TYPE_PENDING) {
+                                    $studentArr[] = $student1 = null;
+                                } else {
+                                    $studentArr[] = $getStudentInfo->S1_First_Name ? $student1 : null;
+                                }
+                            }
+
+                            if ($result['s2_application_status'] == $applicationType) {
+                                $studentArr[] = $student2 = null;
+                            } else {
+
+                                if ($result['s2_application_status'] == Application::TYPE_PENDING) {
+                                    $studentArr[] = $student2 = null;
+                                } else {
+                                    $studentArr[] = $getStudentInfo->S2_First_Name ? $student2 : null;
+                                }
+                            }
+                            if ($result['s3_application_status'] == $applicationType) {
+                                $studentArr[] = $student3 = null;
+                            } else {
+
+                                if ($result['s3_application_status'] == Application::TYPE_PENDING) {
+                                    $studentArr[] = $student3 = null;
+                                } else {
+                                    $studentArr[] = $getStudentInfo->S3_First_Name ? $student3 : null;
+                                }
+                            }
+                        }
+                    }
+
+                    $studentInfo = [];
+                    foreach ($studentArr as $student) {
+                        if (!is_null($student)) {
+                            array_push($studentInfo, $student);
+                        }
+                    }
+                }
+            } else {
+                $studentInfo = [];
+            }
+        } else {
+            $studentInfo = [];
+        }
+        return $myCollectionObj = (array_filter($studentInfo));
+        // return $data = $this->paginate($myCollectionObj, $this->perPage);
+    }
     public function admissionApplication($step = GlobalStudentTransfer::STEP_ONE)
     {
 

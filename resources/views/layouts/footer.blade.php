@@ -6,7 +6,7 @@
             </a>
             <p class="copyright">
 
-            ©  <?php  echo date('Y').' ' ?><a href="https://www.siprep.org">St. Ignatius College Preparatory</a>.&nbsp;&nbsp;All rights reserved.
+            ©  <?php  echo date('Y').' ' ?><a href="https://www.siprep.org">St. Ignatius College Preparatory</a>.&nbsp;&nbsp;All rights Reserved.
 
             </p>
         </div>
