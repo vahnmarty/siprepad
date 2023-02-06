@@ -17,7 +17,7 @@
             @if(!empty($application_status))
             @if($application_status->s1_candidate_status == App\Models\Application::CANDIDATE_ACCEPTED||$application_status->s2_candidate_status == App\Models\Application::CANDIDATE_ACCEPTED
             ||$application_status->s3_candidate_status == App\Models\Application::CANDIDATE_ACCEPTED)
-
+            @if(count($paymentStudentCount)==App\Models\Application::TYPE_ACCEPTED)
             <li>
 
                 <a href="{{route('registration.create')}}">
@@ -31,6 +31,21 @@
                     </span>
                 </a>
             </li>
+            @elseif(count($paymentStudentCount)>App\Models\Application::TYPE_ACCEPTED)
+            <li>
+
+                <a href="{{route('registration.create')}}">
+
+                    <em>
+                        <img src="{{ asset('frontend_assets/images/j2.svg') }}" alt="" />
+                    </em>
+                    <p>Online Registrations</p>
+                    <span>
+                        <img src="{{ asset('frontend_assets/images/rgt-arrw.svg') }}" alt="" />
+                    </span>
+                </a>
+            </li>
+            @endif
             @endif
             @endif
             @endif
@@ -42,7 +57,7 @@
 
             @if($notification_list >= App\Models\Notification::NOTIFY_LENGTH)
             @if(count($studentCount)==1)
-         
+
             @if($studentCount[App\Models\Application::TYPE_PENDING]['student_type']==App\Models\Application::STUDENT_ONE)
 
             <li>

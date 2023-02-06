@@ -9,9 +9,8 @@
           <h3 class ="mb-4">Notification</h3>
         @endif
         <div class = "row mb-3">
-        <div class ="col-md-4">
-        </div>
-          <div class ="col-md-8">
+        
+          <div class ="col-md-8 mx-auto text-center">
 
           
           @if(!empty($application_status->s1_notification_id))
@@ -21,9 +20,8 @@
         </div>
         </div>
             <div class = "row  mb-3">
-        <div class ="col-md-4">
-        </div>
-          <div class ="col-md-8">
+        
+          <div class ="col-md-8 mx-auto text-center">
         	@if(!empty($application_status->s2_notification_id)) 
 
         	  <a href="{{route('studentNotification',$application_status->s2_notification_id)}}" class ="btn btn-sm  btn-danger"style="font-size:33px;width:55%;" >{{ucfirst($studentinfo->S2_First_Name) .' '.ucfirst($studentinfo->S2_Last_Name)}} </a>
@@ -32,9 +30,8 @@
         </div>
         </div>
               <div class = "row  mb-3">
-        <div class ="col-md-4">
-        </div>
-          <div class ="col-md-8">
+        
+          <div class ="col-md-8 mx-auto text-center">
        @if(!empty($application_status->s3_notification_id))
 
         	   <a href="{{route('studentNotification',$application_status->s3_notification_id)}}" class ="btn btn-sm btn-danger"style="font-size:33px;width:55%;" >{{ucfirst($studentinfo->S3_First_Name) .' '. ucfirst($studentinfo->S3_Last_Name)}} </a>

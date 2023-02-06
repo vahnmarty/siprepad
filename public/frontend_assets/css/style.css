@@ -3192,3 +3192,7 @@ span.children_sec {
 .step__one .schl-btm {
     margin-bottom: 20px;
 }
+
+body.modal-open{
+    position: fixed;
+}
