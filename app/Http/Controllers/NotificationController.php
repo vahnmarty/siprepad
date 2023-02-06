@@ -16,11 +16,74 @@ use App\Models\GlobalRegisterable;
 use App\Models\Payment;
 use App\Models\StudentApplicationStatus;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 class NotificationController extends Controller
 {
 
     public function list()
+    {
+
+        $user = Auth::user('id');
+
+        $ntfStatus = Global_Notifiable::select('notifiable')->first();
+
+        if ($ntfStatus->notifiable == Global_Notifiable::NOTIFICATION_OFF) {
+            return redirect()->back()->with('error', 'You are not allowed to access this page');
+        }
+
+        if (!is_null(Auth::guard('customer')->user())) {
+            $profile_id = Auth::guard('customer')->user()->id;
+            $notifications = Notification::where('profile_id', $profile_id)->get();
+            if (!count($notifications) > 0) {
+                return redirect('/')->with('error', 'You are not allowed to access this page');
+            }
+            $appid = Application::where('Profile_ID', $profile_id)->get('Application_ID')->first();
+            $applicationId = $appid->Application_ID;
+
+            $studentinfo = StudentInformation::where('Application_ID', $applicationId)->first();
+            $application_status = StudentApplicationStatus::where('application_id', $applicationId)->select('s1_notification_id', 's2_notification_id', 's3_notification_id')->first();
+            if (!empty($application_status)) {
+                $notification_array = array($application_status->s1_notification_id, $application_status->s2_notification_id, $application_status->s3_notification_id);
+                $notification_list =  count(array_filter($notification_array));
+            } else {
+                $notification_list = Notification::NOTIFY_NO_STATUS;
+            }
+
+            if (!empty($notifications)) {
+
+                $application = Application::Where('Profile_ID', $user->id)->first();
+
+                $studentinfo = StudentInformation::where('Application_ID', $application->Application_ID)->first();
+
+                if (!empty($application)) {
+
+                    if ($application->candidate_status == Application::CANDIDATE_NOT_DEFINED) {
+                        $application->update([
+                            'candidate_status' => Application::CANDIDATE_READ
+                        ]);
+                    }
+                }
+                $studentCount = self::getApplicationsAccepted($application, $profile_id, Application::No_RESPONSE);
+                if (count($studentCount) == 1) {
+                    if ($studentCount[Application::TYPE_PENDING]['student_type'] == Application::STUDENT_ONE) {
+                        return redirect('/notification/show/'.$application_status->s1_notification_id);
+                    }
+                    if ($studentCount[Application::TYPE_PENDING]['student_type'] == Application::STUDENT_TWO) {
+                        return redirect('/notification/show/'.$application_status->s2_notification_id);
+                    }
+                    if ($studentCount[Application::TYPE_PENDING]['student_type'] == Application::STUDENT_THREE) {
+                        return redirect('/notification/show/'.$application_status->s3_notification_id);
+                    }
+                } else {
+                    return view('frontend.notification_list', compact('application_status', 'studentinfo', 'notification_list'));
+                }
+            } else {
+                return redirect('/')->with('error', 'you donot have any notifications yet!!!');
+            }
+        }
+    }
+    public function showList()
     {
 
         $user = Auth::user('id');
@@ -69,8 +132,102 @@ class NotificationController extends Controller
             }
         }
     }
+    private function getApplicationsAccepted($application, $profile_id, $applicationType)
+    {
+        $studentArr = [];
+        $studentInfo = [];
+        if ($application) {
+
+            $getData = StudentInformation::where('Application_ID', $application->Application_ID)->where('Profile_ID', $profile_id)->get();
+            $StudentApplicationStatus = StudentApplicationStatus::where('Application_ID', $application->Application_ID)->where('Profile_ID', $profile_id)->get();
 
 
+            foreach ($StudentApplicationStatus as $key => $StudentApplicationStatusResult) {
+                $StudentApplicationStatusResults[$key]['s1_application_status'] = $StudentApplicationStatusResult['s1_application_status'];
+                $StudentApplicationStatusResults[$key]['s2_application_status'] = $StudentApplicationStatusResult['s2_application_status'];
+                $StudentApplicationStatusResults[$key]['s3_application_status'] = $StudentApplicationStatusResult['s3_application_status'];
+                $StudentApplicationStatusResults[$key]['application_id'] = $StudentApplicationStatusResult['application_id'];
+            }
+            if (count($StudentApplicationStatus) > 0) {
+                foreach ($getData as $key => $getStudentInfo) {
+                    $student1 = [
+                        "Application_ID" => $getStudentInfo->Application_ID,
+                        "Photo" =>  $getStudentInfo->S1_Photo,
+                        "First_Name" => Str::lower($getStudentInfo->S1_First_Name),
+
+                        "student_type" => Application::STUDENT_ONE
+                    ];
+                    $student2 = [
+                        "Application_ID" => $getStudentInfo->Application_ID,
+                        "Photo" =>  $getStudentInfo->S2_Photo,
+                        "First_Name" => Str::lower($getStudentInfo->S2_First_Name),
+                        "Middle_Name" =>  $getStudentInfo->S2_Middle_Name,
+                        "Last_Name" =>  Str::lower($getStudentInfo->S2_Last_Name),
+
+                        "student_type" => Application::STUDENT_TWO
+
+                    ];
+                    $student3 = [
+                        "Application_ID" => $getStudentInfo->Application_ID,
+                        "Photo" =>  $getStudentInfo->S3_Photo,
+                        "First_Name" => Str::lower($getStudentInfo->S3_First_Name),
+                        "Middle_Name" =>  $getStudentInfo->S3_Middle_Name,
+                        "Last_Name" =>  Str::lower($getStudentInfo->S3_Last_Name),
+
+                        "student_type" => Application::STUDENT_THREE
+
+                    ];
+                    foreach ($StudentApplicationStatusResults as $result) {
+                        if ($getStudentInfo->Application_ID == $result['application_id']) {
+                            if ($result['s1_application_status'] == $applicationType) {
+                                $studentArr[] = $student1 = null;
+                            } else {
+                                if ($result['s1_application_status'] == Application::TYPE_PENDING) {
+                                    $studentArr[] = $student1 = null;
+                                } else {
+                                    $studentArr[] = $getStudentInfo->S1_First_Name ? $student1 : null;
+                                }
+                            }
+
+                            if ($result['s2_application_status'] == $applicationType) {
+                                $studentArr[] = $student2 = null;
+                            } else {
+
+                                if ($result['s2_application_status'] == Application::TYPE_PENDING) {
+                                    $studentArr[] = $student2 = null;
+                                } else {
+                                    $studentArr[] = $getStudentInfo->S2_First_Name ? $student2 : null;
+                                }
+                            }
+                            if ($result['s3_application_status'] == $applicationType) {
+                                $studentArr[] = $student3 = null;
+                            } else {
+
+                                if ($result['s3_application_status'] == Application::TYPE_PENDING) {
+                                    $studentArr[] = $student3 = null;
+                                } else {
+                                    $studentArr[] = $getStudentInfo->S3_First_Name ? $student3 : null;
+                                }
+                            }
+                        }
+                    }
+
+                    $studentInfo = [];
+                    foreach ($studentArr as $student) {
+                        if (!is_null($student)) {
+                            array_push($studentInfo, $student);
+                        }
+                    }
+                }
+            } else {
+                $studentInfo = [];
+            }
+        } else {
+            $studentInfo = [];
+        }
+        return $myCollectionObj = (array_filter($studentInfo));
+        // return $data = $this->paginate($myCollectionObj, $this->perPage);
+    }
     public function candidateResponse(Request $request, $apid, $candidate, $rsid)
     {
         $checkApp = StudentApplicationStatus::where('application_id', $apid)->first();

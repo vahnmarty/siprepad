@@ -12,7 +12,7 @@
                     </th>
                     <th class="text-center" tabindex="0" aria-controls="kt_table_1" rowspan="1" colspan="1" style="width: 15%;" aria-sort="ascending" aria-label="Agent: activate to sort column descending">Student DOB
                     </th>
-                    <th class="text-center" class="align-center" rowspan="1" colspan="1" style="width: 30%;" aria-label="Actions">Actions</th>
+                    <th class="text-center" class="align-center" rowspan="1" colspan="1" style="min-width:200px" aria-label="Actions">Actions</th>
 
                 </tr>
 

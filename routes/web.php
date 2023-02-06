@@ -59,6 +59,7 @@ Route::group(['middleware' => 'auth:customer'], function () {
     Route::get("/", [HomeController::class, 'home']);
 
     Route::get('/notification', [NotificationController::class, 'list']);
+    Route::get('/onlineRegistration', [NotificationController::class, 'showList']);
     Route::get('/notification/show/{nid}', [NotificationController::class, 'ShowStudentNotification'])->name('studentNotification');
     // Route::get('/notification/{notificationid}', [NotificationController::class, 'ShowStudentNotification'])->name('studentNotification');
     
