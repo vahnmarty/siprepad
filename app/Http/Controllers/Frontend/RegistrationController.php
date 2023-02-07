@@ -20,6 +20,8 @@ use App\Models\ApplyLanguageChoice;
 use App\Models\ApplytoLanguageChoice;
 use App\Models\LanguageChoice;
 use App\Models\Application;
+use App\Models\Payment;
+
 use App\Models\StudentApplicationStatus;
 
 class RegistrationController extends Controller
@@ -44,6 +46,7 @@ class RegistrationController extends Controller
     {
         // dd('i am ');
         if (!is_null(Auth::guard('customer')->user())) {
+
             $profile_id = Auth::guard('customer')->user()->id;
             $appid = Application::where('Profile_ID', $profile_id)->get('Application_ID')->first();
             $applicationId = $appid->Application_ID;
@@ -52,11 +55,14 @@ class RegistrationController extends Controller
             $getApplication = Application::where('Application_ID', $applicationId)
 
                 ->get()->first();
-
+            $getStudentPayment = Payment::where('Application_ID', $applicationId)->get()->toArray();
+            if (empty($getStudentPayment)) {
+                return redirect('/')->with('error', 'you donot have any Payment yet!!!');
+            }
             $getApplicationStatus = StudentApplicationStatus::where('application_id', $getApplication->Application_ID)
                 ->where('profile_id', $getApplication->Profile_ID)->first();
 
-            return view('frontend.registeration.registeration-one', compact('studentinfo', 'application_status', 'getApplicationStatus'));
+            return view('frontend.registeration.registeration-one', compact('studentinfo', 'application_status', 'getStudentPayment', 'getApplicationStatus'));
         } else {
             return redirect('/')->with('error', 'you donot have any notifications yet!!!');
         }
