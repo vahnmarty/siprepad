@@ -52,7 +52,7 @@ class HomeController extends Controller
             $getStudentCount = 0;
             $studentCount = self::getApplicationsAccepted($application, $profile_id, Application::No_RESPONSE);
             $paymentStudentCount = self::getMadePayment($application, $profile_id, Application::No_RESPONSE);
-           
+            // dd($studentCount);
             if ($application) {
 
                 $getAllStudent = [];
@@ -101,7 +101,7 @@ class HomeController extends Controller
                 $notification_list = Notification::NOTIFY_NO_STATUS;
             }
 
-            return view('frontend.home', compact('application', 'getStudentCount', 'studentCount','paymentStudentCount', 'notifications', 'application_status', 'registerable', 'studentTransfer', 'notification_list'));
+            return view('frontend.home', compact('application', 'getStudentCount', 'studentCount', 'paymentStudentCount', 'notifications', 'application_status', 'registerable', 'studentTransfer', 'notification_list'));
         } else {
             return redirect('/login');
         }
@@ -119,15 +119,15 @@ class HomeController extends Controller
         if ($application) {
 
             $getData = StudentInformation::where('Application_ID', $application->Application_ID)->where('Profile_ID', $profile_id)->get();
-            $StudentApplicationStatus = Payment::where('Application_ID', $application->Application_ID)->get();
+            $StudentPaymentStatus = Payment::where('Application_ID', $application->Application_ID)->get();
 
             // dd($StudentApplicationStatus);
-            foreach ($StudentApplicationStatus as $key => $StudentApplicationStatusResult) {
+            foreach ($StudentPaymentStatus as $key => $StudentApplicationStatusResult) {
                 $StudentApplicationStatusResults[$key]['studentType'] = $StudentApplicationStatusResult['student'];
                 $StudentApplicationStatusResults[$key]['application_id'] = $StudentApplicationStatusResult['application_id'];
             }
             // dd($StudentApplicationStatusResults);
-            if (count($StudentApplicationStatus) > 0) {
+            if (count($StudentPaymentStatus) > 0) {
                 foreach ($getData as $key => $getStudentInfo) {
                     $student1 = [
                         "Application_ID" => $getStudentInfo->Application_ID,
@@ -160,25 +160,19 @@ class HomeController extends Controller
                         if ($getStudentInfo->Application_ID == $result['application_id']) {
                             if ($result['studentType'] == Application::STUDENT_S1) {
                                 $studentArr[] = $getStudentInfo->S1_First_Name ? $student1 : null;
-                            } else {
-                                $studentArr[] = $student1 = null;
-                            }
-
-                            if ($result['studentType'] == Application::STUDENT_S2) {
+                            } elseif ($result['studentType'] == Application::STUDENT_S2) {
                                 $studentArr[] = $getStudentInfo->S2_First_Name ? $student2 : null;
-                            } else {
-
-                                $studentArr[] = $student2 = null;
-                            }
-                            if ($result['studentType'] == Application::STUDENT_S3) {
+                            } elseif ($result['studentType'] == Application::STUDENT_S3) {
                                 $studentArr[] = $getStudentInfo->S3_First_Name ? $student3 : null;
-                            } else {
-
-                                $studentArr[] = $student3 = null;
                             }
+                            //  else {
+                            //     $studentArr[] = $student3 = null;
+                            //     $studentArr[] = $student2 = null;
+                            //     $studentArr[] = $student1 = null;
+                            // }
+                           
                         }
                     }
-
                     $studentInfo = [];
                     foreach ($studentArr as $student) {
                         if (!is_null($student)) {

@@ -14,12 +14,64 @@ use App\Models\StudentApplicationStatus;
 use App\Models\Notification;
 use App\Models\Payment;
 use Illuminate\Support\Facades\DB;
+use App\Models\AddressInformation;
+use App\Models\ApplytoLanguageChoice;
+use App\Models\CoursePlacementInformation;
+use App\Models\LanguageChoice;
+use App\Models\LegacyInformation;
+use App\Models\ParentInformation;
+use App\Models\Recommendation;
+use App\Models\Registeration;
+use App\Models\RegisterationEmergencycontact;
+use App\Models\RegisterationHealthInformation;
+use App\Models\RegisterationHouseholdInformation;
+use App\Models\ParentStatement;
+use App\Models\RegisterationParentInformation;
+use App\Models\RegisterationSchoolAccomodation;
+use App\Models\ReleaseAuthorization;
+use App\Models\SiblingInformation;
+use App\Models\SpiritualAndCommunityInformation;
+use App\Models\StudentRegisteration;
+use App\Models\StudentStatement;
 
 
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+    public function truncate()
+    {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        StudentInformation::truncate();
+        StudentApplicationStatus::truncate();
+        Application::truncate();
+        Notification::truncate();
+        Payment::truncate();
+        AddressInformation::truncate();
+        Profile::truncate();
+        ApplytoLanguageChoice::truncate();
+        CoursePlacementInformation::truncate();
+        LanguageChoice::truncate();
+        LegacyInformation::truncate();
+        LegacyInformation::truncate();
+        ParentInformation::truncate();
+        ParentStatement::truncate();
+        Recommendation::truncate();
+        Registeration::truncate();
+        RegisterationEmergencycontact::truncate();
+        RegisterationHealthInformation::truncate();
+        RegisterationHouseholdInformation::truncate();
+        RegisterationParentInformation::truncate();
+        RegisterationSchoolAccomodation::truncate();
+        ReleaseAuthorization::truncate();
+        SiblingInformation::truncate();
+        SpiritualAndCommunityInformation::truncate();
+        StudentRegisteration::truncate();
+        StudentStatement::truncate();
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        return 'Cleared.';
+    }
     public function getLogin()
     {
         if (Auth::check()) {
@@ -73,16 +125,5 @@ class AuthController extends Controller
         Auth::logout();
         return redirect('/admin')->withSuccess('You have successfully logged out');
     }
-    public function truncate()
-    {
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        StudentInformation::truncate();
-        StudentApplicationStatus::truncate();
-        Application::truncate();
-        Notification::truncate();
-        Payment::truncate();
-        Profile::truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-        return 'Cleared.';
-    }
+
 }
