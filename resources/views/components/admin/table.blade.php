@@ -4,14 +4,7 @@
         <div id="kt_table_1_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
             <div class="row">
                 <div class="col-sm-12 col-md-6">
-                    <div class="dataTables_length" id="kt_table_1_length">
-
-
-
-
-
-
-                    </div>
+                    <div class="dataTables_length" id="kt_table_1_length"></div>
                 </div>
                 <div class="col-sm-12 col-md-6">
                     <div id="kt_table_1_filter" class="dataTables_filter">

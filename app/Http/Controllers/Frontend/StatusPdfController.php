@@ -27,7 +27,6 @@ class StatusPdfController extends Controller
         $studentDetail = StudentInformation::leftjoin('parent_information', 'student_information.Profile_ID', '=', 'parent_information.Profile_ID')
             ->leftjoin('address_information', 'student_information.Profile_ID', '=', 'address_information.Profile_ID')->where('student_information.Profile_ID', $uid)
             ->first();
-           dd($studentDetail);
         if ($studentDetail) {
             if ($notMessage) {
                 if ($notMessage->student_profile == Application::STUDENT_ONE) {

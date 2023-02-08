@@ -16,6 +16,7 @@ class Application extends Model
     const TYPE_ACCEPTED = 1;
     const TYPE_WAIT_LISTED = 2;
     const TYPE_NOT_ACCEPTED = 3;
+    const HAS_FINANCIAL_AID = 5;
 
     const No_RESPONSE = 4;
     const CANDIDATE_NOT_DEFINED = 0;

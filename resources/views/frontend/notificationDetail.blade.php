@@ -178,61 +178,84 @@
 		</div>
 		<!-- <div class='application_message'>
 		<p class='short_message'>{{ $ntfDetail->message; }}</p>
+	
 	</div> -->
+	@if($candidate == 's1')
+		@if($appStatus->s1_candidate_status != App\Models\Application::CANDIDATE_NOT_DEFINED)
 		<div class='application_download'>
 			<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}' class="btn btn-danger mt-3">Print as Pdf</a>
 		</div>
-
+		@endif
+	@endif
+	
+	@if($candidate == 's2')
+		@if($appStatus->s2_candidate_status != App\Models\Application::CANDIDATE_NOT_DEFINED)
+		<div class='application_download'>
+			<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}' class="btn btn-danger mt-3">Print as Pdf</a>
+		</div>
+		@endif
+	@endif
+	
+	@if($candidate == 's3')
+		@if($appStatus->s3_candidate_status != App\Models\Application::CANDIDATE_NOT_DEFINED)
+		<div class='application_download'>
+			<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}' class="btn btn-danger mt-3">Print as Pdf</a>
+		</div>
+		@endif
+	@endif
+			
 		@if($student_status == App\Models\Application::TYPE_ACCEPTED && $ntfDetail->notification_type == App\Models\Notification::NOTIFY_ACCEPTED)
 
-		@if($candidate == 's1')
+			@if($candidate == 's1')
 
-		@if($appStatus->s1_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s1_candidate_status == App\Models\Application::CANDIDATE_READ)
-		<div class='student_btns'>
-			<!-- <a href="{{ url('/candidate/response') }}/{{ $appStatus->application_id }}/{{$candidate}}/{{App\Models\Application::CANDIDATE_ACCEPTED}}" class='btn btn_accept'>Accept</a> -->
-			<a data-bs-toggle="modal" data-bs-target="#acceptModel" class='btn btn_accept btn-success mt-3 btn-sm'>Enroll at SI</a>
-			<!-- <a href="{{ url('/candidate/response') }}/{{ $appStatus->application_id  }}/{{$candidate}}/{{App\Models\Application::CANDIDATE_REJECTED}}" class='btn btn_reject'>Decline Acceptance at SI</a> -->
-			<a data-bs-toggle="modal" data-bs-target="#rejectModel" class='btn btn-sm btn-danger mt-3'>Decline Acceptance at SI</a>
+			@if($appStatus->s1_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s1_candidate_status == App\Models\Application::CANDIDATE_READ)
+    		<div class='student_btns'>
+    			<!-- <a href="{{ url('/candidate/response') }}/{{ $appStatus->application_id }}/{{$candidate}}/{{App\Models\Application::CANDIDATE_ACCEPTED}}" class='btn btn_accept'>Accept</a> -->
+    			<a data-bs-toggle="modal" data-bs-target="#acceptModel" class='btn btn_accept btn-success mt-3 btn-sm'>Enroll at SI</a>
+    			<!-- <a href="{{ url('/candidate/response') }}/{{ $appStatus->application_id  }}/{{$candidate}}/{{App\Models\Application::CANDIDATE_REJECTED}}" class='btn btn_reject'>Decline Acceptance at SI</a> -->
+    			<a data-bs-toggle="modal" data-bs-target="#rejectModel" class='btn btn-sm btn-danger mt-3'>Decline Acceptance at SI</a>
+    
+    		</div>
+			@else
+    		<div class='get_response'>
+    			<p>Thank you for your response. We have received your response.</p>
+    		</div>
+			@endif
+			@endif
+			
+			@if($candidate == 's2')
 
-		</div>
-		@else
-		<div class='get_response'>
-			<p>Thank you for your response. We have received your response.</p>
-		</div>
-		@endif
-		@endif
-		@if($candidate == 's2')
+			@if($appStatus->s2_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s2_candidate_status == App\Models\Application::CANDIDATE_READ)
+    		<div class='student_btns'>
+    			<!-- <a href="{{ url('/candidate/response') }}/{{ $appStatus->application_id }}/{{$candidate}}/{{App\Models\Application::CANDIDATE_ACCEPTED}}" class='btn btn_accept'>Accept</a> -->
+    			<a data-bs-toggle="modal" data-bs-target="#acceptModel" class='btn btn_accept btn-success mt-3 btn-sm'>Enroll at SI</a>
+    
+    			<!-- <a href="{{ url('/candidate/response') }}/{{ $appStatus->application_id  }}/{{$candidate}}/{{App\Models\Application::CANDIDATE_REJECTED}}" class='btn btn_reject'>Decline Acceptance at SI</a> -->
+    			<a data-bs-toggle="modal" data-bs-target="#rejectModel" class='btn btn-sm btn-danger mt-3'>Decline Acceptance at SI</a>
+    
+    		</div>
+			@else
+    		<div class='get_response'>
+    			<p>Thank you for your response. We have received your response.</p>
+    		</div>
+			@endif
+			@endif
+			
+			@if($candidate == 's3')
 
-		@if($appStatus->s2_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s2_candidate_status == App\Models\Application::CANDIDATE_READ)
-		<div class='student_btns'>
-			<!-- <a href="{{ url('/candidate/response') }}/{{ $appStatus->application_id }}/{{$candidate}}/{{App\Models\Application::CANDIDATE_ACCEPTED}}" class='btn btn_accept'>Accept</a> -->
-			<a data-bs-toggle="modal" data-bs-target="#acceptModel" class='btn btn_accept btn-success mt-3 btn-sm'>Enroll at SI</a>
-
-			<!-- <a href="{{ url('/candidate/response') }}/{{ $appStatus->application_id  }}/{{$candidate}}/{{App\Models\Application::CANDIDATE_REJECTED}}" class='btn btn_reject'>Decline Acceptance at SI</a> -->
-			<a data-bs-toggle="modal" data-bs-target="#rejectModel" class='btn btn-sm btn-danger mt-3'>Decline Acceptance at SI</a>
-
-		</div>
-		@else
-		<div class='get_response'>
-			<p>Thank you for your response. We have received your response.</p>
-		</div>
-		@endif
-		@endif
-		@if($candidate == 's3')
-
-		@if($appStatus->s3_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s3_candidate_status == App\Models\Application::CANDIDATE_READ)
-		<div class='student_btns'>
-			<!-- <a href="{{ url('/candidate/response') }}/{{ $appStatus->application_id }}/{{$candidate}}/{{App\Models\Application::CANDIDATE_ACCEPTED}}" class='btn btn-sm btn-success mt-3'>Accept</a> -->
-			<a data-bs-toggle="modal" data-bs-target="#acceptModel" class='btn btn_accept btn-success mt-3 btn-sm'>Enroll at SI</a>
-			<!-- <a href="{{ url('/candidate/response') }}/{{ $appStatus->application_id  }}/{{$candidate}}/{{App\Models\Application::CANDIDATE_REJECTED}}" class='btn btn-sm btn-danger mt-3'>Decline Acceptance at SI</a> -->
-			<a data-bs-toggle="modal" data-bs-target="#rejectModel" class='btn btn-sm btn-danger mt-3'>Decline Acceptance at SI</a>
-		</div>
-		@else
-		<div class='get_response'>
-			<p>Thank you for your response. We have received your response.</p>
-		</div>
-		@endif
-		@endif
+			@if($appStatus->s3_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s3_candidate_status == App\Models\Application::CANDIDATE_READ)
+    		<div class='student_btns'>
+    			<!-- <a href="{{ url('/candidate/response') }}/{{ $appStatus->application_id }}/{{$candidate}}/{{App\Models\Application::CANDIDATE_ACCEPTED}}" class='btn btn-sm btn-success mt-3'>Accept</a> -->
+    			<a data-bs-toggle="modal" data-bs-target="#acceptModel" class='btn btn_accept btn-success mt-3 btn-sm'>Enroll at SI</a>
+    			<!-- <a href="{{ url('/candidate/response') }}/{{ $appStatus->application_id  }}/{{$candidate}}/{{App\Models\Application::CANDIDATE_REJECTED}}" class='btn btn-sm btn-danger mt-3'>Decline Acceptance at SI</a> -->
+    			<a data-bs-toggle="modal" data-bs-target="#rejectModel" class='btn btn-sm btn-danger mt-3'>Decline Acceptance at SI</a>
+    		</div>
+			@else
+    		<div class='get_response'>
+    			<p>Thank you for your response. We have received your response.</p>
+    		</div>
+			@endif
+			@endif
 		@endif
 
 

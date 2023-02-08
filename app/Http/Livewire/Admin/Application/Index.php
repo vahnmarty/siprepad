@@ -73,7 +73,6 @@ class Index extends Component
     public function render()
     {
         //$this->first_name_sort_by = ($this->first_name_sort_by == 'asc') ? 'desc' : 'asc';
-
         $dbQuery = StudentInformation::query();
 
         if ($this->searchFirstName) {
@@ -108,15 +107,20 @@ class Index extends Component
             });
         }
 
-        $getData = $dbQuery->join('applications', 'applications.Application_ID', 'student_information.Application_ID')
-            ->select('student_information.*', 'applications.status', 'applications.last_step_complete')
-            ->orderBy('Application_ID', 'desc')
-            ->get();
-        //dd($getData);
+        
+//         $getData = $dbQuery->join('applications', 'applications.Application_ID', 'student_information.Application_ID')
+//             ->select('student_information.*', 'applications.status', 'applications.last_step_complete')
+//             ->orderBy('Application_ID', 'desc')
+//             ->get();
+        
+        $count = StudentInformation::count();
+        $skip = 5;
+        $limit = $count - $skip; // the limit
+        $getData = StudentInformation::skip($skip)->take($limit)->get();
 
         if (count($getData) > 0) {
-            foreach ($getData as $key => $getStudentInfo) {
-
+            foreach ($getData as $key => $getStudentInfo)
+            {
                 $student1 = [
                     "Application_ID" => $getStudentInfo->Application_ID,
                     "Photo" =>  $getStudentInfo->S1_Photo,

@@ -17,8 +17,8 @@
             responsive: true,
             dom: 'lBfrtip',
             processing: true,
-            pageLength: 4,
-            lengthMenu: [4, 10, 20, 50, 100, 200, 500],
+            pageLength: 5,
+            lengthMenu: [5, 10, 20, 50, 100, 200, 500],
         });
         $('#serachData').click(function() {
             datatable.column(0).search($("#searchFirstName").val().trim()).draw();
@@ -27,7 +27,7 @@
             datatable.column(3).search($("#searchPhone").val().trim()).draw();
         });
         $('#resetData').click(function() {
-            console.log("i")
+//             console.log("i")
             $("#searchFirstName").val('');
             $("#searchEmail").val('')
             $("#searchLastName").val('')
