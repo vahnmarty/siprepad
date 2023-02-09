@@ -55,6 +55,7 @@
         </tr>
     </x-slot>
     <x-slot name="tbody" id="user-list">
+        
         @foreach($users as $user)
         <tr role="row" class="odd" id="dataU">
             <td class="align-center">{{ $user->Pro_First_Name ?? '---' }}</td>

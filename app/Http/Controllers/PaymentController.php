@@ -132,8 +132,10 @@ class PaymentController extends Controller
         return back()->with($msg_type, $message_text);
     }
 
-    public function acceptPayment(Request $request, $id)
+    public function acceptPayment(Request $request)
     {
+
+	$id =$request->post('studendId');
         $validator      =   Validator::make($request->all(), [
             "first_name"  =>      "required",
             "last_name"   =>      "required",
@@ -155,13 +157,11 @@ class PaymentController extends Controller
             $validatorError = implode(" & ", $imploded);
             $data['message'] = $validatorError;
             $data['status'] = "error";
-            return redirect()->back()->with($data['status'], $data['message']);
+            return $data;
         } else {
             $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-            $merchantAuthentication->setName(config('app.merchant_login_id'));
-            $merchantAuthentication->setTransactionKey(config('app.merchant_transaction_key'));
-           
-
+            $merchantAuthentication->setName(Payment::CARDAPIUSERNAME);
+            $merchantAuthentication->setTransactionKey(Payment::CARDAPITRANSACTION);
             // Set the transaction's refId
             $refId = 'ref' . time();
             $cardNumber = preg_replace('/\s+/', '', $request->card_number);
@@ -209,8 +209,11 @@ class PaymentController extends Controller
             $requests->setRefId($refId);
             $requests->setTransactionRequest($transactionRequestType);
             // Create the controller and get the response
+
             $controller = new AnetController\CreateTransactionController($requests);
             $server = config('app.env');
+
+
             if ($server == 'production') {
                 $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
             } else {
@@ -218,7 +221,8 @@ class PaymentController extends Controller
             }
 
             $results = $this->createOrUpdate($response, $request, $id, $pay_amount);
-            return redirect()->back()->with($results['status'], $results['message']);
+
+            return $results;
         }
     }
     private function createOrUpdate($response, $request, $id, $pay_amount)
@@ -229,6 +233,7 @@ class PaymentController extends Controller
         $application_id = $getApplication->Application_ID;
         $student = StudentInformation::where('Application_ID', $application_id)->first();
         $ntfDetail = Notification::where('id', $id)->first();
+
         if ($ntfDetail->student_profile == 'student_one') {
             $studentname = StudentInformation::where('Application_ID', $ntfDetail->application_id)->select('S1_First_Name', 'S1_Last_name', 'S1_Personal_Email', 'S1_Birthdate')->first();
             $name = ucfirst($studentname->S1_First_Name) . ' ' . ucfirst($studentname->S1_Last_name);
