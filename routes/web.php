@@ -182,4 +182,7 @@ Route::post('/registration/coursePlacement/{id}', [RegistrationController::class
 Route::get('/registration/thankYou' , [RegistrationController::class, 'thankYou']);
 // Route::put('/updatepassword',[UpdateProfileController::class,'UpdatePassword'])->name('updatepassword');
 
+Route::get('/admin/getApplication', [ApplicationController::class, 'getStudentData']);
+// Route::get('users/{id}', [ApplicationController::class, 'stuinfoshow']);
+
 
