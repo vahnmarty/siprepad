@@ -12,6 +12,9 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Application;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
 
 class Index extends Component
 {
@@ -28,8 +31,10 @@ class Index extends Component
     public $registeration;
     public $appStatus;
     public $studentTransfer;
-    public function mount($app = Null,$notificationButton = null,$register = null ,$applicationstatus = null,$studentTransfer= null)
+    public  $studentInformation;
+    public function mount($app = Null,$notificationButton = null,$register = null ,$applicationstatus = null,$studentTransfer= null,$studentInfo=null)
     {
+        $this->studentInformation = $studentInfo;
         $this->appStatus = $applicationstatus;
         $this->registeration = $register;
         $this->studentTransfer = $studentTransfer;
@@ -108,15 +113,13 @@ class Index extends Component
         }
 
         
-//         $getData = $dbQuery->join('applications', 'applications.Application_ID', 'student_information.Application_ID')
-//             ->select('student_information.*', 'applications.status', 'applications.last_step_complete')
-//             ->orderBy('Application_ID', 'desc')
-//             ->get();
+
+        $getData = $dbQuery->join('applications', 'applications.Application_ID', 'student_information.Application_ID')
+            ->select('student_information.*', 'applications.status', 'applications.last_step_complete')
+            ->orderBy('Application_ID', 'desc')
+            ->get();
         
-        $count = StudentInformation::count();
-        $skip = 5;
-        $limit = $count - $skip; // the limit
-        $getData = StudentInformation::skip($skip)->take($limit)->get();
+
 
         if (count($getData) > 0) {
             foreach ($getData as $key => $getStudentInfo)
@@ -256,6 +259,10 @@ class Index extends Component
       
         return view('livewire.admin.application.index', ['students' => $myCollectionObj]);
     }
+    
+    
+    
+    
 
     /**
      * The attributes that are mass assignable.
@@ -300,4 +307,6 @@ class Index extends Component
             $this->last_name_sort = true;
         }
     }
+    
+    
 }
