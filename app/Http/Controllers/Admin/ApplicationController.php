@@ -36,7 +36,7 @@ class ApplicationController extends Controller
     {
         if (!Auth::check()) {
             return view('auth.admin-login');
-         }
+        }
         $user = Auth::guard('customer')->user('id');
         $app = Application::all();
 
@@ -410,26 +410,26 @@ class ApplicationController extends Controller
         $dob = $request->dob;
         $firstName = strtolower($firstName);
         $lastName = strtolower($lastName);
-
-
         $studentInfo = StudentInformation::where([
             ['Profile_ID', '=', $user],
             ['Application_ID', '=', $appID]
         ])->first();
-
-
         switch ($applicationStatus) {
             case 1:
-                $message = 'Congratulations '.ucfirst($firstName) .''.$lastName.'! Your application has been accepted.';
+                $message = 'Congratulations ' . ucfirst($firstName) . '' . $lastName . ' ! Your application has been accepted.';
                 $ntfType = Notification::NOTIFY_ACCEPTED;
                 break;
             case 2:
-                $message = ucfirst($firstName) .''.$lastName.' Your application is in Waiting List. We will in touch with you shortly.';
+                $message = ucfirst($firstName) . '' . $lastName . ' Your application is in Waiting List. We will in touch with you shortly.';
                 $ntfType = Notification::NOTIFY_WAITLIST;
                 break;
             case 3:
-                $message = 'Sorry ' .ucfirst($firstName) .''.$lastName.'! Your application has been rejected. Better Luck next time.';
+                $message = 'Sorry ' . ucfirst($firstName) . '' . $lastName . ' ! Your application has been rejected. Better Luck next time.';
                 $ntfType = Notification::NOTIFY_REJECTED;
+                break;
+            case 5:
+                $message = 'Congratulations ' . ucfirst($firstName) . '' . $lastName . ' ! Your application has been Acceptance With Financial Aid.';
+                $ntfType = Notification::NOTIFY_ACCEPTANCE_FINANCIAL_AID;
                 break;
             default:
                 $message = 'Nothing';
@@ -442,9 +442,7 @@ class ApplicationController extends Controller
                     ['application_id', '=', $appID],
                     ['profile_id', '=', $user]
                 ])->first();
-
                 if ($applicationStatus == Application::No_RESPONSE) {
-
                     if (empty($checkStatus)) {
                         $setApplicationStatus = new StudentApplicationStatus();
                         $setApplicationStatus->application_id = $appID;
@@ -452,11 +450,8 @@ class ApplicationController extends Controller
                         $setApplicationStatus->s1_application_status = $applicationStatus;
                         $setApplicationStatus->s1_candidate_status = 0;
                         $setApplicationStatus->s1_notification_id = null;
-
                         if ($setApplicationStatus->save()) {
-
                             Notification::where('student_profile', '=', 'student_one')->where('application_id', '=', $appID)->delete();
-
                             DB::commit();
                             return 'Application Status Submitted Successfully!!!!';
                         } else {
@@ -548,8 +543,8 @@ class ApplicationController extends Controller
 
 
                         if ($setApplicationStatus->save()) {
-                           Notification::where('student_profile', '=', 'student_two')->where('application_id', '=', $appID)->delete();
-                        
+                            Notification::where('student_profile', '=', 'student_two')->where('application_id', '=', $appID)->delete();
+
                             DB::commit();
 
                             return 'Application Status Submitted Successfully!!!!';

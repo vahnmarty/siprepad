@@ -23,6 +23,8 @@ class Application extends Model
     const CANDIDATE_ACCEPTED = 1;
     const CANDIDATE_REJECTED = 2;
     const CANDIDATE_READ = 3;
+    const Acceptancefinancialaid = 3;
+    const ACCEPTANCE_FINANCIAL_AID = 5;
     const STUDENT_ONE = 'student_one';
     const STUDENT_TWO = 'student_two';
     const STUDENT_THREE = 'student_three';

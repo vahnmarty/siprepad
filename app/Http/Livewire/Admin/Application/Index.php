@@ -112,14 +112,10 @@ class Index extends Component
             });
         }
 
-        
-
         $getData = $dbQuery->join('applications', 'applications.Application_ID', 'student_information.Application_ID')
             ->select('student_information.*', 'applications.status', 'applications.last_step_complete')
             ->orderBy('Application_ID', 'desc')
             ->get();
-        
-
 
         if (count($getData) > 0) {
             foreach ($getData as $key => $getStudentInfo)

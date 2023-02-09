@@ -87,7 +87,7 @@
                 }
                 @endphp
                 @php
-                
+
                 $getApplication = App\Models\Application::where('Application_ID','=' ,$student['Application_ID'])
                 ->where('last_step_complete','=','ten')
                 ->get()->first();
@@ -136,6 +136,7 @@
                         <select name='candidate-status' required class='state_select-box'>
                             <option value='' disabled>Select</option>
                             <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::TYPE_ACCEPTED}}' selected>Accepted</option>
+                            <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID}}'>Acceptance With Financial Aid</option>
                             <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
                             <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
                             <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
@@ -146,6 +147,7 @@
                         <select name='candidate-status' required class='state_select-box'>
                             <option value='' disabled>Select</option>
                             <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
+                            <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID}}'>Acceptance With Financial Aid</option>
                             <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}' selected>Wait Listed</option>
                             <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
                             <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
@@ -156,6 +158,7 @@
                         <select name='candidate-status' required class='state_select-box'>
                             <option value='' disabled>Select</option>
                             <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
+                            <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID}}'>Acceptance With Financial Aid</option>
                             <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
                             <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}' selected>Not Accepted</option>
                             <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
@@ -167,214 +170,172 @@
                             <select name='candidate-status' required class='state_select-box'>
                                 <option value='' disabled>Select</option>
                                 <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
+                                <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID}}'>Acceptance With Financial Aid</option>
                                 <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
                                 <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
                                 <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::No_RESPONSE}}' selected>No Response</option>
 
                                 @break
-                                @default
+                                @case(5)
                                 <select name='candidate-status' required class='state_select-box'>
-                                    <option value='' selected disabled>Select</option>
+                                    <option value='' disabled>Select</option>
                                     <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
+                                    <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID}}' selected>Acceptance With Financial Aid</option>
                                     <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
                                     <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
                                     <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
-
-                                </select>
-                                @endswitch
-                                @else
-                                <select name='candidate-status' required class='state_select-box' disabled>
-                                    <option value='' disabled>Select</option>
-                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_ACCEPTED}}' selected>Accepted</option>
-                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
-                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
-                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
-
-                                </select>
-                                @endif
-                                @else
-
-                                <select name='candidate-status' required class='state_select-box' disabled>
-                                    <option value='' disabled>Select</option>
-                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_ACCEPTED}}' selected>Accepted</option>
-                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
-                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
-                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
-
-                                </select>
-
-                                @endif
-
-                                @else
-                                @if(empty($studentProfile))
-                                @if($student['student_type']==App\Models\Application::STUDENT_ONE)
-
-                                <select name='candidate-status' required class='state_select-box'>
-                                    <option value='' selected disabled>Select</option>
-                                    <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
-                                    <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
-                                    <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
-                                    <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
-
-                                </select>
-                                @endif
-                                @if($student['student_type']==App\Models\Application::STUDENT_TWO)
-
-                                <select name='candidate-status' required class='state_select-box'>
-                                    <option value='' selected disabled>Select</option>
-                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
-                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
-                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
-                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
-
-                                </select>
-                                @endif
-                                @if($student['student_type']==App\Models\Application::STUDENT_THREE)
-
-                                <select name='candidate-status' required class='state_select-box'>
-                                    <option value='' selected disabled>Select</option>
-                                    <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
-                                    <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
-                                    <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
-                                    <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
-
-                                </select>
-                                @endif
-                                @endif
-                                @endif
-                                @if($studentProfile == App\Models\Application::STUDENT_TWO)
-
-                                @if($getApplicationStatus->s2_candidate_status != App\Models\Application::CANDIDATE_ACCEPTED )
-                                @if($getApplicationStatus->s2_candidate_status != App\Models\Application::CANDIDATE_REJECTED )
-                                @switch($getApplicationStatus->s2_application_status)
-                                @case(1)
-                                <select name='candidate-status' required class='state_select-box'>
-                                    <option value='' disabled>Select</option>
-                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_ACCEPTED}}' selected>Accepted</option>
-                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
-                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
-                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
-
-                                </select>
-                                @break
-                                @case(2)
-                                <select name='candidate-status' required class='state_select-box'>
-                                    <option value='' disabled>Select</option>
-                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
-                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}' selected>Wait Listed</option>
-                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
-                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
-
-                                </select>
-                                @break
-                                @case(3)
-                                <select name='candidate-status' required class='state_select-box'>
-                                    <option value='' disabled>Select</option>
-                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
-                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
-                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}' selected>Not Accepted</option>
-                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
 
                                     @break
-                                    @case(4)
+                                    @default
+                                    <select name='candidate-status' required class='state_select-box'>
+                                        <option value='' selected disabled>Select</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID}}'>Acceptance With Financial Aid</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
+
+                                    </select>
+                                    @endswitch
+                                    @else
+                                    <select name='candidate-status' required class='state_select-box' disabled>
+                                        <option value='' disabled>Select</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_ACCEPTED}}' selected>Accepted</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID}}'>Acceptance With Financial Aid</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
+
+                                    </select>
+                                    @endif
+                                    @else
+
+                                    <select name='candidate-status' required class='state_select-box' disabled>
+                                        <option value='' disabled>Select</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_ACCEPTED}}' selected>Accepted</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID}}'>Acceptance With Financial Aid</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
+
+                                    </select>
+
+                                    @endif
+
+                                    @else
+                                    @if(empty($studentProfile))
+                                    @if($student['student_type']==App\Models\Application::STUDENT_ONE)
+
+                                    <select name='candidate-status' required class='state_select-box'>
+                                        <option value='' selected disabled>Select</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID}}'>Acceptance With Financial Aid</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
+
+                                    </select>
+                                    @endif
+                                    @if($student['student_type']==App\Models\Application::STUDENT_TWO)
+
+                                    <select name='candidate-status' required class='state_select-box'>
+                                        <option value='' selected disabled>Select</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID}}'>Acceptance With Financial Aid</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
+
+                                    </select>
+                                    @endif
+                                    @if($student['student_type']==App\Models\Application::STUDENT_THREE)
+
+                                    <select name='candidate-status' required class='state_select-box'>
+                                        <option value='' selected disabled>Select</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID}}'>Acceptance With Financial Aid</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
+
+                                    </select>
+                                    @endif
+                                    @endif
+                                    @endif
+                                    @if($studentProfile == App\Models\Application::STUDENT_TWO)
+
+                                    @if($getApplicationStatus->s2_candidate_status != App\Models\Application::CANDIDATE_ACCEPTED )
+                                    @if($getApplicationStatus->s2_candidate_status != App\Models\Application::CANDIDATE_REJECTED )
+                                    @switch($getApplicationStatus->s2_application_status)
+                                    @case(1)
+                                    <select name='candidate-status' required class='state_select-box'>
+                                        <option value='' disabled>Select</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_ACCEPTED}}' selected>Accepted</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID}}'>Acceptance With Financial Aid</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
+
+                                    </select>
+                                    @break
+                                    @case(2)
                                     <select name='candidate-status' required class='state_select-box'>
                                         <option value='' disabled>Select</option>
                                         <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
-                                        <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID}}'>Acceptance With Financial Aid</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}' selected>Wait Listed</option>
                                         <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
-                                        <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::No_RESPONSE}}' selected>No Response</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
+
+                                    </select>
+                                    @break
+                                    @case(3)
+                                    <select name='candidate-status' required class='state_select-box'>
+                                        <option value='' disabled>Select</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID}}'>Acceptance With Financial Aid</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}' selected>Not Accepted</option>
+                                        <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
 
                                         @break
-                                        @default
+                                        @case(4)
                                         <select name='candidate-status' required class='state_select-box'>
-                                            <option value='' selected disabled>Select</option>
+                                            <option value='' disabled>Select</option>
                                             <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
+                                            <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID}}'>Acceptance With Financial Aid</option>
                                             <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
                                             <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
-                                            <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
-
-                                        </select>
-                                        @endswitch
-                                        @else
-                                        <select name='candidate-status' required class='state_select-box' disabled>
-                                            <option value='' disabled>Select</option>
-                                            <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_ACCEPTED}}' selected>Accepted</option>
-                                            <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
-                                            <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
-                                            <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
-
-                                        </select>
-                                        @endif
-                                        @else
-
-                                        <select name='candidate-status' required class='state_select-box' disabled>
-                                            <option value='' disabled>Select</option>
-                                            <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_ACCEPTED}}' selected>Accepted</option>
-                                            <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
-                                            <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
-                                            <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
-
-                                        </select>
-
-                                        @endif
-                                        @endif
-                                        @if($studentProfile == App\Models\Application::STUDENT_THREE)
-
-
-                                        @if($getApplicationStatus->s3_candidate_status != App\Models\Application::CANDIDATE_ACCEPTED )
-                                        @if($getApplicationStatus->s3_candidate_status != App\Models\Application::CANDIDATE_REJECTED )
-                                        @switch($getApplicationStatus->s3_application_status)
-                                        @case(1)
-                                        <select name='candidate-status' required class='state_select-box'>
-                                            <option value='' disabled>Select</option>
-                                            <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_ACCEPTED}}' selected>Accepted</option>
-                                            <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
-                                            <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
-                                            <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
-
-                                        </select>
-                                        @break
-                                        @case(2)
-                                        <select name='candidate-status' required class='state_select-box'>
-                                            <option value='' disabled>Select</option>
-                                            <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
-                                            <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}' selected>Wait Listed</option>
-                                            <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
-                                            <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
-
-                                        </select>
-                                        @break
-                                        @case(3)
-                                        <select name='candidate-status' required class='state_select-box'>
-                                            <option value='' disabled>Select</option>
-                                            <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
-                                            <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
-                                            <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}' selected>Not Accepted</option>
-                                            <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
+                                            <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::No_RESPONSE}}' selected>No Response</option>
 
                                             @break
-                                            @case(4)
+
+                                            @case(5)
                                             <select name='candidate-status' required class='state_select-box'>
                                                 <option value='' disabled>Select</option>
-                                                <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
-                                                <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
-                                                <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
-                                                <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::No_RESPONSE}}' selected>No Response</option>
+                                                <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
+                                                <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID}}' selected>Acceptance With Financial Aid</option>
+                                                <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
+                                                <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
+                                                <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
 
                                                 @break
                                                 @default
                                                 <select name='candidate-status' required class='state_select-box'>
                                                     <option value='' selected disabled>Select</option>
-                                                    <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
-                                                    <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
-                                                    <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
-                                                    <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
+                                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
+                                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID}}'>Acceptance With Financial Aid</option>
+                                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
+                                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
+                                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
+
                                                 </select>
                                                 @endswitch
                                                 @else
                                                 <select name='candidate-status' required class='state_select-box' disabled>
                                                     <option value='' disabled>Select</option>
                                                     <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_ACCEPTED}}' selected>Accepted</option>
+                                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID}}'>Acceptance With Financial Aid</option>
                                                     <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
                                                     <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
                                                     <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
@@ -386,6 +347,7 @@
                                                 <select name='candidate-status' required class='state_select-box' disabled>
                                                     <option value='' disabled>Select</option>
                                                     <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_ACCEPTED}}' selected>Accepted</option>
+                                                    <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID}}'>Acceptance With Financial Aid</option>
                                                     <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
                                                     <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
                                                     <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
@@ -394,6 +356,99 @@
 
                                                 @endif
                                                 @endif
+                                                @if($studentProfile == App\Models\Application::STUDENT_THREE)
+
+
+                                                @if($getApplicationStatus->s3_candidate_status != App\Models\Application::CANDIDATE_ACCEPTED )
+                                                @if($getApplicationStatus->s3_candidate_status != App\Models\Application::CANDIDATE_REJECTED )
+                                                @switch($getApplicationStatus->s3_application_status)
+                                                @case(1)
+                                                <select name='candidate-status' required class='state_select-box'>
+                                                    <option value='' disabled>Select</option>
+                                                    <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_ACCEPTED}}' selected>Accepted</option>
+                                                    <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID}}'>Acceptance With Financial Aid</option>
+                                                    <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
+                                                    <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
+                                                    <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
+
+                                                </select>
+                                                @break
+                                                @case(2)
+                                                <select name='candidate-status' required class='state_select-box'>
+                                                    <option value='' disabled>Select</option>
+                                                    <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
+                                                    <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID}}'>Acceptance With Financial Aid</option>
+                                                    <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}' selected>Wait Listed</option>
+                                                    <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
+                                                    <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
+
+                                                </select>
+                                                @break
+                                                @case(3)
+                                                <select name='candidate-status' required class='state_select-box'>
+                                                    <option value='' disabled>Select</option>
+                                                    <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
+                                                    <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID}}'>Acceptance With Financial Aid</option>
+                                                    <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
+                                                    <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}' selected>Not Accepted</option>
+                                                    <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
+
+                                                    @break
+                                                    @case(4)
+                                                    <select name='candidate-status' required class='state_select-box'>
+                                                        <option value='' disabled>Select</option>
+                                                        <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
+                                                        <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID}}'>Acceptance With Financial Aid</option>
+                                                        <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
+                                                        <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
+                                                        <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::No_RESPONSE}}' selected>No Response</option>
+
+                                                        @break
+                                                        @case(5)
+                                                        <select name='candidate-status' required class='state_select-box'>
+                                                            <option value='' disabled>Select</option>
+                                                            <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
+                                                            <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID}}' selected>Acceptance With Financial Aid</option>
+                                                            <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
+                                                            <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
+                                                            <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
+
+                                                            @break
+                                                            @default
+                                                            <select name='candidate-status' required class='state_select-box'>
+                                                                <option value='' selected disabled>Select</option>
+                                                                <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
+                                                                <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID}}'>Acceptance With Financial Aid</option>
+                                                                <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
+                                                                <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
+                                                                <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
+                                                            </select>
+                                                            @endswitch
+                                                            @else
+                                                            <select name='candidate-status' required class='state_select-box' disabled>
+                                                                <option value='' disabled>Select</option>
+                                                                <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_ACCEPTED}}' selected>Accepted</option>
+                                                                <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID}}'>Acceptance With Financial Aid</option>
+                                                                <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
+                                                                <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
+                                                                <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
+
+                                                            </select>
+                                                            @endif
+                                                            @else
+
+                                                            <select name='candidate-status' required class='state_select-box' disabled>
+                                                                <option value='' disabled>Select</option>
+                                                                <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_ACCEPTED}}' selected>Accepted</option>
+                                                                <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID}}'>Acceptance With Financial Aid</option>
+                                                                <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
+                                                                <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
+                                                                <option student_type="{{App\Models\Application::STUDENT_TWO}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
+
+                                                            </select>
+
+                                                            @endif
+                                                            @endif
 
                     </td>
 

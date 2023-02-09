@@ -19,9 +19,28 @@
 	@else
 	<?php $studentProfileOne = ''; ?>
 	@endif
+
+
+	@elseif($getApplicationStatus->s1_application_status==App\Models\Application::ACCEPTANCE_FINANCIAL_AID && $getApplicationStatus->s1_candidate_status==App\Models\Application::CANDIDATE_ACCEPTED)
+	@if(array_key_exists(App\Models\Application::STUDENT_S1,$StudentApplicationStatusResults))
+	@if($StudentApplicationStatusResults[App\Models\Application::STUDENT_S1]==App\Models\Application::STUDENT_S1)
+	<?php $studentProfileOne = App\Models\Application::STUDENT_ONE; ?>
 	@else
 	<?php $studentProfileOne = ''; ?>
 	@endif
+	@else
+	<?php $studentProfileOne = ''; ?>
+	@endif
+	@else
+	<?php $studentProfileOne = ''; ?>
+	@endif
+
+
+
+
+
+
+
 	@if($getApplicationStatus->s2_application_status==App\Models\Application::CANDIDATE_ACCEPTED && $getApplicationStatus->s2_candidate_status==App\Models\Application::CANDIDATE_ACCEPTED)
 	@if(array_key_exists(App\Models\Application::STUDENT_S2,$StudentApplicationStatusResults))
 	@if($StudentApplicationStatusResults[App\Models\Application::STUDENT_S2]==App\Models\Application::STUDENT_S2)
@@ -32,10 +51,36 @@
 	@else
 	<?php $studentProfileTwo = ''; ?>
 	@endif
+	@elseif($getApplicationStatus->s2_application_status==App\Models\Application::ACCEPTANCE_FINANCIAL_AID && $getApplicationStatus->s2_candidate_status==App\Models\Application::CANDIDATE_ACCEPTED)
+	@if(array_key_exists(App\Models\Application::STUDENT_S2,$StudentApplicationStatusResults))
+	@if($StudentApplicationStatusResults[App\Models\Application::STUDENT_S2]==App\Models\Application::STUDENT_S2)
+	<?php $studentProfileTwo = App\Models\Application::STUDENT_TWO; ?>
+	@else
+	<?php $studentProfileTwo = ''; ?>
+	@endif
+	@else
+	<?php $studentProfileTwo = ''; ?>
+	@endif
+	
+	
 	@else
 	<?php $studentProfileTwo = ''; ?>
 	@endif
 	@if($getApplicationStatus->s3_application_status==App\Models\Application::CANDIDATE_ACCEPTED && $getApplicationStatus->s3_candidate_status==App\Models\Application::CANDIDATE_ACCEPTED)
+	
+	@if(array_key_exists(App\Models\Application::STUDENT_S3,$StudentApplicationStatusResults))
+	@if($StudentApplicationStatusResults[App\Models\Application::STUDENT_S3]==App\Models\Application::STUDENT_S3)
+	<?php $studentProfileThree = App\Models\Application::STUDENT_THREE; ?>
+	@else
+	<?php $studentProfileThree = ''; ?>
+	@endif
+	@else
+	<?php $studentProfileThree = ''; ?>
+	@endif
+	@elseif($getApplicationStatus->s3_application_status==App\Models\Application::ACCEPTANCE_FINANCIAL_AID && $getApplicationStatus->s3_candidate_status==App\Models\Application::CANDIDATE_ACCEPTED)
+
+
+	
 	@if(array_key_exists(App\Models\Application::STUDENT_S3,$StudentApplicationStatusResults))
 	@if($StudentApplicationStatusResults[App\Models\Application::STUDENT_S3]==App\Models\Application::STUDENT_S3)
 	<?php $studentProfileThree = App\Models\Application::STUDENT_THREE; ?>

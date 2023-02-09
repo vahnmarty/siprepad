@@ -467,7 +467,7 @@
                         <div class="kt-widget24__details">
                             <div class="kt-widget24__info">
                                 <h4 class="kt-widget24__title">
-                                    Completed Registration
+                                    Completed Registrations
                                 </h4>
 
                             </div>

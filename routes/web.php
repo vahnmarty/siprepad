@@ -38,7 +38,8 @@ Route::get('/cicd', function () {
 
 // Route::get('/pay', [PaymentController::class, 'pay'])->name('pay');
 // Route::post('/dopay/online', [PaymentController::class, 'handleonlinepay'])->name('dopay.online');
-Route::post('/dopay/{sid}', [PaymentController::class, 'acceptPayment'])->name('dopay');
+// Route::post('/dopay/{sid}', [PaymentController::class, 'acceptPayment'])->name('dopay');
+Route::post('/dopay', [PaymentController::class, 'acceptPayment'])->name('dopay');
 
 Route::get('login', [UserAuthController::class, 'getLogin'])->name('login.get');
 Route::post('login', [UserAuthController::class, 'postLogin'])->name('login.post');
@@ -65,8 +66,8 @@ Route::group(['middleware' => 'auth:customer'], function () {
     
     Route::get('/candidate/response/{apid}/{cid}/{rsid}', [NotificationController::class, 'candidateResponse']);
     
-    Route::get('/notification/pdfgenerator/{ntid}/{uid}', [StatusPdfController::class, 'index']);
-    
+    // Route::get('/notification/pdfgenerator/{ntid}/{uid}', [StatusPdfController::class, 'index']);
+    Route::get('/notification/pdfgenerator/{ntid}/{uid}/{Application_ID}', [StatusPdfController::class, 'index']);
     Route::get('/edit-profile', [UserAuthController::class, 'editProfile'])->name('edit-profile');
     Route::post('/edit-profile', [UserAuthController::class, 'updateProfile'])->name('update-profile');
     Route::get('/change-password', [UserAuthController::class, 'changePassword'])->name('change-password');

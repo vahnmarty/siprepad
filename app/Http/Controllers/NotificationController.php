@@ -67,13 +67,13 @@ class NotificationController extends Controller
                 $studentCount = self::getApplicationsAccepted($application, $profile_id, Application::No_RESPONSE);
                 if (count($studentCount) == 1) {
                     if ($studentCount[Application::TYPE_PENDING]['student_type'] == Application::STUDENT_ONE) {
-                        return redirect('/notification/show/'.$application_status->s1_notification_id);
+                        return redirect('/notification/show/' . $application_status->s1_notification_id);
                     }
                     if ($studentCount[Application::TYPE_PENDING]['student_type'] == Application::STUDENT_TWO) {
-                        return redirect('/notification/show/'.$application_status->s2_notification_id);
+                        return redirect('/notification/show/' . $application_status->s2_notification_id);
                     }
                     if ($studentCount[Application::TYPE_PENDING]['student_type'] == Application::STUDENT_THREE) {
-                        return redirect('/notification/show/'.$application_status->s3_notification_id);
+                        return redirect('/notification/show/' . $application_status->s3_notification_id);
                     }
                 } else {
                     return view('frontend.notification_list', compact('application_status', 'studentinfo', 'notification_list'));
