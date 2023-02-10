@@ -20,9 +20,7 @@
 
 @livewire('admin.user-list',['notificationButton' => $notifications])
 
-
 </x-admin-layout>
-  
 
 @extends('components.admin-includes.customDatatable')
     

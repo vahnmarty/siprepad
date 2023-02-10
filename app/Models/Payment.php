@@ -9,8 +9,12 @@ class Payment extends Model
 {
     use HasFactory;
     const PAYAMOUNT = 1500;
+
+    const COUNT = 1;
+
     const CARDAPIUSERNAME = '74s42b7Th7Hp';
     const CARDAPITRANSACTION  = '2hYEY8eNA4Z5n39p';
+
 
     /**
      * The database table used by the model.

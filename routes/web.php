@@ -77,7 +77,7 @@ Route::group(['middleware' => 'auth:customer'], function () {
     Route::get('/book-wildcat-experience', [HomeController::class, 'bookWildcatExperience'])->name('book-wildcat-experience');
     Route::get('/admission-application/{step?}', [HomeController::class, 'admissionApplication'])->name('admission-application');
 //     Route::get('/registeration-application/{step?}{id?}', [HomeController::class, 'registerationApplication'])->name('registeration-application');
-    
+    Route::get('/application/{application_id}', [HomeController::class, 'appForm'])->name('app-form');
     Route::get('/view-application/{application_id}', [HomeController::class, 'viewApplication'])->name('view-application');
     Route::get('/supplemental-recommendation', [HomeController::class, 'supplementalRecommendation'])->name('supplemental-recommendation');
     Route::post('/supplemental-recommendation', [HomeController::class, 'submitSupplemental'])->name('supplemental-recommendation-submit');
@@ -182,8 +182,5 @@ Route::get('/registration/coursePlacementIndex/{id}', [RegistrationController::c
 Route::post('/registration/coursePlacement/{id}', [RegistrationController::class, 'coursePlacementUpdate'])->name('coursePlacementUpdate');
 Route::get('/registration/thankYou' , [RegistrationController::class, 'thankYou']);
 // Route::put('/updatepassword',[UpdateProfileController::class,'UpdatePassword'])->name('updatepassword');
-
-Route::get('/admin/getApplication', [ApplicationController::class, 'getStudentData']);
-// Route::get('users/{id}', [ApplicationController::class, 'stuinfoshow']);
 
 

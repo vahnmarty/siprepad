@@ -1,5 +1,4 @@
 @props(['search' => null])
-
 <div class="kt-portlet kt-portlet--mobile">
     <div class="kt-portlet__body">
         <div id="kt_table_1_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">

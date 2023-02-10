@@ -139,6 +139,10 @@
             </li>
             @if ($application)
             @if ($application->status ==App\Models\Application::CANDIDATE_ACCEPTED)
+            @if(!empty($application_status))
+           
+            @if(count($paymentStudentCount)==1)
+            @if($studentCount[App\Models\Application::TYPE_PENDING]['student_type']==App\Models\Application::STUDENT_ONE)
             <li>
                 <a href="{{ route('view-application', ['application_id' => $application->Application_ID]) }}">
                     <em>
@@ -150,6 +154,24 @@
                     </span>
                 </a>
             </li>
+            @endif
+
+            @elseif(count($paymentStudentCount)>1)
+            <li>
+                <a href="{{ route('view-application', ['application_id' => $application->Application_ID]) }}">
+                    <em>
+                        <img src="{{ asset('frontend_assets/images/j2.svg') }}" alt="" />
+                    </em>
+                    <p>View Applications</p>
+                    <span>
+                        <img src="{{ asset('frontend_assets/images/rgt-arrw.svg') }}" alt="" />
+                    </span>
+                </a>
+            </li>
+            @endif
+
+            @endif
+
             @else
             @php
             if ($application->last_step_complete) {
