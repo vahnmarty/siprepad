@@ -44,7 +44,7 @@ class Application extends Model
 
     public function payment()
     {
-        return $this->belongsTo(Payment::class, 'Application_ID');
+        return $this->belongsTo(Payment::class,   'Application_ID' ,'application_id');
     }
     public function StudentApplicationStatus()
     {

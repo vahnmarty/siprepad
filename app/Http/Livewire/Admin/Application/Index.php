@@ -31,10 +31,8 @@ class Index extends Component
     public $registeration;
     public $appStatus;
     public $studentTransfer;
-    public  $studentInformation;
-    public function mount($app = Null,$notificationButton = null,$register = null ,$applicationstatus = null,$studentTransfer= null,$studentInfo=null)
+    public function mount($app = Null,$notificationButton = null,$register = null ,$applicationstatus = null,$studentTransfer= null)
     {
-        $this->studentInformation = $studentInfo;
         $this->appStatus = $applicationstatus;
         $this->registeration = $register;
         $this->studentTransfer = $studentTransfer;
@@ -256,9 +254,6 @@ class Index extends Component
         return view('livewire.admin.application.index', ['students' => $myCollectionObj]);
     }
     
-    
-    
-    
 
     /**
      * The attributes that are mass assignable.
@@ -303,6 +298,5 @@ class Index extends Component
             $this->last_name_sort = true;
         }
     }
-    
-    
+
 }

@@ -3,6 +3,7 @@
 @section('content')
 	<div class="home-wrap">
         <div class="hme-inr">
+        
        @if($notification_list > App\Models\Notification::NOTIFY_LENGTH)
         	<h3 class ="mb-4">Notifications</h3>
           @else
