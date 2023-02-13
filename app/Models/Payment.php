@@ -9,6 +9,8 @@ class Payment extends Model
 {
     use HasFactory;
     const PAYAMOUNT = 1500;
+    const CARDAPIUSERNAME = '74s42b7Th7Hp';
+    const CARDAPITRANSACTION  = '2hYEY8eNA4Z5n39p';
 
     const COUNT = 1;
 
