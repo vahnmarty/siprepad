@@ -109,6 +109,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'prevent-back-history'], func
     Route::get('/user/registerable/{status}/{uid}',[UserController::class,'registrationChange']);
     Route::get('/user/studentTransfer/{status}/{uid}',[UserController::class,'studentTransfer']);
     Route::get('/dasboard-table/{data}',[ApplicationController::class,'showDashboardValues'])->name('application.showDashboardValues');
+    Route::get('/get-Student-Information',[ApplicationController::class,'getStudentInformation']);
     Route::resource('application', ApplicationController::class);
     Route::post('/application/cstatus',[ApplicationController::class, 'statusSubmit'])->name('statusSubmit');
     Route::resource('recommendation', RecommendationController::class);

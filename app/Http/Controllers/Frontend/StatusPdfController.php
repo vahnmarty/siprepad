@@ -514,7 +514,7 @@ class StatusPdfController extends Controller
                     </tr>
                     <tr>
                         <td width="50%" style="text-align: left;">
-                            For your information, we had over <strong>1,290</strong> applicants apply to St. Ignatius College Preparatory for the Class of 2027.  The Admissions Committee was fortunate to have so many qualified applicants to select from in this highly competitive applicant pool.  We are excited to have ' . self::getStudentInformation($studentType, $studentDetail, "Student_first_Name") . '  as a member of our talented Freshman class.  ' . self::getStudentInformation($studentType, $studentDetail, "Student_first_Name") . ' ’s acceptance is contingent upon {his/her} continued academic performance, good citizenship, and successful completion of eight grade at {Student_Current_School}.  It is our intention to see that your child has the academic challenge and individual attention that have been a hallmark of Jesuit education.  To this end, we are looking forward to working closely with you and ' . self::getStudentInformation($studentType, $studentDetail, "Student_first_Name") . '  over the next four years.  Once again, <strong>congratulations!</strong> 
+                            For your information, we had over <strong>1,290</strong> applicants apply to St. Ignatius College Preparatory for the Class of 2027.  The Admissions Committee was fortunate to have so many qualified applicants to select from in this highly competitive applicant pool.  We are excited to have ' . self::getStudentInformation($studentType, $studentDetail, "Student_first_Name") . '  as a member of our talented Freshman class.  ' . self::getStudentInformation($studentType, $studentDetail, "Student_first_Name") . ' ’s acceptance is contingent upon {his/her} continued academic performance, good citizenship, and successful completion of eight grade at ' . self::getStudentInformation($studentType, $studentDetail, "Student_Current_School") .'.  It is our intention to see that your child has the academic challenge and individual attention that have been a hallmark of Jesuit education.  To this end, we are looking forward to working closely with you and ' . self::getStudentInformation($studentType, $studentDetail, "Student_first_Name") . '  over the next four years.  Once again, <strong>congratulations!</strong> 
                         </td>
         
                     </tr>
@@ -552,7 +552,7 @@ class StatusPdfController extends Controller
             <tr>
                     
                 <td>      
-               <span style="color:rgb(32, 143, 234); font-weight: bold;" >Financial Assistance Details for {Student First Name} {Student Last Name}</span> </td>
+               <span style="color:rgb(32, 143, 234); font-weight: bold;" >Financial Assistance Details for ' . self::getStudentInformation($studentType, $studentDetail, "Student_first_Name") . '  ' . self::getStudentInformation($studentType, $studentDetail, "Student_Last_Name") . '</span> </td>
         
         </tr>
         </table>';
@@ -616,7 +616,7 @@ class StatusPdfController extends Controller
                     if ($studentDetail->P2_Last_Name == null) {
                         return ucwords($studentDetail->P2_Last_Name);
                     } else {
-                        return ' ' . ucwords($studentDetail->P2_Last_Name) . ')';
+                        return ' ' . ucwords($studentDetail->P2_Last_Name) . '';
                     }
                     break;
                 case "P1_First_Name":
@@ -635,7 +635,7 @@ class StatusPdfController extends Controller
                     if ($studentDetail->P2_First_Name == null) {
                         return ucwords($studentDetail->P2_First_Name);
                     } else {
-                        return '( ' . ucwords($studentDetail->P2_First_Name);
+                        return ' and ' . ucwords($studentDetail->P2_First_Name);
                     }
                     break;
                 case "Primary_Address_Street":
@@ -690,7 +690,7 @@ class StatusPdfController extends Controller
                     if ($studentDetail->P2_Last_Name == null) {
                         return ucwords($studentDetail->P2_Last_Name);
                     } else {
-                        return '' . ucwords($studentDetail->P2_Last_Name) . '):';
+                        return '' . ucwords($studentDetail->P2_Last_Name) . '';
                     }
                     break;
                 case "P1_First_Name":
@@ -709,7 +709,7 @@ class StatusPdfController extends Controller
                     if ($studentDetail->P2_First_Name == null) {
                         return ucwords($studentDetail->P2_First_Name);
                     } else {
-                        return '(and ' . ucwords($studentDetail->P2_First_Name);
+                        return ' and ' . ucwords($studentDetail->P2_First_Name);
                     }
                     break;
                 case "Primary_Address_Street":
@@ -759,7 +759,7 @@ class StatusPdfController extends Controller
                     if ($studentDetail->P2_Last_Name == null) {
                         return ucwords($studentDetail->P2_Last_Name);
                     } else {
-                        return ' ' . ucwords($studentDetail->P2_Last_Name) . ')';
+                        return ' ' . ucwords($studentDetail->P2_Last_Name) . '';
                     }
                     break;
                 case "P1_First_Name":
@@ -778,7 +778,7 @@ class StatusPdfController extends Controller
                     if ($studentDetail->P2_First_Name == null) {
                         return ucwords($studentDetail->P2_First_Name);
                     } else {
-                        return '( ' . ucwords($studentDetail->P2_First_Name);
+                        return ' and ' . ucwords($studentDetail->P2_First_Name);
                     }
                     break;
                 case "Primary_Address_Street":

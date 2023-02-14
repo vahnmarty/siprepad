@@ -76,21 +76,21 @@
 								<div class="form-group" style="display:flex">
 									<input type="number" class="form-control"
 
-										name='physician_phone1'   value=""style="width:25%;margin-right:5px;" max="3"/> @error('physician_phone1')
+										name='physician_phone1'   value=""style="width:25%;margin-right:5px;" /> @error('physician_phone1')
 
 
 									<p class="text-danger">{{$message}}</p>
 									@enderror 
 									
 									<input type="number" class="form-control"
-										name='physician_phone2'   value="" style="width:25%" max="3"/>@error('physician_phone2')
+										name='physician_phone2'   value="" style="width:25%" />@error('physician_phone2')
 
 									<p class="text-danger">{{$message}}</p>
 									@enderror 
 									
 									<input type="number" class="form-control"
 
-										name='physician_phone3'   value="" style="width:25%;margin-left:5px;" max="4"/> @error('physician_phone3')
+										name='physician_phone3'   value="" style="width:25%;margin-left:5px;" /> @error('physician_phone3')
 
 									<p class="text-danger">{{$message}}</p>
 									@enderror 
@@ -181,4 +181,3 @@
 @endsection
 @push('js')
 @endpush
-
