@@ -41,6 +41,13 @@ class Application extends Model
     {
         return $this->belongsTo(Profile::class, 'Profile_ID');
     }
+    public function selectOptions()
+    {
+        return [
+            'No Resoponse' => $this->No_RESPONSE,
+            'ACCEPTANCE FINANCIAL AID'            => $this->ACCEPTANCE_FINANCIAL_AID
+        ];
+    }
 
     public function payment()
     {

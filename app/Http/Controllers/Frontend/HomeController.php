@@ -53,10 +53,11 @@ class HomeController extends Controller
             $studentCount = self::getApplicationsAccepted($application, $profile_id, Application::No_RESPONSE);
             $paymentStudentCount = self::getMadePayment($application, $profile_id, Application::No_RESPONSE);
             // dd($studentCount);
+            $getCandidateStatus='';
             if ($application) {
 
                 $getAllStudent = [];
-                $studentData = $getStudent = StudentInformation::where('Application_ID', $application->Application_ID)->where('Profile_ID', $profile_id)->first()->toArray();
+                $studentData =     $getStudent = StudentInformation::where('Application_ID', $application->Application_ID)->where('Profile_ID', $profile_id)->first()->toArray();
 
                 $arr1 = [
                     "Rec_Student" => $getStudent['S1_First_Name'] . " " . $getStudent['S1_Last_Name'],
@@ -86,13 +87,15 @@ class HomeController extends Controller
                         array_push($getStudent, $student);
                     }
                 }
+                $StudentApplicationStatus = StudentApplicationStatus::get();
                 $getStudentCount = count($getStudent);
+                 $getCandidateStatus = self::getCandidateAccepted($studentData, $StudentApplicationStatus, 1);
             }
             $dbQuery = StudentInformation::query();
 
 
-            $StudentApplicationStatus = StudentApplicationStatus::get();
-            $getCandidateStatus = self::getCandidateAccepted($studentData, $StudentApplicationStatus, Notification::NOTIFY_READ);
+            
+           
             $notifications = $this->GlobalNotifiable;
             $registerable = $this->GlobalRegisterable;
             $studentTransfer = $this->GlobalStudentTransfer;
@@ -186,7 +189,6 @@ class HomeController extends Controller
     private function getCandidateAccepted($getStudentInfo, $StudentApplicationStatus, $applicationType)
     {
         $studentArr = [];
-$StudentApplicationStatusResults=[];
         foreach ($StudentApplicationStatus as $key => $StudentApplicationStatusResult) {
             $StudentApplicationStatusResults[$key]['s1_application_status'] = $StudentApplicationStatusResult['s1_candidate_status'];
             $StudentApplicationStatusResults[$key]['s2_application_status'] = $StudentApplicationStatusResult['s2_candidate_status'];

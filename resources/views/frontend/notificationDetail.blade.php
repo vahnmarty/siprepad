@@ -127,8 +127,8 @@
 		}
 	}
 
-	.modal-dialog {
-    max-width: 1100px;
+	.survay-accept{
+    max-width: 1100px !important;
     width: 100%;
 }
 input[type="text"]{
@@ -223,9 +223,40 @@ select#cars {
 		<!-- <div class='application_message'>
 		<p class='short_message'>{{ $ntfDetail->message; }}</p>
 	</div> -->
+		<!-- <div class='application_download'>
+			<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}/{{ $studentDetail->Application_ID }}' class="btn btn-danger mt-3">Print as Pdf</a>
+		</div> -->
+
+
+@if($candidate == 's1')
+		@if($appStatus->s1_candidate_status == App\Models\Application::CANDIDATE_ACCEPTED || $appStatus->s1_candidate_status == App\Models\Application::CANDIDATE_REJECTED)
 		<div class='application_download'>
 			<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}/{{ $studentDetail->Application_ID }}' class="btn btn-danger mt-3">Print as Pdf</a>
 		</div>
+		
+
+		@endif
+
+
+	@endif
+	
+	@if($candidate == 's2')
+	@if($appStatus->s2_candidate_status == App\Models\Application::CANDIDATE_ACCEPTED || $appStatus->s2_candidate_status == App\Models\Application::CANDIDATE_REJECTED)
+		<div class='application_download'>
+			<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}/{{ $studentDetail->Application_ID }}' class="btn btn-danger mt-3">Print as Pdf</a>
+		</div>
+		@endif
+	@endif
+	
+	@if($candidate == 's3')
+	@if($appStatus->s3_candidate_status == App\Models\Application::CANDIDATE_ACCEPTED || $appStatus->s3_candidate_status == App\Models\Application::CANDIDATE_REJECTED)
+		<div class='application_download'>
+			<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}/{{ $studentDetail->Application_ID }}' class="btn btn-danger mt-3">Print as Pdf</a>
+		</div>
+		@endif
+	@endif
+
+		
 		@if($student_status == App\Models\Application::TYPE_ACCEPTED && $ntfDetail->notification_type == App\Models\Notification::NOTIFY_ACCEPTED)
 
 		@if($candidate == 's1')
@@ -350,7 +381,7 @@ select#cars {
 		@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_ONE && $appStatus->s1_application_status == App\Models\Application::TYPE_ACCEPTED)
 		<div class="row">
 			<div class="col-md-3">
-				<p class="mt-3">Payment has been received</p>
+				<p class="mt-3">Payment has been received.</p>
 			</div>
 			</div>
 			<div class="col-md-12 text-center"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#Survey" class='btn btn_accept btn-success  mt-3 btn-sm'>Acceptance Survey</a></div>
@@ -368,7 +399,7 @@ select#cars {
 	<!-- ss -->
 
 			<div class="col-md-3">
-				<p class="mt-3">Payment has been received</p>
+				<p class="mt-3">Payment has been received.</p>
 			</div>
 			</div>
 			<div class="col-md-12 text-center"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#Survey" class='btn btn_accept btn-success  mt-3 btn-sm'>Acceptance Survey</a></div>
@@ -385,7 +416,7 @@ select#cars {
 		<div class="row">
 
 			<div class="col-md-3">
-				<p class="mt-3">Payment has been received</p>
+				<p class="mt-3">Payment has been received.</p>
 			</div>
 			</div>
 			<div class="col-md-12 text-center"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#Survey" class='btn btn_accept btn-success mt-3 btn-sm'>Acceptance Survey</a></div>
@@ -410,7 +441,7 @@ select#cars {
 		<div class="row">
 
 			<div class="col-md-3">
-				<p class="mt-3">Payment has been received</p>
+				<p class="mt-3">Payment has been received.</p>
 			</div>
 			</div>
 			<div class="col-md-12 text-center"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#Survey" class='btn btn_accept btn-success mt-3 btn-sm'>Acceptance Survey</a></div>
@@ -429,7 +460,7 @@ select#cars {
 		<div class="row">
 
 			<div class="col-md-3">
-				<p class="mt-3">Payment has been received</p>
+				<p class="mt-3">Payment has been received.</p>
 			</div>
 			</div>
 			<div class="col-md-12 text-center"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#Survey" class='btn btn_accept btn-success mt-3 btn-sm'>Acceptance Survey</a></div>
@@ -446,7 +477,7 @@ select#cars {
 		<div class="row">
 
 			<div class="col-md-3">
-				<p class="mt-3">Payment has been received</p>
+				<p class="mt-3">Payment has been received.</p>
 			</div>
 			</div>
 			<div class="col-md-12 text-center"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#Survey" class='btn btn_accept btn-success mt-3 btn-sm'>Acceptance Survey</a></div>
@@ -525,10 +556,10 @@ select#cars {
 </div>
 <!-- Accept survey modal -->
 <div class="modal fade" id="acceptanceServModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
+	<div class="modal-dialog survay-accept">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel"><span style="color:red; font-size:22px;">Reserve TestFirst's place in the Class of 2027 at SI!</span></h5>
+				<h5 class="modal-title" id="exampleModalLabel"><span style="color:#A71930 ; font-size:22px;">Reserve TestFirst's place in the Class of 2027 at SI!</span></h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
@@ -806,10 +837,10 @@ select#cars {
 
 <!-- Accept survey modal -->
 <div class="modal fade" id="declineanceServModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
+	<div class="modal-dialog survay-accept">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel"><span style="color:red; font-size:22px;">Decline Acceptance at St. Ignatius College Preparatory</span></h5>
+				<h5 class="modal-title" id="exampleModalLabel"><span style="color:#A71930 ; font-size:22px;">Decline Acceptance at St. Ignatius College Preparatory</span></h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
@@ -1071,9 +1102,9 @@ select#cars {
 	<tr style="height: 20px;"></tr>
 	<tr>
 		<td style="padding: 10px;" width="50%" align="center">
-			<button style="background-color: darkgrey; border: none; padding: 6px 8px; border-radius: 5px; width: 180px;">Decline Acceptance to SI</button>
+			<button style="background-color: darkgrey; border: none; padding: 6px 8px; border-radius: 5px; border-bottom: 2px solid gray;border-right: 2px solid gray;">Decline Acceptance to SI</button>
 		
-			<button style="background-color: darkgrey; border: none; padding: 6px 8px; border-radius: 5px; width: 100px;">Decide Later</button>
+			<button style="background-color: darkgrey; border: none; padding: 6px 8px; border-radius: 5px; border-bottom: 2px solid gray;border-right: 2px solid gray; margin-left: 1rem !important;">Decide Later</button>
 		</td>
 		<td></td>
 	</tr>
@@ -1112,7 +1143,7 @@ select#cars {
 				Please take our survey
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+			
 				<a id="declineAcceptanceAtSI" class='btn btn_accept'>Decline Acceptance at SI</a>
 
 				<a id="AcceptanceAtSI" class='btn btn_accept acceptanceAtSI'>Acceptance at SI</a>
@@ -1133,7 +1164,7 @@ select#cars {
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-				Are you sure?
+				Are you sure you want to accept this offer?
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
@@ -1155,7 +1186,7 @@ select#cars {
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-				Are you sure?
+				Are you sure you want to reject this offer?
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
@@ -1460,6 +1491,7 @@ select#cars {
 						toastr.success(response.message);
 						$(".paymentButton").hide();
 						$('#staticBackdrop').modal('hide');
+						setTimeout(function() { location.reload(); }, 2000);
 
 					} else {
 						$(".paymentButton").show();
@@ -1483,7 +1515,11 @@ select#cars {
 
 <script>
 	$(document).ready(function() {
-
+$('.modal').on('hidden.bs.modal', function () {
+    if($('.modal').hasClass('show')) { 
+    $('body').addClass('modal-open');
+    }    
+}); 
 		$('#AcceptanceAtSI').on('click', function(e) {
 			$('#acceptanceServModal').modal('show');
 			$('#Survey').modal('hide');

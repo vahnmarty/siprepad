@@ -445,7 +445,9 @@ class RegistrationController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->route('emergencyContactIndex');
+            return Redirect::back()->withInput()->withErrors($validator);
+
+            // return redirect()->route('emergencyContactIndex');
         }
 
         $healthinfo = new RegisterationHealthInformation();
@@ -495,7 +497,7 @@ class RegistrationController extends Controller
         }
     }
 
-    public function emergencyContactIndex()
+    public function emergencyContactIndex($id)
     {
 
         $emergencyContact = RegisterationEmergencycontact::where('profile_id', $id)->first();

@@ -12,55 +12,53 @@
             @endphp
 
 
-            @if(!empty($registerable))
-            @if($registerable == App\Models\GlobalRegisterable::REGISTRATION_ON)
-            @if(!empty($application_status))
-            @if($application_status->s1_candidate_status == App\Models\Application::CANDIDATE_ACCEPTED||$application_status->s2_candidate_status == App\Models\Application::CANDIDATE_ACCEPTED
-            ||$application_status->s3_candidate_status == App\Models\Application::CANDIDATE_ACCEPTED)
-       
+           @if(!empty($registerable))
+@if($registerable == App\Models\GlobalRegisterable::REGISTRATION_ON)
+@if(!empty($application_status))
+@if($application_status->s1_candidate_status == App\Models\Application::CANDIDATE_ACCEPTED||$application_status->s2_candidate_status == App\Models\Application::CANDIDATE_ACCEPTED
+||$application_status->s3_candidate_status == App\Models\Application::CANDIDATE_ACCEPTED)
 
-            @if(count($paymentStudentCount)==1)
-            <li>
 
-                <a href="{{route('registration.create')}}">
+@if(count($paymentStudentCount)==1)
+<li>
 
-                    <em>
-                        <img src="{{ asset('frontend_assets/images/j2.svg') }}" alt="" />
-                    </em>
-                    <p>Online Registration</p>
-                    <span>
-                        <img src="{{ asset('frontend_assets/images/rgt-arrw.svg') }}" alt="" />
-                    </span>
-                </a>
-            </li>
-            @elseif(count($paymentStudentCount)>1)
-            <li>
+    <a href="{{route('registration.create')}}">
 
-                <a href="{{route('registration.create')}}">
+        <em>
+            <img src="{{ asset('frontend_assets/images/j2.svg') }}" alt="" />
+        </em>
+        <p>Online Registration</p>
+        <span>
+            <img src="{{ asset('frontend_assets/images/rgt-arrw.svg') }}" alt="" />
+        </span>
+    </a>
+</li>
+@elseif(count($paymentStudentCount)>1)
+<li>
 
-                    <em>
-                        <img src="{{ asset('frontend_assets/images/j2.svg') }}" alt="" />
-                    </em>
-                    <p>Online Registrations</p>
-                    <span>
-                        <img src="{{ asset('frontend_assets/images/rgt-arrw.svg') }}" alt="" />
-                    </span>
-                </a>
-            </li>
-            @endif
-            @endif
-            @endif
-            @endif
-            @endif
-         
+    <a href="{{route('registration.create')}}">
 
+        <em>
+            <img src="{{ asset('frontend_assets/images/j2.svg') }}" alt="" />
+        </em>
+        <p>Online Registrations</p>
+        <span>
+            <img src="{{ asset('frontend_assets/images/rgt-arrw.svg') }}" alt="" />
+        </span>
+    </a>
+</li>
+@endif
+@endif
+@endif
+@endif
+@endif
 
             @if($notifications == App\Models\Global_Notifiable::NOTIFICATION_ON)
             @if(!empty($application_status))
 
             @if($notification_list >= App\Models\Notification::NOTIFY_LENGTH)
             @if(count($studentCount)==1)
-
+         
             @if($studentCount[App\Models\Application::TYPE_PENDING]['student_type']==App\Models\Application::STUDENT_ONE)
 
             <li>
@@ -93,7 +91,7 @@
             </li>
 
             @endif
-            @if($studentCount[App\Models\Application::TYPE_PENDING]['student_type']==App\Models\Application::STUDENT_THREE))
+            @if($studentCount[App\Models\Application::TYPE_PENDING]['student_type']==App\Models\Application::STUDENT_THREE)
 
             <li>
                 <a href="{{route('studentNotification',$application_status->s3_notification_id)}}">
