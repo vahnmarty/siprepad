@@ -57,7 +57,7 @@ class HomeController extends Controller
             if ($application) {
 
                 $getAllStudent = [];
-                $studentData =     $getStudent = StudentInformation::where('Application_ID', $application->Application_ID)->where('Profile_ID', $profile_id)->first()->toArray();
+                $getStudent = StudentInformation::where('Application_ID', $application->Application_ID)->where('Profile_ID', $profile_id)->first()->toArray();
 
                 $arr1 = [
                     "Rec_Student" => $getStudent['S1_First_Name'] . " " . $getStudent['S1_Last_Name'],
@@ -87,15 +87,9 @@ class HomeController extends Controller
                         array_push($getStudent, $student);
                     }
                 }
-                $StudentApplicationStatus = StudentApplicationStatus::get();
                 $getStudentCount = count($getStudent);
                 $getCandidateStatus = self::getCandidateAccepted($studentData, $StudentApplicationStatus, 1);
             }
-            $dbQuery = StudentInformation::query();
-
-
-
-
             $notifications = $this->GlobalNotifiable;
             $registerable = $this->GlobalRegisterable;
             $studentTransfer = $this->GlobalStudentTransfer;
@@ -126,10 +120,13 @@ class HomeController extends Controller
 
             $getData = StudentInformation::where('Application_ID', $application->Application_ID)->where('Profile_ID', $profile_id)->get();
             $StudentPaymentStatus = Payment::where('Application_ID', $application->Application_ID)->get();
+
+            // dd($StudentApplicationStatus);
             foreach ($StudentPaymentStatus as $key => $StudentApplicationStatusResult) {
                 $StudentApplicationStatusResults[$key]['studentType'] = $StudentApplicationStatusResult['student'];
                 $StudentApplicationStatusResults[$key]['application_id'] = $StudentApplicationStatusResult['application_id'];
             }
+            // dd($StudentApplicationStatusResults);
             if (count($StudentPaymentStatus) > 0) {
                 foreach ($getData as $key => $getStudentInfo) {
                     $student1 = [
@@ -168,6 +165,12 @@ class HomeController extends Controller
                             } elseif ($result['studentType'] == Application::STUDENT_S3) {
                                 $studentArr[] = $getStudentInfo->S3_First_Name ? $student3 : null;
                             }
+                            //  else {
+                            //     $studentArr[] = $student3 = null;
+                            //     $studentArr[] = $student2 = null;
+                            //     $studentArr[] = $student1 = null;
+                            // }
+                           
                         }
                     }
                     $studentInfo = [];
@@ -240,8 +243,6 @@ class HomeController extends Controller
                 }
             }
         }
-
-
 
         return $myCollectionObj = array_filter($studentArr);
         // return $data = $this->paginate($myCollectionObj, $this->perPage);
@@ -425,6 +426,7 @@ class HomeController extends Controller
             abort(400, 'You are not authorize');
         }
     }
+
 
     public function appForm($application_id = null)
     {

@@ -8,7 +8,6 @@
             @php
             $uid=Auth::guard('customer')->user()->id;
             $getProfile = App\Models\Profile::find($uid)->first();
-
             @endphp
 
 
@@ -135,41 +134,102 @@
                     </span>
                 </a>
             </li>
+
             @if ($application)
             @if ($application->status ==App\Models\Application::CANDIDATE_ACCEPTED)
-            @if(!empty($application_status))
-           
-            @if(count($paymentStudentCount)==1)
-            @if($studentCount[App\Models\Application::TYPE_PENDING]['student_type']==App\Models\Application::STUDENT_ONE)
-            <li>
-                <a href="{{ route('view-application', ['application_id' => $application->Application_ID]) }}">
-                    <em>
-                        <img src="{{ asset('frontend_assets/images/j2.svg') }}" alt="" />
-                    </em>
-                    <p>View Application</p>
-                    <span>
-                        <img src="{{ asset('frontend_assets/images/rgt-arrw.svg') }}" alt="" />
-                    </span>
-                </a>
-            </li>
-            @endif
-
-            @elseif(count($paymentStudentCount)>1)
-            <li>
-                <a href="{{ route('view-application', ['application_id' => $application->Application_ID]) }}">
-                    <em>
-                        <img src="{{ asset('frontend_assets/images/j2.svg') }}" alt="" />
-                    </em>
-                    <p>View Applications</p>
-                    <span>
-                        <img src="{{ asset('frontend_assets/images/rgt-arrw.svg') }}" alt="" />
-                    </span>
-                </a>
-            </li>
-            @endif
-
-            @endif
-
+                @if ($application_status)
+                    @if ($application_status->s1_application_status	== App\Models\Application::CANDIDATE_ACCEPTED)
+                        @if ($application_status->s1_candidate_status == App\Models\Application::CANDIDATE_ACCEPTED)
+                            @if(in_array('student_one', array_column($paymentStudentCount, 'student_type')))
+                                @if(count($paymentStudentCount)==1)
+                                    <li>
+                                        <a href="{{ route('view-application', ['application_id' => $application->Application_ID]) }}">
+                                            <em>
+                                                <img src="{{ asset('frontend_assets/images/j2.svg') }}" alt="" />
+                                            </em>
+                                            <p>View Application</p>
+                                            <span>
+                                                <img src="{{ asset('frontend_assets/images/rgt-arrw.svg') }}" alt="" />
+                                            </span>
+                                        </a>
+                                    </li>
+                                @else
+                                    <li>
+                                        <a href="{{ route('view-application', ['application_id' => $application->Application_ID]) }}">
+                                            <em>
+                                                <img src="{{ asset('frontend_assets/images/j2.svg') }}" alt="" />
+                                            </em>
+                                            <p>View Applications</p>
+                                            <span>
+                                                <img src="{{ asset('frontend_assets/images/rgt-arrw.svg') }}" alt="" />
+                                            </span>
+                                        </a>
+                                    </li>
+                                @endif
+                            @endif
+                        @endif
+                    @elseif($application_status->s2_application_status	== App\Models\Application::CANDIDATE_ACCEPTED)
+                        @if ($application_status->s2_candidate_status	== App\Models\Application::CANDIDATE_ACCEPTED)
+                            @if(in_array('student_two', array_column($paymentStudentCount, 'student_type')))
+                                @if(count($paymentStudentCount)==1)
+                                    <li>
+                                        <a href="{{ route('view-application', ['application_id' => $application->Application_ID]) }}">
+                                            <em>
+                                                <img src="{{ asset('frontend_assets/images/j2.svg') }}" alt="" />
+                                            </em>
+                                            <p>View Application</p>
+                                            <span>
+                                                <img src="{{ asset('frontend_assets/images/rgt-arrw.svg') }}" alt="" />
+                                            </span>
+                                        </a>
+                                    </li>
+                                @else
+                                    <li>
+                                        <a href="{{ route('view-application', ['application_id' => $application->Application_ID]) }}">
+                                            <em>
+                                                <img src="{{ asset('frontend_assets/images/j2.svg') }}" alt="" />
+                                            </em>
+                                            <p>View Applications</p>
+                                            <span>
+                                                <img src="{{ asset('frontend_assets/images/rgt-arrw.svg') }}" alt="" />
+                                            </span>
+                                        </a>
+                                    </li>
+                                @endif
+                            @endif
+                        @endif
+                    @elseif($application_status->s3_application_status	== App\Models\Application::CANDIDATE_ACCEPTED)
+                        @if ($application_status->s3_candidate_status	== App\Models\Application::CANDIDATE_ACCEPTED)
+                            @if(in_array('student_three', array_column($paymentStudentCount, 'student_type')))
+                                @if(count($paymentStudentCount)==1)
+                                    <li>
+                                        <a href="{{ route('view-application', ['application_id' => $application->Application_ID]) }}">
+                                            <em>
+                                                <img src="{{ asset('frontend_assets/images/j2.svg') }}" alt="" />
+                                            </em>
+                                            <p>View Application</p>
+                                            <span>
+                                                <img src="{{ asset('frontend_assets/images/rgt-arrw.svg') }}" alt="" />
+                                            </span>
+                                        </a>
+                                    </li>
+                                @else
+                                    <li>
+                                        <a href="{{ route('view-application', ['application_id' => $application->Application_ID]) }}">
+                                            <em>
+                                                <img src="{{ asset('frontend_assets/images/j2.svg') }}" alt="" />
+                                            </em>
+                                            <p>View Applications</p>
+                                            <span>
+                                                <img src="{{ asset('frontend_assets/images/rgt-arrw.svg') }}" alt="" />
+                                            </span>
+                                        </a>
+                                    </li>
+                                @endif
+                            @endif
+                        @endif
+                    @endif
+                @endif
             @else
             @php
             if ($application->last_step_complete) {

@@ -16,6 +16,7 @@ use App\Models\SpiritualAndCommunityInformation;
 use App\Models\Spirituality;
 use App\Models\StudentInformation;
 use App\Models\StudentStatement;
+use App\Models\StudentApplicationStatus;
 use App\Models\WritingSample;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -37,45 +38,25 @@ class ViewApplication extends Component
         $this->application = $getApplication;
         
         //Step 1
-        $this->studentInfo = $this->getStudentInfo($application_id, $profile_id);
-        //dd($this->studentInfo);
-        
+        $this->studentInfo = $this->getStudentInfo($application_id, $profile_id);        
         //Step 2
         $this->addressInfo = $this->getAddressInfo($application_id, $profile_id);
-        //dd($this->addressInfo);
-
         //Step 3
         $this->parentInfo = $this->getParentInfo($application_id, $profile_id);
-        //dd($this->parentInfo);
-
         //Step 4
         $this->siblingInfo = $this->getSiblingInfo($application_id, $profile_id);
-        //dd($this->siblingInfo);
-
         //Step 5
         $this->legacyInfo = $this->getLegacyInfo($application_id, $profile_id);
-        //dd($this->legacyInfo);
-
         //Step 6
         $this->parentStatement = $this->getParentStatement($application_id, $profile_id);
-        //dd($this->parentStatement);
-
         //Step 7
         $this->spiritualCommunityInfo = $this->getSpiritualCommunityInfo($application_id, $profile_id);
-        //dd($this->spiritualCommunityInfo);
-
         //Step 8
         $this->studentStatementInfo = $this->getStudentStatementInfo($application_id, $profile_id);
-        //dd($this->studentStatementInfo);
-
         //Step 9
         $this->writingSample = $this->getWritingSample($application_id, $profile_id);
-        //dd($this->writingSample);
-
         //Step 10
         $this->releaseAuthorization = $this->getReleaseAuthorization($application_id, $profile_id);
-        //dd($this->releaseAuthorization);
-
         $this->identifyRacially = IdentifyRacially::get()->toArray();
     }
     public function render()
@@ -87,9 +68,15 @@ class ViewApplication extends Component
     public function getStudentInfo($application_id, $profile_id)
     {
         $studentInfo = [];
-
+        $StudentApplicationStatusResults = [];
         $getStudentInfo = StudentInformation::where('Profile_ID', $profile_id)->where('Application_ID', $application_id)->first();
+        $StudentPaymentStatus = Payment::where('Application_ID', $getStudentInfo->Application_ID)->get();
 
+        foreach ($StudentPaymentStatus as $key => $StudentApplicationStatusResult) {
+            $StudentApplicationStatusResults[$key]['studentType'] = $StudentApplicationStatusResult['student'];
+            $StudentApplicationStatusResults[$key]['application_id'] = $StudentApplicationStatusResult['application_id'];
+        }
+   
         if ($getStudentInfo) {
 
             $getS1Racially = [];
@@ -123,7 +110,8 @@ class ViewApplication extends Component
                 "Other_High_School_1" =>  $getStudentInfo->S1_Other_High_School_1,
                 "Other_High_School_2" =>  $getStudentInfo->S1_Other_High_School_2,
                 "Other_High_School_3" =>  $getStudentInfo->S1_Other_High_School_3,
-                "Other_High_School_4" =>  $getStudentInfo->S1_Other_High_School_4
+                "Other_High_School_4" =>  $getStudentInfo->S1_Other_High_School_4,
+                "student_type" => Application::STUDENT_ONE
             ];
             
             
@@ -146,7 +134,8 @@ class ViewApplication extends Component
                 "Other_High_School_1" =>  $getStudentInfo->S2_Other_High_School_1,
                 "Other_High_School_2" =>  $getStudentInfo->S2_Other_High_School_2,
                 "Other_High_School_3" =>  $getStudentInfo->S2_Other_High_School_3,
-                "Other_High_School_4" =>  $getStudentInfo->S2_Other_High_School_4
+                "Other_High_School_4" =>  $getStudentInfo->S2_Other_High_School_4,
+                "student_type" => Application::STUDENT_TWO
             ];
 
             $student3 = [
@@ -167,23 +156,73 @@ class ViewApplication extends Component
                 "Other_High_School_1" =>  $getStudentInfo->S3_Other_High_School_1,
                 "Other_High_School_2" =>  $getStudentInfo->S3_Other_High_School_2,
                 "Other_High_School_3" =>  $getStudentInfo->S3_Other_High_School_3,
-                "Other_High_School_4" =>  $getStudentInfo->S3_Other_High_School_4
+                "Other_High_School_4" =>  $getStudentInfo->S3_Other_High_School_4,
+                "student_type" => Application::STUDENT_THREE
             ];
 
-            $studentArr[] = $getStudentInfo['S1_First_Name'] ? $student1 : null;
-            $studentArr[] = $getStudentInfo['S2_First_Name'] ? $student2 : null;
-            $studentArr[] = $getStudentInfo['S3_First_Name'] ? $student3 : null;
-            //dd($studentArr);
+            $studentArr = [];
+            foreach ($StudentApplicationStatusResults as $result) {
+                $application_status = StudentApplicationStatus::Where('profile_id', $profile_id)->first();
+                    if($application_status){
+                        if(self::checkTrueOrFalse($getStudentInfo,$application_status,$result, Application::STUDENT_S1) == Application::TRUE) {
+                            $studentArr[] = $getStudentInfo->S1_First_Name ? $student1 : null;
+                        }
+                        if(self::checkTrueOrFalse($getStudentInfo,$application_status,$result, Application::STUDENT_S2) == Application::TRUE) {       
+                            $studentArr[] = $getStudentInfo->S2_First_Name ? $student2 : null;  
+                        }
+                        if(self::checkTrueOrFalse($getStudentInfo,$application_status,$result, Application::STUDENT_S3) == Application::TRUE) {
+                            $studentArr[] = $getStudentInfo->S3_First_Name ? $student3 : null;
+                        }
+                    }
+            }
             foreach ($studentArr as $student) {
                 if (!is_null($student)) {
                     array_push($studentInfo, $student);
                 }
             }
         }
+   
+
         return $studentInfo;
     }
+private function checkTrueOrFalse($getStudentInfo,$application_status,$result,$checkType){
+$results =Application::FALSE;
+    if($checkType==Application::STUDENT_S1){
+        if ($getStudentInfo->Application_ID == $result['application_id']) {
+            if ($application_status->s1_application_status == Application::CANDIDATE_ACCEPTED) {
+                if ($application_status->s1_candidate_status == Application::CANDIDATE_ACCEPTED) {
+                    if ($result['studentType'] == Application::STUDENT_S1) {
+                        $results =Application::TRUE;
+                    }
+                }
+            } 
+    }}
+    elseif($checkType==Application::STUDENT_S2){
+        if ($application_status->s2_application_status == Application::CANDIDATE_ACCEPTED) {
+            if ($application_status->s2_candidate_status == Application::CANDIDATE_ACCEPTED) {
+                if ($result['studentType'] == Application::STUDENT_S2) {
+                    $results =Application::TRUE;
 
-    //Step 2
+                  
+                }
+            }
+        }
+
+    }
+    elseif($checkType==Application::STUDENT_S3){
+        if ($application_status->s3_application_status == Application::CANDIDATE_ACCEPTED) {
+            if ($application_status->s3_candidate_status == Application::CANDIDATE_ACCEPTED) {
+                if ($result['studentType'] == Application::STUDENT_S3) {
+                    $results =Application::TRUE;
+
+                }
+            }
+        }
+    
+    }
+        return $results;
+
+}
     public function getAddressInfo($application_id, $profile_id)
     {
         $addressInfo = [];
@@ -332,7 +371,6 @@ class ViewApplication extends Component
             $parentArr[] = $getParentInfo['P2_Relationship'] ? $arr2 : null;
             $parentArr[] = $getParentInfo['P3_Relationship'] ? $arr3 : null;
             $parentArr[] = $getParentInfo['P4_Relationship'] ? $arr4 : null;
-            //dd($address);
             foreach ($parentArr as $key => $value) {
                 if (!is_null($value)) {
                     array_push($parentInfo, $value);
@@ -479,7 +517,6 @@ class ViewApplication extends Component
             $siblingInfoArr[] =  $getSiblingInfo['SIB09_First_Name'] || $getSiblingInfo['SIB09_Last_Name'] || $getSiblingInfo['SIB09_Relationship'] ? $arr9 : null;
             $siblingInfoArr[] =  $getSiblingInfo['SIB10_First_Name'] || $getSiblingInfo['SIB10_Last_Name'] || $getSiblingInfo['SIB10_Relationship'] ? $arr10 : null;
 
-            //dd($siblingInfoArr);
             foreach ($siblingInfoArr as $value) {
                 if (!is_null($value)) {
                     array_push($siblingInfo, $value);
@@ -537,7 +574,6 @@ class ViewApplication extends Component
             $legacyInfoArr[] =  $getLegacyInfo['L4_First_Name'] || $getLegacyInfo['L4_Last_Name'] || $getLegacyInfo['L4_Relationship'] ? $arr4 : null;
             $legacyInfoArr[] =  $getLegacyInfo['L5_First_Name'] || $getLegacyInfo['L5_Last_Name'] || $getLegacyInfo['L5_Relationship'] ? $arr5 : null;
 
-            //dd($legacyInfoArr);
             foreach ($legacyInfoArr as $key => $value) {
                 if (!is_null($value)) {
                     array_push($legacyInfo, $value);
@@ -590,8 +626,6 @@ class ViewApplication extends Component
             $parentStatement['Why_SI_for_Child'] = $getParentStatement->Why_SI_for_Child;
             $parentStatement['Parent_Statement_Submitted_By'] = $getParentStatement->Parent_Statement_Submitted_By;
             $parentStatement['Parent_Statement_Relationship'] = $getParentStatement->Parent_Statement_Relationship;
-            //dd($this->parentStatement']);
-
         }
         return $parentStatement;
     }
@@ -665,7 +699,6 @@ class ViewApplication extends Component
                 'Religious_Form_Date' => $getSpiritualCommunityInfo->Religious_Form_Date
             ];
 
-            // dd($this->spiritualCommunityInfo);
             return $spiritualCommunityInfo;
         }
         return [];
@@ -885,8 +918,6 @@ class ViewApplication extends Component
                 'Future_Activities' => !empty($get_Future_Activities) ? $get_Future_Activities : []
             ];
 
-            //dd($this->studentStatementInfo);
-
             return $studentStatementInfo;
         }
         return [];
@@ -932,7 +963,6 @@ class ViewApplication extends Component
                 }
             }
         }
-        // dd($writingSample);
         return $writingSample;
     }
 
@@ -941,7 +971,6 @@ class ViewApplication extends Component
     {
         $getReleaseAuthorization = ReleaseAuthorization::where('Profile_ID', $profile_id)->where('Application_ID', $application_id)->first();
         $getPaymentLog = Payment::where('user_id', $profile_id)->where('application_id', $application_id)->first();
-        // dd($getPaymentLog);
 
         if ($getReleaseAuthorization) {
 
@@ -1006,7 +1035,6 @@ class ViewApplication extends Component
                 'Amount' => $getPaymentLog ? $getPaymentLog->amount : ''
 
             ];
-            // dd($releaseAuthorization);
             return $releaseAuthorization;
         }
         return [];
