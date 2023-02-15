@@ -28,6 +28,8 @@ class Application extends Model
     const STUDENT_ONE = 'student_one';
     const STUDENT_TWO = 'student_two';
     const STUDENT_THREE = 'student_three';
+    const TRUE = 'true';
+    const FALSE = 'false';
 
     const STUDENT_S1 = 's1';
     const STUDENT_S2 = 's2';
