@@ -264,46 +264,41 @@ class NotificationController extends Controller
                         's2_candidate_status' => $rsid
                     ));
 
-                    if ($updateCr) 
-                    {
+                    if ($updateCr) {
                         //    $res = Mail::to($parentDetail->P1_Personal_Email)->send(new CandidateStatus($studentDetail, $rsid, $parentDetail));
                         return redirect()->back()->with('success', 'Thank you, We have received your response!!');
                     }
 
                     return redirect()->back()->with('error', 'Something went wrong! Please check after sometime');
-                } else 
-                {
+                } else {
                     return redirect('/')->with('error', 'You can\'t change your response now!!');
                 }
             }
-            if ($candidate == 's3') 
-            {
+            if ($candidate == 's3') {
 
                 if ($checkApp->s3_candidate_status == Application::CANDIDATE_NOT_DEFINED || $checkApp->s3_candidate_status == Application::CANDIDATE_READ) {
                     $updateCr = StudentApplicationStatus::where('application_id', $apid)->limit(1)->update(array(
                         's3_candidate_status' => $rsid
                     ));
 
-                    if ($updateCr) 
-                    {
+                    if ($updateCr) {
                         // $res = Mail::to($parentDetail->P1_Personal_Email)->send(new CandidateStatus($studentDetail, $rsid, $parentDetail));
                         return redirect()->back()->with('success', 'Thank you, We have received your response!!');
                     }
 
                     return redirect()->back()->with('error', 'Something went wrong! Please check after sometime');
-                } else 
-                {
+                } else {
                     return redirect('/')->with('error', 'You can\'t change your response now!!');
                 }
             }
-        } else 
-        {
+        } else {
             return redirect()->back()->with('error', 'Application Not found!!!');
         }
     }
 
     public function ShowStudentNotification($notificationid)
     {
+        $StudentApplicationStatusResults=[];
 
         $ntfStatus = Global_Notifiable::select('notifiable')->first();
 
@@ -328,6 +323,10 @@ class NotificationController extends Controller
                 $ntfDetail->application_id
             ]
         ])->first();
+        $studentJoinsDetail = StudentInformation::leftjoin('parent_information', 'student_information.Profile_ID', '=', 'parent_information.Profile_ID')
+            ->where('parent_information.Application_ID',  $ntfDetail->application_id)
+            ->leftjoin('address_information', 'student_information.Profile_ID', '=', 'address_information.Profile_ID')->where('student_information.Application_ID',  $ntfDetail->application_id)
+            ->latest('address_information.ID')->first();
 
         $time = Carbon::now();
         $year = date('Y');
@@ -346,13 +345,14 @@ class NotificationController extends Controller
 
             $address = AddressInformation::where('Application_ID', $ntfDetail->application_id)->first();
             $status = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->select('s1_application_status', 's1_candidate_status')->first();
-            if ($appStatus->s1_candidate_status == Application::CANDIDATE_NOT_DEFINED) 
-            {
+            if (!$status) {
+                return redirect('/')->with('error', 'You are not allowed to access this page');
+            }
+            if ($appStatus->s1_candidate_status == Application::CANDIDATE_NOT_DEFINED) {
                 $updateCandidateStatus = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->update(['s1_candidate_status' => Application::CANDIDATE_READ]);
             }
             $student_status = $status->s1_application_status;
-            if ($appStatus->s1_candidate_status == Application::CANDIDATE_NOT_DEFINED) 
-            {
+            if ($appStatus->s1_candidate_status == Application::CANDIDATE_NOT_DEFINED) {
                 $updateCandidateStatus = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->update(['s1_candidate_status' => Application::CANDIDATE_READ]);
             }
             $candidate = 's1';
@@ -383,6 +383,9 @@ class NotificationController extends Controller
             $address = AddressInformation::where('Application_ID', $ntfDetail->application_id)->first();
 
             $status = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->select('s2_application_status', 's2_candidate_status')->first();
+            if (!$status) {
+                return redirect('/')->with('error', 'You are not allowed to access this page');
+            }
             $student_status = $status->s2_application_status;
             $candidate = 's2';
             $checkPayment = Payment::where('Application_ID', $ntfDetail->application_id)->where('student', 's2')->select('student')->first();
@@ -415,6 +418,10 @@ class NotificationController extends Controller
 
             $name = ucfirst($studentname->S3_First_Name) . ' ' . ucfirst($studentname->S3_Last_name);
             $status = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->select('s3_application_status', 's3_candidate_status')->first();
+            if (!$status) {
+                return redirect('/')->with('error', 'You are not allowed to access this page');
+            }
+
             $student_status = $status->s3_application_status;
             $student_accept_status = $status->s3_candidate_status;
             $checkPayment = Payment::where('Application_ID', $ntfDetail->application_id)->where('student', 's3')->select('student')->first();
@@ -438,6 +445,6 @@ class NotificationController extends Controller
             ]);
         }
 
-        return view('frontend.notificationDetail', compact('ntfDetail', 'appDetail', 'studentDetail', 'appStatus', 'name', 'student_status', 'candidate', 'student_accept_status', 'notification_time'));
+        return view('frontend.notificationDetail', compact('ntfDetail', 'appDetail', 'studentJoinsDetail', 'studentDetail', 'appStatus', 'name', 'student_status', 'candidate', 'student_accept_status', 'notification_time'));
     }
 }
