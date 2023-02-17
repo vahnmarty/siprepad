@@ -24,6 +24,7 @@ class ApplicationController extends Controller
     {
         $this->GlobalNotifiable = Helper::getGlobalNotifiable();
         $this->GlobalRegisterable = Helper::getGlobalRegisterable();
+        $this->GlobalStudentTransfer = Helper::getGlobalStudentTransfer();
     }
 
     /**
@@ -42,7 +43,8 @@ class ApplicationController extends Controller
 
         $notifications = $this->GlobalNotifiable;
         $registerable = $this->GlobalRegisterable;
-        return view('admin.application.index', compact('app', 'notifications', 'registerable'));
+        $studentTransfer = $this->GlobalRegisterable;
+        return view('admin.application.index', compact('app', 'notifications', 'registerable','studentTransfer'));
     }
 
 
