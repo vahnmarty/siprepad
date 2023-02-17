@@ -305,6 +305,8 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <!-- <link rel="stylesheet" href="{{ asset('/') }}css/app.css"> -->
+
     <link rel="stylesheet" href="{{ asset('admin_assets/css/custom.css') }}">
     <!--end::Layout Skins -->
     <link rel="shortcut icon" href="{{ asset('admin_assets/media/logos/favicon.png') }}" />

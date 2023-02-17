@@ -16,6 +16,9 @@
 		right: 0;
 	}
 
+
+
+	
 	.loading:before {
 		content: '';
 		display: block;
@@ -171,10 +174,7 @@ input::-webkit-inner-spin-button {
 	}
 </style>
 
-
-
 <?php
-
 
 function  getDateFunctions()
 {
@@ -265,7 +265,6 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				return "----";
 		};
 	}
-
 
 	// Primary_Address_Street") . ' <br>' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_City") . ' , ' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_State") . ' 
 
@@ -448,12 +447,10 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				(415) 731-7500
 			</p>
 			<p>Office of Admissions</p>
-
 		</div>
 		<p style="text-align:right;"><?php echo getDateFunctions(); ?></p>
 	</div>
 	<div class="row mt-3">
-
 		<div class="col-md-12">
 			<p> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name", 'P2_Last_Name'); ?><br>
 				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Street"); ?><br>
@@ -461,12 +458,8 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 			</p>
 		</div>
 	</div>
-
 	<div class="hme-inr" id='ntf-detail'>
-
-
 		<div class="loading" style="display: none;">Loading</div>
-
 		<div class='ntf_candidate_detail'>
 			<p class='ntf_student_name' style="margin-top: 14px;">Dear <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name"); ?>:</p>
 			<p class='ntf_app_status'>
@@ -506,87 +499,101 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 		</div>
 		<div style="margin-top:15px;">
 			<p class="mb-0">Sincerely,</p>
-			<p style="border:1px solid #e8e8e8;display:inline-block;">
+			<p style="border:0;display:inline-block;">
 				<img style="max-width:205px;" src="{{ asset('admin_assets/logo/signature.png') }}" />
 			</p>
 			<p>Kristy Jacobson<br /> Director of Admissions</p>
 			@if($student_status == App\Models\Application::TYPE_ACCEPTED && $ntfDetail->notification_type == App\Models\Notification::NOTIFY_ACCEPTED)
-
 			@if($candidate == 's1')
-
 			@if($appStatus->s1_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s1_candidate_status == App\Models\Application::CANDIDATE_READ)
-			<div class='student_btns'style=" float: right !important;">
-				
+			<div class='student_btns' style=" float: right !important;">
 				<a data-bs-toggle="modal" data-bs-target="#acceptModel" class='btn btn_accept btn-success mt-3 btn-sm'>Enroll at SI</a>
-			
 				<a data-bs-toggle="modal" data-bs-target="#rejectModel" class='btn btn-sm btn-danger mt-3'>Decline Acceptance at SI</a>
-
 			</div>
 			@else
-		
 			@endif
 			@endif
 			@if($candidate == 's2')
-
 			@if($appStatus->s2_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s2_candidate_status == App\Models\Application::CANDIDATE_READ)
-
-
 			<div class='student_btns' style=" float: right !important;">
-		
 				<a data-bs-toggle="modal" data-bs-target="#acceptModel" class='btn btn_accept btn-success mt-3 btn-sm'>Enroll at SI</a>
-
-		
 				<a data-bs-toggle="modal" data-bs-target="#rejectModel" class='btn btn-sm btn-danger mt-3'>Decline Acceptance at SI</a>
-
 			</div>
 			@else
-		
 			@endif
 			@endif
 			@if($candidate == 's3')
-
 			@if($appStatus->s3_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s3_candidate_status == App\Models\Application::CANDIDATE_READ)
-			<div class='student_btns'style="float: right !important;">
+			<div class='student_btns' style="float: right !important;">
 				<a data-bs-toggle="modal" data-bs-target="#acceptModel" class='btn btn_accept btn-success mt-3 btn-sm'>Enroll at SI</a>
 				<a data-bs-toggle="modal" data-bs-target="#rejectModel" class='btn btn-sm btn-danger mt-3'>Decline Acceptance at SI</a>
 			</div>
 			@else
-
 			@endif
 			@endif
 			@endif
-
-
 			@if($candidate == 's1')
 			@if($appStatus->s1_candidate_status == App\Models\Application::CANDIDATE_ACCEPTED)
-			<div class='application_download'style="float: left !important;">
+			<div class='application_download' style="float: left !important;">
 				<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}/{{ $studentDetail->Application_ID }}' class="btn btn-primary mt-3">Download</a>
 			</div>
-
 			@endif
-
 			@endif
-
 			@if($candidate == 's2')
 			@if($appStatus->s2_candidate_status == App\Models\Application::CANDIDATE_ACCEPTED)
-			<div class='application_download'style="float: left !important;">
+			<div class='application_download' style="float: left !important;">
 				<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}/{{ $studentDetail->Application_ID }}' class="btn btn-primary mt-3">Download</a>
 			</div>
 			@endif
 			@endif
-
 			@if($candidate == 's3')
 			@if($appStatus->s3_candidate_status == App\Models\Application::CANDIDATE_ACCEPTED)
-			<div class='application_download'style="float: left !important;">
+			<div class='application_download' style="float: left !important;">
 				<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}/{{ $studentDetail->Application_ID }}' class="btn btn-primary mt-3">Download</a>
 			</div>
 			@endif
+			@endif
+			@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_ONE && $appStatus->s1_application_status == App\Models\Application::TYPE_ACCEPTED)
+			<div class="col-md-12 text-center" style="text-align: right!important"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#Survey" class='btn btn_accept btn-success  mt-3 btn-sm'>Acceptance Survey</a></div>
+			<script>
+				$(document).ready(function() {
+					$('#staticBackdrop').modal('hide');
+				});
+			</script>
+			@endif
+			@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_TWO && $appStatus->s2_application_status == App\Models\Application::TYPE_ACCEPTED)
+			<div class="col-md-12 text-center" style="text-align: right!important"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#Survey" class='btn btn_accept btn-success  mt-3 btn-sm'>Acceptance Survey</a></div>
+			<script>
+				$(document).ready(function() {
+					$('#staticBackdrop').modal('hide');
+				});
+			</script>
+			@endif
+			@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_THREE && $appStatus->s3_application_status == App\Models\Application::TYPE_ACCEPTED)
+			<div class="col-md-12 text-center" style="text-align: right!important"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#Survey" class='btn btn_accept btn-success mt-3 btn-sm'>Acceptance Survey</a></div>
+			<script>
+				$(document).ready(function() {
+					$('#staticBackdrop').modal('hide');
+				});
+			</script>
+			@endif
+			@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_TWO && $appStatus->s2_application_status == App\Models\Application::ACCEPTANCE_FINANCIAL_AID)
+			<div class="row">
+				<div class="col-md-3">
+					<p class="mt-3">Payment has been received.</p>
+				</div>
+			</div>
+			<div class="col-md-12 text-center"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#Survey" class='btn btn_accept btn-success mt-3 btn-sm'>Acceptance Survey</a></div>
+			<script>
+				$(document).ready(function() {
+					$('#staticBackdrop').modal('hide');
+
+				});
+			</script>
 			@endif
 		</div>
 	</div>
 </div>
-
-
 @break
 @case(2)
 <div class="home-wrap">
@@ -608,7 +615,6 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 		<p style="text-align:right;"><?php echo getDateFunctions(); ?></p>
 	</div>
 	<div class="row mt-3">
-
 		<div class="col-md-12">
 			<p> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name"); ?><br>
 				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Street"); ?><br>
@@ -619,10 +625,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 	</div>
 
 	<div class="hme-inr" id='ntf-detail'>
-
-
 		<div class="loading" style="display: none;">Loading</div>
-
 		<div class='ntf_candidate_detail'>
 			<p class='ntf_student_name'>Dear <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name"); ?>:</p>
 			<p class='ntf_app_status'>
@@ -635,7 +638,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 		</div>
 		<div style="margin-top:15px;">
 			<p class="mb-0">Respectfully,</p>
-			<p style="border:1px solid #e8e8e8;display:inline-block;margin-bottom: 0;">
+			<p style="border:0;display:inline-block;margin-bottom: 0;">
 				<img style="max-width:205px;" src="{{ asset('admin_assets/logo/signature.png') }}" />
 			</p>
 			<p>Kristy Jacobson<br /> Director of Admissions</p>
@@ -674,10 +677,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 	</div>
 
 	<div class="hme-inr" id='ntf-detail'>
-
-
 		<div class="loading" style="display: none;">Loading</div>
-
 		<div class='ntf_candidate_detail'>
 			<p class='ntf_student_name'>Dear <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name"); ?>:</p>
 			<p class='ntf_app_status'>
@@ -688,7 +688,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 		</div>
 		<div style="margin-top:15px;">
 			<p class="mb-0">Respectfully,</p>
-			<p style="border:1px solid #e8e8e8;display:inline-block;">
+			<p style="border:0;display:inline-block;">
 				<img style="max-width:205px;" src="{{ asset('admin_assets/logo/signature.png') }}" />
 			</p>
 			<p>Kristy Jacobson<br /> Director of Admissions</p>
@@ -727,10 +727,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 	</div>
 
 	<div class="hme-inr" id='ntf-detail'>
-
-
 		<div class="loading" style="display: none;">Loading</div>
-
 		<div class='ntf_candidate_detail'>
 			<p class='ntf_student_name'>Dear <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name"); ?>:</p>
 			<p class='ntf_app_status'>
@@ -771,7 +768,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 
 		<div style="margin-top:15px;">
 			<p>Sincerely,</p>
-			<p style="border:1px solid #e8e8e8;display:inline-block;">
+			<p style="border:0;display:inline-block;">
 				<img style="max-width:205px;" src="{{ asset('admin_assets/logo/signature.png') }}" />
 			</p>
 			<p>Kristy Jacobson<br /> Director of Admissions</p>
@@ -781,10 +778,6 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}/{{ $studentDetail->Application_ID }}' class="btn btn-primary mt-3">Download</a>
 			</div>
 		</div>
-
-
-
-
 	</div>
 </div>
 @break
@@ -792,32 +785,9 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 No Status yet
 @endswitch
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @if(!empty($student_accept_status))
 @if($student_accept_status == App\Models\Application::TYPE_ACCEPTED && $ntfDetail->student_profile == App\Models\Application::STUDENT_ONE && $appStatus->s1_application_status == App\Models\Application::TYPE_ACCEPTED)
 <!-- <a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class='btn btn-sm btn-danger mt-3'>Pay Registration Fee</a> -->
-
-
 <script>
 	$(document).ready(function() {
 		$('#staticBackdrop').modal('show');
@@ -825,10 +795,6 @@ No Status yet
 	});
 </script>
 @endif
-
-
-
-
 
 @if($student_accept_status == App\Models\Application::TYPE_ACCEPTED && $ntfDetail->student_profile == App\Models\Application::STUDENT_TWO && $appStatus->s2_application_status == App\Models\Application::TYPE_ACCEPTED)
 <!-- <a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class='btn btn-sm btn-danger mt-3'>Pay Registration Fee</a> -->
@@ -840,9 +806,6 @@ No Status yet
 </script>
 @endif
 
-
-
-
 @if($student_accept_status == App\Models\Application::TYPE_ACCEPTED && $ntfDetail->student_profile == App\Models\Application::STUDENT_THREE && $appStatus->s3_application_status == App\Models\Application::TYPE_ACCEPTED)
 <!-- <a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class='btn btn-sm btn-danger mt-3'>Pay Registration Fee</a> -->
 <script>
@@ -851,92 +814,7 @@ No Status yet
 	});
 </script>
 @endif
-
-
-
-@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_ONE && $appStatus->s1_application_status == App\Models\Application::TYPE_ACCEPTED)
-
-<div class="col-md-12 text-center"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#Survey" class='btn btn_accept btn-success  mt-3 btn-sm'>Acceptance Survey</a></div>
-
-
-<script>
-	$(document).ready(function() {
-		$('#staticBackdrop').modal('hide');
-
-	});
-</script>
 @endif
-@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_TWO && $appStatus->s2_application_status == App\Models\Application::TYPE_ACCEPTED)
-<div class="row">
-	<!-- ss -->
-
-	<div class="col-md-3">
-		<p class="mt-3">Payment has been received.</p>
-	</div>
-</div>
-<div class="col-md-12 text-center"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#Survey" class='btn btn_accept btn-success  mt-3 btn-sm'>Acceptance Survey</a></div>
-
-
-<script>
-	$(document).ready(function() {
-		$('#staticBackdrop').modal('hide');
-
-	});
-</script>
-@endif
-@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_THREE && $appStatus->s3_application_status == App\Models\Application::TYPE_ACCEPTED)
-<div class="row">
-
-	<div class="col-md-3">
-		<p class="mt-3">Payment has been received.</p>
-	</div>
-</div>
-<div class="col-md-12 text-center"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#Survey" class='btn btn_accept btn-success mt-3 btn-sm'>Acceptance Survey</a></div>
-
-
-<script>
-	$(document).ready(function() {
-		$('#staticBackdrop').modal('hide');
-
-	});
-</script>
-
-@endif
-
-
-
-
-
-
-
-@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_TWO && $appStatus->s2_application_status == App\Models\Application::ACCEPTANCE_FINANCIAL_AID)
-<div class="row">
-
-	<div class="col-md-3">
-		<p class="mt-3">Payment has been received.</p>
-	</div>
-</div>
-<div class="col-md-12 text-center"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#Survey" class='btn btn_accept btn-success mt-3 btn-sm'>Acceptance Survey</a></div>
-
-
-<script>
-	$(document).ready(function() {
-		$('#staticBackdrop').modal('hide');
-
-	});
-</script>
-@endif
-
-
-
-@endif
-
-
-
-
-
-
-
 
 <div class="modal fade" id="Survey" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -950,16 +828,11 @@ No Status yet
 			</div>
 			<div class="modal-footer">
 				<a id="declineAcceptanceAtSI" class='btn btn_accept'>Decline Acceptance at SI</a>
-
 				<a id="AcceptanceAtSI" class='btn btn_accept acceptanceAtSI'>Acceptance at SI</a>
 			</div>
 		</div>
 	</div>
 </div>
-
-
-
-
 <!-- Accept Modal -->
 <div class="modal fade" id="acceptModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -979,10 +852,7 @@ No Status yet
 	</div>
 </div>
 
-
-
 <!-- Reject Modal -->
-
 <div class="modal fade" id="rejectModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -1000,8 +870,8 @@ No Status yet
 		</div>
 	</div>
 </div>
-@if($student_accept_status == App\Models\Application::TYPE_ACCEPTED)
 
+@if($student_accept_status == App\Models\Application::TYPE_ACCEPTED)
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" wire:ignore.self>
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -1178,19 +1048,6 @@ No Status yet
 </div>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script>
 	$.ajaxSetup({
 		headers: {
@@ -1329,8 +1186,6 @@ No Status yet
 	});
 </script>
 @endif
-
-
 <script>
 	$(document).ready(function() {
 
