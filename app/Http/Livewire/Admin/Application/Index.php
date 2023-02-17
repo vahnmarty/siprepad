@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Application;
 
+use App\Helpers\Helper;
 use App\Http\Livewire\Traits\AlertMessage;
 use App\Models\StudentInformation;
 use Livewire\Component;
@@ -31,12 +32,13 @@ class Index extends Component
     public $registeration;
     public $appStatus;
     public $studentTransfer;
-    public function mount($app = Null,$notificationButton = null,$register = null ,$applicationstatus = null,$studentTransfer= null)
+    public function mount($app = Null, $notificationButton = null, $studentTransfer = null, $register = null, $applicationstatus = null,)
     {
+
         $this->appStatus = $applicationstatus;
         $this->registeration = $register;
-        $this->studentTransfer = $studentTransfer;
-        $this->applications =$app;
+        $this->studentTransfer = Helper::getGlobalStudentTransfer();
+        $this->applications = $app;
         $this->notification = $notificationButton;
         $this->perPageList = [
             ['value' => 5, 'text' => "5"],
@@ -116,8 +118,7 @@ class Index extends Component
             ->get();
 
         if (count($getData) > 0) {
-            foreach ($getData as $key => $getStudentInfo)
-            {
+            foreach ($getData as $key => $getStudentInfo) {
                 $student1 = [
                     "Application_ID" => $getStudentInfo->Application_ID,
                     "Photo" =>  $getStudentInfo->S1_Photo,
@@ -140,9 +141,8 @@ class Index extends Component
                     "Other_High_School_4" =>  $getStudentInfo->S1_Other_High_School_4,
                     "last_step_complete" => $getStudentInfo->last_step_complete,
                     "status" => $getStudentInfo->status,
-                    "student_type"=>Application::STUDENT_ONE
+                    "student_type" => Application::STUDENT_ONE
                 ];
-
                 $student2 = [
                     "Application_ID" => $getStudentInfo->Application_ID,
                     "Photo" =>  $getStudentInfo->S2_Photo,
@@ -165,10 +165,9 @@ class Index extends Component
                     "Other_High_School_4" =>  $getStudentInfo->S2_Other_High_School_4,
                     "last_step_complete" => $getStudentInfo->last_step_complete,
                     "status" => $getStudentInfo->status,
-                    "student_type"=>Application::STUDENT_TWO
+                    "student_type" => Application::STUDENT_TWO
 
                 ];
-
                 $student3 = [
                     "Application_ID" => $getStudentInfo->Application_ID,
                     "Photo" =>  $getStudentInfo->S3_Photo,
@@ -191,7 +190,7 @@ class Index extends Component
                     "Other_High_School_4" =>  $getStudentInfo->S3_Other_High_School_4,
                     "last_step_complete" => $getStudentInfo->last_step_complete,
                     "status" => $getStudentInfo->status,
-                    "student_type"=>Application::STUDENT_THREE
+                    "student_type" => Application::STUDENT_THREE
 
                 ];
 
@@ -250,10 +249,10 @@ class Index extends Component
         $myCollectionObj = collect($studentInfo);
         //  dd($myCollectionObj);
         // $data = $this->paginate($myCollectionObj, $this->perPage);
-      
+
         return view('livewire.admin.application.index', ['students' => $myCollectionObj]);
     }
-    
+
 
     /**
      * The attributes that are mass assignable.
@@ -298,5 +297,4 @@ class Index extends Component
             $this->last_name_sort = true;
         }
     }
-
 }
