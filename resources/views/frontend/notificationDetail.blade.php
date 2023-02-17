@@ -18,7 +18,6 @@
 
 
 
-	
 	.loading:before {
 		content: '';
 		display: block;
@@ -176,14 +175,15 @@ input::-webkit-inner-spin-button {
 
 <?php
 
-function  getDateFunctions()
+
+function  getDateFunctions($notification_time)
 {
 
-	return date('m-d-Y');
+	return $notification_time;
 }
 function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Name = '')
 {
-
+	// dd($studentDetail);
 	if ($studentType == 's1') {
 		switch ($type) {
 
@@ -204,20 +204,23 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 			case "P2_Salutation":
 				if ($studentDetail->P2_Salutation == null) {
 				} else {
-					return '(' . ucwords($studentDetail->P2_Salutation);
+					return 'and ' . ucwords($studentDetail->P2_Salutation);
 				}
 
 				break;
 			case "P2_Last_Name":
-
 				if ($studentDetail->P2_Last_Name == null) {
 					return ucwords($studentDetail->P2_Last_Name);
 				} else {
-					if ($studentDetail->P2_Salutation == null) {
-
-						return '(' . ucwords($studentDetail->P2_Last_Name) . ')';
+					if ($P2_Last_Name == 'P2_Last_Name') {
+						return '' . ucwords($studentDetail->P2_Last_Name) . '';
 					} else {
-						return ' ' . ucwords($studentDetail->P2_Last_Name) . ')';
+						if ($studentDetail->P2_Salutation == null) {
+
+							return 'and ' . ucwords($studentDetail->P2_Last_Name) . '';
+						} else {
+							return ' ' . ucwords($studentDetail->P2_Last_Name) . '';
+						}
 					}
 				}
 				break;
@@ -238,11 +241,8 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 
 					return ucwords($studentDetail->P2_First_Name);
 				} else {
-					if ($P2_Last_Name == 'P2_Last_Name') {
-						return '(' . ucwords($studentDetail->P2_First_Name);
-					} else {
-						return '' . ucwords($studentDetail->P2_First_Name);
-					}
+
+					return 'and ' . ucwords($studentDetail->P2_First_Name);
 				}
 				break;
 			case "Primary_Address_Street":
@@ -260,6 +260,19 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				break;
 			case "Student_Current_School":
 				return ucwords($studentDetail->S1_Current_School);
+				break;
+			case "his/her":
+				if ($studentDetail->S1_Gender == "Male") {
+					return "His";
+				} else {
+					return "Her";
+				}
+			case "he/she":
+				if ($studentDetail->S1_Gender == "Male") {
+					return "He";
+				} else {
+					return "She";
+				}
 				break;
 			default:
 				return "----";
@@ -288,19 +301,25 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				if ($studentDetail->P2_Salutation == null) {
 					return ucwords($studentDetail->P2_Salutation);
 				} else {
-					return '(' . ucwords($studentDetail->P2_Salutation);
+					return 'and ' . ucwords($studentDetail->P2_Salutation);
 				}
 
 				break;
 			case "P2_Last_Name":
+				// dd($P2_Last_Name);
+
 				if ($studentDetail->P2_Last_Name == null) {
 					return ucwords($studentDetail->P2_Last_Name);
 				} else {
-					if ($studentDetail->P2_Salutation == null) {
-
-						return '(' . ucwords($studentDetail->P2_Last_Name) . ')';
+					if ($P2_Last_Name == 'P2_Last_Name') {
+						return '' . ucwords($studentDetail->P2_Last_Name) . '';
 					} else {
-						return ' ' . ucwords($studentDetail->P2_Last_Name) . ')';
+						if ($studentDetail->P2_Salutation == null) {
+
+							return 'and ' . ucwords($studentDetail->P2_Last_Name) . '';
+						} else {
+							return ' ' . ucwords($studentDetail->P2_Last_Name) . '';
+						}
 					}
 				}
 				break;
@@ -322,12 +341,10 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 
 					return ucwords($studentDetail->P2_First_Name);
 				} else {
-					if ($P2_Last_Name == 'P2_Last_Name') {
-						return '(' . ucwords($studentDetail->P2_First_Name);
-					} else {
-						return '' . ucwords($studentDetail->P2_First_Name);
-					}
+
+					return 'and ' . ucwords($studentDetail->P2_First_Name);
 				}
+
 				break;
 			case "Primary_Address_Street":
 				return ucwords($studentDetail->Address_1);
@@ -344,6 +361,19 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				break;
 			case "Student_Current_School":
 				return ucwords($studentDetail->S1_Current_School);
+				break;
+			case "his/her":
+				if ($studentDetail->S1_Gender == "Male") {
+					return "His";
+				} else {
+					return "Her";
+				}
+			case "he/she":
+				if ($studentDetail->S1_Gender == "Male") {
+					return "He";
+				} else {
+					return "She";
+				}
 				break;
 			default:
 				return "----";
@@ -368,7 +398,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				if ($studentDetail->P2_Salutation == null) {
 					return ucwords($studentDetail->P2_Salutation);
 				} else {
-					return '(' . ucwords($studentDetail->P2_Salutation);
+					return 'and ' . ucwords($studentDetail->P2_Salutation);
 				}
 
 				break;
@@ -376,11 +406,15 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				if ($studentDetail->P2_Last_Name == null) {
 					return ucwords($studentDetail->P2_Last_Name);
 				} else {
-					if ($studentDetail->P2_Salutation == null) {
-
-						return '(' . ucwords($studentDetail->P2_Last_Name) . ')';
+					if ($P2_Last_Name == 'P2_Last_Name') {
+						return ' ' . ucwords($studentDetail->P2_Last_Name) . '';
 					} else {
-						return ' ' . ucwords($studentDetail->P2_Last_Name) . ')';
+						if ($studentDetail->P2_Salutation == null) {
+
+							return 'and ' . ucwords($studentDetail->P2_Last_Name) . '';
+						} else {
+							return ' ' . ucwords($studentDetail->P2_Last_Name) . '';
+						}
 					}
 				}
 				break;
@@ -401,11 +435,8 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 
 					return ucwords($studentDetail->P2_First_Name);
 				} else {
-					if ($P2_Last_Name == 'P2_Last_Name') {
-						return '(' . ucwords($studentDetail->P2_First_Name);
-					} else {
-						return '' . ucwords($studentDetail->P2_First_Name);
-					}
+
+					return 'and ' . ucwords($studentDetail->P2_First_Name);
 				}
 				break;
 			case "Primary_Address_Street":
@@ -423,6 +454,19 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				break;
 			case "Student_Current_School":
 				return ucwords($studentDetail->S1_Current_School);
+				break;
+			case "his/her":
+				if ($studentDetail->S1_Gender == "Male") {
+					return "His";
+				} else {
+					return "Her";
+				}
+			case "he/she":
+				if ($studentDetail->S1_Gender == "Male") {
+					return "He";
+				} else {
+					return "She";
+				}
 				break;
 			default:
 				return "----";
@@ -448,7 +492,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 			</p>
 			<p>Office of Admissions</p>
 		</div>
-		<p style="text-align:right;"><?php echo getDateFunctions(); ?></p>
+		<p style="text-align:right;"><?php echo getDateFunctions($notification_time); ?></p>
 	</div>
 	<div class="row mt-3">
 		<div class="col-md-12">
@@ -460,7 +504,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 	</div>
 	<div class="hme-inr" id='ntf-detail'>
 		<div class="loading" style="display: none;">Loading</div>
-		<div class='ntf_candidate_detail'>
+		<div class='ntf_candidate_detail mt-2'>
 			<p class='ntf_student_name' style="margin-top: 14px;">Dear <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name"); ?>:</p>
 			<p class='ntf_app_status'>
 			<p>Congratulations! <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_Last_Name"); ?> has been Accepted to St. Ignatius College
@@ -468,8 +512,8 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				diligence that has made this success possible. The entire SI community pledges itself to your child’s
 				intellectual, spiritual, and social development over the next four years. We look forward to your
 				participation and cooperation in this endeavor.
-			<p><?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>’s <b>Acceptance</b> is based on {his/her} academic achievements and the gifts
-				{he/she} will be to the SI community. Placement in Honors level courses for math and foreign language
+			<p><?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>’s <b>Acceptance</b> is based on <?php echo getStudentInformation($candidate, $studentJoinsDetail, "his/her"); ?> academic achievements and the gifts
+				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "he/she"); ?> will be to the SI community. Placement in Honors level courses for math and foreign language
 				will be determined by placement exams to be administered on April 22, 2023. Your online registration
 				packet will include more information on these exams. The online registration packet will be available on
 				March 27, 2023, with additional information and important dates. To access the online registration
@@ -488,7 +532,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 			<p>For your information, we had over <b>1,290</b> applicants apply to St. Ignatius College Preparatory for
 				the Class of 2027. The Admissions Committee was fortunate to have so many qualified applicants to select
 				from in this highly competitive applicant pool. We are excited to have <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> as a member
-				of our talented Freshman class. <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>’s acceptance is contingent upon {his/her} continued
+				of our talented Freshman class. <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>’s acceptance is contingent upon <?php echo getStudentInformation($candidate, $studentJoinsDetail, "his/her"); ?> continued
 				academic performance, good citizenship, and successful completion of eight grade at
 				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_Current_School"); ?>. It is our intention to see that your child has the academic challenge and
 				individual attention that have been a hallmark of Jesuit education. To this end, we are looking forward
@@ -532,27 +576,12 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 			@endif
 			@endif
 			@endif
-			@if($candidate == 's1')
-			@if($appStatus->s1_candidate_status == App\Models\Application::CANDIDATE_ACCEPTED)
+		
 			<div class='application_download' style="float: left !important;">
 				<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}/{{ $studentDetail->Application_ID }}' class="btn btn-primary mt-3">Download</a>
 			</div>
-			@endif
-			@endif
-			@if($candidate == 's2')
-			@if($appStatus->s2_candidate_status == App\Models\Application::CANDIDATE_ACCEPTED)
-			<div class='application_download' style="float: left !important;">
-				<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}/{{ $studentDetail->Application_ID }}' class="btn btn-primary mt-3">Download</a>
-			</div>
-			@endif
-			@endif
-			@if($candidate == 's3')
-			@if($appStatus->s3_candidate_status == App\Models\Application::CANDIDATE_ACCEPTED)
-			<div class='application_download' style="float: left !important;">
-				<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}/{{ $studentDetail->Application_ID }}' class="btn btn-primary mt-3">Download</a>
-			</div>
-			@endif
-			@endif
+
+
 			@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_ONE && $appStatus->s1_application_status == App\Models\Application::TYPE_ACCEPTED)
 			<div class="col-md-12 text-center" style="text-align: right!important"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#Survey" class='btn btn_accept btn-success  mt-3 btn-sm'>Acceptance Survey</a></div>
 			<script>
@@ -561,6 +590,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				});
 			</script>
 			@endif
+
 			@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_TWO && $appStatus->s2_application_status == App\Models\Application::TYPE_ACCEPTED)
 			<div class="col-md-12 text-center" style="text-align: right!important"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#Survey" class='btn btn_accept btn-success  mt-3 btn-sm'>Acceptance Survey</a></div>
 			<script>
@@ -569,6 +599,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				});
 			</script>
 			@endif
+
 			@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_THREE && $appStatus->s3_application_status == App\Models\Application::TYPE_ACCEPTED)
 			<div class="col-md-12 text-center" style="text-align: right!important"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#Survey" class='btn btn_accept btn-success mt-3 btn-sm'>Acceptance Survey</a></div>
 			<script>
@@ -577,12 +608,9 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				});
 			</script>
 			@endif
+
 			@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_TWO && $appStatus->s2_application_status == App\Models\Application::ACCEPTANCE_FINANCIAL_AID)
-			<div class="row">
-				<div class="col-md-3">
-					<p class="mt-3">Payment has been received.</p>
-				</div>
-			</div>
+		
 			<div class="col-md-12 text-center"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#Survey" class='btn btn_accept btn-success mt-3 btn-sm'>Acceptance Survey</a></div>
 			<script>
 				$(document).ready(function() {
@@ -591,6 +619,29 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				});
 			</script>
 			@endif
+
+			@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_ONE && $appStatus->s1_application_status == App\Models\Application::ACCEPTANCE_FINANCIAL_AID)
+		
+			<div class="col-md-12 text-center"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#Survey" class='btn btn_accept btn-success mt-3 btn-sm'>Acceptance Survey</a></div>
+			<script>
+				$(document).ready(function() {
+					$('#staticBackdrop').modal('hide');
+
+				});
+			</script>
+			@endif
+
+			@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_THREE && $appStatus->s3_application_status == App\Models\Application::ACCEPTANCE_FINANCIAL_AID)
+		
+			<div class="col-md-12 text-center"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#Survey" class='btn btn_accept btn-success mt-3 btn-sm'>Acceptance Survey</a></div>
+			<script>
+				$(document).ready(function() {
+					$('#staticBackdrop').modal('hide');
+
+				});
+			</script>
+			@endif
+
 		</div>
 	</div>
 </div>
@@ -612,11 +663,11 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 			<p>Office of Admissions</p>
 
 		</div>
-		<p style="text-align:right;"><?php echo getDateFunctions(); ?></p>
+		<p style="text-align:right;"><?php echo getDateFunctions($notification_time); ?></p>
 	</div>
 	<div class="row mt-3">
 		<div class="col-md-12">
-			<p> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name"); ?><br>
+			<p> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name", 'P2_Last_Name'); ?><br>
 				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Street"); ?><br>
 				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_City"); ?>, <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_State"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Zipcode"); ?><br>
 			</p>
@@ -625,12 +676,12 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 	</div>
 
 	<div class="hme-inr" id='ntf-detail'>
-		<div class="loading" style="display: none;">Loading</div>
-		<div class='ntf_candidate_detail'>
+		
+		<div class='ntf_candidate_detail mt-2'>
 			<p class='ntf_student_name'>Dear <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name"); ?>:</p>
 			<p class='ntf_app_status'>
 			<p>The Admissions Committee wants to thank you and <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> for submitting a very thoughtful application. The Committee was very impressed with <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>’s many fine qualities.</p>
-			<p>After careful review, the Admissions Committee has placed <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> on the <b>Wait List</b> for the Class of 2027. The <b>Wait Listed</b> applicants were extremely competitive candidates in the applicant pool. We are aware that <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> likely has other admission offers from which to choose. Being placed on the St. Ignatius College Preparatory <b>Wait List</b> is evidence of the strong positive impression <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> made throughout our review process. <b>Wait Listed</b> applicants were carefully selected by the Admissions Committee as students who they would like as members of the upcoming Freshman class. We recognize that <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> would be an asset to the class and sincerely hope that there will be a place available should {he/she} desire to attend St. Ignatius College Preparatory.</p>
+			<p>After careful review, the Admissions Committee has placed <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> on the <b>Wait List</b> for the Class of 2027. The <b>Wait Listed</b> applicants were extremely competitive candidates in the applicant pool. We are aware that <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> likely has other admission offers from which to choose. Being placed on the St. Ignatius College Preparatory <b>Wait List</b> is evidence of the strong positive impression <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> made throughout our review process. <b>Wait Listed</b> applicants were carefully selected by the Admissions Committee as students who they would like as members of the upcoming Freshman class. We recognize that <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> would be an asset to the class and sincerely hope that there will be a place available should <?php echo getStudentInformation($candidate, $studentJoinsDetail, "he/she"); ?> desire to attend St. Ignatius College Preparatory.</p>
 			<p>Click below for important <b>Wait List</b> Information from the Admissions Staff. Please read it carefully as it answers the most frequently asked questions and details all pertinent information available.</p>
 			<p>For your information, we had over <b>1,290</b> applicants apply to St. Ignatius College Preparatory for <b>375</b> places in the Class of 2027. There were many qualified applicants in this large and talented applicant pool that we were unable to accept. In fact, we could fill two more schools the size of St. Ignatius that would be just as strong academically as the students we have accepted for next year's Freshman class.</p>
 			<p>We appreciate your patience and understanding while awaiting our final decision. Please be assured that the Admissions Committee will continue to give strong consideration to all legacies. Thank you for your interest in St. Ignatius College Preparatory and for entrusting us with <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>’s application this year.</p>
@@ -663,12 +714,12 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 			<p>Office of Admissions</p>
 
 		</div>
-		<p style="text-align:right;"><?php echo getDateFunctions(); ?></p>
+		<p style="text-align:right;"><?php echo getDateFunctions($notification_time); ?></p>
 	</div>
 	<div class="row mt-3">
 
 		<div class="col-md-12">
-			<p> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name"); ?><br>
+			<p> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name", 'P2_Last_Name'); ?><br>
 				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Street"); ?><br>
 				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_City"); ?>, <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_State"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Zipcode"); ?><br>
 			</p>
@@ -678,12 +729,12 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 
 	<div class="hme-inr" id='ntf-detail'>
 		<div class="loading" style="display: none;">Loading</div>
-		<div class='ntf_candidate_detail'>
+		<div class='ntf_candidate_detail mt-2'>
 			<p class='ntf_student_name'>Dear <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name"); ?>:</p>
 			<p class='ntf_app_status'>
 			<p>The Admissions Committee wants to thank you and <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> for submitting a very thoughtful application. We were fortunate to have so many qualified applicants to select from in this highly competitive applicant pool. The Committee was very impressed with <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>'s many fine qualities.
-			<p>We had over <b>1,290</b> applicants apply to St. Ignatius College Preparatory for the Class of 2027. We regret that we will not be able to offer <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> a place in SI's Freshman class. There were many qualified applicants in this large and talented pool that we were unable to accept. In fact, we could fill two more schools the size of SI that would be just as strong academically as the students we have accepted for next year's Freshman class. <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> is to be congratulated for all {he/she} has accomplished in {his/her} first eight years of school.</p>
-			<p>We sincerely wish <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> continued success in high school. The high school {he/she} attends will be fortunate to have {him/her} as a student. Thank you for entrusting us with <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>'s application. We appreciate your interest in St. Ignatius College Preparatory and your understanding of how difficult our selection process was this year with so many qualified applicants.</p>
+			<p>We had over <b>1,290</b> applicants apply to St. Ignatius College Preparatory for the Class of 2027. We regret that we will not be able to offer <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> a place in SI's Freshman class. There were many qualified applicants in this large and talented pool that we were unable to accept. In fact, we could fill two more schools the size of SI that would be just as strong academically as the students we have accepted for next year's Freshman class. <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> is to be congratulated for all <?php echo getStudentInformation($candidate, $studentJoinsDetail, "he/she"); ?> has accomplished in <?php echo getStudentInformation($candidate, $studentJoinsDetail, "his/her"); ?> first eight years of school.</p>
+			<p>We sincerely wish <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> continued success in high school. The high school <?php echo getStudentInformation($candidate, $studentJoinsDetail, "he/she"); ?> attends will be fortunate to have {him/her} as a student. Thank you for entrusting us with <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>'s application. We appreciate your interest in St. Ignatius College Preparatory and your understanding of how difficult our selection process was this year with so many qualified applicants.</p>
 			</p>
 		</div>
 		<div style="margin-top:15px;">
@@ -713,12 +764,12 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 			<p>Office of Admissions</p>
 
 		</div>
-		<p style="text-align:right;"><?php echo getDateFunctions(); ?></p>
+		<p style="text-align:right;"><?php echo getDateFunctions($notification_time); ?></p>
 	</div>
 	<div class="row mt-3">
 
 		<div class="col-md-12">
-			<p><?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name"); ?><br>
+			<p><?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name", 'P2_Last_Name'); ?><br>
 				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Street"); ?><br>
 				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_City"); ?>, <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_State"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Zipcode"); ?><br>
 			</p>
@@ -727,8 +778,9 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 	</div>
 
 	<div class="hme-inr" id='ntf-detail'>
-		<div class="loading" style="display: none;">Loading</div>
-		<div class='ntf_candidate_detail'>
+
+
+		<div class='ntf_candidate_detail mt-2'>
 			<p class='ntf_student_name'>Dear <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name"); ?>:</p>
 			<p class='ntf_app_status'>
 			<p>Congratulations! <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_Last_Name"); ?> has been Accepted to St. Ignatius College
@@ -736,8 +788,8 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				diligence that has made this success possible. The entire SI community pledges itself to your child’s
 				intellectual, spiritual, and social development over the next four years. We look forward to your
 				participation and cooperation in this endeavor.
-			<p><?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>’s <b>Acceptance</b> is based on {his/her} academic achievements and the gifts
-				{he/she} will be to the SI community. Placement in Honors level courses for math and foreign language
+			<p><?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>’s <b>Acceptance</b> is based on <?php echo getStudentInformation($candidate, $studentJoinsDetail, "his/her"); ?> academic achievements and the gifts
+				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "he/she"); ?> will be to the SI community. Placement in Honors level courses for math and foreign language
 				will be determined by placement exams to be administered on April 22, 2023. Your online registration
 				packet will include more information on these exams. The online registration packet will be available on
 				March 27, 2023, with additional information and important dates. To access the online registration
@@ -756,7 +808,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 			<p>For your information, we had over <b>1,290</b> applicants apply to St. Ignatius College Preparatory for
 				the Class of 2027. The Admissions Committee was fortunate to have so many qualified applicants to select
 				from in this highly competitive applicant pool. We are excited to have <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> as a member
-				of our talented Freshman class. <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>’s acceptance is contingent upon {his/her} continued
+				of our talented Freshman class. <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>’s acceptance is contingent upon <?php echo getStudentInformation($candidate, $studentJoinsDetail, "his/her"); ?> continued
 				academic performance, good citizenship, and successful completion of eight grade at
 				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_Current_School"); ?>. It is our intention to see that your child has the academic challenge and
 				individual attention that have been a hallmark of Jesuit education. To this end, we are looking forward

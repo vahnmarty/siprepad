@@ -334,7 +334,7 @@ class NotificationController extends Controller
 
         $monthName = $time->format('F');
         $notification_time = $monthName . ' ' . $date . ', ' . $year;
-
+// dd($notification_time);
         $student = StudentInformation::where('Application_ID', $ntfDetail->application_id)->first();
         if ($ntfDetail->student_profile == Application::STUDENT_ONE) {
             // if ($appStatus->s1_notification_id == null || $appStatus->s1_notification_id == "") {

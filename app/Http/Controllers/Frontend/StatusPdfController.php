@@ -11,6 +11,7 @@ use App\Models\Notification;
 use App\Models\Payment;
 use App\Models\StudentApplicationStatus;
 use Illuminate\Support\Facades\Date;
+use Carbon\Carbon;
 
 class StatusPdfController extends Controller
 {
@@ -90,7 +91,7 @@ class StatusPdfController extends Controller
             <table class="items" width="100%" style="font-size: 11px; border-collapse: collapse;" cellpadding="8">
                 <thead>
                     <tr>
-                        <td width="50%" style="text-align: left;">' . self::getStudentInformation($studentType, $studentDetail, "P1_First_Name") . '  ' . self::getStudentInformation($studentType, $studentDetail, "P1_Last_Name") . '  ' . self::getStudentInformation($studentType, $studentDetail, "P2_First_Name") . ' 
+                        <td width="50%" style="text-align: left;">' . self::getStudentInformation($studentType, $studentDetail, "P1_First_Name") . '  ' . self::getStudentInformation($studentType, $studentDetail, "P1_Last_Name") . '  ' . self::getStudentInformation($studentType, $studentDetail, "P2_First_Name", 'P2_Last_Name') . ' 
                             ' . self::getStudentInformation($studentType, $studentDetail, "P2_Last_Name") . ' <br>' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_Street") . ' <br>' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_City") .', ' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_State") . ' 
                             ' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_Zipcode") . ' </td>
                     </tr>
@@ -101,14 +102,14 @@ class StatusPdfController extends Controller
             <table class="items" width="100%" style="font-size: 11px; border-collapse: collapse;" cellpadding="8">
                 <thead>
                     <tr>
-                        <td width="50%" style="text-align: left;">Dear ' . self::getStudentInformation($studentType, $studentDetail, "P1_Salutation") . '  ' . self::getStudentInformation($studentType, $studentDetail, "P1_Last_Name") . '  ' . self::getStudentInformation($studentType, $studentDetail, "P2_Salutation") . ' 
-                            ' . self::getStudentInformation($studentType, $studentDetail, "P2_Last_Name") . ' 
+                        <td width="50%" style="text-align: left;">Dear ' . self::getStudentInformation($studentType, $studentDetail, "P1_Salutation") . ' ' . self::getStudentInformation($studentType, $studentDetail, "P1_Last_Name") . ' ' . self::getStudentInformation($studentType, $studentDetail, "P2_Salutation") . ' 
+                            ' . self::getStudentInformation($studentType, $studentDetail, "P2_Last_Name") .':
                         </td>
                     </tr>
                     <tr>
-                        <td width="50%" style="text-align: left;">Congratulations! ' . self::getStudentInformation($studentType, $studentDetail, "Student_first_Name") . '  ' . self::getStudentInformation($studentType, $studentDetail, "Student_Last_Name") . '  has
+                        <td width="50%" style="text-align: left;">Congratulations! ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  ' . self::getStudentInformation($studentType, $studentDetail, "Student_Last_Name") . '  has
                             been <strong>Accepted</strong> to St. Ignatius College Preparatory.
-                            Welcome to our school community! We congratulate ' . self::getStudentInformation($studentType, $studentDetail, "Student_first_Name") . '  for the academic diligence
+                            Welcome to our school community! We congratulate ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  for the academic diligence
                             that has made this success possible.
                             The entire SI community pledges itself to your child’s intellectual, spiritual, and social
                             development over the next four years. We look forward to your participation and cooperation in this
@@ -116,8 +117,8 @@ class StatusPdfController extends Controller
                         </td>
                     </tr>
                     <tr>
-                        <td width="50%" style="text-align: left;">' . self::getStudentInformation($studentType, $studentDetail, "Student_first_Name") . '’s <strong>Acceptance</strong> is based on
-                            [his/her] academic achievements and the gifts [he/she] will be to the SI community. Placement in
+                        <td width="50%" style="text-align: left;">' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '’s <strong>Acceptance</strong> is based on
+                            ' . self::getStudentInformation($studentType, $studentDetail, "his/her") . '  academic achievements and the gifts ' . self::getStudentInformation($studentType, $studentDetail, "he/she") . '  will be to the SI community. Placement in
                             Honors level courses for math and foreign language will be determined by placement exams to be
                             administered on April 22, 2023.
                             Your online registration packet will include more information on these exams. The online
@@ -153,12 +154,12 @@ class StatusPdfController extends Controller
                             For your information, we had over <strong>1,290</strong> applicants apply to St. Ignatius College
                             Preparatory for the Class of 2027.
                             The Admissions Committee was fortunate to have so many qualified applicants to select from in this
-                            highly competitive applicant pool. We are excited to have ' . self::getStudentInformation($studentType, $studentDetail, "Student_first_Name") . '  as a member of our
-                            talented Freshman class. ' . self::getStudentInformation($studentType, $studentDetail, "Student_first_Name") . '’s acceptance is contingent upon [his/her] continued
+                            highly competitive applicant pool. We are excited to have ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  as a member of our
+                            talented Freshman class. ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '’s acceptance is contingent upon ' . self::getStudentInformation($studentType, $studentDetail, "his/her") . '  continued
                             academic performance, good citizenship, and successful completion of eight grade at
                             ' . self::getStudentInformation($studentType, $studentDetail, "Student_Current_School") .'. It is our intention to see that your child has the academic challenge and
                             individual attention that have been a hallmark of Jesuit education.
-                            To this end, we are looking forward to working closely with you and ' . self::getStudentInformation($studentType, $studentDetail, "Student_first_Name") . '  over the
+                            To this end, we are looking forward to working closely with you and ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  over the
                             next four years. Once again, <strong>congratulations!</strong>
             
                     </tr>
@@ -178,7 +179,7 @@ class StatusPdfController extends Controller
                     </td>
                 </tr>
                 <tr>
-                    <td style="padding: 10px; line-height: 20px; border: 0.1mm solid #eee;">
+                    <td style="padding: 10px; line-height: 20px; border:0;">
                         <a href="#" target="_blank"><img src="' .  asset("admin_assets/logo/signature.png") . '"
                             width="100" height="70" alt="Logo" align="center" border="0"  style="object-fit: contain;"></a> 
                     </td>
@@ -253,20 +254,20 @@ class StatusPdfController extends Controller
                         <thead>
                             <tr>
                                 <td width="50%" style="text-align: left;">Dear ' . self::getStudentInformation($studentType, $studentDetail, "P1_Salutation") . '  ' . self::getStudentInformation($studentType, $studentDetail, "P1_Last_Name") . '  ' . self::getStudentInformation($studentType, $studentDetail, "P2_Salutation") . ' 
-                                    ' . self::getStudentInformation($studentType, $studentDetail, "P2_Last_Name") . ' 
+                                    ' . self::getStudentInformation($studentType, $studentDetail, "P2_Last_Name") .': 
                                 </td>
                             </tr>
                             <tr>
-                                <td width="50%" style="text-align: left;">The Admissions Committee wants to thank you and ' . self::getStudentInformation($studentType, $studentDetail, "Student_first_Name") . '  for submitting a very thoughtful application. 
-                                     The Committee was very impressed with ' . self::getStudentInformation($studentType, $studentDetail, "Student_first_Name") . '’s many fine qualities.
+                                <td width="50%" style="text-align: left;">The Admissions Committee wants to thank you and ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  for submitting a very thoughtful application. 
+                                     The Committee was very impressed with ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '’s many fine qualities.
                                 </td>
                             </tr>
                             <tr>
-                                <td width="50%" style="text-align: left;">After careful review, the Admissions Committee has placed ' . self::getStudentInformation($studentType, $studentDetail, "Student_first_Name") . '  on the <strong>Wait List</strong>  for the Class of 2027.  
+                                <td width="50%" style="text-align: left;">After careful review, the Admissions Committee has placed ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  on the <strong>Wait List</strong>  for the Class of 2027.  
                                     The <strong>Wait Listed</strong>  applicants were extremely competitive candidates in the applicant pool. 
-                                     We are aware that ' . self::getStudentInformation($studentType, $studentDetail, "Student_first_Name") . '  likely has other admission offers from which to choose. Being placed on the St. Ignatius College Preparatory <strong>Wait List</strong>  is evidence of the strong positive impression ' . self::getStudentInformation($studentType, $studentDetail, "Student_first_Name") . '  made throughout our review process. 
+                                     We are aware that ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  likely has other admission offers from which to choose. Being placed on the St. Ignatius College Preparatory <strong>Wait List</strong>  is evidence of the strong positive impression ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  made throughout our review process. 
                                      <strong> Wait Listed</strong> applicants were carefully selected by the Admissions Committee as students who they would like as members of the upcoming Freshman class. 
-                                     We recognize that ' . self::getStudentInformation($studentType, $studentDetail, "Student_first_Name") . '  would be an asset to the class and sincerely hope that there will be a place available should [he/she] desire to attend St. 
+                                     We recognize that ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  would be an asset to the class and sincerely hope that there will be a place available should ' . self::getStudentInformation($studentType, $studentDetail, "he/she") . '  desire to attend St. 
                                      Ignatius College Preparatory.
                                 </td>
                             </tr>
@@ -289,7 +290,7 @@ class StatusPdfController extends Controller
                         <tr>
                             <td width="50%" style="text-align: left;">
                                 We appreciate your patience and understanding while awaiting our final decision.  Please be assured that the Admissions Committee will continue to give strong consideration to all legacies. 
-                                 Thank you for your interest in St. Ignatius College Preparatory and for entrusting us with ' . self::getStudentInformation($studentType, $studentDetail, "Student_first_Name") . '’s application this year.
+                                 Thank you for your interest in St. Ignatius College Preparatory and for entrusting us with ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '’s application this year.
                             </td>
                 
                         </tr>
@@ -309,7 +310,7 @@ class StatusPdfController extends Controller
                             </td>
                         </tr>
                         <tr>
-                            <td style="padding: 10px; line-height: 20px; border: 0.1mm solid #eee;">
+                            <td style="padding: 10px; line-height: 20px; border:0;">
                                 <a href="#" target="_blank"><img src="' .  asset("admin_assets/logo/signature.png") . '"
                                 width="100" height="110" alt="Logo" align="center" border="0"></a> 
                             </td>
@@ -380,28 +381,28 @@ class StatusPdfController extends Controller
                     <thead>
                         <tr>
                             <td width="50%" style="text-align: left;">Dear ' . self::getStudentInformation($studentType, $studentDetail, "P1_Salutation") . '  ' . self::getStudentInformation($studentType, $studentDetail, "P1_Last_Name") . '  ' . self::getStudentInformation($studentType, $studentDetail, "P2_Salutation") . ' 
-                                ' . self::getStudentInformation($studentType, $studentDetail, "P2_Last_Name") . ' 
+                                ' . self::getStudentInformation($studentType, $studentDetail, "P2_Last_Name") .':
                             </td>
                         </tr>
                         <tr>
-                            <td width="50%" style="text-align: left;">The Admissions Committee wants to thank you and ' . self::getStudentInformation($studentType, $studentDetail, "Student_first_Name") . '  for submitting a very thoughtful application.
+                            <td width="50%" style="text-align: left;">The Admissions Committee wants to thank you and ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  for submitting a very thoughtful application.
                                   We were fortunate to have so many qualified applicants to select from in this highly competitive applicant pool.
-                                  The Committee was very impressed with ' . self::getStudentInformation($studentType, $studentDetail, "Student_first_Name") . '`s many fine qualities.
+                                  The Committee was very impressed with ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '`s many fine qualities.
                             </td>
                         </tr>
                         <tr>
                             <td width="50%" style="text-align: left;">We had over<strong> 1,290</strong> applicants apply to St. Ignatius College Preparatory for the Class of 2027.
-                                  We regret that we will not be able to offer ' . self::getStudentInformation($studentType, $studentDetail, "Student_first_Name") . '  a place in SI`s Freshman class. 
+                                  We regret that we will not be able to offer ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  a place in SI`s Freshman class. 
                                    There were many qualified applicants in this large and talented pool that we were unable to accept.
                                      In fact, we could fill two more schools the size of SI that would be just as strong academically as the students we have accepted for next year`s Freshman class.
-                                       ' . self::getStudentInformation($studentType, $studentDetail, "Student_first_Name") . '  is to be congratulated for all [he/she] has accomplished in [his/her] first eight years of school.
+                                       ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  is to be congratulated for all ' . self::getStudentInformation($studentType, $studentDetail, "he/she") . '  has accomplished in ' . self::getStudentInformation($studentType, $studentDetail, "his/her") . '  first eight years of school.
                             </td>
                         </tr>
                         <tr>
                             <td width="50%" style="text-align: left;">
-                                We sincerely wish ' . self::getStudentInformation($studentType, $studentDetail, "Student_first_Name") . '  continued success in high school.
-                                 The high school [he/she] attends will be fortunate to have [him/her] as a student.  
-                                Thank you for entrusting us with ' . self::getStudentInformation($studentType, $studentDetail, "Student_first_Name") . '`s application. 
+                                We sincerely wish ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  continued success in high school.
+                                 The high school ' . self::getStudentInformation($studentType, $studentDetail, "he/she") . '  attends will be fortunate to have [him/her] as a student.  
+                                Thank you for entrusting us with ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '`s application. 
                                  We appreciate your interest in St. Ignatius College Preparatory and your understanding of how difficult our selection process was this year with so many qualified applicants.
                             </td>
             
@@ -421,7 +422,7 @@ class StatusPdfController extends Controller
                         </td>
                     </tr>
                     <tr>
-                        <td style="padding: 10px; line-height: 20px; border: 0.1mm solid #eee;">
+                        <td style="padding: 10px; line-height: 20px; border:0;">
                             <a href="#" target="_blank"><img src="' .  asset("admin_assets/logo/signature.png") . '"
                                 width="100" height="70" alt="Logo" align="center" border="0"  style="object-fit: contain;"></a> 
                         </td>
@@ -477,7 +478,7 @@ class StatusPdfController extends Controller
             <table class="items" width="100%" style="font-size: 12px; border-collapse: collapse;" cellpadding="8">
                 <thead>
                 <tr>
-                <td width="50%" style="text-align: left;">' . self::getStudentInformation($studentType, $studentDetail, "P1_First_Name") . '  ' . self::getStudentInformation($studentType, $studentDetail, "P1_Last_Name") . '  ' . self::getStudentInformation($studentType, $studentDetail, "P2_First_Name") . ' 
+                <td width="50%" style="text-align: left;">' . self::getStudentInformation($studentType, $studentDetail, "P1_First_Name") . '  ' . self::getStudentInformation($studentType, $studentDetail, "P1_Last_Name") . '  ' . self::getStudentInformation($studentType, $studentDetail, "P2_First_Name", 'P2_Last_Name') . ' 
                     ' . self::getStudentInformation($studentType, $studentDetail, "P2_Last_Name") . ' <br>' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_Street") . ' <br>' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_City") . ', ' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_State") . ' 
                     ' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_Zipcode") . ' </td>
             </tr>
@@ -488,16 +489,16 @@ class StatusPdfController extends Controller
             <table class="items" width="100%" style="font-size: 12px; border-collapse: collapse;" cellpadding="8">
                 <thead>
                 <tr>
-                <td width="50%" style="text-align: left;">Dear ' . self::getStudentInformation($studentType, $studentDetail, "P1_Salutation") . '  ' . self::getStudentInformation($studentType, $studentDetail, "P1_Last_Name") . '  ' . self::getStudentInformation($studentType, $studentDetail, "P2_Salutation") . ' 
-                    ' . self::getStudentInformation($studentType, $studentDetail, "P2_Last_Name") . ' 
-                </td>
+                <td width="50%" style="text-align: left;">Dear' . self::getStudentInformation($studentType, $studentDetail, "P1_Salutation") . '  ' . self::getStudentInformation($studentType, $studentDetail, "P1_Last_Name") . '  ' . self::getStudentInformation($studentType, $studentDetail, "P2_Salutation") . ' 
+                    ' . self::getStudentInformation($studentType, $studentDetail, "P2_Last_Name") .': 
+               </td>
             </tr>
                     <tr>
-                        <td width="50%" style="text-align: left;">Congratulations!  ' . self::getStudentInformation($studentType, $studentDetail, "Student_first_Name") . '  ' . self::getStudentInformation($studentType, $studentDetail, "Student_Last_Name") . '  has been <strong>Accepted</strong>  to St. Ignatius College Preparatory.  Welcome to our school community!  We congratulate ' . self::getStudentInformation($studentType, $studentDetail, "Student_first_Name") . '  for the academic diligence that has made this success possible.  The entire SI community pledges itself to your child’s intellectual, spiritual, and social development over the next four years.  We look forward to your participation and cooperation in this endeavor.
+                        <td width="50%" style="text-align: left;">Congratulations!  ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  ' . self::getStudentInformation($studentType, $studentDetail, "Student_Last_Name") . '  has been <strong>Accepted</strong>  to St. Ignatius College Preparatory.  Welcome to our school community!  We congratulate ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  for the academic diligence that has made this success possible.  The entire SI community pledges itself to your child’s intellectual, spiritual, and social development over the next four years.  We look forward to your participation and cooperation in this endeavor.
                         </td>
                     </tr>
                     <tr>
-                        <td width="50%" style="text-align: left;">' . self::getStudentInformation($studentType, $studentDetail, "Student_first_Name") . ' ’s <strong>Acceptance</strong>  is based on {his/her} academic achievements and the gifts {he/she} will be to the SI community.  Placement in Honors level courses for math and foreign language will be determined by placement exams to be administered on April 22, 2023.  Your online registration packet will include more information on these exams.  The online registration packet will be available on March 27, 2023, with additional information and important dates.  To access the online registration packet, visit <a href="www.siprepadmissions">www.siprepadmissions</a>.org on March 27, 2023 using the username and password you used to apply.
+                        <td width="50%" style="text-align: left;">' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . ' ’s <strong>Acceptance</strong>  is based on ' . self::getStudentInformation($studentType, $studentDetail, "his/her") . ' academic achievements and the gifts ' . self::getStudentInformation($studentType, $studentDetail, "he/she") . ' will be to the SI community.  Placement in Honors level courses for math and foreign language will be determined by placement exams to be administered on April 22, 2023.  Your online registration packet will include more information on these exams.  The online registration packet will be available on March 27, 2023, with additional information and important dates.  To access the online registration packet, visit <a href="www.siprepadmissions">www.siprepadmissions</a>.org on March 27, 2023 using the username and password you used to apply.
                         </td>
                     </tr>
                     <tr>
@@ -514,7 +515,7 @@ class StatusPdfController extends Controller
                     </tr>
                     <tr>
                         <td width="50%" style="text-align: left;">
-                            For your information, we had over <strong>1,290</strong> applicants apply to St. Ignatius College Preparatory for the Class of 2027.  The Admissions Committee was fortunate to have so many qualified applicants to select from in this highly competitive applicant pool.  We are excited to have ' . self::getStudentInformation($studentType, $studentDetail, "Student_first_Name") . '  as a member of our talented Freshman class.  ' . self::getStudentInformation($studentType, $studentDetail, "Student_first_Name") . ' ’s acceptance is contingent upon {his/her} continued academic performance, good citizenship, and successful completion of eight grade at ' . self::getStudentInformation($studentType, $studentDetail, "Student_Current_School") .'.  It is our intention to see that your child has the academic challenge and individual attention that have been a hallmark of Jesuit education.  To this end, we are looking forward to working closely with you and ' . self::getStudentInformation($studentType, $studentDetail, "Student_first_Name") . '  over the next four years.  Once again, <strong>congratulations!</strong> 
+                            For your information, we had over <strong>1,290</strong> applicants apply to St. Ignatius College Preparatory for the Class of 2027.  The Admissions Committee was fortunate to have so many qualified applicants to select from in this highly competitive applicant pool.  We are excited to have ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  as a member of our talented Freshman class.  ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . ' ’s acceptance is contingent upon ' . self::getStudentInformation($studentType, $studentDetail, "his/her") . ' continued academic performance, good citizenship, and successful completion of eight grade at ' . self::getStudentInformation($studentType, $studentDetail, "Student_Current_School") .'.  It is our intention to see that your child has the academic challenge and individual attention that have been a hallmark of Jesuit education.  To this end, we are looking forward to working closely with you and ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  over the next four years.  Once again, <strong>congratulations!</strong> 
                         </td>
         
                     </tr>
@@ -532,7 +533,7 @@ class StatusPdfController extends Controller
                     </td>
                 </tr>
                 <tr>
-                    <td style="padding: 10px; line-height: 20px; border: 0.1mm solid #eee;">
+                    <td style="padding: 10px; line-height: 20px; border:0;">
                         <a href="#" target="_blank"><img src="' .  asset("admin_assets/logo/signature.png") . '"
                             width="100" height="70" alt="Logo" align="center" border="0"  style="object-fit: contain;"></a> 
                     </td>
@@ -552,7 +553,7 @@ class StatusPdfController extends Controller
             <tr>
                     
                 <td>      
-               <span style="color:rgb(32, 143, 234); font-weight: bold;" >Financial Assistance Details for ' . self::getStudentInformation($studentType, $studentDetail, "Student_first_Name") . '  ' . self::getStudentInformation($studentType, $studentDetail, "Student_Last_Name") . '</span> </td>
+               <span style="color:rgb(32, 143, 234); font-weight: bold;" >Financial Assistance Details for ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  ' . self::getStudentInformation($studentType, $studentDetail, "Student_Last_Name") . '</span> </td>
         
         </tr>
         </table>';
@@ -583,66 +584,83 @@ class StatusPdfController extends Controller
     }
     private function  getDateFunctions()
     {
+        $time = Carbon::now();
+        $year = date('Y');
+        $date = date('d');
 
-        return date('m-d-Y');
+        $monthName = $time->format('F');
+        $notification_time = $monthName . ' ' . $date . ', ' . $year;
+        return $notification_time;
     }
-    private function  getStudentInformation($studentType, $studentDetail, $type)
+    private function  getStudentInformation($studentType, $studentDetail, $type,$P2_Last_Name = '')
     {
-                    // dd($studentDetail);
-
+        // dd($studentDetail);
         if ($studentType == 's1') {
             switch ($type) {
-                case "Student_first_Name":
+    
+                case "Student_First_Name":
+    
+    
                     return ucwords($studentDetail->S1_First_Name);
                     break;
                 case "Student_Last_Name":
                     return ucwords($studentDetail->S1_Last_Name);
-
+    
                     break;
                 case "P1_Salutation":
                     return ucwords($studentDetail->P1_Salutation);
-
+    
                     break;
-              
+    
                 case "P2_Salutation":
                     if ($studentDetail->P2_Salutation == null) {
-                        return ucwords($studentDetail->P2_Salutation);
                     } else {
-                        return '(' . ucwords($studentDetail->P2_Salutation);
+                        return 'and ' . ucwords($studentDetail->P2_Salutation);
                     }
-
+    
                     break;
                 case "P2_Last_Name":
                     if ($studentDetail->P2_Last_Name == null) {
                         return ucwords($studentDetail->P2_Last_Name);
                     } else {
-                        return ' ' . ucwords($studentDetail->P2_Last_Name) . '';
+                        if ($P2_Last_Name == 'P2_Last_Name') {
+                            return '' . ucwords($studentDetail->P2_Last_Name) . '';
+                        } else {
+                            if ($studentDetail->P2_Salutation == null) {
+    
+                                return 'and ' . ucwords($studentDetail->P2_Last_Name) . '';
+                            } else {
+                                return ' ' . ucwords($studentDetail->P2_Last_Name) . '';
+                            }
+                        }
                     }
                     break;
                 case "P1_First_Name":
                     return ucwords($studentDetail->P1_First_Name);
                     break;
                 case "P1_Last_Name":
-
+    
                     if ($studentDetail->P2_Last_Name == null) {
                         return ucwords($studentDetail->P1_Last_Name) . '';
                     } else {
                         return ucwords($studentDetail->P1_Last_Name);
                     }
                     break;
-
+    
                 case "P2_First_Name":
                     if ($studentDetail->P2_First_Name == null) {
+    
                         return ucwords($studentDetail->P2_First_Name);
                     } else {
-                        return ' and ' . ucwords($studentDetail->P2_First_Name);
+    
+                        return 'and ' . ucwords($studentDetail->P2_First_Name);
                     }
                     break;
                 case "Primary_Address_Street":
                     return ucwords($studentDetail->Address_1);
                     break;
                 case "Primary_Address_City":
-
+    
                     return ucwords($studentDetail->City_1);
                     break;
                 case "Primary_Address_State":
@@ -651,72 +669,99 @@ class StatusPdfController extends Controller
                 case "Primary_Address_Zipcode":
                     return ucwords($studentDetail->Zipcode_1);
                     break;
-                     case "Student_Current_School":
+                case "Student_Current_School":
                     return ucwords($studentDetail->S1_Current_School);
+                    break;
+                case "his/her":
+                    if ($studentDetail->S1_Gender == "Male") {
+                        return "His";
+                    } else {
+                        return "Her";
+                    }
+                case "he/she":
+                    if ($studentDetail->S1_Gender == "Male") {
+                        return "He";
+                    } else {
+                        return "She";
+                    }
                     break;
                 default:
                     return "----";
             };
         }
-
-
+    
         // Primary_Address_Street") . ' <br>' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_City") . ' , ' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_State") . ' 
-
+    
         if ($studentType == 's2') {
-            
+    
             switch ($type) {
-                case "Student_first_Name":
+                case "Student_First_Name":
                     // dd($studentDetail);
                     return $studentDetail->S2_First_Name;
                     break;
                 case "Student_Last_Name":
                     return $studentDetail->S2_Last_Name;
-
+    
                     break;
                 case "P1_Salutation":
                     return ucwords($studentDetail->P1_Salutation);
-
+    
                     break;
-              
+    
                 case "P2_Salutation":
                     if ($studentDetail->P2_Salutation == null) {
                         return ucwords($studentDetail->P2_Salutation);
                     } else {
-                        return '(' . ucwords($studentDetail->P2_Salutation);
+                        return 'and ' . ucwords($studentDetail->P2_Salutation);
                     }
-
+    
                     break;
                 case "P2_Last_Name":
+                    // dd($P2_Last_Name);
+    
                     if ($studentDetail->P2_Last_Name == null) {
                         return ucwords($studentDetail->P2_Last_Name);
                     } else {
-                        return '' . ucwords($studentDetail->P2_Last_Name) . '';
+                        if ($P2_Last_Name == 'P2_Last_Name') {
+                            return '' . ucwords($studentDetail->P2_Last_Name) . '';
+                        } else {
+                            if ($studentDetail->P2_Salutation == null) {
+    
+                                return 'and ' . ucwords($studentDetail->P2_Last_Name) . '';
+                            } else {
+                                return ' ' . ucwords($studentDetail->P2_Last_Name) . '';
+                            }
+                        }
                     }
                     break;
                 case "P1_First_Name":
                     return ucwords($studentDetail->P1_First_Name);
                     break;
                 case "P1_Last_Name":
-
+    
                     if ($studentDetail->P2_Last_Name == null) {
                         return ucwords($studentDetail->P1_Last_Name) . '';
                     } else {
                         return ucwords($studentDetail->P1_Last_Name);
                     }
                     break;
-
+    
                 case "P2_First_Name":
+                    // dd($type);
                     if ($studentDetail->P2_First_Name == null) {
+    
                         return ucwords($studentDetail->P2_First_Name);
                     } else {
-                        return ' and ' . ucwords($studentDetail->P2_First_Name);
+    
+                        return 'and ' . ucwords($studentDetail->P2_First_Name);
                     }
+    
                     break;
                 case "Primary_Address_Street":
                     return ucwords($studentDetail->Address_1);
                     break;
                 case "Primary_Address_City":
-
+    
                     return ucwords($studentDetail->City_1);
                     break;
                 case "Primary_Address_State":
@@ -725,8 +770,21 @@ class StatusPdfController extends Controller
                 case "Primary_Address_Zipcode":
                     return ucwords($studentDetail->Zipcode_1);
                     break;
-                     case "Student_Current_School":
+                case "Student_Current_School":
                     return ucwords($studentDetail->S1_Current_School);
+                    break;
+                case "his/her":
+                    if ($studentDetail->S1_Gender == "Male") {
+                        return "His";
+                    } else {
+                        return "Her";
+                    }
+                case "he/she":
+                    if ($studentDetail->S1_Gender == "Male") {
+                        return "He";
+                    } else {
+                        return "She";
+                    }
                     break;
                 default:
                     return "----";
@@ -734,58 +792,69 @@ class StatusPdfController extends Controller
         }
         if ($studentType == 's3') {
             switch ($type) {
-                case "Student_first_Name":
+                case "Student_First_Name":
                     // dd($studentDetail);
                     return ucwords($studentDetail->S3_First_Name);
                     break;
                 case "Student_Last_Name":
                     return ucwords($studentDetail->S3_Last_Name);
-
+    
                     break;
                 case "P1_Salutation":
                     return ucwords($studentDetail->P1_Salutation);
-
+    
                     break;
-              
+    
                 case "P2_Salutation":
                     if ($studentDetail->P2_Salutation == null) {
                         return ucwords($studentDetail->P2_Salutation);
                     } else {
-                        return '(' . ucwords($studentDetail->P2_Salutation);
+                        return 'and ' . ucwords($studentDetail->P2_Salutation);
                     }
-
+    
                     break;
                 case "P2_Last_Name":
                     if ($studentDetail->P2_Last_Name == null) {
                         return ucwords($studentDetail->P2_Last_Name);
                     } else {
-                        return ' ' . ucwords($studentDetail->P2_Last_Name) . '';
+                        if ($P2_Last_Name == 'P2_Last_Name') {
+                            return ' ' . ucwords($studentDetail->P2_Last_Name) . '';
+                        } else {
+                            if ($studentDetail->P2_Salutation == null) {
+    
+                                return 'and ' . ucwords($studentDetail->P2_Last_Name) . '';
+                            } else {
+                                return ' ' . ucwords($studentDetail->P2_Last_Name) . '';
+                            }
+                        }
                     }
                     break;
                 case "P1_First_Name":
                     return ucwords($studentDetail->P1_First_Name);
                     break;
                 case "P1_Last_Name":
-
+    
                     if ($studentDetail->P2_Last_Name == null) {
                         return ucwords($studentDetail->P1_Last_Name) . '';
                     } else {
                         return ucwords($studentDetail->P1_Last_Name);
                     }
                     break;
-
+    
                 case "P2_First_Name":
                     if ($studentDetail->P2_First_Name == null) {
+    
                         return ucwords($studentDetail->P2_First_Name);
                     } else {
-                        return ' and ' . ucwords($studentDetail->P2_First_Name);
+    
+                        return 'and ' . ucwords($studentDetail->P2_First_Name);
                     }
                     break;
                 case "Primary_Address_Street":
                     return ucwords($studentDetail->Address_1);
                     break;
                 case "Primary_Address_City":
-
+    
                     return ucwords($studentDetail->City_1);
                     break;
                 case "Primary_Address_State":
@@ -794,8 +863,21 @@ class StatusPdfController extends Controller
                 case "Primary_Address_Zipcode":
                     return ucwords($studentDetail->Zipcode_1);
                     break;
-                     case "Student_Current_School":
+                case "Student_Current_School":
                     return ucwords($studentDetail->S1_Current_School);
+                    break;
+                case "his/her":
+                    if ($studentDetail->S1_Gender == "Male") {
+                        return "His";
+                    } else {
+                        return "Her";
+                    }
+                case "he/she":
+                    if ($studentDetail->S1_Gender == "Male") {
+                        return "He";
+                    } else {
+                        return "She";
+                    }
                     break;
                 default:
                     return "----";

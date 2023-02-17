@@ -19,6 +19,10 @@
             processing: true,
             pageLength: 5,
             lengthMenu: [5, 10, 20, 50, 100, 200, 500],
+            "columnDefs": [
+        { "orderable": false, "targets": [0, 4, 5, 6] },
+        { "orderable": true, "targets": [1, 2, 3] }
+    ]
         });
         $('#serachData').click(function() {
             datatable.column(0).search($("#searchFirstName").val().trim()).draw();
