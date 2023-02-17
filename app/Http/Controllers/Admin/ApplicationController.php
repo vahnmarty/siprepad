@@ -66,10 +66,10 @@ class ApplicationController extends Controller
 
         $columnSortOrder     =         $orderArray[0]['dir']; // This will get us order direction(ASC/DESC)
         $searchValue         =         $searchArray['value']; // This is search value 
-        $count = 0;
-        
+        $count = Application::TYPE_PENDING;
 
-        
+
+
         $response = array(
             "draw" => intval($draw),
             "recordsTotal" => 100,
@@ -242,7 +242,7 @@ class ApplicationController extends Controller
                         $checkStatus->update([
                             's1_application_status' => $applicationStatus,
                             's1_notification_id' => null,
-                            's1_candidate_status' => 0
+                            's1_candidate_status' => Application::TYPE_PENDING
                         ]);
                         Notification::where('student_profile', '=', 'student_one')->where('application_id', '=', $appID)->delete();
 
@@ -284,6 +284,9 @@ class ApplicationController extends Controller
                     } else {
                         $checkStatus->update([
                             's1_application_status' => $applicationStatus,
+                            's1_notification_id' => null,
+                            's1_candidate_status' => Application::TYPE_PENDING
+
                         ]);
                         $newNotification = new Notification();
                         $newNotification->profile_id = $user;
@@ -318,7 +321,7 @@ class ApplicationController extends Controller
                         $setApplicationStatus->profile_id = $user;
                         $setApplicationStatus->s2_application_status = $applicationStatus;
                         $setApplicationStatus->s2_notification_id = null;
-                        $setApplicationStatus->s2_candidate_status = 0;
+                        $setApplicationStatus->s2_candidate_status = Application::TYPE_PENDING;
 
 
 
@@ -336,7 +339,7 @@ class ApplicationController extends Controller
                         $checkStatus->update([
                             's2_application_status' => $applicationStatus,
                             's2_notification_id' => null,
-                            's2_candidate_status' => 0
+                            's2_candidate_status' => Application::TYPE_PENDING
 
                         ]);
                         Notification::where('student_profile', '=', 'student_two')->where('application_id', '=', $appID)->delete();
@@ -382,6 +385,8 @@ class ApplicationController extends Controller
                     } else {
                         $checkStatus->update([
                             's2_application_status' => $applicationStatus,
+                            's2_notification_id' => null,
+                            's2_candidate_status' => Application::TYPE_PENDING
                         ]);
                         $newNotification = new Notification();
                         $newNotification->profile_id = $user;
@@ -419,7 +424,7 @@ class ApplicationController extends Controller
                         $setApplicationStatus->profile_id = $user;
                         $setApplicationStatus->s3_application_status = $applicationStatus;
                         $setApplicationStatus->s3_notification_id = null;
-                        $setApplicationStatus->s3_candidate_status = 0;
+                        $setApplicationStatus->s3_candidate_status = Application::TYPE_PENDING;
 
 
                         if ($setApplicationStatus->save()) {
@@ -435,7 +440,7 @@ class ApplicationController extends Controller
                         $checkStatus->update([
                             's3_application_status' => $applicationStatus,
                             's3_notification_id' => null,
-                            's3_candidate_status' => 0
+                            's3_candidate_status' => Application::TYPE_PENDING
 
                         ]);
                         Notification::where('student_profile', '=', 'student_three')->where('application_id', '=', $appID)->delete();
@@ -479,6 +484,8 @@ class ApplicationController extends Controller
                     } else {
                         $checkStatus->update([
                             's3_application_status' => $applicationStatus,
+                            's3_notification_id' => null,
+                            's3_candidate_status' => Application::TYPE_PENDING
                         ]);
                         $newNotification = new Notification();
                         $newNotification->profile_id = $user;
@@ -508,5 +515,4 @@ class ApplicationController extends Controller
             return 'Application not found';
         }
     }
-
 }
