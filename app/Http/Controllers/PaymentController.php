@@ -135,7 +135,7 @@ class PaymentController extends Controller
     public function acceptPayment(Request $request)
     {
 
-	$id =$request->post('studendId');
+        $id = $request->post('studendId');
         $validator      =   Validator::make($request->all(), [
             "first_name"  =>      "required",
             "last_name"   =>      "required",

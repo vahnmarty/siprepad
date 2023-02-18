@@ -14,9 +14,11 @@ use App\Models\ParentInformation;
 use App\Models\AddressInformation;
 use App\Models\GlobalRegisterable;
 use App\Models\Payment;
+use App\Models\AcceptanceDeclineSurvey;
 use App\Models\StudentApplicationStatus;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 
 class NotificationController extends Controller
 {
@@ -295,10 +297,106 @@ class NotificationController extends Controller
             return redirect()->back()->with('error', 'Application Not found!!!');
         }
     }
+    public function acceptanceSurvey(Request $request)
+    {
 
+
+
+
+        $validator      =   Validator::make($request->all(), [
+            "name_of_School_1" => "required",
+            "name_of_School_2" => "required",
+            "name_of_School_3" => "required",
+            "name_of_School_4" => "required",
+            "school_s_Decision_1" => "required",
+            "school_s_Decision_2" => "required",
+            "school_s_Decision_3" => "required",
+            "school_s_Decision_4" => "required",
+            "applied_for_Aid_1" => "required",
+            "applied_for_Aid_2" => "required",
+            "applied_for_Aid_3" => "required",
+            "applied_for_Aid_4" => "required",
+            "amount_of_Aid_or_scholarship_Offered_1" => "required",
+            "amount_of_Aid_or_scholarship_Offered_2" => "required",
+            "amount_of_Aid_or_scholarship_Offered_3" => "required",
+            "amount_of_Aid_or_scholarship_Offered_4" => "required",
+            "comment_1" => "required",
+            "comment_2" => "required",
+            "comment_3" => "required",
+            "comment_4" => "required",
+            "most_Important_Reason" => "required",
+            "second_Most_Important_Reason" => "required",
+            "third_Most_Important_Reason" => "required",
+            "rank_Comment_1" => "required",
+            "rank_Comment_2" => "required",
+            "rank_Comment_3" => "required",
+            "student_Visit_Program" => "required",
+            "admissions_process" => "required",
+            "student_type" => "required",
+
+        ]);
+        if ($validator->fails()) {
+            $imploded = array();
+            foreach (json_decode($validator->errors(), true) as $array) {
+                $imploded[] = implode('~', $array);
+            }
+            $validatorError = implode(" & ", $imploded);
+            $data['message'] = $validatorError;
+            $data['status'] = "error";
+            return $data;
+        } else {
+            $profile_id = Auth::guard('customer')->user()->id;
+            $getApplication = Application::where('Profile_ID', $profile_id)->first();
+            $application_id = $getApplication->Application_ID;
+            $studentAppectanceStoreResult =  AcceptanceDeclineSurvey::create([
+                'Profile_ID' => Auth::guard('customer')->user()->id,
+                'application_id' => $application_id,
+                "name_of_School_1" => $request->post('name_of_School_1'),
+                "name_of_School_2" => $request->post('name_of_School_2'),
+                "name_of_School_3" => $request->post('name_of_School_3'),
+                "name_of_School_4" => $request->post('name_of_School_4'),
+                "school_s_Decision_1" => $request->post('school_s_Decision_1'),
+                "school_s_Decision_2" => $request->post('school_s_Decision_2'),
+                "school_s_Decision_3" => $request->post('school_s_Decision_3'),
+                "school_s_Decision_4" => $request->post('school_s_Decision_4'),
+                "applied_for_Aid_1" => $request->post('applied_for_Aid_1'),
+                "applied_for_Aid_2" => $request->post('applied_for_Aid_2'),
+                "applied_for_Aid_3" => $request->post('applied_for_Aid_3'),
+                "applied_for_Aid_4" => $request->post('applied_for_Aid_4'),
+                "amount_of_Aid_or_scholarship_Offered_1" => $request->post('amount_of_Aid_or_scholarship_Offered_1'),
+                "amount_of_Aid_or_scholarship_Offered_2" => $request->post('amount_of_Aid_or_scholarship_Offered_2'),
+                "amount_of_Aid_or_scholarship_Offered_3" => $request->post('amount_of_Aid_or_scholarship_Offered_3'),
+                "amount_of_Aid_or_scholarship_Offered_4" => $request->post('amount_of_Aid_or_scholarship_Offered_4'),
+                "comment_1" => $request->post('comment_1'),
+                "comment_2" => $request->post('comment_2'),
+                "comment_3" => $request->post('comment_3'),
+                "comment_4" => $request->post('comment_4'),
+                "most_Important_Reason" => $request->post('most_Important_Reason'),
+                "second_Most_Important_Reason" => $request->post('second_Most_Important_Reason'),
+                "third_Most_Important_Reason" => $request->post('third_Most_Important_Reason'),
+                "rank_Comment_1" => $request->post('rank_Comment_1'),
+                "rank_Comment_2" => $request->post('rank_Comment_2'),
+                "rank_Comment_3" => $request->post('rank_Comment_3'),
+                "student_Visit_Program" => $request->post('student_Visit_Program'),
+                "admissions_process" => $request->post('admissions_process'),
+                "student_type" => $request->post('student_type'),
+
+
+
+            ]);
+            if ($studentAppectanceStoreResult) {
+                $data['message'] = "Successfully data saved";
+                $data['status'] = "success";
+            } else {
+                $data['message'] = "Missing data please try again";
+                $data['status'] = "error";
+            }
+        }
+        return $data;
+    }
     public function ShowStudentNotification($notificationid)
     {
-        $StudentApplicationStatusResults=[];
+        $StudentApplicationStatusResults = [];
 
         $ntfStatus = Global_Notifiable::select('notifiable')->first();
 
@@ -334,7 +432,7 @@ class NotificationController extends Controller
 
         $monthName = $time->format('F');
         $notification_time = $monthName . ' ' . $date . ', ' . $year;
-// dd($notification_time);
+        // dd($notification_time);
         $student = StudentInformation::where('Application_ID', $ntfDetail->application_id)->first();
         if ($ntfDetail->student_profile == Application::STUDENT_ONE) {
             // if ($appStatus->s1_notification_id == null || $appStatus->s1_notification_id == "") {
