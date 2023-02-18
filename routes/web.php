@@ -40,6 +40,7 @@ Route::get('/cicd', function () {
 // Route::post('/dopay/online', [PaymentController::class, 'handleonlinepay'])->name('dopay.online');
 // Route::post('/dopay/{sid}', [PaymentController::class, 'acceptPayment'])->name('dopay');
 Route::post('/dopay', [PaymentController::class, 'acceptPayment'])->name('dopay');
+Route::post('/acceptance-survey', [NotificationController::class, 'acceptanceSurvey'])->name('acceptanceSurvey');
 
 Route::get('login', [UserAuthController::class, 'getLogin'])->name('login.get');
 Route::post('login', [UserAuthController::class, 'postLogin'])->name('login.post');

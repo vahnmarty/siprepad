@@ -15,9 +15,6 @@
 		bottom: 0;
 		right: 0;
 	}
-
-
-
 	.loading:before {
 		content: '';
 		display: block;
@@ -30,7 +27,6 @@
 
 		background: -webkit-radial-gradient(rgba(20, 20, 20, .8), rgba(0, 0, 0, .8));
 	}
-
 	.loading:not(:required) {
 		font: 0/0 a;
 		color: transparent;
@@ -55,8 +51,6 @@
 		-webkit-box-shadow: rgba(255, 255, 255, 0.75) 1.5em 0 0 0, rgba(255, 255, 255, 0.75) 1.1em 1.1em 0 0, rgba(255, 255, 255, 0.75) 0 1.5em 0 0, rgba(255, 255, 255, 0.75) -1.1em 1.1em 0 0, rgba(255, 255, 255, 0.75) -1.5em 0 0 0, rgba(255, 255, 255, 0.75) -1.1em -1.1em 0 0, rgba(255, 255, 255, 0.75) 0 -1.5em 0 0, rgba(255, 255, 255, 0.75) 1.1em -1.1em 0 0;
 		box-shadow: rgba(255, 255, 255, 0.75) 1.5em 0 0 0, rgba(255, 255, 255, 0.75) 1.1em 1.1em 0 0, rgba(255, 255, 255, 0.75) 0 1.5em 0 0, rgba(255, 255, 255, 0.75) -1.1em 1.1em 0 0, rgba(255, 255, 255, 0.75) -1.5em 0 0 0, rgba(255, 255, 255, 0.75) -1.1em -1.1em 0 0, rgba(255, 255, 255, 0.75) 0 -1.5em 0 0, rgba(255, 255, 255, 0.75) 1.1em -1.1em 0 0;
 	}
-
-
 	@-webkit-keyframes spinner {
 		0% {
 			-webkit-transform: rotate(0deg);
@@ -475,6 +469,8 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 }
 
 ?>
+<div class="loading" style="display: none;">Loading</div>
+
 @switch($ntfDetail->notification_type)
 @case(1)
 <div class="home-wrap">
@@ -503,7 +499,6 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 		</div>
 	</div>
 	<div class="hme-inr" id='ntf-detail'>
-		<div class="loading" style="display: none;">Loading</div>
 		<div class='ntf_candidate_detail mt-2'>
 			<p class='ntf_student_name' style="margin-top: 14px;">Dear <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name"); ?>:</p>
 			<p class='ntf_app_status'>
@@ -568,10 +563,15 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 					<div class="col-md-12 text-center" style="text-align: right!important"></div>
 					<div class="col-md-12 text-center" style="text-align: right!important"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#Survey" class='btn btn_accept btn-success  mt-3 btn-sm'>Acceptance Survey</a></div>
 					<!-- <div class="col-md-12 text-center" style="text-align: right!important">Congratulations on enrolling as a student in the SI Class of 2027! Please check back here on Monday, March 27th for next steps and registration information.</div> -->
-
+					@php
+					getAcceptanceModal();
+					@endphp
 
 					@endif
 					@if($appStatus->s1_candidate_status == App\Models\Application::CANDIDATE_REJECTED)
+					@php
+					getDeclineSurvayModal();
+					@endphp
 					<div class="col-md-12 text-center" style="text-align: right!important"></div>
 					<div class="col-md-12 text-center" style="text-align: right!important"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#SurveyDecline" class='btn btn_accept btn-success  mt-3 btn-sm'>Decline Survey</a></div>
 
@@ -589,9 +589,14 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 
 					@if($appStatus->s2_candidate_status == App\Models\Application::TYPE_ACCEPTED)
 					<div class="col-md-12 text-center" style="text-align: right!important"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#Survey" class='btn btn_accept btn-success  mt-3 btn-sm'>Acceptance Survey</a></div>
-
+					@php
+					getAcceptanceModal();
+					@endphp
 					@endif
 					@if($appStatus->s2_candidate_status == App\Models\Application::CANDIDATE_REJECTED)
+					@php
+					getDeclineSurvayModal();
+					@endphp
 					<div class="col-md-12 text-center" style="text-align: right!important"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#SurveyDecline" class='btn btn_accept btn-success  mt-3 btn-sm'>Decline Survey</a></div>
 
 					@endif
@@ -606,9 +611,14 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 					@endif
 					@if($appStatus->s3_candidate_status == App\Models\Application::TYPE_ACCEPTED)
 					<div class="col-md-12 text-center" style="text-align: right!important"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#Survey" class='btn btn_accept btn-success  mt-3 btn-sm'>Acceptance Survey</a></div>
-
+					@php
+					getAcceptanceModal();
+					@endphp
 					@endif
 					@if($appStatus->s3_candidate_status == App\Models\Application::CANDIDATE_REJECTED)
+					@php
+					getDeclineSurvayModal();
+					@endphp
 					<div class="col-md-12 text-center" style="text-align: right!important"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#SurveyDecline" class='btn btn_accept btn-success  mt-3 btn-sm'>Decline Survey</a></div>
 
 					@endif
@@ -785,7 +795,6 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 	</div>
 
 	<div class="hme-inr" id='ntf-detail'>
-		<div class="loading" style="display: none;">Loading</div>
 		<div class='ntf_candidate_detail mt-2'>
 			<p class='ntf_student_name'>Dear <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name"); ?>:</p>
 			<p class='ntf_app_status'>
@@ -936,12 +945,14 @@ No Status yet
 				Acceptance at SI
 			</div>
 			<div class="modal-footer">
-<<<<<<< HEAD
+
 				<a id="AcceptanceAtSI" class='btn btn_accept acceptanceAtSI'>Acceptance survey</a>
-=======
+
+				<a id="AcceptanceAtSI" class='btn btn_accept acceptanceAtSI'>Acceptance survey</a>
+
 				<a id="declineAcceptanceAtSI" class='btn btn_accept'>Decline Acceptance at SI</a>
 				<a id="AcceptanceAtSI" class='btn btn_accept acceptanceAtSI'>Acceptance at SI</a>
->>>>>>> 527db3100f71ab6a2c20ef1319e55ded99e62a73
+
 			</div>
 		</div>
 	</div>
@@ -1005,585 +1016,9 @@ No Status yet
 </div>
 
 <!-- Accept survey modal -->
-<div class="modal fade" id="acceptanceServModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog survay-accept">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel"><span style="color:red; font-size:22px;">Reserve TestFirst's place in the Class of 2027 at SI!</span></h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">
 
-				<table width="100%" cellpadding="0" cellspacing="0">
-
-					<tr>
-						<td style="padding: 10px 0;">
-							<p style="font-size: 18px;">Please answer the following questions to assist us in evaluating our admissions process and to complete your registration at St. Ignatius College Preparatory.</p>
-						</td>
-					</tr>
-					<tr>
-						<td style="font-size: 16px; padding: 10px 0;">
-							<b>Please list, in order of preference, the schools to which you applied, the admission decision (accepted/wait listed/not accepted), and Financial Aid or scholarship information, if applicable:</b>
-
-						</td>
-					</tr>
-
-					<tr>
-						<td style="padding: 10px 0;">
-							<table style="width: 750px;" cellpadding="1">
-								<tr align="left">
-									<th></th>
-									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;">Name of School</th>
-									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;">School's Decision</th>
-									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;">Applied for Aid</th>
-									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;" colspan="2">Amount of Aid or scholarship Offered</th>
-									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;">Comment</th>
-								</tr>
-
-								<tr>
-									<td>
-										1.
-									</td>
-									<td>
-										<input type="text" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 150px;">
-									</td>
-									<td>
-										<select id="cars" name="cars">
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
-										<!-- <input type="number" style="border-radius: 5px; padding: 5px 10px; width: 120px;  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"> -->
-									</td>
-									<td>
-										<select id="cars" name="cars">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
-										<!-- <input type="number" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 100px;"> -->
-									</td>
-									<td>
-										<b>$</b>
-									</td>
-									<td>
-										<input type="text" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 145px;">
-									</td>
-									<td>
-										<input type="text" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 200px;">
-									</td>
-								</tr>
-								<tr>
-									<td>
-										2.
-									</td>
-									<td>
-										<input type="text" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 150px;">
-									</td>
-									<td>
-										<select id="cars" name="cars">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
-										<!-- <input type="number" style="border-radius: 5px; padding: 5px 10px; width: 120px;  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"> -->
-									</td>
-									<td>
-										<select id="cars" name="cars">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
-										<!-- <input type="number" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 100px;"> -->
-									</td>
-									<td>
-										<b>$</b>
-									</td>
-									<td><input type="text" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 145px;">
-									</td>
-									<td>
-										<input type="text" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 200px;">
-									</td>
-								</tr>
-								<tr>
-									<td>
-										3.
-									</td>
-									<td>
-										<input type="text" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 150px;">
-									</td>
-									<td>
-										<select id="cars" name="cars">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
-										<!-- <input type="number" style="border-radius: 5px; padding: 5px 10px; width: 120px;  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"> -->
-									</td>
-									<td>
-										<select id="cars" name="cars">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
-										<!-- <input type="number" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 100px;"> -->
-									</td>
-									<td>
-										<b>$</b>
-									</td>
-									<td><input type="text" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 145px;">
-									</td>
-									<td>
-										<input type="text" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 200px;">
-									</td>
-								</tr>
-								<tr>
-									<td>
-										4.
-									</td>
-									<td>
-										<input type="text" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 150px;">
-									</td>
-									<td>
-										<select id="cars" name="cars">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
-										<!-- <input type="number" style="border-radius: 5px; padding: 5px 10px; width: 120px;  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"> -->
-									</td>
-									<td>
-										<select id="cars" name="cars">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
-										<!-- <input type="number" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 100px;"> -->
-									</td>
-
-									<td>
-										<b>$</b>
-									</td>
-									<td><input type="text" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 145px;">
-									</td>
-									<td>
-										<input type="text" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 200px;">
-									</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<tr>
-						<td style="font-size: 18px; padding: 10px 0;">
-							<b>Rank the three most important reasons for not choosing SI:</b>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<table style="width: 870px;" cellpadding="1">
-								<tr>
-									<td style="font-size: 18px; padding: 8px 0;">
-										Most Important Reason:
-									</td>
-									<td>
-										<select id="cars" name="cars">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
-										<!-- <input type="number" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;"> -->
-									</td>
-									<td style="font-size: 18px; padding: 8px 0;">
-										Comment:
-									</td>
-									<td>
-										<input type="text" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;">
-									</td>
-								</tr>
-								<tr>
-									<td style="font-size: 18px; padding: 8px 0;">
-										Second Most Important Reason:
-									</td>
-									<td>
-										<select id="cars" name="cars">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
-										<!-- <input type="number" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;"> -->
-									</td>
-									<td style="font-size: 18px; padding: 8px 0;">
-										Comment:
-									</td>
-									<td>
-										<input type="text" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;">
-									</td>
-								</tr>
-								<tr>
-									<td style="font-size: 18px; padding: 8px 0;">
-										Third Most Important Reason:
-									</td>
-									<td>
-										<select id="cars" name="cars">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
-										<!-- <input type="number" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;"> -->
-									</td>
-									<td style="font-size: 18px; padding: 8px 0;">
-										Comment:
-									</td>
-									<td>
-										<input type="text" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;">
-									</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<tr>
-						<td style="font-size: 18px; padding: 10px 0;">
-							<b>If you attended the SI Open House, Student Visit Program, or any other Admissions event, we would appreciate any comments regarding your experience:</b>
-						</td>
-					</tr>
-					<tr>
-						<td class="text-main">
-							<textarea name="visit" id="visit" cols="53" rows="4"></textarea>
-						</td>
-					</tr>
-					<tr>
-						<td style="font-size: 18px; padding: 10px 0;">
-							<b>Please let us know your thoughts regarding the SI admissions process this year:</b>
-						</td>
-					</tr>
-					<tr>
-						<td class="text-main">
-							<textarea name="thought" id="thought" cols="53" rows="4"></textarea>
-						</td>
-					</tr>
-					<tr>
-						<td style="padding: 20px 0;" align="center" width="50%">
-							<button>Continue</button>
-						</td>
-
-					</tr>
-
-				</table>
-
-
-
-
-			</div>
-
-		</div>
-	</div>
-</div>
 <!-- Decline survey modal -->
-<div class="modal fade" id="declineanceServModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog survay-accept">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel"><span style="color:red; font-size:22px;">Decline Acceptance at St. Ignatius College Preparatory</span></h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">
 
-				<table width="100%" cellpadding="0" cellspacing="0">
-					<tr>
-						<td style="padding: 10px 0;">
-							<p style="font-size: 18px;">We truly appreciated your application to St. Ignatius College Preparatory this year. Please answer the following questions to assist us in evaluating our admissions process and to decline your acceptance at St. Ignatius College Preparatory.</p>
-						</td>
-					</tr>
-					<tr>
-						<td style="font-size: 18px; padding: 10px 0;">
-							<b>School that you are planning on attending:</b>
-							<input type="text" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 400px;">
-						</td>
-					</tr>
-					<tr>
-						<td style="font-size: 18px; padding: 10px 0;">
-							<b>Please list, in order of preference, the schools to which you applied,
-								the admission decision (accepted/wait listed/not accepted), and Financial
-								Aid or scholarship information, if applicable:</b>
-						</td>
-					</tr>
-					<tr>
-						<td style="padding: 10px 0;">
-							<table style="width: 750px;" cellpadding="2">
-								<tr align="left">
-									<th></th>
-									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;">Name of School</th>
-									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;">School's Decision</th>
-									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;">Applied for Aid</th>
-									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;" colspan="2">Amount of Aid or scholarship Offered</th>
-									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;">Comment</th>
-								</tr>
-
-								<tr>
-									<td>
-										1.
-									</td>
-									<td>
-										<input type="text" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 150px;">
-									</td>
-									<td>
-										<select id="cars" name="cars">
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
-										<!-- <input type="number" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 120px;"> -->
-									</td>
-									<td>
-										<select id="cars" name="cars">
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
-										<!-- <input type="number" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 100px;"> -->
-									</td>
-									<td>
-										<b>$</b>
-									</td>
-									<td>
-										<input type="text" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 180px;">
-									</td>
-									<td>
-										<input type="text" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 200px;">
-									</td>
-								</tr>
-								<tr>
-									<td>
-										2.
-									</td>
-									<td>
-										<input type="text" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 150px;">
-									</td>
-									<td>
-										<select id="cars" name="cars">
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
-										<!-- <input type="number" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 120px;"> -->
-									</td>
-									<td>
-										<select id="cars" name="cars">
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
-										<!-- <input type="number" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 100px;"> -->
-									</td>
-									<td>
-										<b>$</b>
-									</td>
-									<td>
-										<input type="text" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 180px;">
-									</td>
-									<td>
-										<input type="text" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 200px;">
-									</td>
-								</tr>
-								<tr>
-									<td>
-										3.
-									</td>
-									<td>
-										<input type="text" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 150px;">
-									</td>
-									<td>
-										<select id="cars" name="cars">
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
-										<!-- <input type="number" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 120px;"> -->
-									</td>
-									<td>
-										<select id="cars" name="cars">
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
-										<!-- <input type="number" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 100px;"> -->
-									</td>
-									<td>
-										<b>$</b>
-									</td>
-									<td>
-										<input type="text" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 180px;">
-									</td>
-									<td>
-										<input type="text" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 200px;">
-									</td>
-								</tr>
-								<tr>
-									<td>
-										4.
-									</td>
-									<td>
-										<input type="text" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 150px;">
-									</td>
-									<td>
-										<select id="cars" name="cars">
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
-										<!-- <input type="number" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 120px;"> -->
-									</td>
-									<td>
-										<select id="cars" name="cars">
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
-										<!-- <input type="number" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 100px;"> -->
-									</td>
-									<td>
-										<b>$</b>
-									</td>
-									<td>
-										<input type="text" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 180px;">
-									</td>
-									<td>
-										<input type="text" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 200px;">
-									</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<tr>
-						<td style="font-size: 18px; padding: 10px 0;">
-							<b>Rank the three most important reasons for not choosing SI:</b>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<table style="width: 870px;" cellpadding="1">
-								<tr>
-									<td style="font-size: 18px; padding: 8px 0;">
-										Most Important Reason:
-									</td>
-									<td>
-										<select id="cars" name="cars">
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
-										<!-- <input type="number" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;"> -->
-									</td>
-									<td style="font-size: 18px; padding: 8px 0;">
-										Comment:
-									</td>
-									<td>
-										<input type="text" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;">
-									</td>
-								</tr>
-								<tr>
-									<td style="font-size: 18px; padding: 8px 0;">
-										Second Most Important Reason:
-									</td>
-									<td>
-										<select id="cars" name="cars">
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
-										<!-- <input type="number" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;"> -->
-									</td>
-									<td style="font-size: 18px; padding: 8px 0;">
-										Comment:
-									</td>
-									<td>
-										<input type="text" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;">
-									</td>
-								</tr>
-								<tr>
-									<td style="font-size: 18px; padding: 8px 0;">
-										Third Most Important Reason:
-									</td>
-									<td>
-										<select id="cars" name="cars">
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
-										<!-- <input type="number" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;"> -->
-									</td>
-									<td style="font-size: 18px; padding: 8px 0;">
-										Comment:
-									</td>
-									<td>
-										<input type="text" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;">
-									</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<tr>
-						<td style="font-size: 18px; padding: 10px 0;">
-							<b>If you attended the SI Open House, Student Visit Program, or any other Admissions event, we would appreciate any comments regarding your experience:</b>
-						</td>
-					</tr>
-					<tr>
-						<td class="text-main">
-							<textarea name="visit" id="visit" cols="53" rows="4"></textarea>
-						</td>
-					</tr>
-					<tr>
-						<td style="font-size: 18px; padding: 10px 0;">
-							<b>Please let us know your thoughts regarding the SI admissions process this year:</b>
-						</td>
-					</tr>
-					<tr>
-						<td class="text-main">
-							<textarea name="thought" id="thought" cols="53" rows="4"></textarea>
-						</td>
-					</tr>
-					<tr style="height: 20px;"></tr>
-					<tr>
-						<td style="padding: 10px;" width="50%" align="center">
-							<button style="background-color: darkgrey; border: none; padding: 6px 8px; border-radius: 5px; width: 180px;">Decline Acceptance to SI</button>
-
-							<button style="background-color: darkgrey; border: none; padding: 6px 8px; border-radius: 5px; width: 100px;">Decide Later</button>
-						</td>
-						<td></td>
-					</tr>
-					<tr style="height: 20px;"></tr>
-					<!-- <tr>
-
-						<td>
-							<a href="#" style="color: rgb(12, 6, 104); font-weight: 600; text-decoration: none; padding: 10px 2px;">
-								Home
-							</a>
-							<b>|</b>
-							<a href="#" style="color: rgb(12, 6, 104); font-weight: 600; text-decoration: none; padding: 10px 2px;">
-								Logout
-							</a>
-						</td>
-					</tr> -->
-				</table>
-
-
-
-
-			</div>
-
-		</div>
-	</div>
-</div>
 @if($student_accept_status == App\Models\Application::TYPE_ACCEPTED)
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" wire:ignore.self>
 	<div class="modal-dialog">
@@ -1907,17 +1342,843 @@ No Status yet
 				$('body').addClass('modal-open');
 			}
 		});
-
 		$('#AcceptanceAtSI').on('click', function(e) {
 			$('#acceptanceServModal').modal('show');
 			$('#Survey').modal('hide');
 		})
-
 		$('#declineAcceptanceAtSI').on('click', function(e) {
 			$('#declineanceServModal').modal('show');
-			$('#Survey').modal('hide');
+			$('#SurveyDecline').modal('hide');
 		})
+		$('#submit_acceptance_survey').on('click', function(e) {
+			acceptanceDeclineServ();
+		});
+		$('#decline_Acceptance_to_SI').on('click', function(e) {
+			acceptanceDeclineServ();
+		});
+
+		function acceptanceDeclineServ() {
+			$('.loading').show();
+		
+			var name_of_School_1 = $('input[name=name_of_School_1]').val();
+			var name_of_School_2 = $('input[name=name_of_School_2]').val();
+			var name_of_School_3 = $('input[name=name_of_School_3]').val();
+			var name_of_School_4 = $('input[name=name_of_School_4]').val();
+			var student_type = '{{$candidate}}';
+			var school_s_Decision_1 = $('#school_s_Decision_1').val();
+			var school_s_Decision_2 = $('#school_s_Decision_2').val();
+			var school_s_Decision_3 = $('#school_s_Decision_3').val();
+			var school_s_Decision_4 = $('#school_s_Decision_4').val();
+			var applied_for_Aid_1 = $('#applied_for_Aid_1').val();
+			var applied_for_Aid_2 = $('#applied_for_Aid_2').val();
+			var applied_for_Aid_3 = $('#applied_for_Aid_3').val();
+			var applied_for_Aid_4 = $('#applied_for_Aid_4').val();
+			var amount_of_Aid_or_scholarship_Offered_1 = $('input[name=amount_of_Aid_or_scholarship_Offered_1]').val();
+			var amount_of_Aid_or_scholarship_Offered_2 = $('input[name=amount_of_Aid_or_scholarship_Offered_2]').val();
+			var amount_of_Aid_or_scholarship_Offered_3 = $('input[name=amount_of_Aid_or_scholarship_Offered_3]').val();
+			var amount_of_Aid_or_scholarship_Offered_4 = $('input[name=amount_of_Aid_or_scholarship_Offered_4]').val();
+			var comment_1 = $('input[name=comment_1]').val();
+			var comment_2 = $('input[name=comment_2]').val();
+			var comment_3 = $('input[name=comment_3]').val();
+			var comment_4 = $('input[name=comment_4]').val();
+			var most_Important_Reason = $('#most_Important_Reason').val();
+			var second_Most_Important_Reason = $('#second_Most_Important_Reason').val();
+			var third_Most_Important_Reason = $('#third_Most_Important_Reason').val();
+			var rank_Comment_1 = $('input[name=rank_Comment_1]').val();
+			var rank_Comment_2 = $('input[name=rank_Comment_2]').val();
+			var rank_Comment_3 = $('input[name=rank_Comment_3]').val();
+			var student_Visit_Program = $('#student_Visit_Program').val();
+			var admissions_process = $('#admissions_process').val();
+			var studendId = '{{ $ntfDetail->id }}';
+			if (name_of_School_1 == "" || name_of_School_1 == null) {
+				alert("Name of School 1 must be filled out");
+				$('.loading').hide();
+				return false;
+			}
+			if (name_of_School_2 == "" || name_of_School_2 == null) {
+				alert("Name of School 2 must be filled out");
+				$('.loading').hide();
+				return false;
+			}
+			if (name_of_School_3 == "" || name_of_School_3 == null) {
+				alert("Name of School 3 must be filled out");
+				$('.loading').hide();
+				return false;
+			}
+			if (name_of_School_4 == "" || name_of_School_4 == null) {
+				alert("Name of School 4 must be filled out");
+				$('.loading').hide();
+				return false;
+			}
+
+
+			if (school_s_Decision_1 == "" || school_s_Decision_1 == null) {
+				alert("School s Decision 1 must be filled out");
+				$('.loading').hide();
+				return false;
+			}
+			if (school_s_Decision_2 == "" || school_s_Decision_2 == null) {
+				alert("School s Decision 2 must be filled out");
+				$('.loading').hide();
+				return false;
+			}
+			if (school_s_Decision_3 == "" || school_s_Decision_3 == null) {
+				alert("School s Decision 3 must be filled out");
+				$('.loading').hide();
+				return false;
+			}
+			if (school_s_Decision_4 == "" || school_s_Decision_4 == null) {
+				alert("School s Decision 4 must be filled out");
+				$('.loading').hide();
+				return false;
+			}
+
+			if (applied_for_Aid_1 == "" || applied_for_Aid_1 == null) {
+				alert("Applied for Aid 1 must be filled out");
+				$('.loading').hide();
+				return false;
+			}
+			if (applied_for_Aid_2 == "" || applied_for_Aid_2 == null) {
+				alert("Applied for Aid 2 must be filled out");
+				$('.loading').hide();
+				return false;
+			}
+			if (applied_for_Aid_3 == "" || applied_for_Aid_3 == null) {
+				alert("Applied for Aid 3 must be filled out");
+				$('.loading').hide();
+				return false;
+			}
+			if (applied_for_Aid_4 == "" || applied_for_Aid_4 == null) {
+				alert("Applied for Aid 4 must be filled out");
+				$('.loading').hide();
+				return false;
+			}
+
+			if (amount_of_Aid_or_scholarship_Offered_1 == "" || amount_of_Aid_or_scholarship_Offered_1 == null) {
+				alert("Amount of Aid or scholarship Offered 1 must be filled out");
+				$('.loading').hide();
+				return false;
+			}
+			if (amount_of_Aid_or_scholarship_Offered_2 == "" || amount_of_Aid_or_scholarship_Offered_2 == null) {
+				alert("Amount of Aid or scholarship Offered 2 must be filled out");
+				$('.loading').hide();
+				return false;
+			}
+			if (amount_of_Aid_or_scholarship_Offered_3 == "" || amount_of_Aid_or_scholarship_Offered_3 == null) {
+				alert("Amount of Aid or scholarship Offered 3 must be filled out");
+				$('.loading').hide();
+				return false;
+			}
+			if (amount_of_Aid_or_scholarship_Offered_4 == "" || amount_of_Aid_or_scholarship_Offered_4 == null) {
+				alert("Amount of Aid or scholarship Offered 4 must be filled out");
+				$('.loading').hide();
+				return false;
+			}
+			if (comment_1 == "" || comment_1 == null) {
+				alert("comment 1 must be filled out");
+				$('.loading').hide();
+				return false;
+			}
+			if (comment_2 == "" || comment_2 == null) {
+				alert("comment 2 must be filled out");
+				$('.loading').hide();
+				return false;
+			}
+			if (comment_3 == "" || comment_3 == null) {
+				alert("comment 3 must be filled out");
+				$('.loading').hide();
+				return false;
+			}
+			if (comment_4 == "" || comment_4 == null) {
+				alert("comment 4 must be filled out");
+				$('.loading').hide();
+				return false;
+			}
+			if (most_Important_Reason == "" || most_Important_Reason == null) {
+				alert("Most Important Reason must be filled out");
+				$('.loading').hide();
+				return false;
+			}
+
+			if (second_Most_Important_Reason == "" || second_Most_Important_Reason == null) {
+				alert("Second Most Important Reason must be filled out");
+				$('.loading').hide();
+				return false;
+			}
+
+			if (third_Most_Important_Reason == "" || third_Most_Important_Reason == null) {
+				alert("Third Most Important Reason must be filled out");
+				$('.loading').hide();
+				return false;
+			}
+
+			if (rank_Comment_1 == "" || rank_Comment_1 == null) {
+				alert("Rank Comment 1 must be filled out");
+				$('.loading').hide();
+				return false;
+			}
+			if (rank_Comment_2 == "" || rank_Comment_3 == null) {
+				alert("Rank Comment 2 must be filled out");
+				$('.loading').hide();
+				return false;
+			}
+			if (rank_Comment_3 == "" || rank_Comment_3 == null) {
+				alert("Rank Comment 3 must be filled out");
+				$('.loading').hide();
+				return false;
+			}
+			if (student_Visit_Program == "" || student_Visit_Program == null) {
+				alert("Student Visit Program must be filled out");
+				$('.loading').hide();
+				return false;
+			}
+			if (admissions_process == "" || admissions_process == null) {
+				alert("Admissions process must be filled out");
+				$('.loading').hide();
+				return false;
+			}
+			$('#acceptanceServModal').modal('hide');
+
+			$.ajax({
+				type: "POST",
+				url: "{{ route('acceptanceSurvey') }}",
+				data: {
+					name_of_School_1: name_of_School_1,
+					name_of_School_2: name_of_School_2,
+					name_of_School_3: name_of_School_3,
+					name_of_School_4: name_of_School_4,
+					school_s_Decision_1: school_s_Decision_1,
+					school_s_Decision_2: school_s_Decision_2,
+					school_s_Decision_3: school_s_Decision_3,
+					school_s_Decision_4: school_s_Decision_4,
+					applied_for_Aid_1: applied_for_Aid_1,
+					applied_for_Aid_2: applied_for_Aid_2,
+					applied_for_Aid_3: applied_for_Aid_3,
+					applied_for_Aid_4: applied_for_Aid_4,
+					amount_of_Aid_or_scholarship_Offered_1: amount_of_Aid_or_scholarship_Offered_1,
+					amount_of_Aid_or_scholarship_Offered_2: amount_of_Aid_or_scholarship_Offered_2,
+					amount_of_Aid_or_scholarship_Offered_3: amount_of_Aid_or_scholarship_Offered_3,
+					amount_of_Aid_or_scholarship_Offered_4: amount_of_Aid_or_scholarship_Offered_4,
+					comment_1: comment_1,
+					comment_2: comment_2,
+					comment_3: comment_3,
+					comment_4: comment_4,
+					most_Important_Reason: most_Important_Reason,
+					second_Most_Important_Reason: second_Most_Important_Reason,
+					third_Most_Important_Reason: third_Most_Important_Reason,
+					rank_Comment_1: rank_Comment_1,
+					rank_Comment_2: rank_Comment_2,
+					rank_Comment_3: rank_Comment_3,
+					student_Visit_Program: student_Visit_Program,
+					admissions_process: admissions_process,
+					student_type: student_type,
+					_token: '{{csrf_token()}}'
+				},
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				},
+
+				success: function(response) {
+					$('.loading').hide();
+					if (response.status == "success") {
+						toastr.success(response.message);
+						$('#acceptanceServModal').modal('hide');
+						$('#declineanceServModal').modal('hide');
+
+						setTimeout(function() {
+							location.reload();
+						}, 2000);
+
+					} else {
+						$('#declineanceServModal').modal('show');
+						$('#acceptanceServModal').modal('show');
+						toastr.error(response.message
+
+
+						);
+					}
+
+				}
+
+
+			})
+		}
+
+
+
+
 	});
 </script>
+@php
+function getDeclineSurvayModal() {
 
+echo $modal= '<div class="modal fade" id="declineanceServModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog survay-accept">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel"><span style="color:red; font-size:22px;">Decline Acceptance at St. Ignatius College Preparatory</span></h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+
+				<table width="100%" cellpadding="0" cellspacing="0">
+					<tr>
+						<td style="padding: 10px 0;">
+							<p style="font-size: 18px;">We truly appreciated your application to St. Ignatius College Preparatory this year. Please answer the following questions to assist us in evaluating our admissions process and to decline your acceptance at St. Ignatius College Preparatory.</p>
+						</td>
+					</tr>
+					<tr>
+						<td style="font-size: 18px; padding: 10px 0;">
+							<b>School that you are planning on attending:</b>
+							<input type="text" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 400px;">
+						</td>
+					</tr>
+					<tr>
+						<td style="font-size: 18px; padding: 10px 0;">
+							<b>Please list, in order of preference, the schools to which you applied,
+								the admission decision (accepted/wait listed/not accepted), and Financial
+								Aid or scholarship information, if applicable:</b>
+						</td>
+					</tr>
+					<tr>
+						<td style="padding: 10px 0;">
+							<table style="width: 750px;" cellpadding="1">
+								<tr align="left">
+									<th></th>
+									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;">Name of School</th>
+									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;">School`s Decision</th>
+									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;">Applied for Aid</th>
+									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;" colspan="2">Amount of Aid or scholarship Offered</th>
+									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;">Comment</th>
+								</tr>
+
+								<tr>
+									<td>
+										1.
+									</td>
+									<td>
+										<input type="text" name="name_of_School_1" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 150px;">
+									</td>
+									<td>
+										<select id="school_s_Decision_1" name="school_s_Decision_1">
+											<option value="saab">Saab</option>
+											<option value="fiat">Fiat</option>
+											<option value="audi">Audi</option>
+										</select>
+									</td>
+									<td>
+										<select id="applied_for_Aid_1" name="applied_for_Aid_1">
+											<option value="volvo">Volvo</option>
+											<option value="saab">Saab</option>
+											<option value="fiat">Fiat</option>
+											<option value="audi">Audi</option>
+										</select>
+									</td>
+									<td>
+										<b>$</b>
+									</td>
+									<td>
+										<input type="text" name="amount_of_Aid_or_scholarship_Offered_1" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 145px;">
+									</td>
+									<td>
+										<input type="text" name="comment_1" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 200px;">
+									</td>
+								</tr>
+								<tr>
+									<td>
+										2.
+									</td>
+									<td>
+										<input type="text" name="name_of_School_2" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 150px;">
+									</td>
+									<td>
+										<select id="school_s_Decision_2" name="school_s_Decision_2">
+											<option value="volvo">Volvo</option>
+											<option value="saab">Saab</option>
+											<option value="fiat">Fiat</option>
+											<option value="audi">Audi</option>
+										</select>
+									</td>
+									<td>
+										<select id="applied_for_Aid_2" name="applied_for_Aid_2">
+											<option value="volvo">Volvo</option>
+											<option value="saab">Saab</option>
+											<option value="fiat">Fiat</option>
+											<option value="audi">Audi</option>
+										</select>
+									</td>
+									<td>
+										<b>$</b>
+									</td>
+									<td><input type="text" name="amount_of_Aid_or_scholarship_Offered_2" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 145px;">
+									</td>
+									<td>
+										<input type="text" name="comment_2" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 200px;">
+									</td>
+								</tr>
+								<tr>
+									<td>
+										3.
+									</td>
+									<td>
+										<input type="text" name="name_of_School_3" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 150px;">
+									</td>
+									<td>
+										<select id="school_s_Decision_3" name="school_s_Decision_3">
+											<option value="volvo">Volvo</option>
+											<option value="saab">Saab</option>
+											<option value="fiat">Fiat</option>
+											<option value="audi">Audi</option>
+										</select>
+									</td>
+									<td>
+										<select id="applied_for_Aid_3" name="applied_for_Aid_3">
+											<option value="volvo">Volvo</option>
+											<option value="saab">Saab</option>
+											<option value="fiat">Fiat</option>
+											<option value="audi">Audi</option>
+										</select>
+									</td>
+									<td>
+										<b>$</b>
+									</td>
+									<td><input type="text" name="amount_of_Aid_or_scholarship_Offered_3" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 145px;">
+									</td>
+									<td>
+										<input type="text" name="comment_3" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 200px;">
+									</td>
+								</tr>
+								<tr>
+									<td>
+										4.
+									</td>
+									<td>
+										<input type="text" name="name_of_School_4" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 150px;">
+									</td>
+									<td>
+										<select id="school_s_Decision_4" name="school_s_Decision_4">
+											<option value="volvo">Volvo</option>
+											<option value="saab">Saab</option>
+											<option value="fiat">Fiat</option>
+											<option value="audi">Audi</option>
+										</select>
+									</td>
+									<td>
+										<select id="applied_for_Aid_4" name="applied_for_Aid_4">
+											<option value="volvo">Volvo</option>
+											<option value="saab">Saab</option>
+											<option value="fiat">Fiat</option>
+											<option value="audi">Audi</option>
+										</select>
+									</td>
+
+									<td>
+										<b>$</b>
+									</td>
+									<td><input type="text" name="amount_of_Aid_or_scholarship_Offered_4" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 145px;">
+									</td>
+									<td>
+										<input type="text" name="comment_4" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 200px;">
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td style="font-size: 18px; padding: 10px 0;">
+							<b>Rank the three most important reasons for not choosing SI:</b>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<table style="width: 870px;" cellpadding="1">
+								<tr>
+									<td style="font-size: 18px; padding: 8px 0;">
+										Most Important Reason:
+									</td>
+									<td>
+										<select id="most_Important_Reason" name="most_Important_Reason">
+											<option value="volvo">Volvo</option>
+											<option value="saab">Saab</option>
+											<option value="fiat">Fiat</option>
+											<option value="audi">Audi</option>
+										</select>
+									</td>
+									<td style="font-size: 18px; padding: 8px 0;">
+										Comment:
+									</td>
+									<td>
+										<input type="text" name="rank_Comment_1" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;">
+									</td>
+								</tr>
+								<tr>
+									<td style="font-size: 18px; padding: 8px 0;">
+										Second Most Important Reason:
+									</td>
+									<td>
+										<select id="second_Most_Important_Reason" name="second_Most_Important_Reason">
+											<option value="volvo">Volvo</option>
+											<option value="saab">Saab</option>
+											<option value="fiat">Fiat</option>
+											<option value="audi">Audi</option>
+										</select>
+									</td>
+									<td style="font-size: 18px; padding: 8px 0;">
+										Comment:
+									</td>
+									<td>
+										<input type="text" name="rank_Comment_2" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;">
+									</td>
+								</tr>
+								<tr>
+									<td style="font-size: 18px; padding: 8px 0;">
+										Third Most Important Reason:
+									</td>
+									<td>
+										<select id="third_Most_Important_Reason" name="third_Most_Important_Reason">
+											<option value="volvo">Volvo</option>
+											<option value="saab">Saab</option>
+											<option value="fiat">Fiat</option>
+											<option value="audi">Audi</option>
+										</select>
+									</td>
+									<td style="font-size: 18px; padding: 8px 0;">
+										Comment:
+									</td>
+									<td>
+										<input type="text" name="rank_Comment_3" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;">
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td style="font-size: 18px; padding: 10px 0;">
+							<b>If you attended the SI Open House, Student Visit Program, or any other Admissions event, we would appreciate any comments regarding your experience:</b>
+						</td>
+					</tr>
+					<tr>
+						<td class="text-main">
+							<textarea name="visit" id="student_Visit_Program" cols="53" rows="4"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td style="font-size: 18px; padding: 10px 0;">
+
+							<b>Please let us know your thoughts regarding the SI admissions process this year:</b>
+						</td>
+					</tr>
+					<tr>
+						<td class="text-main">
+							<textarea name="admissions_process" id="admissions_process" cols="53" rows="4"></textarea>
+						</td>
+					</tr>
+					<tr style="height: 20px;"></tr>
+					<tr>
+						<td style="padding: 10px;" width="50%" align="center">
+							<a style="background-color: darkgrey; border: none; padding: 6px 8px; border-radius: 5px; width: 180px;" id="decline_Acceptance_to_SI">Decline Acceptance to SI</a>
+
+							<a style="background-color: darkgrey; border: none; padding: 6px 8px; border-radius: 5px; width: 100px;">Decide Later</a>
+						</td>
+						<td></td>
+					</tr>
+					<tr style="height: 20px;"></tr>
+
+				</table>
+
+
+
+
+			</div>
+
+		</div>
+	</div>
+</div>';
+}
+function getAcceptanceModal(){
+echo $modal ='<div class="modal fade" id="acceptanceServModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog survay-accept">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel"><span style="color:red; font-size:22px;">Reserve TestFirst`s place in the Class of 2027 at SI!</span></h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+
+				<table width="100%" cellpadding="0" cellspacing="0">
+
+					<tr>
+						<td style="padding: 10px 0;">
+							<p style="font-size: 18px;">Please answer the following questions to assist us in evaluating our admissions process and to complete your registration at St. Ignatius College Preparatory.</p>
+						</td>
+					</tr>
+					<tr>
+						<td style="font-size: 16px; padding: 10px 0;">
+							<b>Please list, in order of preference, the schools to which you applied, the admission decision (accepted/wait listed/not accepted), and Financial Aid or scholarship information, if applicable:</b>
+
+						</td>
+					</tr>
+
+					<tr>
+						<td style="padding: 10px 0;">
+							<table style="width: 750px;" cellpadding="1">
+								<tr align="left">
+									<th></th>
+									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;">Name of School</th>
+									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;">School`s Decision</th>
+									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;">Applied for Aid</th>
+									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;" colspan="2">Amount of Aid or scholarship Offered</th>
+									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;">Comment</th>
+								</tr>
+
+								<tr>
+									<td>
+										1.
+									</td>
+									<td>
+										<input type="text" name="name_of_School_1" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 150px;">
+									</td>
+									<td>
+										<select id="school_s_Decision_1" name="school_s_Decision_1">
+											<option value="saab">Saab</option>
+											<option value="fiat">Fiat</option>
+											<option value="audi">Audi</option>
+										</select>
+										<!-- <input type="number" style="border-radius: 5px; padding: 5px 10px; width: 120px;  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"> -->
+									</td>
+									<td>
+										<select id="applied_for_Aid_1" name="applied_for_Aid_1">
+											<option value="volvo">Volvo</option>
+											<option value="saab">Saab</option>
+											<option value="fiat">Fiat</option>
+											<option value="audi">Audi</option>
+										</select>
+										<!-- <input type="number" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 100px;"> -->
+									</td>
+									<td>
+										<b>$</b>
+									</td>
+									<td>
+										<input type="text" name="amount_of_Aid_or_scholarship_Offered_1" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 145px;">
+									</td>
+									<td>
+										<input type="text" name="comment_1" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 200px;">
+									</td>
+								</tr>
+								<tr>
+									<td>
+										2.
+									</td>
+									<td>
+										<input type="text" name="name_of_School_2" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 150px;">
+									</td>
+									<td>
+										<select id="school_s_Decision_2" name="school_s_Decision_2">
+											<option value="volvo">Volvo</option>
+											<option value="saab">Saab</option>
+											<option value="fiat">Fiat</option>
+											<option value="audi">Audi</option>
+										</select>
+										<!-- <input type="number" style="border-radius: 5px; padding: 5px 10px; width: 120px;  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"> -->
+									</td>
+									<td>
+										<select id="applied_for_Aid_2" name="applied_for_Aid_2">
+											<option value="volvo">Volvo</option>
+											<option value="saab">Saab</option>
+											<option value="fiat">Fiat</option>
+											<option value="audi">Audi</option>
+										</select>
+										<!-- <input type="number" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 100px;"> -->
+									</td>
+									<td>
+										<b>$</b>
+									</td>
+									<td><input type="text" name="amount_of_Aid_or_scholarship_Offered_2" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 145px;">
+									</td>
+									<td>
+										<input type="text" name="comment_2" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 200px;">
+									</td>
+								</tr>
+								<tr>
+									<td>
+										3.
+									</td>
+									<td>
+										<input type="text" name="name_of_School_3" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 150px;">
+									</td>
+									<td>
+										<select id="school_s_Decision_3" name="school_s_Decision_3">
+											<option value="volvo">Volvo</option>
+											<option value="saab">Saab</option>
+											<option value="fiat">Fiat</option>
+											<option value="audi">Audi</option>
+										</select>
+										<!-- <input type="number" style="border-radius: 5px; padding: 5px 10px; width: 120px;  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"> -->
+									</td>
+									<td>
+										<select id="applied_for_Aid_3" name="applied_for_Aid_3">
+											<option value="volvo">Volvo</option>
+											<option value="saab">Saab</option>
+											<option value="fiat">Fiat</option>
+											<option value="audi">Audi</option>
+										</select>
+										<!-- <input type="number" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 100px;"> -->
+									</td>
+									<td>
+										<b>$</b>
+									</td>
+									<td><input type="text" name="amount_of_Aid_or_scholarship_Offered_3" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 145px;">
+									</td>
+									<td>
+										<input type="text" name="comment_3" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 200px;">
+									</td>
+								</tr>
+								<tr>
+									<td>
+										4.
+									</td>
+									<td>
+										<input type="text" name="name_of_School_4" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 150px;">
+									</td>
+									<td>
+										<select id="school_s_Decision_4" name="school_s_Decision_4">
+											<option value="volvo">Volvo</option>
+											<option value="saab">Saab</option>
+											<option value="fiat">Fiat</option>
+											<option value="audi">Audi</option>
+										</select>
+										<!-- <input type="number" style="border-radius: 5px; padding: 5px 10px; width: 120px;  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"> -->
+									</td>
+									<td>
+										<select id="applied_for_Aid_4" name="applied_for_Aid_4">
+											<option value="volvo">Volvo</option>
+											<option value="saab">Saab</option>
+											<option value="fiat">Fiat</option>
+											<option value="audi">Audi</option>
+										</select>
+										<!-- <input type="number" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 100px;"> -->
+									</td>
+
+									<td>
+										<b>$</b>
+									</td>
+									<td><input type="text" name="amount_of_Aid_or_scholarship_Offered_4" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 145px;">
+									</td>
+									<td>
+										<input type="text" name="comment_4" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 200px;">
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td style="font-size: 18px; padding: 10px 0;">
+							<b>Rank the three most important reasons for not choosing SI:</b>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<table style="width: 870px;" cellpadding="1">
+								<tr>
+									<td style="font-size: 18px; padding: 8px 0;">
+										Most Important Reason:
+									</td>
+									<td>
+										<select id="most_Important_Reason" name="most_Important_Reason">
+											<option value="volvo">Volvo</option>
+											<option value="saab">Saab</option>
+											<option value="fiat">Fiat</option>
+											<option value="audi">Audi</option>
+										</select>
+										<!-- <input type="number" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;"> -->
+									</td>
+									<td style="font-size: 18px; padding: 8px 0;">
+										Comment:
+									</td>
+									<td>
+										<input type="text" name="rank_Comment_1" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;">
+									</td>
+								</tr>
+								<tr>
+									<td style="font-size: 18px; padding: 8px 0;">
+										Second Most Important Reason:
+									</td>
+									<td>
+										<select id="second_Most_Important_Reason" name="second_Most_Important_Reason">
+											<option value="volvo">Volvo</option>
+											<option value="saab">Saab</option>
+											<option value="fiat">Fiat</option>
+											<option value="audi">Audi</option>
+										</select>
+										<!-- <input type="number" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;"> -->
+									</td>
+									<td style="font-size: 18px; padding: 8px 0;">
+										Comment:
+									</td>
+									<td>
+										<input type="text" name="rank_Comment_2" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;">
+									</td>
+								</tr>
+								<tr>
+									<td style="font-size: 18px; padding: 8px 0;">
+										Third Most Important Reason:
+									</td>
+									<td>
+										<select id="third_Most_Important_Reason" name="third_Most_Important_Reason">
+											<option value="volvo">Volvo</option>
+											<option value="saab">Saab</option>
+											<option value="fiat">Fiat</option>
+											<option value="audi">Audi</option>
+										</select>
+										<!-- <input type="number" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;"> -->
+									</td>
+									<td style="font-size: 18px; padding: 8px 0;">
+										Comment:
+									</td>
+									<td>
+										<input type="text" name="rank_Comment_3" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;">
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td style="font-size: 18px; padding: 10px 0;">
+							<b>If you attended the SI Open House, Student Visit Program, or any other Admissions event, we would appreciate any comments regarding your experience:</b>
+						</td>
+					</tr>
+					<tr>
+						<td class="text-main">
+							<textarea name="student_Visit_Program" id="student_Visit_Program" cols="53" rows="4"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td style="font-size: 18px; padding: 10px 0;">
+							<b>Please let us know your thoughts regarding the SI admissions process this year:</b>
+						</td>
+					</tr>
+					<tr>
+						<td class="text-main">
+							<textarea name="admissions_process" id="admissions_process" cols="53" rows="4"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td style="padding: 20px 0;" align="center" width="50%">
+							<a class="btn btn-secondary" id="submit_acceptance_survey">Continue</a>
+						</td>
+
+					</tr>
+
+				</table>
+
+
+
+
+			</div>
+
+		</div>
+	</div>
+</div>';
+}
+@endphp
 @endsection
