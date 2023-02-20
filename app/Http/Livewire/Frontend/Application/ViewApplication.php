@@ -972,6 +972,7 @@ $results =Application::FALSE;
         $getReleaseAuthorization = ReleaseAuthorization::where('Profile_ID', $profile_id)->where('Application_ID', $application_id)->first();
         $getPaymentLog = Payment::where('user_id', $profile_id)->where('application_id', $application_id)->first();
 
+    // dd($getPaymentLog);
         if ($getReleaseAuthorization) {
 
             $getStudent = StudentInformation::where('Profile_ID', $profile_id)->where('Application_ID', $application_id)->first()->toArray();

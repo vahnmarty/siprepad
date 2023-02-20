@@ -59,7 +59,6 @@ Route::post('reset-password', [UserAuthController::class, 'submitResetPasswordFo
 
 Route::group(['middleware' => 'auth:customer'], function () {
     Route::get("/", [HomeController::class, 'home']);
-
     Route::get('/notification', [NotificationController::class, 'list']);
     Route::get('/onlineRegistration', [NotificationController::class, 'showList']);
     Route::get('/notification/show/{nid}', [NotificationController::class, 'ShowStudentNotification'])->name('studentNotification');
@@ -79,6 +78,7 @@ Route::group(['middleware' => 'auth:customer'], function () {
     Route::get('/admission-application/{step?}', [HomeController::class, 'admissionApplication'])->name('admission-application');
 //     Route::get('/registeration-application/{step?}{id?}', [HomeController::class, 'registerationApplication'])->name('registeration-application');
     Route::get('/application/{application_id}', [HomeController::class, 'appForm'])->name('app-form');
+    // Route::get('/view-application', [HomeController::class, 'listViewApplication']);
     Route::get('/view-application/{application_id}', [HomeController::class, 'viewApplication'])->name('view-application');
     Route::get('/supplemental-recommendation', [HomeController::class, 'supplementalRecommendation'])->name('supplemental-recommendation');
     Route::post('/supplemental-recommendation', [HomeController::class, 'submitSupplemental'])->name('supplemental-recommendation-submit');

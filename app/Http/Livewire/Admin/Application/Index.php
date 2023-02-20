@@ -16,7 +16,6 @@ use App\Models\Application;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-
 class Index extends Component
 {
     use WithPagination;
@@ -79,7 +78,6 @@ class Index extends Component
     {
         //$this->first_name_sort_by = ($this->first_name_sort_by == 'asc') ? 'desc' : 'asc';
         $dbQuery = StudentInformation::query();
-
         if ($this->searchFirstName) {
             $dbQuery->where(function ($query) {
                 $query->where('S1_First_Name', 'like', '%' . trim($this->searchFirstName) . '%')

@@ -275,7 +275,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 
 	// Primary_Address_Street") . ' <br>' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_City") . ' , ' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_State") . ' 
 
-	if ($studentType == 's2') {
+	if ($studentType == App\Models\Application::STUDENT_S2) {
 
 		switch ($type) {
 			case "Student_First_Name":
@@ -373,7 +373,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				return "----";
 		};
 	}
-	if ($studentType == 's3') {
+	if ($studentType == App\Models\Application::STUDENT_S3) {
 		switch ($type) {
 			case "Student_First_Name":
 				// dd($studentDetail);
@@ -719,7 +719,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 	<div class="row">
 		<div class="col-md-4" style="max-width: 133px;">
 			<div class='ntf_image_logo'>
-				<img src="{{ asset('frontend_assets/images/lg2.png') }}" alt="" />
+				<img src="{{ asset('frontend_assets/images/lg2.png') }}" alt="" />1
 			</div>
 		</div>
 		<div class="col-md-8" style="max-width: 266px;">
@@ -729,7 +729,6 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				(415) 731-7500
 			</p>
 			<p>Office of Admissions</p>
-
 		</div>
 		<p style="text-align:right;"><?php echo getDateFunctions($notification_time); ?></p>
 	</div>
@@ -739,7 +738,6 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Street"); ?><br>
 				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_City"); ?>, <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_State"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Zipcode"); ?><br>
 			</p>
-
 		</div>
 	</div>
 
@@ -779,18 +777,15 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				(415) 731-7500
 			</p>
 			<p>Office of Admissions</p>
-
 		</div>
 		<p style="text-align:right;"><?php echo getDateFunctions($notification_time); ?></p>
 	</div>
 	<div class="row mt-3">
-
 		<div class="col-md-12">
 			<p> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name", 'P2_Last_Name'); ?><br>
 				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Street"); ?><br>
 				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_City"); ?>, <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_State"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Zipcode"); ?><br>
 			</p>
-
 		</div>
 	</div>
 
@@ -958,6 +953,20 @@ No Status yet
 	</div>
 </div>
 
+<!-- Decline modal -->
+<div class="modal fade" id="DeclineSurvey" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Save Your response</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				Please take our survey
+			</div>
+			<div class="modal-footer">
+				<a id="declineAcceptanceAtSI" data-bs-dismiss="modal" aria-label="Close" class='btn btn_accept'>No</a>
+				<!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">No</button> -->
 
 
 <div class="modal fade" id="SurveyDecline" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
