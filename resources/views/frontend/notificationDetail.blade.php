@@ -15,6 +15,7 @@
 		bottom: 0;
 		right: 0;
 	}
+
 	.loading:before {
 		content: '';
 		display: block;
@@ -27,6 +28,7 @@
 
 		background: -webkit-radial-gradient(rgba(20, 20, 20, .8), rgba(0, 0, 0, .8));
 	}
+
 	.loading:not(:required) {
 		font: 0/0 a;
 		color: transparent;
@@ -51,6 +53,7 @@
 		-webkit-box-shadow: rgba(255, 255, 255, 0.75) 1.5em 0 0 0, rgba(255, 255, 255, 0.75) 1.1em 1.1em 0 0, rgba(255, 255, 255, 0.75) 0 1.5em 0 0, rgba(255, 255, 255, 0.75) -1.1em 1.1em 0 0, rgba(255, 255, 255, 0.75) -1.5em 0 0 0, rgba(255, 255, 255, 0.75) -1.1em -1.1em 0 0, rgba(255, 255, 255, 0.75) 0 -1.5em 0 0, rgba(255, 255, 255, 0.75) 1.1em -1.1em 0 0;
 		box-shadow: rgba(255, 255, 255, 0.75) 1.5em 0 0 0, rgba(255, 255, 255, 0.75) 1.1em 1.1em 0 0, rgba(255, 255, 255, 0.75) 0 1.5em 0 0, rgba(255, 255, 255, 0.75) -1.1em 1.1em 0 0, rgba(255, 255, 255, 0.75) -1.5em 0 0 0, rgba(255, 255, 255, 0.75) -1.1em -1.1em 0 0, rgba(255, 255, 255, 0.75) 0 -1.5em 0 0, rgba(255, 255, 255, 0.75) 1.1em -1.1em 0 0;
 	}
+
 	@-webkit-keyframes spinner {
 		0% {
 			-webkit-transform: rotate(0deg);
@@ -1715,6 +1718,8 @@ echo $modal= '<div class="modal fade" id="declineanceServModal" tabindex="-1" ar
 	<div class="modal-dialog survay-accept">
 		<input type="hidden" name="modal_type" value="decline_survay">
 
+
+
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLabel"><span style="color: #a7172f; font-size:22px;">Decline Acceptance at St. Ignatius College Preparatory</span></h5>
@@ -2332,14 +2337,15 @@ echo $modal ='<div class="modal fade" id="acceptanceServModal" tabindex="	<b>$</
 
 echo $modal= '<div class="modal fade" id="declineanceServModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog survay-accept">
+
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel"><span style="color:red; font-size:22px;">Decline Acceptance at St. Ignatius College Preparatory</span></h5>
+				<h5 class="modal-title" id="exampleModalLabel"><span style="color: #a7172f; font-size:22px;">Decline Acceptance at St. Ignatius College Preparatory</span></h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
 
-				<table width="100%" cellpadding="0" cellspacing="0">
+				<table width="100%" cellpadding="0" cellspacing="0" class="table-responsive">
 					<tr>
 						<td style="padding: 10px 0;">
 							<p style="font-size: 18px;">We truly appreciated your application to St. Ignatius College Preparatory this year. Please answer the following questions to assist us in evaluating our admissions process and to decline your acceptance at St. Ignatius College Preparatory.</p>
@@ -2348,7 +2354,7 @@ echo $modal= '<div class="modal fade" id="declineanceServModal" tabindex="-1" ar
 					<tr>
 						<td style="font-size: 18px; padding: 10px 0;">
 							<b>School that you are planning on attending:</b>
-							<input type="text" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 400px;">
+							<input type="text" name="school_planning_attend" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 400px;">
 						</td>
 					</tr>
 					<tr>
@@ -2359,14 +2365,15 @@ echo $modal= '<div class="modal fade" id="declineanceServModal" tabindex="-1" ar
 						</td>
 					</tr>
 					<tr>
-						<td style="padding: 10px 0;">
-							<table style="width: 750px;" cellpadding="1">
+						<td style="padding: 10px 0;  width:100%;">
+							<table style="width: 100%;" cellpadding="1">
 								<tr align="left">
 									<th></th>
 									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;">Name of School</th>
 									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;">School`s Decision</th>
 									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;">Applied for Aid</th>
-									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;" colspan="2">Amount of Aid or scholarship Offered</th>
+									<th style="font-weight: 400; font-size: 14px; padding: 0px 5px 0 30px;"></th>
+									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;" colspan="1">Amount of Aid or scholarship Offered</th>
 									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;">Comment</th>
 								</tr>
 
@@ -2378,25 +2385,29 @@ echo $modal= '<div class="modal fade" id="declineanceServModal" tabindex="-1" ar
 										<input type="text" name="name_of_School_1" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 150px;">
 									</td>
 									<td>
-										<select id="school_s_Decision_1" name="school_s_Decision_1">
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
+										<div class="selector-box">
+											<select id="school_s_Decision_1" name="school_s_Decision_1">
+												<option value="saab">Saab</option>
+												<option value="fiat">Fiat</option>
+												<option value="audi">Audi</option>
+											</select>
+										</div>
 									</td>
 									<td>
-										<select id="applied_for_Aid_1" name="applied_for_Aid_1">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
+										<div class="selector-box">
+											<select id="applied_for_Aid_1" name="applied_for_Aid_1">
+												<option value="volvo">Volvo</option>
+												<option value="saab">Saab</option>
+												<option value="fiat">Fiat</option>
+												<option value="audi">Audi</option>
+											</select>
+										</div>
 									</td>
-									<td>
+									<td style="text-align: center;">
 										<b>$</b>
 									</td>
 									<td>
-										<input type="text" name="amount_of_Aid_or_scholarship_Offered_1" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 145px;">
+										<input type="text" name="amount_of_Aid_or_scholarship_Offered_1" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px;  width: 100%;  max-width: 265px;">
 									</td>
 									<td>
 										<input type="text" name="comment_1" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 200px;">
@@ -2410,25 +2421,29 @@ echo $modal= '<div class="modal fade" id="declineanceServModal" tabindex="-1" ar
 										<input type="text" name="name_of_School_2" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 150px;">
 									</td>
 									<td>
-										<select id="school_s_Decision_2" name="school_s_Decision_2">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
+										<div class="selector-box">
+											<select id="school_s_Decision_2" name="school_s_Decision_2">
+												<option value="volvo">Volvo</option>
+												<option value="saab">Saab</option>
+												<option value="fiat">Fiat</option>
+												<option value="audi">Audi</option>
+											</select>
+										</div>
 									</td>
 									<td>
-										<select id="applied_for_Aid_2" name="applied_for_Aid_2">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
+										<div class="selector-box">
+											<select id="applied_for_Aid_2" name="applied_for_Aid_2">
+												<option value="volvo">Volvo</option>
+												<option value="saab">Saab</option>
+												<option value="fiat">Fiat</option>
+												<option value="audi">Audi</option>
+											</select>
+										</div>
 									</td>
-									<td>
+									<td style="text-align: center;">
 										<b>$</b>
 									</td>
-									<td><input type="text" name="amount_of_Aid_or_scholarship_Offered_2" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 145px;">
+									<td><input type="text" name="amount_of_Aid_or_scholarship_Offered_2" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 100%;  max-width: 265px;">
 									</td>
 									<td>
 										<input type="text" name="comment_2" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 200px;">
@@ -2442,25 +2457,29 @@ echo $modal= '<div class="modal fade" id="declineanceServModal" tabindex="-1" ar
 										<input type="text" name="name_of_School_3" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 150px;">
 									</td>
 									<td>
-										<select id="school_s_Decision_3" name="school_s_Decision_3">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
+										<div class="selector-box">
+											<select id="school_s_Decision_3" name="school_s_Decision_3">
+												<option value="volvo">Volvo</option>
+												<option value="saab">Saab</option>
+												<option value="fiat">Fiat</option>
+												<option value="audi">Audi</option>
+											</select>
+										</div>
 									</td>
 									<td>
-										<select id="applied_for_Aid_3" name="applied_for_Aid_3">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
+										<div class="selector-box">
+											<select id="applied_for_Aid_3" name="applied_for_Aid_3">
+												<option value="volvo">Volvo</option>
+												<option value="saab">Saab</option>
+												<option value="fiat">Fiat</option>
+												<option value="audi">Audi</option>
+											</select>
+										</div>
 									</td>
-									<td>
+									<td style="text-align: center;">
 										<b>$</b>
 									</td>
-									<td><input type="text" name="amount_of_Aid_or_scholarship_Offered_3" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 145px;">
+									<td><input type="text" name="amount_of_Aid_or_scholarship_Offered_3" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px;  width: 100%;  max-width: 265px;">
 									</td>
 									<td>
 										<input type="text" name="comment_3" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 200px;">
@@ -2474,26 +2493,30 @@ echo $modal= '<div class="modal fade" id="declineanceServModal" tabindex="-1" ar
 										<input type="text" name="name_of_School_4" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 150px;">
 									</td>
 									<td>
-										<select id="school_s_Decision_4" name="school_s_Decision_4">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
+										<div class="selector-box">
+											<select id="school_s_Decision_4" name="school_s_Decision_4">
+												<option value="volvo">Volvo</option>
+												<option value="saab">Saab</option>
+												<option value="fiat">Fiat</option>
+												<option value="audi">Audi</option>
+											</select>
+										</div>
 									</td>
 									<td>
-										<select id="applied_for_Aid_4" name="applied_for_Aid_4">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
+										<div class="selector-box">
+											<select id="applied_for_Aid_4" name="applied_for_Aid_4">
+												<option value="volvo">Volvo</option>
+												<option value="saab">Saab</option>
+												<option value="fiat">Fiat</option>
+												<option value="audi">Audi</option>
+											</select>
+										</div>
 									</td>
 
-									<td>
+									<td style="text-align: center;">
 										<b>$</b>
 									</td>
-									<td><input type="text" name="amount_of_Aid_or_scholarship_Offered_4" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 145px;">
+									<td><input type="text" name="amount_of_Aid_or_scholarship_Offered_4" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px;  width: 100%;  max-width: 265px;">
 									</td>
 									<td>
 										<input type="text" name="comment_4" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 200px;">
@@ -2511,16 +2534,18 @@ echo $modal= '<div class="modal fade" id="declineanceServModal" tabindex="-1" ar
 						<td>
 							<table style="width: 870px;" cellpadding="1">
 								<tr>
-									<td style="font-size: 18px; padding: 8px 0;">
+									<td style="font-size: 18px; padding: 8px 0; width:35%;">
 										Most Important Reason:
 									</td>
 									<td>
-										<select id="most_Important_Reason" name="most_Important_Reason">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
+										<div class="selector-box">
+											<select id="most_Important_Reason" name="most_Important_Reason">
+												<option value="volvo">Volvo</option>
+												<option value="saab">Saab</option>
+												<option value="fiat">Fiat</option>
+												<option value="audi">Audi</option>
+											</select>
+										</div>
 									</td>
 									<td style="font-size: 18px; padding: 8px 0;">
 										Comment:
@@ -2530,16 +2555,18 @@ echo $modal= '<div class="modal fade" id="declineanceServModal" tabindex="-1" ar
 									</td>
 								</tr>
 								<tr>
-									<td style="font-size: 18px; padding: 8px 0;">
+									<td style="font-size: 18px; padding: 8px 0; width:35%;">
 										Second Most Important Reason:
 									</td>
 									<td>
-										<select id="second_Most_Important_Reason" name="second_Most_Important_Reason">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
+										<div class="selector-box">
+											<select id="second_Most_Important_Reason" name="second_Most_Important_Reason">
+												<option value="volvo">Volvo</option>
+												<option value="saab">Saab</option>
+												<option value="fiat">Fiat</option>
+												<option value="audi">Audi</option>
+											</select>
+										</div>
 									</td>
 									<td style="font-size: 18px; padding: 8px 0;">
 										Comment:
@@ -2549,16 +2576,18 @@ echo $modal= '<div class="modal fade" id="declineanceServModal" tabindex="-1" ar
 									</td>
 								</tr>
 								<tr>
-									<td style="font-size: 18px; padding: 8px 0;">
+									<td style="font-size: 18px; padding: 8px 0; width:35%;">
 										Third Most Important Reason:
 									</td>
 									<td>
-										<select id="third_Most_Important_Reason" name="third_Most_Important_Reason">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
+										<div class="selector-box">
+											<select id="third_Most_Important_Reason" name="third_Most_Important_Reason">
+												<option value="volvo">Volvo</option>
+												<option value="saab">Saab</option>
+												<option value="fiat">Fiat</option>
+												<option value="audi">Audi</option>
+											</select>
+										</div>
 									</td>
 									<td style="font-size: 18px; padding: 8px 0;">
 										Comment:
@@ -2594,9 +2623,9 @@ echo $modal= '<div class="modal fade" id="declineanceServModal" tabindex="-1" ar
 					<tr style="height: 20px;"></tr>
 					<tr>
 						<td style="padding: 10px;" width="50%" align="center">
-							<a style="background-color: darkgrey; border: none; padding: 6px 8px; border-radius: 5px; width: 180px;" id="decline_Acceptance_to_SI">Decline Acceptance to SI</a>
+							<a style="background-color: darkgrey; border: none; padding: 6px 8px; border-radius: 5px; width: 180px;" id="decline_Acceptance_to_SI" class="decline-btn">Decline Acceptance to SI</a>
 
-							<a style="background-color: darkgrey; border: none; padding: 6px 8px; border-radius: 5px; width: 100px;">Decide Later</a>
+							<a style="background-color: darkgrey; border: none; padding: 6px 8px; border-radius: 5px; width: 100px;" class="decline-btn1">Decide Later</a>
 						</td>
 						<td></td>
 					</tr>
@@ -2614,16 +2643,17 @@ echo $modal= '<div class="modal fade" id="declineanceServModal" tabindex="-1" ar
 </div>';
 }
 function getAcceptanceModal(){
-echo $modal ='<div class="modal fade" id="acceptanceServModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+echo $modal ='<div class="modal fade" id="acceptanceServModal" tabindex="	<b>$</b>-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog survay-accept">
+		<input type="hidden" name="modal_type" value="acceptance_survay">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel"><span style="color:red; font-size:22px;">Reserve TestFirst`s place in the Class of 2027 at SI!</span></h5>
+				<h5 class="modal-title" id="exampleModalLabel"><span style="color: #a7172f; font-size:22px;">Reserve TestFirst`s place in the Class of 2027 at SI!</span></h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
 
-				<table width="100%" cellpadding="0" cellspacing="0">
+				<table width="100%" cellpadding="0" cellspacing="0" class="table-responsive">
 
 					<tr>
 						<td style="padding: 10px 0;">
@@ -2636,16 +2666,16 @@ echo $modal ='<div class="modal fade" id="acceptanceServModal" tabindex="-1" ari
 
 						</td>
 					</tr>
-
 					<tr>
 						<td style="padding: 10px 0;">
-							<table style="width: 750px;" cellpadding="1">
+							<table style="width: 100%;" cellpadding="1">
 								<tr align="left">
 									<th></th>
 									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;">Name of School</th>
 									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;">School`s Decision</th>
 									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;">Applied for Aid</th>
-									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;" colspan="2">Amount of Aid or scholarship Offered</th>
+									<th style="font-weight: 400; font-size: 14px; padding: 0px 5px 0 30px;"></th>
+									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;" colspan="1">Amount of Aid or scholarship Offered</th>
 									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;">Comment</th>
 								</tr>
 
@@ -2657,27 +2687,31 @@ echo $modal ='<div class="modal fade" id="acceptanceServModal" tabindex="-1" ari
 										<input type="text" name="name_of_School_1" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 150px;">
 									</td>
 									<td>
-										<select id="school_s_Decision_1" name="school_s_Decision_1">
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
+										<div class="selector-box">
+											<select id="school_s_Decision_1" name="school_s_Decision_1">
+												<option value="saab">Saab</option>
+												<option value="fiat">Fiat</option>
+												<option value="audi">Audi</option>
+											</select>
+										</div>
 										<!-- <input type="number" style="border-radius: 5px; padding: 5px 10px; width: 120px;  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"> -->
 									</td>
 									<td>
-										<select id="applied_for_Aid_1" name="applied_for_Aid_1">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
+										<div class="selector-box">
+											<select id="applied_for_Aid_1" name="applied_for_Aid_1">
+												<option value="volvo">Volvo</option>
+												<option value="saab">Saab</option>
+												<option value="fiat">Fiat</option>
+												<option value="audi">Audi</option>
+											</select>
+										</div>
 										<!-- <input type="number" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 100px;"> -->
 									</td>
-									<td>
+									<td style="text-align: center;">
 										<b>$</b>
 									</td>
 									<td>
-										<input type="text" name="amount_of_Aid_or_scholarship_Offered_1" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 145px;">
+										<input type="text" name="amount_of_Aid_or_scholarship_Offered_1" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 100%;  max-width: 265px;">
 									</td>
 									<td>
 										<input type="text" name="comment_1" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 200px;">
@@ -2691,27 +2725,31 @@ echo $modal ='<div class="modal fade" id="acceptanceServModal" tabindex="-1" ari
 										<input type="text" name="name_of_School_2" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 150px;">
 									</td>
 									<td>
-										<select id="school_s_Decision_2" name="school_s_Decision_2">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
+										<div class="selector-box">
+											<select id="school_s_Decision_2" name="school_s_Decision_2">
+												<option value="volvo">Volvo</option>
+												<option value="saab">Saab</option>
+												<option value="fiat">Fiat</option>
+												<option value="audi">Audi</option>
+											</select>
+										</div>
 										<!-- <input type="number" style="border-radius: 5px; padding: 5px 10px; width: 120px;  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"> -->
 									</td>
 									<td>
-										<select id="applied_for_Aid_2" name="applied_for_Aid_2">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
+										<div class="selector-box">
+											<select id="applied_for_Aid_2" name="applied_for_Aid_2">
+												<option value="volvo">Volvo</option>
+												<option value="saab">Saab</option>
+												<option value="fiat">Fiat</option>
+												<option value="audi">Audi</option>
+											</select>
+										</div>
 										<!-- <input type="number" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 100px;"> -->
 									</td>
-									<td>
+									<td style="text-align: center;">
 										<b>$</b>
 									</td>
-									<td><input type="text" name="amount_of_Aid_or_scholarship_Offered_2" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 145px;">
+									<td><input type="text" name="amount_of_Aid_or_scholarship_Offered_2" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 100%;  max-width: 265px;">
 									</td>
 									<td>
 										<input type="text" name="comment_2" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 200px;">
@@ -2725,27 +2763,31 @@ echo $modal ='<div class="modal fade" id="acceptanceServModal" tabindex="-1" ari
 										<input type="text" name="name_of_School_3" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 150px;">
 									</td>
 									<td>
-										<select id="school_s_Decision_3" name="school_s_Decision_3">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
+										<div class="selector-box">
+											<select id="school_s_Decision_3" name="school_s_Decision_3">
+												<option value="volvo">Volvo</option>
+												<option value="saab">Saab</option>
+												<option value="fiat">Fiat</option>
+												<option value="audi">Audi</option>
+											</select>
+										</div>
 										<!-- <input type="number" style="border-radius: 5px; padding: 5px 10px; width: 120px;  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"> -->
 									</td>
 									<td>
-										<select id="applied_for_Aid_3" name="applied_for_Aid_3">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
+										<div class="selector-box">
+											<select id="applied_for_Aid_3" name="applied_for_Aid_3">
+												<option value="volvo">Volvo</option>
+												<option value="saab">Saab</option>
+												<option value="fiat">Fiat</option>
+												<option value="audi">Audi</option>
+											</select>
+										</div>
 										<!-- <input type="number" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 100px;"> -->
 									</td>
-									<td>
+									<td style="text-align: center;">
 										<b>$</b>
 									</td>
-									<td><input type="text" name="amount_of_Aid_or_scholarship_Offered_3" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 145px;">
+									<td><input type="text" name="amount_of_Aid_or_scholarship_Offered_3" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px;  width: 100%;  max-width: 265px;">
 									</td>
 									<td>
 										<input type="text" name="comment_3" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 200px;">
@@ -2759,28 +2801,32 @@ echo $modal ='<div class="modal fade" id="acceptanceServModal" tabindex="-1" ari
 										<input type="text" name="name_of_School_4" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 150px;">
 									</td>
 									<td>
-										<select id="school_s_Decision_4" name="school_s_Decision_4">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
+										<div class="selector-box">
+											<select id="school_s_Decision_4" name="school_s_Decision_4">
+												<option value="volvo">Volvo</option>
+												<option value="saab">Saab</option>
+												<option value="fiat">Fiat</option>
+												<option value="audi">Audi</option>
+											</select>
+										</div>
 										<!-- <input type="number" style="border-radius: 5px; padding: 5px 10px; width: 120px;  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"> -->
 									</td>
 									<td>
-										<select id="applied_for_Aid_4" name="applied_for_Aid_4">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
+										<div class="selector-box">
+											<select id="applied_for_Aid_4" name="applied_for_Aid_4">
+												<option value="volvo">Volvo</option>
+												<option value="saab">Saab</option>
+												<option value="fiat">Fiat</option>
+												<option value="audi">Audi</option>
+											</select>
+										</div>
 										<!-- <input type="number" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 100px;"> -->
 									</td>
 
-									<td>
+									<td style="text-align: center;">
 										<b>$</b>
 									</td>
-									<td><input type="text" name="amount_of_Aid_or_scholarship_Offered_4" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 145px;">
+									<td><input type="text" name="amount_of_Aid_or_scholarship_Offered_4" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 100%;  max-width: 265px;">
 									</td>
 									<td>
 										<input type="text" name="comment_4" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 200px;">
@@ -2796,21 +2842,23 @@ echo $modal ='<div class="modal fade" id="acceptanceServModal" tabindex="-1" ari
 					</tr>
 					<tr>
 						<td>
-							<table style="width: 870px;" cellpadding="1">
+							<table style="width: 100%;" cellpadding="1">
 								<tr>
-									<td style="font-size: 18px; padding: 8px 0;">
+									<td style="font-size: 18px; padding: 8px 0; width:30%;">
 										Most Important Reason:
 									</td>
 									<td>
-										<select id="most_Important_Reason" name="most_Important_Reason">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
+										<div class="selector-box">
+											<select id="most_Important_Reason" name="most_Important_Reason">
+												<option value="volvo">Volvo</option>
+												<option value="saab">Saab</option>
+												<option value="fiat">Fiat</option>
+												<option value="audi">Audi</option>
+											</select>
+										</div>
 										<!-- <input type="number" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;"> -->
 									</td>
-									<td style="font-size: 18px; padding: 8px 0;">
+									<td style="font-size: 18px; padding: 8px  10px 8px 0; text-align:right;">
 										Comment:
 									</td>
 									<td>
@@ -2818,19 +2866,21 @@ echo $modal ='<div class="modal fade" id="acceptanceServModal" tabindex="-1" ari
 									</td>
 								</tr>
 								<tr>
-									<td style="font-size: 18px; padding: 8px 0;">
+									<td style="font-size: 18px; padding: 8px 0; width:30%;">
 										Second Most Important Reason:
 									</td>
 									<td>
-										<select id="second_Most_Important_Reason" name="second_Most_Important_Reason">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
+										<div class="selector-box">
+											<select id="second_Most_Important_Reason" name="second_Most_Important_Reason">
+												<option value="volvo">Volvo</option>
+												<option value="saab">Saab</option>
+												<option value="fiat">Fiat</option>
+												<option value="audi">Audi</option>
+											</select>
+										</div>
 										<!-- <input type="number" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;"> -->
 									</td>
-									<td style="font-size: 18px; padding: 8px 0;">
+									<td style="font-size: 18px; padding: 8px  10px 8px 0; text-align:right;">
 										Comment:
 									</td>
 									<td>
@@ -2838,19 +2888,21 @@ echo $modal ='<div class="modal fade" id="acceptanceServModal" tabindex="-1" ari
 									</td>
 								</tr>
 								<tr>
-									<td style="font-size: 18px; padding: 8px 0;">
+									<td style="font-size: 18px; padding: 8px 0; width:30%;">
 										Third Most Important Reason:
 									</td>
 									<td>
-										<select id="third_Most_Important_Reason" name="third_Most_Important_Reason">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="fiat">Fiat</option>
-											<option value="audi">Audi</option>
-										</select>
+										<div class="selector-box">
+											<select id="third_Most_Important_Reason" name="third_Most_Important_Reason">
+												<option value="volvo">Volvo</option>
+												<option value="saab">Saab</option>
+												<option value="fiat">Fiat</option>
+												<option value="audi">Audi</option>
+											</select>
+										</div>
 										<!-- <input type="number" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;"> -->
 									</td>
-									<td style="font-size: 18px; padding: 8px 0;">
+									<td style="font-size: 18px; padding: 8px  10px 8px 0; text-align:right;">
 										Comment:
 									</td>
 									<td>
@@ -2899,4 +2951,6 @@ echo $modal ='<div class="modal fade" id="acceptanceServModal" tabindex="-1" ari
 </div>';
 }
 @endphp
+
+
 @endsection
