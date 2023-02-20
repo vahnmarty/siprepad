@@ -32,6 +32,8 @@
                     </th>
                     <th class="text-center" tabindex="0" aria-controls="kt_table_1" style="width: 10%;" aria-label="Company Agent: activate to sort column ascending">Status
                     </th>
+                    <th class="text-center" tabindex="0" aria-controls="kt_table_1" style="width: 10%;" aria-label="Company Agent: activate to sort column ascending">Deposit Amount
+                    </th>
                     <th class="text-center" tabindex="0" aria-controls="kt_table_1" style="width: 10%;" aria-label="Company Agent: activate to sort column ascending">Decision
                     </th>
 
@@ -62,12 +64,13 @@
 
                     </th>
                     <th>
+
+                    </th>
+                    <th>
                         <div class="row text-center">
                             <div class="col-md-6"><a class="btn btn-primery text-light" id="serachData">Search</a></div>
                             <div class="col-md-6"><a class="btn btn-primery text-light" id="resetData">Reset</a></div>
                         </div>
-
-
                     </th>
                 </tr>
 
@@ -97,6 +100,8 @@
 
                 $getApplicationStatus = App\Models\StudentApplicationStatus::where('application_id', $getApplication->Application_ID)
                 ->where('profile_id', $getApplication->Profile_ID)->first();
+                
+              
 
 
                 @endphp
@@ -125,6 +130,7 @@
                         <?php $studentProfile = App\Models\Application::STUDENT_THREE; ?>
                         @endif
                         @endif
+
                         @if($studentProfile == App\Models\Application::STUDENT_ONE)
 
 
@@ -451,7 +457,19 @@
                                                             @endif
 
                     </td>
+                    @php
+                    $payment = "";
+                    if($student['student_type']==App\Models\Application::STUDENT_ONE) {
 
+                        $payment =  App\Models\Payment::where('application_id', $getApplication->Application_ID)->where('student', App\Models\Application::STUDENT_S1)->pluck('amount')->first();
+
+                    } elseif($student['student_type']==App\Models\Application::STUDENT_TWO) {
+                        $payment = App\Models\Payment::where('application_id', $getApplication->Application_ID)->where('student', App\Models\Application::STUDENT_S2)->pluck('amount')->first();
+                    } elseif($student['student_type']==App\Models\Application::STUDENT_THREE) {
+                        $payment = App\Models\Payment::where('application_id', $getApplication->Application_ID)->where('student', App\Models\Application::STUDENT_S3)->pluck('amount')->first();
+                    }
+                    @endphp
+                    <td>{{$payment ?? '--'}} </td>
                     <td>
                         <?php $studentProfile = "" ?>
 
