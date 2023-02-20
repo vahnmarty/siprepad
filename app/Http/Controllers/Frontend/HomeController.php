@@ -432,15 +432,26 @@ class HomeController extends Controller
         return view('frontend.application.view-application', compact('application_id'));
     }
 
+    // public function listViewApplication($application_id = null)
+    // {
+    //     $payment = Payment::where('application_id', Auth::user()->id)->get();
+    //     if ($payment->count() > Payment::COUNT) {
+    //         return view('frontend.view_application', compact('payment', 'application_id'));
+    //     } else {
+    //         return view('frontend.application.view-application', compact('application_id'));
+    //     }
+    // }
+
     public function viewApplication($application_id = null)
     {
         //todo: Do setup on livewire
         //return response()->json("We are working on this", 200);
-        // $payment = Payment::where('application_id', Auth::user()->id)->get();
-        // if ($payment->count() > Payment::COUNT)
-        //     return view('frontend.view_application', compact('payment', 'application_id'));
-        // else
-        //     return view('frontend.application.view-application', compact('application_id'));
+            // $payment = Payment::where('application_id', Auth::user()->id)->get();
+            // if ($payment->count() > Payment::COUNT) {
+            //     return view('frontend.view_application', compact('payment', 'application_id'));
+            // } else {
+            //     return view('frontend.application.view-application', compact('application_id'));
+            // }
         return view('frontend.application.view-application', compact('application_id'));
     }
 

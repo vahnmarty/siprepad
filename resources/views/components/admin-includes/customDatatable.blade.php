@@ -3,7 +3,6 @@
 
 <script>
     $(function() {
-
         var datatable = $('#kt_table_1Arsh').DataTable({
             paging: true,
             lengthChange: true,

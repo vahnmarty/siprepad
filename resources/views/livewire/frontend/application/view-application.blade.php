@@ -1586,7 +1586,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="col-lg-12 col-md-12">
                                 <div class="student_box">
                                     <label>Transaction ID:</label>
