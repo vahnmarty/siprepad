@@ -302,7 +302,6 @@ class NotificationController extends Controller
 
 
 
-
         $validator      =   Validator::make($request->all(), [
             "name_of_School_1" => "required",
             "name_of_School_2" => "required",
@@ -380,7 +379,8 @@ class NotificationController extends Controller
                 "student_Visit_Program" => $request->post('student_Visit_Program'),
                 "admissions_process" => $request->post('admissions_process'),
                 "student_type" => $request->post('student_type'),
-
+                "school_planning_attend" => $request->post('school_planning_attend'),
+                "modal_type" => $request->post('modal_type'),
 
 
             ]);

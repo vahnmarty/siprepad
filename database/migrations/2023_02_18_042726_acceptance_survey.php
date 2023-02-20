@@ -13,7 +13,7 @@ class AcceptanceSurvey extends Migration
      */
     public function up()
     {
-        if (!Schema::hascolumns('acceptance_decline_survey', ['application_id', 'school_that_planning', 'student_type', 'profile_id', 'name_of_School_1', 'name_of_School_2', 'name_of_School_3', 'name_of_School_4', 'school_s_Decision_1', 'school_s_Decision_2', 'school_s_Decision_3', 'school_s_Decision_4', 'applied_for_Aid_1', 'applied_for_Aid_2', 'applied_for_Aid_3', 'applied_for_Aid_4', 'amount_of_Aid_or_scholarship_Offered_1', 'amount_of_Aid_or_scholarship_Offered_2', 'amount_of_Aid_or_scholarship_Offered_3', 'amount_of_Aid_or_scholarship_Offered_4', 'comment_1', 'comment_2', 'comment_3', 'comment_4', 'most_Important_Reason', 'student_Visit_Program', 'rank_Comment_1', 'rank_Comment_2', 'rank_Comment_3', 'admissions_process'])) {
+        if (!Schema::hascolumns('acceptance_decline_survey', ['application_id', 'modal_type', 'school_planning_attend', 'school_that_planning', 'student_type', 'profile_id', 'name_of_School_1', 'name_of_School_2', 'name_of_School_3', 'name_of_School_4', 'school_s_Decision_1', 'school_s_Decision_2', 'school_s_Decision_3', 'school_s_Decision_4', 'applied_for_Aid_1', 'applied_for_Aid_2', 'applied_for_Aid_3', 'applied_for_Aid_4', 'amount_of_Aid_or_scholarship_Offered_1', 'amount_of_Aid_or_scholarship_Offered_2', 'amount_of_Aid_or_scholarship_Offered_3', 'amount_of_Aid_or_scholarship_Offered_4', 'comment_1', 'comment_2', 'comment_3', 'comment_4', 'most_Important_Reason', 'student_Visit_Program', 'rank_Comment_1', 'rank_Comment_2', 'rank_Comment_3', 'admissions_process'])) {
             Schema::create('acceptance_decline_survey', function (Blueprint $table) {
                 $table->id();
                 $table->unsignedBigInteger('application_id');
@@ -50,6 +50,10 @@ class AcceptanceSurvey extends Migration
                 $table->string('admissions_process')->nullable();
                 $table->string('student_type')->nullable();
                 $table->string('school_that_planning')->nullable();
+                $table->string('modal_type')->nullable();
+                $table->string('school_planning_attend')->nullable();
+
+
                 $table->timestamps();
             });
         }
@@ -62,7 +66,7 @@ class AcceptanceSurvey extends Migration
      */
     public function down()
     {
-        if (Schema::hascolumns('acceptance_decline_survey', ['application_id', 'school_that_planning', 'profile_id', 'student_type', 'name_of_School_1', 'name_of_School_2', 'name_of_School_3', 'name_of_School_4', 'school_s_Decision_1', 'school_s_Decision_2', 'school_s_Decision_3', 'school_s_Decision_4', 'applied_for_Aid_1', 'applied_for_Aid_2', 'applied_for_Aid_3', 'applied_for_Aid_4', 'amount_of_Aid_or_scholarship_Offered_1', 'amount_of_Aid_or_scholarship_Offered_2', 'amount_of_Aid_or_scholarship_Offered_3', 'amount_of_Aid_or_scholarship_Offered_4', 'comment_1', 'comment_2', 'comment_3', 'comment_4', 'most_Important_Reason', 'student_Visit_Program', 'rank_Comment_1', 'rank_Comment_2', 'rank_Comment_3', 'admissions_process'])) {
+        if (Schema::hascolumns('acceptance_decline_survey', ['application_id', 'school_planning_attend', 'modal_type', 'school_that_planning', 'profile_id', 'student_type', 'name_of_School_1', 'name_of_School_2', 'name_of_School_3', 'name_of_School_4', 'school_s_Decision_1', 'school_s_Decision_2', 'school_s_Decision_3', 'school_s_Decision_4', 'applied_for_Aid_1', 'applied_for_Aid_2', 'applied_for_Aid_3', 'applied_for_Aid_4', 'amount_of_Aid_or_scholarship_Offered_1', 'amount_of_Aid_or_scholarship_Offered_2', 'amount_of_Aid_or_scholarship_Offered_3', 'amount_of_Aid_or_scholarship_Offered_4', 'comment_1', 'comment_2', 'comment_3', 'comment_4', 'most_Important_Reason', 'student_Visit_Program', 'rank_Comment_1', 'rank_Comment_2', 'rank_Comment_3', 'admissions_process'])) {
             Schema::table('acceptance_decline_survey', function (Blueprint $table) {
                 $table->dropColumn('name_of_School_1');
                 $table->dropColumn('name_of_School_2');
@@ -94,6 +98,8 @@ class AcceptanceSurvey extends Migration
                 $table->dropColumn('admissions_process');
                 $table->dropColumn('student_type');
                 $table->dropColumn('school_that_planning');
+                $table->string('modal_type')->nullable();
+                $table->string('school_planning_attend')->nullable();
             });
         }
     }
