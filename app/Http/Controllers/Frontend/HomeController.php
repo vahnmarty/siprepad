@@ -92,10 +92,6 @@ class HomeController extends Controller
                 $getCandidateStatus = self::getCandidateAccepted($studentData, $StudentApplicationStatus, 1);
             }
             $dbQuery = StudentInformation::query();
-
-
-
-
             $notifications = $this->GlobalNotifiable;
             $registerable = $this->GlobalRegisterable;
             $studentTransfer = $this->GlobalStudentTransfer;
@@ -197,9 +193,6 @@ class HomeController extends Controller
             $StudentApplicationStatusResults[$key]['application_id'] = $StudentApplicationStatusResult['application_id'];
         }
 
-
-
-
         $student1 = [
             "Application_ID" => $getStudentInfo['Application_ID'],
             "First_Name" => Str::lower($getStudentInfo['S1_First_Name']),
@@ -241,8 +234,6 @@ class HomeController extends Controller
             }
         }
 
-
-
         return $myCollectionObj = array_filter($studentArr);
         // return $data = $this->paginate($myCollectionObj, $this->perPage);
     }
@@ -268,7 +259,6 @@ class HomeController extends Controller
                         "Application_ID" => $getStudentInfo->Application_ID,
                         "Photo" =>  $getStudentInfo->S1_Photo,
                         "First_Name" => Str::lower($getStudentInfo->S1_First_Name),
-
                         "student_type" => Application::STUDENT_ONE
                     ];
                     $student2 = [
@@ -277,7 +267,6 @@ class HomeController extends Controller
                         "First_Name" => Str::lower($getStudentInfo->S2_First_Name),
                         "Middle_Name" =>  $getStudentInfo->S2_Middle_Name,
                         "Last_Name" =>  Str::lower($getStudentInfo->S2_Last_Name),
-
                         "student_type" => Application::STUDENT_TWO
 
                     ];
@@ -287,7 +276,6 @@ class HomeController extends Controller
                         "First_Name" => Str::lower($getStudentInfo->S3_First_Name),
                         "Middle_Name" =>  $getStudentInfo->S3_Middle_Name,
                         "Last_Name" =>  Str::lower($getStudentInfo->S3_Last_Name),
-
                         "student_type" => Application::STUDENT_THREE
 
                     ];
