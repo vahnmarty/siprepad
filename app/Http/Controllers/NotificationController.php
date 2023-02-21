@@ -406,6 +406,7 @@ class NotificationController extends Controller
         $profile_id = Auth::guard('customer')->user()->id;
         $studentDetail = StudentInformation::where('Profile_ID', $profile_id)->first();
         $ntfDetail = Notification::where('id', $notificationid)->first();
+        // dd($ntfDetail);
         if (!$ntfDetail) {
             return redirect('/')->with('error', 'You are not allowed to access this page');
         }

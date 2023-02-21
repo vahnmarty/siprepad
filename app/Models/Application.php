@@ -24,7 +24,12 @@ class Application extends Model
     const CANDIDATE_REJECTED = 2;
     const CANDIDATE_READ = 3;
     const Acceptancefinancialaid = 3;
-    const ACCEPTANCE_FINANCIAL_AID = 5;
+    const ACCEPTANCE_FINANCIAL_AID_YES = 5;
+    const ACCEPTANCE_FINANCIAL_AID_NO = 6;
+    const ACCEPTANCE_HONORS = 7;
+    const ACCEPTANCE_Hon_W_FA_YES = 8;
+    const ACCEPTANCE_Hon_W_FA_NO = 9;
+
     const STUDENT_ONE = 'student_one';
     const STUDENT_TWO = 'student_two';
     const STUDENT_THREE = 'student_three';
@@ -47,13 +52,13 @@ class Application extends Model
     {
         return [
             'No Resoponse' => $this->No_RESPONSE,
-            'ACCEPTANCE FINANCIAL AID'            => $this->ACCEPTANCE_FINANCIAL_AID
+            'ACCEPTANCE FINANCIAL AID'            => $this->ACCEPTANCE_FINANCIAL_AID_YES
         ];
     }
 
     public function payment()
     {
-        return $this->belongsTo(Payment::class,   'Application_ID' ,'application_id');
+        return $this->belongsTo(Payment::class,   'Application_ID', 'application_id');
     }
     public function StudentApplicationStatus()
     {

@@ -218,6 +218,10 @@ input::-webkit-inner-spin-button {
 		font-weight: 500;
 		cursor: pointer;
 	}
+
+	.home-wrap ul li {
+		list-style: circle;
+	}
 </style>
 
 <?php
@@ -228,24 +232,10 @@ function  getDateFunctions($notification_time)
 
 	return $notification_time;
 }
-
-
-function  setTutionAmount()
-{
-
-	return "$31,225";
-}
-
-function  setDepositAmount()
-{
-	return "$1,500" ;
-}
-
-
 function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Name = '')
 {
 	// dd($studentDetail);
-	if ($studentType == App\Models\Application::STUDENT_S1) {
+	if ($studentType == 's1') {
 		switch ($type) {
 
 			case "Student_First_Name":
@@ -537,7 +527,6 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 
 ?>
 <div class="loading" style="display: none;">Loading</div>
-
 @switch($ntfDetail->notification_type)
 @case(1)
 <div class="home-wrap">
@@ -579,15 +568,15 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				will be determined by placement exams to be administered on April 22, 2023. Your online registration
 				packet will include more information on these exams. The online registration packet will be available on
 				March 27, 2023, with additional information and important dates. To access the online registration
-				packet, visit <a href="https://www.siprepadmissions.org/" style="color: #0086e7;">www.siprepadmissions.org</a> on March 27, 2023 using the
+				packet, visit <a style="color: #0086e7;">www.siprepadmissions.org</a> on March 27, 2023 using the
 				username and password you used to apply.</p>
 			<p>To reserve a place in the Class of 2027, please click on the <b>Accept</b> button below and make a
-				<b>deposit</b> of <b><?php echo setDepositAmount(); ?></b>. As a courtesy to those students on our waitlist, we ask that those who
+				<b>deposit</b> of <b>$1,500</b>. As a courtesy to those students on our waitlist, we ask that those who
 				do not intend to register at SI indicate their intention by clicking on the <b>Decline</b> button below.
 				<b style="color:#dc3545;"> The registration deadline is 8:00 am on March 24, 2023, or the acceptance
 					will be forfeited.</b>
 			</p>
-			<p>Tuition for the 2023-2024 academic year is <b><?php echo setTutionAmount(); ?></b>. The Business Office will have
+			<p>Tuition for the 2023-2024 academic year is <b>{Tuition_Amount}</b>. The Business Office will have
 				information on tuition payment plans and schedules in the online registration packet. For families who
 				applied for financial assistance, the Business Office has posted the Financial Assistance Committee’s
 				decision on this website for your reference.</p>
@@ -612,17 +601,17 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 			<div class="row">
 				<div class="col-md-6">
 					<div class='application_download' style="float: left !important;">
-						<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}/{{ $studentDetail->Application_ID }}' class="btn btn-primary mt-3">Download</a>
+						<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}/{{ $studentDetail->Application_ID }}' class="btn text-dark btn-primary mt-3">Download</a>
 					</div>
 
 				</div>
 				<div class="col-md-6">
 					@if($student_status == App\Models\Application::TYPE_ACCEPTED && $ntfDetail->notification_type == App\Models\Notification::NOTIFY_ACCEPTED)
-					@if($candidate == App\Models\Application::STUDENT_S1)
+					@if($candidate == 's1')
 					@if($appStatus->s1_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s1_candidate_status == App\Models\Application::CANDIDATE_READ)
 					<div class='student_btns' style=" float: right !important;">
-						<a data-bs-toggle="modal" data-bs-target="#acceptModel" class='btn btn_accept btn-success mt-3 btn-sm'>Enroll at SI</a>
-						<a data-bs-toggle="modal" data-bs-target="#rejectModel" class='btn btn-sm btn-danger mt-3'>Decline Acceptance at SI</a>
+						<a data-bs-toggle="modal" data-bs-target="#acceptModel" class='btn btn_accept btn-success mt-3 btn-sm text-dark'>Enroll at SI</a>
+						<a data-bs-toggle="modal" data-bs-target="#rejectModel" class='btn btn-sm btn-danger mt-3 text-dark'>Decline Acceptance at SI</a>
 					</div>
 					@else
 					@endif
@@ -645,12 +634,12 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 
 					@endif
 					@endif
-					@if($candidate == App\Models\Application::STUDENT_S2)
+					@if($candidate == 's2')
 					@if($appStatus->s2_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s2_candidate_status == App\Models\Application::CANDIDATE_READ)
 
 					<div class='student_btns' style=" float: right !important;">
-						<a data-bs-toggle="modal" data-bs-target="#acceptModel" class='btn btn_accept btn-success mt-3 btn-sm'>Enroll at SI</a>
-						<a data-bs-toggle="modal" data-bs-target="#rejectModel" class='btn btn-sm btn-danger mt-3'>Decline Acceptance at SI</a>
+						<a data-bs-toggle="modal" data-bs-target="#acceptModel" class='btn btn_accept btn-success mt-3 btn-sm text-dark'>Enroll at SI</a>
+						<a data-bs-toggle="modal" data-bs-target="#rejectModel" class='btn btn-sm btn-danger mt-3 text-dark'>Decline Acceptance at SI</a>
 					</div>
 					@else
 					@endif
@@ -669,11 +658,11 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 
 					@endif
 					@endif
-					@if($candidate == App\Models\Application::STUDENT_S3)
+					@if($candidate == 's3')
 					@if($appStatus->s3_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s3_candidate_status == App\Models\Application::CANDIDATE_READ)
 					<div class='student_btns' style="float: right !important;">
-						<a data-bs-toggle="modal" data-bs-target="#acceptModel" class='btn btn_accept btn-success mt-3 btn-sm'>Enroll at SI</a>
-						<a data-bs-toggle="modal" data-bs-target="#rejectModel" class='btn btn-sm btn-danger mt-3'>Decline Acceptance at SI</a>
+						<a data-bs-toggle="modal" data-bs-target="#acceptModel" class='btn btn_accept btn-success mt-3 btn-sm text-dark'>Enroll at SI</a>
+						<a data-bs-toggle="modal" data-bs-target="#rejectModel" class='btn btn-sm btn-danger mt-3 text-dark'>Decline Acceptance at SI</a>
 					</div>
 					@else
 					@endif
@@ -693,7 +682,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 					@endif
 					@endif
 				</div>
-				@if($candidate == App\Models\Application::STUDENT_S1)
+				@if($candidate == 's1')
 
 				@if($appStatus->s1_candidate_status == App\Models\Application::TYPE_ACCEPTED)
 				<div class="col-md-12 text-left mt-4">Congratulations on enrolling as a student in the SI Class of 2027! Please check back here on Monday, March 27th for next steps and registration information.</div>
@@ -703,7 +692,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				@endif
 				@endif
 
-				@if($candidate == App\Models\Application::STUDENT_S3)
+				@if($candidate == 's3')
 
 				@if($appStatus->s3_candidate_status == App\Models\Application::TYPE_ACCEPTED)
 				<div class="col-md-12 text-left mt-4">Congratulations on enrolling as a student in the SI Class of 2027! Please check back here on Monday, March 27th for next steps and registration information.</div>
@@ -714,7 +703,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				@endif
 
 
-				@if($candidate == App\Models\Application::STUDENT_S2)
+				@if($candidate == 's2')
 
 				@if($appStatus->s2_candidate_status == App\Models\Application::TYPE_ACCEPTED)
 				<div class="col-md-12 text-left mt-4">Congratulations on enrolling as a student in the SI Class of 2027! Please check back here on Monday, March 27th for next steps and registration information.</div>
@@ -755,7 +744,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 			</script>
 			@endif
 
-			@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_TWO && $appStatus->s2_application_status == App\Models\Application::ACCEPTANCE_FINANCIAL_AID)
+			@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_TWO && $appStatus->s2_application_status == App\Models\Application::ACCEPTANCE_FINANCIAL_AID_YES)
 
 			<!-- <div class="col-md-12 text-center"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#Survey" class='btn btn_accept btn-success mt-3 btn-sm'>Acceptance Survey</a></div> -->
 			<script>
@@ -766,7 +755,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 			</script>
 			@endif
 
-			@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_ONE && $appStatus->s1_application_status == App\Models\Application::ACCEPTANCE_FINANCIAL_AID)
+			@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_ONE && $appStatus->s1_application_status == App\Models\Application::ACCEPTANCE_FINANCIAL_AID_YES)
 
 			<!-- <div class="col-md-12 text-center"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#Survey" class='btn btn_accept btn-success mt-3 btn-sm'>Acceptance Survey</a></div> -->
 			<script>
@@ -777,7 +766,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 			</script>
 			@endif
 
-			@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_THREE && $appStatus->s3_application_status == App\Models\Application::ACCEPTANCE_FINANCIAL_AID)
+			@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_THREE && $appStatus->s3_application_status == App\Models\Application::ACCEPTANCE_FINANCIAL_AID_YES)
 
 			<!-- <div class="col-md-12 text-center"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#Survey" class='btn btn_accept btn-success mt-3 btn-sm'>Acceptance Survey</a></div> -->
 			<script>
@@ -892,7 +881,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 </div>
 @break
 @case(5)
-<div class="home-wrap">
+<!-- <div class="home-wrap">
 	<div class="row">
 		<div class="col-md-4" style="max-width: 133px;">
 			<div class='ntf_image_logo'>
@@ -937,15 +926,15 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				will be determined by placement exams to be administered on April 22, 2023. Your online registration
 				packet will include more information on these exams. The online registration packet will be available on
 				March 27, 2023, with additional information and important dates. To access the online registration
-				packet, visit <a href="https://www.siprepadmissions.org/" style="color: #0086e7;">www.siprepadmissions.org</a> on March 27, 2023 using the
+				packet, visit <a style="color: #0086e7;">www.siprepadmissions.org</a> on March 27, 2023 using the
 				username and password you used to apply.</p>
 			<p>To reserve a place in the Class of 2027, please click on the <b>Accept</b> button below and make a
-				<b>deposit</b> of <b><?php echo setDepositAmount(); ?></b>. As a courtesy to those students on our waitlist, we ask that those who
+				<b>deposit</b> of <b>$1,500</b>. As a courtesy to those students on our waitlist, we ask that those who
 				do not intend to register at SI indicate their intention by clicking on the <b>Decline</b> button below.
 				<b style="color:#dc3545;"> The registration deadline is 8:00 am on March 24, 2023, or the acceptance
 					will be forfeited.</b>
 			</p>
-			<p>Tuition for the 2023-2024 academic year is <b><?php echo setTutionAmount(); ?></b>. The Business Office will have
+			<p>Tuition for the 2023-2024 academic year is <b>{Tuition_Amount}</b>. The Business Office will have
 				information on tuition payment plans and schedules in the online registration packet. For families who
 				applied for financial assistance, the Business Office has posted the Financial Assistance Committee’s
 				decision on this website for your reference.</p>
@@ -961,7 +950,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 			</p>
 			</p>
 		</div>
-		
+
 		<div style="margin-top:15px;">
 			<p>Sincerely,</p>
 			<p style="border:0;display:inline-block;">
@@ -971,12 +960,661 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 			<p><b style="color: #0086e7;">Financial Assistance Details for <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_Last_Name"); ?></b>
 			</p>
 			<div class='application_download'>
-				<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}/{{ $studentDetail->Application_ID }}' class="btn btn-primary mt-3">Download</a>
+				<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}/{{ $studentDetail->Application_ID }}' class="btn text-dark btn-primary mt-3">Download</a>
+			</div>
+		</div>
+	</div>
+</div> -->
+
+
+
+<div class="home-wrap">
+	<div class="row">
+		<div class="col-md-4" style="max-width: 133px;">
+			<div class='ntf_image_logo'>
+				<img src="{{ asset('frontend_assets/images/lg2.png') }}" alt="" />
+			</div>
+		</div>
+		<div class="col-md-8" style="max-width: 266px;">
+			<p> St. Ignatius College Preparatory<br>
+				2001 37th Avenue<br>
+				San Francisco, CA 94116<br>
+				(415) 731-7500
+			</p>
+			<p>Office of Admissions</p>
+
+		</div>
+		<p style="text-align:right;"><?php echo getDateFunctions($notification_time); ?></p>
+	</div>
+	<div class="row mt-3">
+
+		<div class="col-md-12">
+			<p><?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name", 'P2_Last_Name'); ?><br>
+				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Street"); ?><br>
+				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_City"); ?>, <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_State"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Zipcode"); ?><br>
+			</p>
+
+		</div>
+	</div>
+
+	<div class="hme-inr" id='ntf-detail'>
+
+
+		<div class='ntf_candidate_detail mt-2'>
+			<p class='ntf_student_name'>Dear <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name"); ?>:</p>
+			<p class='ntf_app_status'>
+			<p>My sincere congratulations to <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> upon
+				acceptance to the Class of 2027 of St. Ignatius College Preparatory!
+			</p>
+			<p>Your financial aid has been approved. You will receive
+				{Financial Aid Amount} a year for the next four years, for a total of
+				{Total Financial Aid Amount}. Your registration fee for Freshman year will be {Registration Fee}.
+			</p>
+			<p>We look forward to partnering with you as we provide an
+				exceptional Jesuit education in the next four years.
+
+			</p>
+
+			</p>
+		</div>
+
+		<div style="margin-top:15px;">
+			<p>Sincerely,</p>
+			<p style="border:0;display:inline-block;">
+				<img style="max-width:205px;" src="{{ asset('admin_assets/logo/signature2.png') }}" />
+			</p>
+			<p>Ken Stupi<br /> VP of Finance & Administration</p>
+
+			<div class='application_download'>
+				<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}/{{ $studentDetail->Application_ID }}' class="btn btn-success text-dark mt-3">
+					Acknowledge</a>
 			</div>
 		</div>
 	</div>
 </div>
+
+
 @break
+
+@case(6)
+
+<div class="home-wrap">
+	<div class="row">
+		<div class="col-md-4" style="max-width: 133px;">
+			<div class='ntf_image_logo'>
+				<img src="{{ asset('frontend_assets/images/lg2.png') }}" alt="" />
+			</div>
+		</div>
+		<div class="col-md-8" style="max-width: 266px;">
+			<p> St. Ignatius College Preparatory<br>
+				2001 37th Avenue<br>
+				San Francisco, CA 94116<br>
+				(415) 731-7500
+			</p>
+			<p>Office of Admissions</p>
+
+		</div>
+		<p style="text-align:right;"><?php echo getDateFunctions($notification_time); ?></p>
+	</div>
+	<div class="row mt-3">
+
+		<div class="col-md-12">
+			<p><?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name", 'P2_Last_Name'); ?><br>
+				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Street"); ?><br>
+				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_City"); ?>, <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_State"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Zipcode"); ?><br>
+			</p>
+
+		</div>
+	</div>
+
+	<div class="hme-inr" id='ntf-detail'>
+
+
+		<div class='ntf_candidate_detail mt-2'>
+			<p class='ntf_student_name'>Dear <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name"); ?>:</p>
+			<p class='ntf_app_status'>
+			<p>
+				My sincere congratulations to <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> upon acceptance to the Class of 2027 of St. Ignatius College Preparatory!
+			</p>
+			<p>I am writing to convey the decision of the Financial
+				Assistance Committee. We regret to inform you that we are unable to
+				provide financial assistance for the 2023-2024 school year.
+			</p>
+			<p>
+				Our financial assistance funds are limited, and we have made
+				every effort to evaluate your family’s demonstrated need. We
+				cannot support any appeals unless there have been significant changes in your financial
+				circumstances that occurred after
+				your application for aid was filed. Examples of significant changes include:
+			</p>
+
+			<p>
+			<ul class="ps-3">
+				<li>Loss of income (wages, benefits, etc.) due to unemployment</li>
+				<li>New major medical issue or family death</li>
+			</ul>
+			</p>
+			<p>If you are moving forward with an appeal, please detail and document these changes by noon on
+				Friday, March 25. All
+				required documents, including your 2022 taxes, must be on file in your TADS application to be
+				considered for an appeal.
+				Submit your appeal here: <a class="text-dark" href=" https://www.siprep.org/appeal."> https://www.siprep.org/appeal.</a>
+				<br><br>
+				Tuition payments are collected through FACTS, and you will be notified by e-mail to sign up for this
+				payment process.
+				<br><br>
+				It is our intention to make a Saint Ignatius education possible for all families and you are most
+				welcome to apply for financial
+				assistance in future years. Information about next year's assistance process will be available on
+				the SI website in October
+				2023.
+				<br><br>
+				Once again, the Financial Assistance Committee regrets that we were not able to meet your request.
+				We look forward to
+				partnering with you as we provide an exceptional Jesuit education in these next four years.
+			</p>
+
+			</p>
+		</div>
+
+		<div style="margin-top:15px;">
+			<p>Sincerely,</p>
+			<p style="border:0;display:inline-block;">
+				<img style="max-width:205px;" src="{{ asset('admin_assets/logo/signature2.png') }}" />
+			</p>
+			<p>Ken Stupi<br /> VP of Finance & Administration</p>
+
+			<div class='application_download'>
+				<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}/{{ $studentDetail->Application_ID }}' class="btn btn-success text-dark mt-3">Acknowledge</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+@break
+
+
+@case(7)
+<div class="home-wrap">
+	<div class="row">
+		<div class="col-md-4" style="max-width: 133px;">
+			<div class='ntf_image_logo'>
+				<img src="{{ asset('frontend_assets/images/lg2.png') }}" alt="" />
+			</div>
+		</div>
+		<div class="col-md-8" style="max-width: 266px;">
+			<p> St. Ignatius College Preparatory<br>
+				2001 37th Avenue<br>
+				San Francisco, CA 94116<br>
+				(415) 731-7500
+			</p>
+			<p>Office of Admissions</p>
+
+		</div>
+		<p style="text-align:right;"><?php echo getDateFunctions($notification_time); ?></p>
+	</div>
+	<div class="row mt-3">
+
+		<div class="col-md-12">
+			<p><?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name", 'P2_Last_Name'); ?><br>
+				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Street"); ?><br>
+				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_City"); ?>, <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_State"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Zipcode"); ?><br>
+			</p>
+
+		</div>
+	</div>
+
+	<div class="hme-inr" id='ntf-detail'>
+
+
+		<div class='ntf_candidate_detail mt-2'>
+			<p class='ntf_student_name'>Dear <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name"); ?>:</p>
+			<p class='ntf_app_status'>
+			<p>Congratulations! <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_Last_Name"); ?> has
+				been <b>Accepted with Honors</b> to St. Ignatius College
+				Preparatory. Welcome to our school community! We congratulate <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> for the academic
+				diligence that has
+				made this success possible. The entire SI community pledges itself to your child’s intellectual,
+				spiritual, and social
+				development over the next four years. We look forward to your participation and cooperation in this
+				endeavor.
+			</p>
+			<p>
+				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>'s <b>Acceptance with Honors</b>
+				is a distinction reserved for the top 10% of applicants. This honor is
+				based on<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>'s superior academic records and test scores and because of <?php echo getStudentInformation($candidate, $studentJoinsDetail, "his/her"); ?>
+				academic
+				achievements <?php echo getStudentInformation($candidate, $studentJoinsDetail, "he/she"); ?> will automatically be placed in the following Honors course(s):
+				<br>
+				<b>• {Class_Information}
+			</p>
+
+			<p>
+				To reserve a place in the Class of 2027</b>, please click on the <b>Enroll at
+					SI</b> button below and make a <b>deposit</b> of <b>{deposit
+					amount}</b>.
+				As a courtesy to those students on our waitlist, we ask that those who do not intend to register at
+				SI indicate their intention by
+				clicking on the <b>Decline</b> button below. <span style="color:red;">The registration
+					deadline is 6:00 am on March 24, 2023, or the acceptance will be
+					forfeited.
+			</p>
+			<p>Tuition for the 2023-2024 academic year is <b>$31,225</b>. The Business Office will have
+				information on tuition payment plans and
+				schedules in the online registration system. For families who applied for financial assistance, the
+				Business Office has posted
+				the Financial Assistance Committee’s decision in this portal for your reference.
+			</p>
+			<p> We had over <b>1,290</b> applicants apply to St. Ignatius College Preparatory for the
+				Class of 2027. The Admissions Committee was
+				fortunate to have so many qualified applicants to select from in this highly competitive applicant
+				pool. We are excited to have
+				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> as a member of our talented Freshman class.<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>’s acceptance
+				is contingent upon
+				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "his/her"); ?> continued academic performance, good citizenship, and successful completion of eighth
+				grade at
+				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_Current_School"); ?>. It is our intention to see that your student has the academic challenge
+				and individual attention that
+				have been a hallmark of Jesuit education. To this end, we are looking forward to working closely
+				with you and
+				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> over the next four years. Once again, <b>congratulations!</b></p>
+			</p>
+		</div>
+
+		<div style="margin-top:15px;">
+			<p>Sincerely,</p>
+			<p style="border:0;display:inline-block;">
+				<img style="max-width:205px;" src="{{ asset('admin_assets/logo/signature.png') }}" />
+			</p>
+			<p>Ms. Kristy Cahill Jacobson ‘98<br /> Director of Admissions</p>
+
+			
+			<div class="col-md-12">
+				@if($student_status == App\Models\Application::ACCEPTANCE_HONORS && $ntfDetail->notification_type == App\Models\Notification::ACCEPTANCE_HONORS)
+
+
+				@if($candidate == 's1')
+				@if($appStatus->s1_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s1_candidate_status == App\Models\Application::CANDIDATE_READ)
+				<div class="d-flex align-items-center justify-content-between">
+					<div class='application_download'>
+						<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}/{{ $studentDetail->Application_ID }}' class="btn text-dark btn-primary mt-3">Download</a>
+					</div>
+					<div class='student_btns' style=" float: right !important;">
+						<a data-bs-toggle="modal" data-bs-target="#acceptModel" class='btn btn_accept btn-success mt-3 btn-sm text-dark'>Enroll at SI</a>
+						<a data-bs-toggle="modal" data-bs-target="#rejectModel" class='btn btn-sm btn-danger mt-3 text-dark'>Decline Acceptance at SI</a>
+					</div>
+				</div>
+				@else
+				@endif
+
+
+				@endif
+				@if($candidate == 's2')
+				@if($appStatus->s2_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s2_candidate_status == App\Models\Application::CANDIDATE_READ)
+
+				<div class="d-flex align-items-center justify-content-between">
+					<div class='application_download'>
+						<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}/{{ $studentDetail->Application_ID }}' class="btn text-dark btn-primary mt-3">Download</a>
+					</div>
+					<div class='student_btns' style=" float: right !important;">
+						<a data-bs-toggle="modal" data-bs-target="#acceptModel" class='btn btn_accept btn-success mt-3 btn-sm text-dark'>Enroll at SI</a>
+						<a data-bs-toggle="modal" data-bs-target="#rejectModel" class='btn btn-sm btn-danger mt-3 text-dark'>Decline Acceptance at SI</a>
+					</div>
+				</div>
+				@else
+				@endif
+
+
+
+				@endif
+				@if($candidate == 's3')
+				@if($appStatus->s3_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s3_candidate_status == App\Models\Application::CANDIDATE_READ)
+				<div class="d-flex align-items-center justify-content-between">
+					<div class='application_download'>
+						<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}/{{ $studentDetail->Application_ID }}' class="btn text-dark btn-primary mt-3">Download</a>
+					</div>
+					<div class='student_btns' style=" float: right !important;">
+						<a data-bs-toggle="modal" data-bs-target="#acceptModel" class='btn btn_accept btn-success mt-3 btn-sm text-dark'>Enroll at SI</a>
+						<a data-bs-toggle="modal" data-bs-target="#rejectModel" class='btn btn-sm btn-danger mt-3 text-dark'>Decline Acceptance at SI</a>
+					</div>
+				</div>
+				@else
+				@endif
+
+
+				@endif
+				@endif
+			</div>
+
+
+			@if($candidate == 's1')
+
+			@if($appStatus->s1_candidate_status == App\Models\Application::TYPE_ACCEPTED)
+			<div class="col-md-12 text-left mt-4">Congratulations on enrolling as a student in the SI Class of 2027! Please check back here on Monday, March 27th for next steps and registration information.</div>
+			@endif
+			@if($appStatus->s1_candidate_status == App\Models\Application::CANDIDATE_REJECTED)
+			<div class="col-md-12 text-left mt-4">We're sorry to hear about your decision not to accept our offer.</div>
+			@endif
+			@endif
+
+			@if($candidate == 's3')
+
+			@if($appStatus->s3_candidate_status == App\Models\Application::TYPE_ACCEPTED)
+			<div class="col-md-12 text-left mt-4">Congratulations on enrolling as a student in the SI Class of 2027! Please check back here on Monday, March 27th for next steps and registration information.</div>
+			@endif
+			@if($appStatus->s3_candidate_status == App\Models\Application::CANDIDATE_REJECTED)
+			<div class="col-md-12 text-left mt-4">We're sorry to hear about your decision not to accept our offer.</div>
+			@endif
+			@endif
+
+
+			@if($candidate == 's2')
+
+			@if($appStatus->s2_candidate_status == App\Models\Application::TYPE_ACCEPTED)
+			<div class="col-md-12 text-left mt-4">Congratulations on enrolling as a student in the SI Class of 2027! Please check back here on Monday, March 27th for next steps and registration information.</div>
+			@endif
+			@if($appStatus->s2_candidate_status == App\Models\Application::CANDIDATE_REJECTED)
+			<div class="col-md-12 text-left mt-4">We're sorry to hear about your decision not to accept our offer.</div>
+			@endif
+			@endif
+
+		</div>
+	</div>
+</div>
+@break
+
+
+
+@case(8)
+<div class="home-wrap">
+	<div class="row">
+		<div class="col-md-4" style="max-width: 133px;">
+			<div class='ntf_image_logo'>
+				<img src="{{ asset('frontend_assets/images/lg2.png') }}" alt="" />
+			</div>
+		</div>
+		<div class="col-md-8" style="max-width: 266px;">
+			<p> St. Ignatius College Preparatory<br>
+				2001 37th Avenue<br>
+				San Francisco, CA 94116<br>
+				(415) 731-7500
+			</p>
+			<p>Office of Admissions</p>
+
+		</div>
+		<p style="text-align:right;"><?php echo getDateFunctions($notification_time); ?></p>
+	</div>
+	<div class="row mt-3">
+
+		<div class="col-md-12">
+			<p><?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name", 'P2_Last_Name'); ?><br>
+				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Street"); ?><br>
+				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_City"); ?>, <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_State"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Zipcode"); ?><br>
+			</p>
+
+		</div>
+	</div>
+
+	<div class="hme-inr" id='ntf-detail'>
+
+
+		<div class='ntf_candidate_detail mt-2'>
+			<p class='ntf_student_name'>Dear <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name"); ?>:</p>
+			<p class='ntf_app_status'>
+			<p>Congratulations! <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_Last_Name"); ?> has been <b>Accepted with Honors</b> to St. Ignatius College
+				Preparatory. Welcome to our school community! We congratulate <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> for the academic diligence that has
+				made this success possible. The entire SI community pledges itself to your child’s intellectual, spiritual, and social
+				development over the next four years. We look forward to your participation and cooperation in this endeavor.
+			</p>
+			<p>
+				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>'s <b>Acceptance with Honors</b> is a distinction reserved for the top 10% of applicants. This honor is
+				based on<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>'s superior academic records and test scores and because of <?php echo getStudentInformation($candidate, $studentJoinsDetail, "his/her"); ?> academic
+				achievements <?php echo getStudentInformation($candidate, $studentJoinsDetail, "he/she"); ?> will automatically be placed in the following Honors course(s):
+				<br>
+				<b>• {Class_Information}</b>
+			</p>
+
+			<p>
+				The online registration system will be available beginning on March 27, 2023, with additional information, important
+				dates and course information. To access the online registration system, visit <a class="text-primary" href="www.siprepadmissions.org">www.siprepadmissions.org</a> on March 27,
+				2023 using the username and password you used to apply. The registration system will be due on April 3, 2023.
+			</p>
+			<p> <b> To reserve a place in the Class of 2027</b>, please click on the <b>Enroll at SI</b> button below and make a <b>deposit</b> of <b>{deposit amount}.</b>
+				As a courtesy to those students on our waitlist, we ask that those who do not intend to register at SI indicate their intention by
+				clicking on the <b>Decline</b> button below. <span style="color:red;">The registration deadline is 6:00 am on March 24, 2023, or the acceptance will be
+					forfeited.</span>
+			</p>
+			<p> Tuition for the 2023-2024 academic year is <b>$31,225</b>. The Business Office will have information on tuition payment plans and
+				schedules in the online registration system. For families who applied for financial assistance, the Business Office has posted
+				the Financial Assistance Committee’s decision in this portal for your reference.
+			</p>
+			<p>
+				We had over <b>1,290 </b> applicants apply to St. Ignatius College Preparatory for the Class of 2027. The Admissions Committee was
+				fortunate to have so many qualified applicants to select from in this highly competitive applicant pool. We are excited to have
+				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> as a member of our talented Freshman class.<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>’s acceptance is contingent upon
+				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "his/her"); ?> continued academic performance, good citizenship, and successful completion of eighth grade at
+				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_Current_School"); ?>. It is our intention to see that your student has the academic challenge and individual attention that
+				have been a hallmark of Jesuit education. To this end, we are looking forward to working closely with you and
+				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> over the next four years. Once again, <b>congratulations!</b>
+			</p>
+		</div>
+
+		<div style="margin-top:15px;">
+			<p>Sincerely,</p>
+			<p style="border:0;display:inline-block;">
+				<img style="max-width:205px;" src="{{ asset('admin_assets/logo/signature.png') }}" />
+			</p>
+			<p>Ms. Kristy Cahill Jacobson ‘98<br /> Director of Admissions</p>
+
+
+			<div class="col-md-12">
+				@if($student_status == App\Models\Application::ACCEPTANCE_Hon_W_FA_YES && $ntfDetail->notification_type == App\Models\Notification::ACCEPTANCE_Hon_W_FA_YES)
+
+				@if($candidate == 's1')
+				@if($appStatus->s1_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s1_candidate_status == App\Models\Application::CANDIDATE_READ)
+				<!-- <div class='student_btns' style=" float: right !important;">
+					<a data-bs-toggle="modal" data-bs-target="#acceptModel" class='btn btn_accept btn-success mt-3 btn-sm text-dark'>Enroll at SI</a>
+					<a data-bs-toggle="modal" data-bs-target="#rejectModel" class='btn btn-sm btn-danger mt-3 text-dark'>Decline Acceptance at SI</a>
+				</div> -->
+				<div class="d-flex align-items-center justify-content-between">
+					<div class='application_download'>
+						<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}/{{ $studentDetail->Application_ID }}' class="btn text-dark btn-primary mt-3">Download</a>
+					</div>
+					<div class='student_btns' style=" float: right !important;">
+						<a data-bs-toggle="modal" data-bs-target="#acceptModel" class='btn btn_accept btn-success mt-3 btn-sm text-dark'>Enroll at SI</a>
+						<a data-bs-toggle="modal" data-bs-target="#rejectModel" class='btn btn-sm btn-danger mt-3 text-dark'>Decline Acceptance at SI</a>
+					</div>
+				</div>
+				@else
+				@endif
+
+
+				@endif
+				@if($candidate == 's2')
+				@if($appStatus->s2_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s2_candidate_status == App\Models\Application::CANDIDATE_READ)
+				<div class="d-flex align-items-center justify-content-between">
+					<div class='application_download'>
+						<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}/{{ $studentDetail->Application_ID }}' class="btn text-dark btn-primary mt-3">Download</a>
+					</div>
+					<div class='student_btns' style=" float: right !important;">
+						<a data-bs-toggle="modal" data-bs-target="#acceptModel" class='btn btn_accept btn-success mt-3 btn-sm text-dark'>Enroll at SI</a>
+						<a data-bs-toggle="modal" data-bs-target="#rejectModel" class='btn btn-sm btn-danger mt-3 text-dark'>Decline Acceptance at SI</a>
+					</div>
+				</div>
+				@else
+				@endif
+
+
+
+				@endif
+				@if($candidate == 's3')
+				@if($appStatus->s3_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s3_candidate_status == App\Models\Application::CANDIDATE_READ)
+				<div class="d-flex align-items-center justify-content-between">
+					<div class='application_download'>
+						<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}/{{ $studentDetail->Application_ID }}' class="btn text-dark btn-primary mt-3">Download</a>
+					</div>
+					<div class='student_btns' style=" float: right !important;">
+						<a data-bs-toggle="modal" data-bs-target="#acceptModel" class='btn btn_accept btn-success mt-3 btn-sm text-dark'>Enroll at SI</a>
+						<a data-bs-toggle="modal" data-bs-target="#rejectModel" class='btn btn-sm btn-danger mt-3 text-dark'>Decline Acceptance at SI</a>
+					</div>
+				</div>
+				@else
+				@endif
+
+
+				@endif
+				@endif
+			</div>
+
+
+			@if($candidate == 's1')
+
+			@if($appStatus->s1_candidate_status == App\Models\Application::TYPE_ACCEPTED)
+			<div class="col-md-12 text-left mt-4">Congratulations on enrolling as a student in the SI Class of 2027! Please check back here on Monday, March 27th for next steps and registration information.</div>
+			@endif
+			@if($appStatus->s1_candidate_status == App\Models\Application::CANDIDATE_REJECTED)
+			<div class="col-md-12 text-left mt-4">We're sorry to hear about your decision not to accept our offer.</div>
+			@endif
+			@endif
+
+			@if($candidate == 's3')
+
+			@if($appStatus->s3_candidate_status == App\Models\Application::TYPE_ACCEPTED)
+			<div class="col-md-12 text-left mt-4">Congratulations on enrolling as a student in the SI Class of 2027! Please check back here on Monday, March 27th for next steps and registration information.</div>
+			@endif
+			@if($appStatus->s3_candidate_status == App\Models\Application::CANDIDATE_REJECTED)
+			<div class="col-md-12 text-left mt-4">We're sorry to hear about your decision not to accept our offer.</div>
+			@endif
+			@endif
+
+
+			@if($candidate == 's2')
+
+			@if($appStatus->s2_candidate_status == App\Models\Application::TYPE_ACCEPTED)
+			<div class="col-md-12 text-left mt-4">Congratulations on enrolling as a student in the SI Class of 2027! Please check back here on Monday, March 27th for next steps and registration information.</div>
+			@endif
+			@if($appStatus->s2_candidate_status == App\Models\Application::CANDIDATE_REJECTED)
+			<div class="col-md-12 text-left mt-4">We're sorry to hear about your decision not to accept our offer.</div>
+			@endif
+			@endif
+		</div>
+	</div>
+</div>
+@break
+
+
+@case(9)
+<div class="home-wrap">
+	<div class="row">
+		<div class="col-md-4" style="max-width: 133px;">
+			<div class='ntf_image_logo'>
+				<img src="{{ asset('frontend_assets/images/lg2.png') }}" alt="" />
+			</div>
+		</div>
+		<div class="col-md-8" style="max-width: 266px;">
+			<p> St. Ignatius College Preparatory<br>
+				2001 37th Avenue<br>
+				San Francisco, CA 94116<br>
+				(415) 731-7500
+			</p>
+			<p>Office of Admissions</p>
+
+		</div>
+		<p style="text-align:right;"><?php echo getDateFunctions($notification_time); ?></p>
+	</div>
+	<div class="row mt-3">
+
+		<div class="col-md-12">
+			<p><?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name", 'P2_Last_Name'); ?><br>
+				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Street"); ?><br>
+				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_City"); ?>, <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_State"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Zipcode"); ?><br>
+			</p>
+
+		</div>
+	</div>
+
+	<div class="hme-inr" id='ntf-detail'>
+
+
+		<div class='ntf_candidate_detail mt-2'>
+			<p class='ntf_student_name'>Dear <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name"); ?>:</p>
+			<p class='ntf_app_status'>
+			<p>Congratulations! <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_Last_Name"); ?> has
+				been <b>Accepted with Honors</b> to St. Ignatius College
+				Preparatory. Welcome to our school community! We congratulate <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> for the academic
+				diligence that has
+				made this success possible. The entire SI community pledges itself to your child’s intellectual,
+				spiritual, and social
+				development over the next four years. We look forward to your participation and cooperation in this
+				endeavor.
+			</p>
+			<p>
+				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>'s <b>Acceptance with Honors</b>
+				is a distinction reserved for the top 10% of applicants. This honor is
+				based on<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>'s superior academic records and test scores and because of <?php echo getStudentInformation($candidate, $studentJoinsDetail, "his/her"); ?>
+				academic
+				achievements <?php echo getStudentInformation($candidate, $studentJoinsDetail, "he/she"); ?> will automatically be placed in the following Honors course(s):
+				<br>
+				<b>• {Class_Information}</b>
+			</p>
+
+			<p>The online registration system will be available beginning on March 27, 2023, with additional information, important
+				dates and course information. To access the online registration system, visit <a class="text-primary" href="www.siprepadmissions.org"> https://www.siprepadmissions.org.</a> on March 27,
+				2023 using the username and password you used to apply. The registration system will be due on April 3, 2023.</p>
+			<p>
+				<b> To reserve a place in the Class of 2027</b>, please click on the <b>Enroll at
+					SI</b> button below and make a <b>deposit</b> of <b>{deposit
+					amount}</b>.
+				As a courtesy to those students on our waitlist, we ask that those who do not intend to register at
+				SI indicate their intention by
+				clicking on the <b>Decline</b> button below. <span style="color:red;">The registration
+					deadline is 6:00 am on March 24, 2023, or the acceptance will be
+					forfeited.</span>
+			</p>
+
+			<p> Tuition for the 2023-2024 academic year is <b>$31,225</b>. The Business Office will have
+				information on tuition payment plans and
+				schedules in the online registration system. For families who applied for financial assistance, the
+				Business Office has posted
+				the Financial Assistance Committee’s decision in this portal for your reference.
+			</p>
+			<p>
+				We had over <b>1,290</b> applicants apply to St. Ignatius College Preparatory for the
+				Class of 2027. The Admissions Committee was
+				fortunate to have so many qualified applicants to select from in this highly competitive applicant
+				pool. We are excited to have
+				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> as a member of our talented Freshman class.<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>’s acceptance
+				is contingent upon
+				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "his/her"); ?> continued academic performance, good citizenship, and successful completion of eighth
+				grade at
+				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_Current_School"); ?>. It is our intention to see that your student has the academic challenge
+				and individual attention that
+				have been a hallmark of Jesuit education. To this end, we are looking forward to working closely
+				with you and
+				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> over the next four years. Once again, <b>congratulations!</b>
+			</p>
+		</div>
+
+		<div style="margin-top:15px;">
+			<p>Sincerely,</p>
+			<p style="border:0;display:inline-block;">
+				<img style="max-width:205px;" src="{{ asset('admin_assets/logo/signature.png') }}" />
+			</p>
+			<p>Kristy Jacobson<br /> Director of Admissions</p>
+			<p><b style="color: #0086e7;">Financial Assistance Details for <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_Last_Name"); ?></b>
+			</p>
+			<div class='application_download'>
+				<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}/{{ $studentDetail->Application_ID }}' class="btn text-dark btn-primary mt-3">Download</a>
+			</div>
+
+		</div>
+	</div>
+</div>
+@break
+
+
 @default
 No Status yet
 @endswitch
@@ -1419,7 +2057,7 @@ No Status yet
 		})
 		$('#declineAcceptanceAtSI').on('click', function(e) {
 			$('#declineanceServModal').modal('show');
-			
+
 			$('#SurveyDecline').modal('hide');
 		})
 		$('#submit_acceptance_survey').on('click', function(e) {
@@ -1701,8 +2339,6 @@ echo $modal= '<div class="modal fade" id="declineanceServModal" tabindex="-1" ar
 	<div class="modal-dialog survay-accept">
 		<input type="hidden" name="modal_type" value="decline_survay">
 
-
-
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLabel"><span style="color: #a7172f; font-size:22px;">Decline Acceptance at St. Ignatius College Preparatory</span></h5>
@@ -1990,625 +2626,7 @@ echo $modal= '<div class="modal fade" id="declineanceServModal" tabindex="-1" ar
 						<td style="padding: 10px;" width="50%" align="center">
 							<a style="background-color: darkgrey; border: none; padding: 6px 8px; border-radius: 5px; width: 180px;" id="decline_Acceptance_to_SI" class="decline-btn">Decline Acceptance to SI</a>
 
-							<a style="background-color: darkgrey; border: none; padding: 6px 8px; border-radius: 5px; width: 100px;"data-dismiss="modal" class="decline-btn1">Decide Later</a>
-						</td>
-						<td></td>
-					</tr>
-					<tr style="height: 20px;"></tr>
-
-				</table>
-
-
-
-
-			</div>
-
-		</div>
-	</div>
-</div>';
-}
-function getAcceptanceModal(){
-echo $modal ='<div class="modal fade" id="acceptanceServModal" tabindex="	<b>$</b>-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog survay-accept">
-		<input type="hidden" name="modal_type" value="acceptance_survay">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel"><span style="color: #a7172f; font-size:22px;">Reserve TestFirst`s place in the Class of 2027 at SI!</span></h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">
-
-				<table width="100%" cellpadding="0" cellspacing="0" class="table-responsive">
-
-					<tr>
-						<td style="padding: 10px 0;">
-							<p style="font-size: 18px;">Please answer the following questions to assist us in evaluating our admissions process and to complete your registration at St. Ignatius College Preparatory.</p>
-						</td>
-					</tr>
-					<tr>
-						<td style="font-size: 16px; padding: 10px 0;">
-							<b>Please list, in order of preference, the schools to which you applied, the admission decision (accepted/wait listed/not accepted), and Financial Aid or scholarship information, if applicable:</b>
-
-						</td>
-					</tr>
-					<tr>
-						<td style="padding: 10px 0;">
-							<table style="width: 100%;" cellpadding="1">
-								<tr align="left">
-									<th></th>
-									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;">Name of School</th>
-									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;">School`s Decision</th>
-									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;">Applied for Aid</th>
-									<th style="font-weight: 400; font-size: 14px; padding: 0px 5px 0 30px;"></th>
-									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;" colspan="1">Amount of Aid or scholarship Offered</th>
-									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;">Comment</th>
-								</tr>
-
-								<tr>
-									<td>
-										1.
-									</td>
-									<td>
-										<input type="text" name="name_of_School_1" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 150px;">
-									</td>
-									<td>
-										<div class="selector-box">
-											<select id="school_s_Decision_1" name="school_s_Decision_1">
-												<option value="saab">Saab</option>
-												<option value="fiat">Fiat</option>
-												<option value="audi">Audi</option>
-											</select>
-										</div>
-										<!-- <input type="number" style="border-radius: 5px; padding: 5px 10px; width: 120px;  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"> -->
-									</td>
-									<td>
-										<div class="selector-box">
-											<select id="applied_for_Aid_1" name="applied_for_Aid_1">
-												<option value="volvo">Volvo</option>
-												<option value="saab">Saab</option>
-												<option value="fiat">Fiat</option>
-												<option value="audi">Audi</option>
-											</select>
-										</div>
-										<!-- <input type="number" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 100px;"> -->
-									</td>
-									<td style="text-align: center;">
-										<b>$</b>
-									</td>
-									<td>
-										<input type="text" name="amount_of_Aid_or_scholarship_Offered_1" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 100%;  max-width: 265px;">
-									</td>
-									<td>
-										<input type="text" name="comment_1" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 200px;">
-									</td>
-								</tr>
-								<tr>
-									<td>
-										2.
-									</td>
-									<td>
-										<input type="text" name="name_of_School_2" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 150px;">
-									</td>
-									<td>
-										<div class="selector-box">
-											<select id="school_s_Decision_2" name="school_s_Decision_2">
-												<option value="volvo">Volvo</option>
-												<option value="saab">Saab</option>
-												<option value="fiat">Fiat</option>
-												<option value="audi">Audi</option>
-											</select>
-										</div>
-										<!-- <input type="number" style="border-radius: 5px; padding: 5px 10px; width: 120px;  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"> -->
-									</td>
-									<td>
-										<div class="selector-box">
-											<select id="applied_for_Aid_2" name="applied_for_Aid_2">
-												<option value="volvo">Volvo</option>
-												<option value="saab">Saab</option>
-												<option value="fiat">Fiat</option>
-												<option value="audi">Audi</option>
-											</select>
-										</div>
-										<!-- <input type="number" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 100px;"> -->
-									</td>
-									<td style="text-align: center;">
-										<b>$</b>
-									</td>
-									<td><input type="text" name="amount_of_Aid_or_scholarship_Offered_2" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 100%;  max-width: 265px;">
-									</td>
-									<td>
-										<input type="text" name="comment_2" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 200px;">
-									</td>
-								</tr>
-								<tr>
-									<td>
-										3.
-									</td>
-									<td>
-										<input type="text" name="name_of_School_3" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 150px;">
-									</td>
-									<td>
-										<div class="selector-box">
-											<select id="school_s_Decision_3" name="school_s_Decision_3">
-												<option value="volvo">Volvo</option>
-												<option value="saab">Saab</option>
-												<option value="fiat">Fiat</option>
-												<option value="audi">Audi</option>
-											</select>
-										</div>
-										<!-- <input type="number" style="border-radius: 5px; padding: 5px 10px; width: 120px;  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"> -->
-									</td>
-									<td>
-										<div class="selector-box">
-											<select id="applied_for_Aid_3" name="applied_for_Aid_3">
-												<option value="volvo">Volvo</option>
-												<option value="saab">Saab</option>
-												<option value="fiat">Fiat</option>
-												<option value="audi">Audi</option>
-											</select>
-										</div>
-										<!-- <input type="number" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 100px;"> -->
-									</td>
-									<td style="text-align: center;">
-										<b>$</b>
-									</td>
-									<td><input type="text" name="amount_of_Aid_or_scholarship_Offered_3" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px;  width: 100%;  max-width: 265px;">
-									</td>
-									<td>
-										<input type="text" name="comment_3" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 200px;">
-									</td>
-								</tr>
-								<tr>
-									<td>
-										4.
-									</td>
-									<td>
-										<input type="text" name="name_of_School_4" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 150px;">
-									</td>
-									<td>
-										<div class="selector-box">
-											<select id="school_s_Decision_4" name="school_s_Decision_4">
-												<option value="volvo">Volvo</option>
-												<option value="saab">Saab</option>
-												<option value="fiat">Fiat</option>
-												<option value="audi">Audi</option>
-											</select>
-										</div>
-										<!-- <input type="number" style="border-radius: 5px; padding: 5px 10px; width: 120px;  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"> -->
-									</td>
-									<td>
-										<div class="selector-box">
-											<select id="applied_for_Aid_4" name="applied_for_Aid_4">
-												<option value="volvo">Volvo</option>
-												<option value="saab">Saab</option>
-												<option value="fiat">Fiat</option>
-												<option value="audi">Audi</option>
-											</select>
-										</div>
-										<!-- <input type="number" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 100px;"> -->
-									</td>
-
-									<td style="text-align: center;">
-										<b>$</b>
-									</td>
-									<td><input type="text" name="amount_of_Aid_or_scholarship_Offered_4" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 100%;  max-width: 265px;">
-									</td>
-									<td>
-										<input type="text" name="comment_4" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 200px;">
-									</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<tr>
-						<td style="font-size: 18px; padding: 10px 0;">
-							<b>Rank the three most important reasons for not choosing SI:</b>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<table style="width: 100%;" cellpadding="1">
-								<tr>
-									<td style="font-size: 18px; padding: 8px 0; width:30%;">
-										Most Important Reason:
-									</td>
-									<td>
-										<div class="selector-box">
-											<select id="most_Important_Reason" name="most_Important_Reason">
-												<option value="volvo">Volvo</option>
-												<option value="saab">Saab</option>
-												<option value="fiat">Fiat</option>
-												<option value="audi">Audi</option>
-											</select>
-										</div>
-										<!-- <input type="number" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;"> -->
-									</td>
-									<td style="font-size: 18px; padding: 8px  10px 8px 0; text-align:right;">
-										Comment:
-									</td>
-									<td>
-										<input type="text" name="rank_Comment_1" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;">
-									</td>
-								</tr>
-								<tr>
-									<td style="font-size: 18px; padding: 8px 0; width:30%;">
-										Second Most Important Reason:
-									</td>
-									<td>
-										<div class="selector-box">
-											<select id="second_Most_Important_Reason" name="second_Most_Important_Reason">
-												<option value="volvo">Volvo</option>
-												<option value="saab">Saab</option>
-												<option value="fiat">Fiat</option>
-												<option value="audi">Audi</option>
-											</select>
-										</div>
-										<!-- <input type="number" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;"> -->
-									</td>
-									<td style="font-size: 18px; padding: 8px  10px 8px 0; text-align:right;">
-										Comment:
-									</td>
-									<td>
-										<input type="text" name="rank_Comment_2" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;">
-									</td>
-								</tr>
-								<tr>
-									<td style="font-size: 18px; padding: 8px 0; width:30%;">
-										Third Most Important Reason:
-									</td>
-									<td>
-										<div class="selector-box">
-											<select id="third_Most_Important_Reason" name="third_Most_Important_Reason">
-												<option value="volvo">Volvo</option>
-												<option value="saab">Saab</option>
-												<option value="fiat">Fiat</option>
-												<option value="audi">Audi</option>
-											</select>
-										</div>
-										<!-- <input type="number" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;"> -->
-									</td>
-									<td style="font-size: 18px; padding: 8px  10px 8px 0; text-align:right;">
-										Comment:
-									</td>
-									<td>
-										<input type="text" name="rank_Comment_3" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;">
-									</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<tr>
-						<td style="font-size: 18px; padding: 10px 0;">
-							<b>If you attended the SI Open House, Student Visit Program, or any other Admissions event, we would appreciate any comments regarding your experience:</b>
-						</td>
-					</tr>
-					<tr>
-						<td class="text-main">
-							<textarea name="student_Visit_Program" id="student_Visit_Program" cols="53" rows="4"></textarea>
-						</td>
-					</tr>
-					<tr>
-						<td style="font-size: 18px; padding: 10px 0;">
-							<b>Please let us know your thoughts regarding the SI admissions process this year:</b>
-						</td>
-					</tr>
-					<tr>
-						<td class="text-main">
-							<textarea name="admissions_process" id="admissions_process" cols="53" rows="4"></textarea>
-						</td>
-					</tr>
-					<tr>
-						<td style="padding: 20px 0;" align="center" width="50%">
-							<a class="btn btn-secondary" id="submit_acceptance_survey">Continue</a>
-						</td>
-
-					</tr>
-
-				</table>
-
-
-
-
-			</div>
-
-		</div>
-	</div>
-</div>';
-}
-@endphp
-
-
-echo $modal= '<div class="modal fade" id="declineanceServModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog survay-accept">
-
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel"><span style="color: #a7172f; font-size:22px;">Decline Acceptance at St. Ignatius College Preparatory</span></h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">
-
-				<table width="100%" cellpadding="0" cellspacing="0" class="table-responsive">
-					<tr>
-						<td style="padding: 10px 0;">
-							<p style="font-size: 18px;">We truly appreciated your application to St. Ignatius College Preparatory this year. Please answer the following questions to assist us in evaluating our admissions process and to decline your acceptance at St. Ignatius College Preparatory.</p>
-						</td>
-					</tr>
-					<tr>
-						<td style="font-size: 18px; padding: 10px 0;">
-							<b>School that you are planning on attending:</b>
-							<input type="text" name="school_planning_attend" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 400px;">
-						</td>
-					</tr>
-					<tr>
-						<td style="font-size: 18px; padding: 10px 0;">
-							<b>Please list, in order of preference, the schools to which you applied,
-								the admission decision (accepted/wait listed/not accepted), and Financial
-								Aid or scholarship information, if applicable:</b>
-						</td>
-					</tr>
-					<tr>
-						<td style="padding: 10px 0;  width:100%;">
-							<table style="width: 100%;" cellpadding="1">
-								<tr align="left">
-									<th></th>
-									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;">Name of School</th>
-									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;">School`s Decision</th>
-									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;">Applied for Aid</th>
-									<th style="font-weight: 400; font-size: 14px; padding: 0px 5px 0 30px;"></th>
-									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;" colspan="1">Amount of Aid or scholarship Offered</th>
-									<th style="font-weight: 400; font-size: 14px; padding: 0 5px;">Comment</th>
-								</tr>
-
-								<tr>
-									<td>
-										1.
-									</td>
-									<td>
-										<input type="text" name="name_of_School_1" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 150px;">
-									</td>
-									<td>
-										<div class="selector-box">
-											<select id="school_s_Decision_1" name="school_s_Decision_1">
-												<option value="saab">Saab</option>
-												<option value="fiat">Fiat</option>
-												<option value="audi">Audi</option>
-											</select>
-										</div>
-									</td>
-									<td>
-										<div class="selector-box">
-											<select id="applied_for_Aid_1" name="applied_for_Aid_1">
-												<option value="volvo">Volvo</option>
-												<option value="saab">Saab</option>
-												<option value="fiat">Fiat</option>
-												<option value="audi">Audi</option>
-											</select>
-										</div>
-									</td>
-									<td style="text-align: center;">
-										<b>$</b>
-									</td>
-									<td>
-										<input type="text" name="amount_of_Aid_or_scholarship_Offered_1" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px;  width: 100%;  max-width: 265px;">
-									</td>
-									<td>
-										<input type="text" name="comment_1" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 200px;">
-									</td>
-								</tr>
-								<tr>
-									<td>
-										2.
-									</td>
-									<td>
-										<input type="text" name="name_of_School_2" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 150px;">
-									</td>
-									<td>
-										<div class="selector-box">
-											<select id="school_s_Decision_2" name="school_s_Decision_2">
-												<option value="volvo">Volvo</option>
-												<option value="saab">Saab</option>
-												<option value="fiat">Fiat</option>
-												<option value="audi">Audi</option>
-											</select>
-										</div>
-									</td>
-									<td>
-										<div class="selector-box">
-											<select id="applied_for_Aid_2" name="applied_for_Aid_2">
-												<option value="volvo">Volvo</option>
-												<option value="saab">Saab</option>
-												<option value="fiat">Fiat</option>
-												<option value="audi">Audi</option>
-											</select>
-										</div>
-									</td>
-									<td style="text-align: center;">
-										<b>$</b>
-									</td>
-									<td><input type="text" name="amount_of_Aid_or_scholarship_Offered_2" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 100%;  max-width: 265px;">
-									</td>
-									<td>
-										<input type="text" name="comment_2" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 200px;">
-									</td>
-								</tr>
-								<tr>
-									<td>
-										3.
-									</td>
-									<td>
-										<input type="text" name="name_of_School_3" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 150px;">
-									</td>
-									<td>
-										<div class="selector-box">
-											<select id="school_s_Decision_3" name="school_s_Decision_3">
-												<option value="volvo">Volvo</option>
-												<option value="saab">Saab</option>
-												<option value="fiat">Fiat</option>
-												<option value="audi">Audi</option>
-											</select>
-										</div>
-									</td>
-									<td>
-										<div class="selector-box">
-											<select id="applied_for_Aid_3" name="applied_for_Aid_3">
-												<option value="volvo">Volvo</option>
-												<option value="saab">Saab</option>
-												<option value="fiat">Fiat</option>
-												<option value="audi">Audi</option>
-											</select>
-										</div>
-									</td>
-									<td style="text-align: center;">
-										<b>$</b>
-									</td>
-									<td><input type="text" name="amount_of_Aid_or_scholarship_Offered_3" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px;  width: 100%;  max-width: 265px;">
-									</td>
-									<td>
-										<input type="text" name="comment_3" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 200px;">
-									</td>
-								</tr>
-								<tr>
-									<td>
-										4.
-									</td>
-									<td>
-										<input type="text" name="name_of_School_4" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 150px;">
-									</td>
-									<td>
-										<div class="selector-box">
-											<select id="school_s_Decision_4" name="school_s_Decision_4">
-												<option value="volvo">Volvo</option>
-												<option value="saab">Saab</option>
-												<option value="fiat">Fiat</option>
-												<option value="audi">Audi</option>
-											</select>
-										</div>
-									</td>
-									<td>
-										<div class="selector-box">
-											<select id="applied_for_Aid_4" name="applied_for_Aid_4">
-												<option value="volvo">Volvo</option>
-												<option value="saab">Saab</option>
-												<option value="fiat">Fiat</option>
-												<option value="audi">Audi</option>
-											</select>
-										</div>
-									</td>
-
-									<td style="text-align: center;">
-										<b>$</b>
-									</td>
-									<td><input type="text" name="amount_of_Aid_or_scholarship_Offered_4" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px;  width: 100%;  max-width: 265px;">
-									</td>
-									<td>
-										<input type="text" name="comment_4" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 200px;">
-									</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<tr>
-						<td style="font-size: 18px; padding: 10px 0;">
-							<b>Rank the three most important reasons for not choosing SI:</b>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<table style="width: 870px;" cellpadding="1">
-								<tr>
-									<td style="font-size: 18px; padding: 8px 0; width:35%;">
-										Most Important Reason:
-									</td>
-									<td>
-										<div class="selector-box">
-											<select id="most_Important_Reason" name="most_Important_Reason">
-												<option value="volvo">Volvo</option>
-												<option value="saab">Saab</option>
-												<option value="fiat">Fiat</option>
-												<option value="audi">Audi</option>
-											</select>
-										</div>
-									</td>
-									<td style="font-size: 18px; padding: 8px 0;">
-										Comment:
-									</td>
-									<td>
-										<input type="text" name="rank_Comment_1" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;">
-									</td>
-								</tr>
-								<tr>
-									<td style="font-size: 18px; padding: 8px 0; width:35%;">
-										Second Most Important Reason:
-									</td>
-									<td>
-										<div class="selector-box">
-											<select id="second_Most_Important_Reason" name="second_Most_Important_Reason">
-												<option value="volvo">Volvo</option>
-												<option value="saab">Saab</option>
-												<option value="fiat">Fiat</option>
-												<option value="audi">Audi</option>
-											</select>
-										</div>
-									</td>
-									<td style="font-size: 18px; padding: 8px 0;">
-										Comment:
-									</td>
-									<td>
-										<input type="text" name="rank_Comment_2" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;">
-									</td>
-								</tr>
-								<tr>
-									<td style="font-size: 18px; padding: 8px 0; width:35%;">
-										Third Most Important Reason:
-									</td>
-									<td>
-										<div class="selector-box">
-											<select id="third_Most_Important_Reason" name="third_Most_Important_Reason">
-												<option value="volvo">Volvo</option>
-												<option value="saab">Saab</option>
-												<option value="fiat">Fiat</option>
-												<option value="audi">Audi</option>
-											</select>
-										</div>
-									</td>
-									<td style="font-size: 18px; padding: 8px 0;">
-										Comment:
-									</td>
-									<td>
-										<input type="text" name="rank_Comment_3" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;">
-									</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<tr>
-						<td style="font-size: 18px; padding: 10px 0;">
-							<b>If you attended the SI Open House, Student Visit Program, or any other Admissions event, we would appreciate any comments regarding your experience:</b>
-						</td>
-					</tr>
-					<tr>
-						<td class="text-main">
-							<textarea name="visit" id="student_Visit_Program" cols="53" rows="4"></textarea>
-						</td>
-					</tr>
-					<tr>
-						<td style="font-size: 18px; padding: 10px 0;">
-
-							<b>Please let us know your thoughts regarding the SI admissions process this year:</b>
-						</td>
-					</tr>
-					<tr>
-						<td class="text-main">
-							<textarea name="admissions_process" id="admissions_process" cols="53" rows="4"></textarea>
-						</td>
-					</tr>
-					<tr style="height: 20px;"></tr>
-					<tr>
-						<td style="padding: 10px;" width="50%" align="center">
-							<a style="background-color: darkgrey; border: none; padding: 6px 8px; border-radius: 5px; width: 180px;" id="decline_Acceptance_to_SI" class="decline-btn">Decline Acceptance to SI</a>
-
-							<a style="background-color: darkgrey; border: none; padding: 6px 8px; border-radius: 5px; width: 100px;" class="decline-btn1">Decide Later</a>
+							<a style="background-color: darkgrey; border: none; padding: 6px 8px; border-radius: 5px; width: 100px;" data-dismiss="modal" class="decline-btn1">Decide Later</a>
 						</td>
 						<td></td>
 					</tr>
