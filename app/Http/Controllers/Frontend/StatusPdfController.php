@@ -125,7 +125,7 @@ class StatusPdfController extends Controller
                             registration packet will be available on March 27, 2023, with additional information and important
                             dates.
                             To access the online registration packet, visit <a
-                                href=" www.siprepadmissions.org">www.siprepadmissions.org</a> on March 27, 2023 using the
+                                href="https://www.siprepadmissions.org/">www.siprepadmissions.org</a> on March 27, 2023 using the
                             username and password you used to apply.
                         </td>
                     </tr>

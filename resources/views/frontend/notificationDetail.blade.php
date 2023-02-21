@@ -228,10 +228,24 @@ function  getDateFunctions($notification_time)
 
 	return $notification_time;
 }
+
+
+function  setTutionAmount()
+{
+
+	return "$31,225";
+}
+
+function  setDepositAmount()
+{
+	return "$1,500" ;
+}
+
+
 function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Name = '')
 {
 	// dd($studentDetail);
-	if ($studentType == 's1') {
+	if ($studentType == App\Models\Application::STUDENT_S1) {
 		switch ($type) {
 
 			case "Student_First_Name":
@@ -310,15 +324,15 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				break;
 			case "his/her":
 				if ($studentDetail->S1_Gender == "Male") {
-					return "His";
+					return "his";
 				} else {
-					return "Her";
+					return "her";
 				}
 			case "he/she":
 				if ($studentDetail->S1_Gender == "Male") {
-					return "He";
+					return "he";
 				} else {
-					return "She";
+					return "she";
 				}
 				break;
 			default:
@@ -565,15 +579,15 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				will be determined by placement exams to be administered on April 22, 2023. Your online registration
 				packet will include more information on these exams. The online registration packet will be available on
 				March 27, 2023, with additional information and important dates. To access the online registration
-				packet, visit <a style="color: #0086e7;">www.siprepadmissions.org</a> on March 27, 2023 using the
+				packet, visit <a href="https://www.siprepadmissions.org/" style="color: #0086e7;">www.siprepadmissions.org</a> on March 27, 2023 using the
 				username and password you used to apply.</p>
 			<p>To reserve a place in the Class of 2027, please click on the <b>Accept</b> button below and make a
-				<b>deposit</b> of <b>$1,500</b>. As a courtesy to those students on our waitlist, we ask that those who
+				<b>deposit</b> of <b><?php echo setDepositAmount(); ?></b>. As a courtesy to those students on our waitlist, we ask that those who
 				do not intend to register at SI indicate their intention by clicking on the <b>Decline</b> button below.
 				<b style="color:#dc3545;"> The registration deadline is 8:00 am on March 24, 2023, or the acceptance
 					will be forfeited.</b>
 			</p>
-			<p>Tuition for the 2023-2024 academic year is <b>{Tuition_Amount}</b>. The Business Office will have
+			<p>Tuition for the 2023-2024 academic year is <b><?php echo setTutionAmount(); ?></b>. The Business Office will have
 				information on tuition payment plans and schedules in the online registration packet. For families who
 				applied for financial assistance, the Business Office has posted the Financial Assistance Committee’s
 				decision on this website for your reference.</p>
@@ -604,7 +618,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				</div>
 				<div class="col-md-6">
 					@if($student_status == App\Models\Application::TYPE_ACCEPTED && $ntfDetail->notification_type == App\Models\Notification::NOTIFY_ACCEPTED)
-					@if($candidate == 's1')
+					@if($candidate == App\Models\Application::STUDENT_S1)
 					@if($appStatus->s1_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s1_candidate_status == App\Models\Application::CANDIDATE_READ)
 					<div class='student_btns' style=" float: right !important;">
 						<a data-bs-toggle="modal" data-bs-target="#acceptModel" class='btn btn_accept btn-success mt-3 btn-sm'>Enroll at SI</a>
@@ -631,7 +645,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 
 					@endif
 					@endif
-					@if($candidate == 's2')
+					@if($candidate == App\Models\Application::STUDENT_S2)
 					@if($appStatus->s2_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s2_candidate_status == App\Models\Application::CANDIDATE_READ)
 
 					<div class='student_btns' style=" float: right !important;">
@@ -655,7 +669,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 
 					@endif
 					@endif
-					@if($candidate == 's3')
+					@if($candidate == App\Models\Application::STUDENT_S3)
 					@if($appStatus->s3_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s3_candidate_status == App\Models\Application::CANDIDATE_READ)
 					<div class='student_btns' style="float: right !important;">
 						<a data-bs-toggle="modal" data-bs-target="#acceptModel" class='btn btn_accept btn-success mt-3 btn-sm'>Enroll at SI</a>
@@ -679,7 +693,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 					@endif
 					@endif
 				</div>
-				@if($candidate == 's1')
+				@if($candidate == App\Models\Application::STUDENT_S1)
 
 				@if($appStatus->s1_candidate_status == App\Models\Application::TYPE_ACCEPTED)
 				<div class="col-md-12 text-left mt-4">Congratulations on enrolling as a student in the SI Class of 2027! Please check back here on Monday, March 27th for next steps and registration information.</div>
@@ -689,7 +703,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				@endif
 				@endif
 
-				@if($candidate == 's3')
+				@if($candidate == App\Models\Application::STUDENT_S3)
 
 				@if($appStatus->s3_candidate_status == App\Models\Application::TYPE_ACCEPTED)
 				<div class="col-md-12 text-left mt-4">Congratulations on enrolling as a student in the SI Class of 2027! Please check back here on Monday, March 27th for next steps and registration information.</div>
@@ -700,7 +714,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				@endif
 
 
-				@if($candidate == 's2')
+				@if($candidate == App\Models\Application::STUDENT_S2)
 
 				@if($appStatus->s2_candidate_status == App\Models\Application::TYPE_ACCEPTED)
 				<div class="col-md-12 text-left mt-4">Congratulations on enrolling as a student in the SI Class of 2027! Please check back here on Monday, March 27th for next steps and registration information.</div>
@@ -783,7 +797,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 	<div class="row">
 		<div class="col-md-4" style="max-width: 133px;">
 			<div class='ntf_image_logo'>
-				<img src="{{ asset('frontend_assets/images/lg2.png') }}" alt="" />1
+				<img src="{{ asset('frontend_assets/images/lg2.png') }}" alt="" />
 			</div>
 		</div>
 		<div class="col-md-8" style="max-width: 266px;">
@@ -793,6 +807,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				(415) 731-7500
 			</p>
 			<p>Office of Admissions</p>
+
 		</div>
 		<p style="text-align:right;"><?php echo getDateFunctions($notification_time); ?></p>
 	</div>
@@ -802,6 +817,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Street"); ?><br>
 				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_City"); ?>, <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_State"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Zipcode"); ?><br>
 			</p>
+
 		</div>
 	</div>
 
@@ -841,15 +857,18 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				(415) 731-7500
 			</p>
 			<p>Office of Admissions</p>
+
 		</div>
 		<p style="text-align:right;"><?php echo getDateFunctions($notification_time); ?></p>
 	</div>
 	<div class="row mt-3">
+
 		<div class="col-md-12">
 			<p> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name", 'P2_Last_Name'); ?><br>
 				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Street"); ?><br>
 				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_City"); ?>, <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_State"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Zipcode"); ?><br>
 			</p>
+
 		</div>
 	</div>
 
@@ -918,15 +937,15 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				will be determined by placement exams to be administered on April 22, 2023. Your online registration
 				packet will include more information on these exams. The online registration packet will be available on
 				March 27, 2023, with additional information and important dates. To access the online registration
-				packet, visit <a style="color: #0086e7;">www.siprepadmissions.org</a> on March 27, 2023 using the
+				packet, visit <a href="https://www.siprepadmissions.org/" style="color: #0086e7;">www.siprepadmissions.org</a> on March 27, 2023 using the
 				username and password you used to apply.</p>
 			<p>To reserve a place in the Class of 2027, please click on the <b>Accept</b> button below and make a
-				<b>deposit</b> of <b>$1,500</b>. As a courtesy to those students on our waitlist, we ask that those who
+				<b>deposit</b> of <b><?php echo setDepositAmount(); ?></b>. As a courtesy to those students on our waitlist, we ask that those who
 				do not intend to register at SI indicate their intention by clicking on the <b>Decline</b> button below.
 				<b style="color:#dc3545;"> The registration deadline is 8:00 am on March 24, 2023, or the acceptance
 					will be forfeited.</b>
 			</p>
-			<p>Tuition for the 2023-2024 academic year is <b>{Tuition_Amount}</b>. The Business Office will have
+			<p>Tuition for the 2023-2024 academic year is <b><?php echo setTutionAmount(); ?></b>. The Business Office will have
 				information on tuition payment plans and schedules in the online registration packet. For families who
 				applied for financial assistance, the Business Office has posted the Financial Assistance Committee’s
 				decision on this website for your reference.</p>
@@ -942,25 +961,16 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 			</p>
 			</p>
 		</div>
-
-		<div style="margin-top:15px;">Task - On the Dashboard, when the Administrator clicks 
-Des:-on View, make sure it matches the columns for the Users and/or
--Applications page.There are missing buttons in the Home page.
--Admissions Application/View Application, Supplemental Recommendation.
-
-
-Task - If there is only 1 applicant in the application,
-Des:- when the user clicks on Notification button, it should take the  applicant directly to the message.
--If there are 2 or 3 applicants,
--it  should take them to the interim page that lists all of the applicants  with status messages from the Administrator page.
-
-
-Task- In some instances, the URL can be changed.
-Des:- user and the user can see someone else's message.
--Prevent this from  happening.
--Some Accepted messagesd have an Acceptance Survey  button. 
--the should not happen. This only shows up when the user  accepts enrollment and has made a deposit.
--Same with the Decline Survey,  the user should have decline enrollment before seeing the button.
+		
+		<div style="margin-top:15px;">
+			<p>Sincerely,</p>
+			<p style="border:0;display:inline-block;">
+				<img style="max-width:205px;" src="{{ asset('admin_assets/logo/signature.png') }}" />
+			</p>
+			<p>Kristy Jacobson<br /> Director of Admissions</p>
+			<p><b style="color: #0086e7;">Financial Assistance Details for <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_Last_Name"); ?></b>
+			</p>
+			<div class='application_download'>
 				<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}/{{ $studentDetail->Application_ID }}' class="btn btn-primary mt-3">Download</a>
 			</div>
 		</div>
@@ -1006,24 +1016,11 @@ No Status yet
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Please take our survey</h5>Task - On the Dashboard, when the Administrator clicks 
-Des:-on View, make sure it matches the columns for the Users and/or
--Applications page.There are missing buttons in the Home page.
--Admissions Application/View Application, Supplemental Recommendation.
-
-
-Task - If there is only 1 applicant in the application,
-Des:- when the user clicks on Notification button, it should take the  applicant directly to the message.
--If there are 2 or 3 applicants,
--it  should take them to the interim page that lists all of the applicants  with status messages from the Administrator page.
-
-
-Task- In some instances, the URL can be changed.
-Des:- user and the user can see someone else's message.
--Prevent this from  happening.
--Some Accepted messagesd have an Acceptance Survey  button. 
--the should not happen. This only shows up when the user  accepts enrollment and has made a deposit.
--Same with the Decline Survey,  the user should have decline enrollment before seeing the button.
+				<h5 class="modal-title" id="exampleModalLabel">Please take our survey</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				Acceptance at SI
 			</div>
 			<div class="modal-footer">
 				<a id="AcceptanceAtSI" class='btn btn_accept acceptanceAtSI'>Acceptance survey</a>
@@ -1032,20 +1029,6 @@ Des:- user and the user can see someone else's message.
 	</div>
 </div>
 
-<!-- Decline modal -->
-<div class="modal fade" id="DeclineSurvey" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Save Your response</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">
-				Please take our survey
-			</div>
-			<div class="modal-footer">
-				<a id="declineAcceptanceAtSI" data-bs-dismiss="modal" aria-label="Close" class='btn btn_accept'>No</a>
-				<!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">No</button> -->
 
 
 <div class="modal fade" id="SurveyDecline" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -2007,7 +1990,7 @@ echo $modal= '<div class="modal fade" id="declineanceServModal" tabindex="-1" ar
 						<td style="padding: 10px;" width="50%" align="center">
 							<a style="background-color: darkgrey; border: none; padding: 6px 8px; border-radius: 5px; width: 180px;" id="decline_Acceptance_to_SI" class="decline-btn">Decline Acceptance to SI</a>
 
-							<a style="background-color: darkgrey; border: none; padding: 6px 8px; border-radius: 5px; width: 100px;" data-dismiss="modal" class="decline-btn1">Decide Later</a>
+							<a style="background-color: darkgrey; border: none; padding: 6px 8px; border-radius: 5px; width: 100px;"data-dismiss="modal" class="decline-btn1">Decide Later</a>
 						</td>
 						<td></td>
 					</tr>
