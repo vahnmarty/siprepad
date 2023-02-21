@@ -44,7 +44,7 @@ class ApplicationController extends Controller
         $notifications = $this->GlobalNotifiable;
         $registerable = $this->GlobalRegisterable;
         $studentTransfer = $this->GlobalRegisterable;
-        return view('admin.application.index', compact('app', 'notifications', 'registerable','studentTransfer'));
+        return view('admin.application.index', compact('app', 'notifications', 'registerable', 'studentTransfer'));
     }
 
 
@@ -210,8 +210,24 @@ class ApplicationController extends Controller
                 $ntfType = Notification::NOTIFY_REJECTED;
                 break;
             case 5:
-                $message = 'Congratulations ' . ucfirst($firstName) . '' . $lastName . ' ! Your application has been Acceptance With Financial Aid.';
-                $ntfType = Notification::NOTIFY_ACCEPTANCE_FINANCIAL_AID;
+                $message = 'Congratulations ' . ucfirst($firstName) . '' . $lastName . ' ! Your application has been Accepted w/ FA Yes.';
+                $ntfType = Notification::NOTIFY_ACCEPTANCE_FINANCIAL_AID_YES;
+                break;
+            case 6:
+                $message = 'Congratulations ' . ucfirst($firstName) . '' . $lastName . ' ! Your application has been Accepted w/ FA No.';
+                $ntfType = Notification::ACCEPTANCE_FINANCIAL_AID_NO;
+                break;
+            case 7:
+                $message = 'Congratulations ' . ucfirst($firstName) . '' . $lastName . ' ! Your application has been Accepted w/ Honors.';
+                $ntfType = Notification::ACCEPTANCE_HONORS;
+                break;
+            case 8:
+                $message = 'Congratulations ' . ucfirst($firstName) . '' . $lastName . ' ! Your application has been Accepted w/ Hon w/ FA Yes.';
+                $ntfType = Notification::ACCEPTANCE_Hon_W_FA_YES;
+                break;
+            case 9:
+                $message = 'Congratulations ' . ucfirst($firstName) . '' . $lastName . ' ! Your application has been Accepted w/ Hon w/ FA No.';
+                $ntfType = Notification::ACCEPTANCE_Hon_W_FA_NO;
                 break;
             default:
                 $message = 'Nothing';
@@ -284,6 +300,10 @@ class ApplicationController extends Controller
                             return 'Something went wrong';
                         }
                     } else {
+                        if ($checkStatus->s1_candidate_status == Application::CANDIDATE_ACCEPTED || $checkStatus->s1_candidate_status == Application::CANDIDATE_REJECTED) {
+                            return "Something wrong try again";
+                        }
+
                         $checkStatus->update([
                             's1_application_status' => $applicationStatus,
                             's1_notification_id' => null,
@@ -385,6 +405,10 @@ class ApplicationController extends Controller
                             return "Something went wrong";
                         }
                     } else {
+
+                        if ($checkStatus->s2_candidate_status == Application::CANDIDATE_ACCEPTED || $checkStatus->s2_candidate_status == Application::CANDIDATE_REJECTED) {
+                            return "Something wrong try again";
+                        }
                         $checkStatus->update([
                             's2_application_status' => $applicationStatus,
                             's2_notification_id' => null,
@@ -484,6 +508,9 @@ class ApplicationController extends Controller
                             return 'Something went wrong';
                         }
                     } else {
+                        if ($checkStatus->s3_candidate_status == Application::CANDIDATE_ACCEPTED || $checkStatus->s3_candidate_status == Application::CANDIDATE_REJECTED) {
+                            return "Something wrong try again";
+                        }
                         $checkStatus->update([
                             's3_application_status' => $applicationStatus,
                             's3_notification_id' => null,
