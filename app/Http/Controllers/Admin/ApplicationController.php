@@ -267,7 +267,12 @@ class ApplicationController extends Controller
                         DB::commit();
                         return "Application Status has been registered";
                     }
-                } else {
+                } 
+                
+                
+                
+                
+                else {
                     if (empty($checkStatus)) {
                         $setApplicationStatus = new StudentApplicationStatus();
                         $setApplicationStatus->application_id = $appID;

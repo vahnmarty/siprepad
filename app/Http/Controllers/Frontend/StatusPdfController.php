@@ -126,23 +126,21 @@ class StatusPdfController extends Controller
                             dates.
                             To access the online registration packet, visit <a
                                 href="https://www.siprepadmissions.org/">www.siprepadmissions.org</a> on March 27, 2023 using the
-                            username and password you used to apply.
+                            username and password you used to apply. The registration system will be due on April 3, 2023.
                         </td>
                     </tr>
                     <tr>
                         <td width="50%" style="text-align: left;">
-                            To reserve a place in the Class of 2027, please click on the <strong>Accept</strong> button below
-                            and make a <strong>deposit</strong> of <strong>$1,500.</strong>
-                            As a courtesy to those students on our waitlist, we ask that those who do not intend to register at
-                            SI indicate their intention by clicking on the<strong> Decline</strong> button below.
-                            <span style="color:red" ;> The registration deadline is 8:00 am on March 24, 2023, or the acceptance
-                                will be forfeited.</span>
+                        <b>To reserve a place in the Class of 2027</b>, please click on the <b> Enroll at SI</b> button below and make a <b>deposit</b> of {deposit amount}.
+                        As a courtesy to those students on our waitlist, we ask that those who do not intend to register at SI indicate their intention by
+                        clicking on the <b>Decline</b> button below.<b style="color:#dc3545;"> The registration deadline is 8:00 am on March 24, 2023, or the acceptance
+                            will be forfeited.</b>
                         </td>
             
                     </tr>
                     <tr>
                         <td width="50%" style="text-align: left;">
-                            Tuition for the 2023-2024 academic year is <strong> [Tuition_Amount].</strong> The Business Office
+                            Tuition for the 2023-2024 academic year is <strong>'.  self::getTuitionAmount().'.</strong> The Business Office
                             will have information on tuition payment plans and schedules in the online registration packet.
                             For families who applied for financial assistance, the Business Office has posted the Financial
                             Assistance Committee’s decision on this website for your reference.
@@ -151,16 +149,13 @@ class StatusPdfController extends Controller
                     </tr>
                     <tr>
                         <td width="50%" style="text-align: left;">
-                            For your information, we had over <strong>1,290</strong> applicants apply to St. Ignatius College
-                            Preparatory for the Class of 2027.
-                            The Admissions Committee was fortunate to have so many qualified applicants to select from in this
-                            highly competitive applicant pool. We are excited to have ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  as a member of our
-                            talented Freshman class. ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '’s acceptance is contingent upon ' . self::getStudentInformation($studentType, $studentDetail, "his/her") . '  continued
-                            academic performance, good citizenship, and successful completion of eight grade at
-                            ' . self::getStudentInformation($studentType, $studentDetail, "Student_Current_School") . '. It is our intention to see that your child has the academic challenge and
-                            individual attention that have been a hallmark of Jesuit education.
-                            To this end, we are looking forward to working closely with you and ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  over the
-                            next four years. Once again, <strong>congratulations!</strong>
+                        We had over <b> 1,290</b> applicants apply to St. Ignatius College Preparatory for the Class of  2027. The Admissions Committee was
+                        fortunate to have so many qualified applicants to select from in this highly competitive applicant pool. We are excited to have
+                        ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . ' as a member of our talented Freshman class. ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '’s acceptance is contingent upon
+                       ' . self::getStudentInformation($studentType, $studentDetail, "his/her") . ' continued academic performance, good citizenship, and successful completion of eighth grade at
+                        ' . self::getStudentInformation($studentType, $studentDetail, "Student_Current_School") . '. It is our intention to see that your student has the academic challenge and individual attention that
+                        have been a hallmark of Jesuit education. To this end, we are looking forward to working closely with you and
+                        ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . ' over the next four years. Once again,<strong>congratulations!</strong>
             
                     </tr>
             
@@ -188,7 +183,7 @@ class StatusPdfController extends Controller
                 <tr>
                     <td style="padding: 0px; line-height: 15px;">
                         <br>
-                       Kristy Jacobson<br>
+                        Ms. Kristy Cahill Jacobson ‘98<br>
                         Director of Admissions
                     </td>
                 </tr>
@@ -445,14 +440,16 @@ class StatusPdfController extends Controller
 
                 $mpdf->Output();
             } elseif ($getStudentApplicationStatus == Application::ACCEPTANCE_FINANCIAL_AID_YES) {
-                $html = '  <table width="100%" style="font-family: sans-serif;" cellpadding="10">
+                $html = ' <table width="100%" style="font-family: sans-serif;" cellpadding="10">
                 <tr>
-                    <td width="0%" style="border: 0 solid #eee;"> <a href="#" target="_blank"><img src="' .  asset("admin_assets/logo/logo_header2.png") . '"
-                                width="100" height="110" alt="Logo" align="center" border="0"></a></td>
+                    <td width="0%" style="border: 0;"> <a href="#" target="_blank"><img src="' .  asset("admin_assets/logo/logo_header2.png") . '"
+                    width="100" height="110" alt="Logo" align="center" border="0"></a></td>
         
-                    <td width="100%" style="border: 0 solid #eee; text-align: left; font-size: 12px">St. Ignatius College Preparatory<br> 2001
+                    <td width="100%" style="border: 0; text-align: left; font-size: 12px">St. Ignatius College
+                        Preparatory<br> 2001
                         37th Avenue<br>San Francisco, CA 94116<br>(415) 731-7500
-                        <br>  <br><br>Office of Admissions
+                        <br> <br><br>Office of Admissions
+        
                     </td>
                 </tr>
             </table>
@@ -488,74 +485,54 @@ class StatusPdfController extends Controller
             <table class="items" width="100%" style="font-size: 12px; border-collapse: collapse;" cellpadding="8">
                 <thead>
                 <tr>
-                <td width="50%" style="text-align: left;">Dear' . self::getStudentInformation($studentType, $studentDetail, "P1_Salutation") . '  ' . self::getStudentInformation($studentType, $studentDetail, "P1_Last_Name") . '  ' . self::getStudentInformation($studentType, $studentDetail, "P2_Salutation") . ' 
-                    ' . self::getStudentInformation($studentType, $studentDetail, "P2_Last_Name") . ': 
-               </td>
+                <td width="50%" style="text-align: left;">Dear ' . self::getStudentInformation($studentType, $studentDetail, "P1_Salutation") . ' ' . self::getStudentInformation($studentType, $studentDetail, "P1_Last_Name") . ' ' . self::getStudentInformation($studentType, $studentDetail, "P2_Salutation") . ' 
+                    ' . self::getStudentInformation($studentType, $studentDetail, "P2_Last_Name") . ':
+                </td>
             </tr>
                     <tr>
-                        <td width="50%" style="text-align: left;">Congratulations!  ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  ' . self::getStudentInformation($studentType, $studentDetail, "Student_Last_Name") . '  has been <strong>Accepted</strong>  to St. Ignatius College Preparatory.  Welcome to our school community!  We congratulate ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  for the academic diligence that has made this success possible.  The entire SI community pledges itself to your child’s intellectual, spiritual, and social development over the next four years.  We look forward to your participation and cooperation in this endeavor.
+                        <td width="100%" style="text-align: left;">My sincere congratulations to ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  upon
+                            acceptance to the Class of 2027 of St. Ignatius College Preparatory!
                         </td>
                     </tr>
                     <tr>
-                        <td width="50%" style="text-align: left;">' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . ' ’s <strong>Acceptance</strong>  is based on ' . self::getStudentInformation($studentType, $studentDetail, "his/her") . ' academic achievements and the gifts ' . self::getStudentInformation($studentType, $studentDetail, "he/she") . ' will be to the SI community.  Placement in Honors level courses for math and foreign language will be determined by placement exams to be administered on April 22, 2023.  Your online registration packet will include more information on these exams.  The online registration packet will be available on March 27, 2023, with additional information and important dates.  To access the online registration packet, visit <a href="www.siprepadmissions">www.siprepadmissions</a>.org on March 27, 2023 using the username and password you used to apply.
+                        <td width="100%" style="text-align: left;">Your financial aid has been approved. You will receive
+                            {Financial Aid Amount} a year for the next four years, for a total of
+                            {Total Financial Aid Amount}. Your registration fee for Freshman year will be {Registration Fee}.
                         </td>
                     </tr>
                     <tr>
-                        <td width="50%" style="text-align: left;">
-                            To reserve a place in the Class of 2027, please click on the <strong>Accept</strong> button below and make a <strong>deposit</strong>  of <strong>$1,500.</strong>  As a courtesy to those students on our waitlist, we ask that those who do not intend to register at SI indicate their intention by clicking on the <strong>Decline</strong> button below.  The registrationdeadline is 8:00 am on March 24, 2023, or the acceptance will be forfeited. <span style="color:red" ;> The registration deadline is 8:00 am on March 24, 2023, or the acceptance will be forfeited.</span>
+                        <td width="100%" style="text-align: left;">We look forward to partnering with you as we provide an
+                            exceptional Jesuit education in the next four years.
                         </td>
-        
                     </tr>
-                    <tr>
-                        <td width="50%" style="text-align: left;">
-                            Tuition for the 2023-2024 academic year is <strong>{Tuition_Amount}</strong>.The Business Office will have information on tuition payment plans and schedules in the online registration packet.  For families who applied for financial assistance, the Business Office has posted the Financial Assistance Committee’s decision on this website for your reference.
-                        </td>
-        
-                    </tr>
-                    <tr>
-                        <td width="50%" style="text-align: left;">
-                            For your information, we had over <strong>1,290</strong> applicants apply to St. Ignatius College Preparatory for the Class of 2027.  The Admissions Committee was fortunate to have so many qualified applicants to select from in this highly competitive applicant pool.  We are excited to have ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  as a member of our talented Freshman class.  ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . ' ’s acceptance is contingent upon ' . self::getStudentInformation($studentType, $studentDetail, "his/her") . ' continued academic performance, good citizenship, and successful completion of eight grade at ' . self::getStudentInformation($studentType, $studentDetail, "Student_Current_School") . '.  It is our intention to see that your child has the academic challenge and individual attention that have been a hallmark of Jesuit education.  To this end, we are looking forward to working closely with you and ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  over the next four years.  Once again, <strong>congratulations!</strong> 
-                        </td>
-        
-                    </tr>
-        
                 </thead>
         
             </table>
         
-            <table width="10%" style="font-family: sans-serif; font-size: 12px;">
+            <table width="100%" style="font-family: sans-serif; font-size: 12px;">
         
                 <tr>
-                    <td style="padding: 0px; line-height: 20px;">
+                    <td style="padding: 10px; line-height: 20px;">
                         Sincerely,
                         <br>
                     </td>
                 </tr>
                 <tr>
                     <td style="padding: 10px; line-height: 20px; border:0;">
-                        <a href="#" target="_blank"><img src="' .  asset("admin_assets/logo/signature.png") . '"
-                            width="100" height="70" alt="Logo" align="center" border="0"  style="object-fit: contain;"></a> 
+                        <a href="#" target="_blank"><img src="' .  asset("admin_assets/logo/signature2.png") . '"
+                        width="100" height="110" alt="Logo" align="center" border="0"></a>
                     </td>
                 </tr>
                 <br>
                 <tr>
-                    <td style="padding: 0px; line-height: 20px;">
+                    <td style="padding: 10px; line-height: 20px;">
                         <br>
-                        Kristy Jacobson<br>
-                        Director of Admissions
+                        Ken Stupi<br>
+                        VP of Finance & Administration
                     </td>
                 </tr>
         
-            </table>
-        
-            <table width="40%" style="font-family: sans-serif; font-size: 12px;">
-            <tr>
-                    
-                <td>      
-               <span style="color:rgb(32, 143, 234); font-weight: bold;" >Financial Assistance Details for ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  ' . self::getStudentInformation($studentType, $studentDetail, "Student_Last_Name") . '</span> </td>
-        
-        </tr>
-        </table>';
+            </table>';
                 $mpdf = new \Mpdf\Mpdf();
 
                 $mpdf->SetTitle("Application Status");
@@ -770,6 +747,14 @@ class StatusPdfController extends Controller
                                 achievements {he/she} will automatically be placed in the following Honors course(s):
                                 <br> <b>• {Class_Information}</b>
                             </td>
+                        </tr>
+                        <tr>
+                            <td width="50%" style="text-align: left;">
+                                The online registration system will be available beginning on March 27, 2023, with additional information, important
+                                dates and course information. To access the online registration system, visit <a href="www.siprepadmissions.org">www.siprepadmissions.org</a> on March 27,
+                                2023 using the username and password you used to apply. The registration system will be due on April 3, 2023.
+                            </td>
+            
                         </tr>
                         <tr>
                             <td width="50%" style="text-align: left;">
@@ -1150,6 +1135,11 @@ class StatusPdfController extends Controller
         $notification_time = $monthName . ' ' . $date . ', ' . $year;
         return $notification_time;
     }
+    function getTuitionAmount()
+    {
+        return "$31,225";
+    }
+
     private function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Name = '')
     {
         // dd($studentDetail);
@@ -1332,13 +1322,13 @@ class StatusPdfController extends Controller
                     return ucwords($studentDetail->S1_Current_School);
                     break;
                 case "his/her":
-                    if ($studentDetail->S1_Gender == "Male") {
+                    if ($studentDetail->S2_Gender == "Male") {
                         return "his";
                     } else {
                         return "her";
                     }
                 case "he/she":
-                    if ($studentDetail->S1_Gender == "Male") {
+                    if ($studentDetail->S2_Gender == "Male") {
                         return "he";
                     } else {
                         return "she";
@@ -1425,13 +1415,13 @@ class StatusPdfController extends Controller
                     return ucwords($studentDetail->S1_Current_School);
                     break;
                 case "his/her":
-                    if ($studentDetail->S1_Gender == "Male") {
+                    if ($studentDetail->S3_Gender == "Male") {
                         return "his";
                     } else {
                         return "her";
                     }
                 case "he/she":
-                    if ($studentDetail->S1_Gender == "Male") {
+                    if ($studentDetail->S3_Gender == "Male") {
                         return "he";
                     } else {
                         return "she";

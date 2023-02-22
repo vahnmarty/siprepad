@@ -525,6 +525,10 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 	}
 }
 
+function getTuitionAmount()
+{
+	return "$31,225";
+}
 ?>
 <div class="loading" style="display: none;">Loading</div>
 @switch($ntfDetail->notification_type)
@@ -569,25 +573,21 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				packet will include more information on these exams. The online registration packet will be available on
 				March 27, 2023, with additional information and important dates. To access the online registration
 				packet, visit <a style="color: #0086e7;">www.siprepadmissions.org</a> on March 27, 2023 using the
-				username and password you used to apply.</p>
-			<p>To reserve a place in the Class of 2027, please click on the <b>Accept</b> button below and make a
-				<b>deposit</b> of <b>$1,500</b>. As a courtesy to those students on our waitlist, we ask that those who
-				do not intend to register at SI indicate their intention by clicking on the <b>Decline</b> button below.
-				<b style="color:#dc3545;"> The registration deadline is 8:00 am on March 24, 2023, or the acceptance
+				username and password you used to apply. The registration system will be due on April 3, 2023.</p>
+			<p><b>To reserve a place in the Class of 2027</b>, please click on the <b> Enroll at SI</b> button below and make a <b>deposit</b> of {deposit amount}.
+				As a courtesy to those students on our waitlist, we ask that those who do not intend to register at SI indicate their intention by
+				clicking on the <b>Decline</b> button below.<b style="color:#dc3545;"> The registration deadline is 8:00 am on March 24, 2023, or the acceptance
 					will be forfeited.</b>
 			</p>
-			<p>Tuition for the 2023-2024 academic year is <b>{Tuition_Amount}</b>. The Business Office will have
+			<p>Tuition for the 2023-2024 academic year is <b><?php echo getTuitionAmount() ?></b>. The Business Office will have
 				information on tuition payment plans and schedules in the online registration packet. For families who
 				applied for financial assistance, the Business Office has posted the Financial Assistance Committee’s
 				decision on this website for your reference.</p>
-			<p>For your information, we had over <b>1,290</b> applicants apply to St. Ignatius College Preparatory for
-				the Class of 2027. The Admissions Committee was fortunate to have so many qualified applicants to select
-				from in this highly competitive applicant pool. We are excited to have <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> as a member
-				of our talented Freshman class. <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>’s acceptance is contingent upon <?php echo getStudentInformation($candidate, $studentJoinsDetail, "his/her"); ?> continued
-				academic performance, good citizenship, and successful completion of eight grade at
-				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_Current_School"); ?>. It is our intention to see that your child has the academic challenge and
-				individual attention that have been a hallmark of Jesuit education. To this end, we are looking forward
-				to working closely with you and <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> over the next four years. Once again,
+			<p>We had over <b> 1,290</b> applicants apply to St. Ignatius College Preparatory for the Class of 2027. The Admissions Committee was
+				fortunate to have so many qualified applicants to select from in this highly competitive applicant pool. We are excited to have <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>as a member of our talented Freshman class.<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>’s acceptance is contingent upon <?php echo getStudentInformation($candidate, $studentJoinsDetail, "his/her"); ?>acceptance is contingent upon
+				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "his/her"); ?> continued academic performance, good citizenship, and successful completion of eighth grade at
+				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_Current_School"); ?>.It is our intention to see that your student has the academic challenge and individual attention that
+				have been a hallmark of Jesuit education. To this end, we are looking forward to working closely with you and <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> over the next four years. Once again,
 				<b>congratulations!</b>
 			</p>
 			</p>
@@ -597,13 +597,12 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 			<p style="border:0;display:inline-block;">
 				<img style="max-width:205px;" src="{{ asset('admin_assets/logo/signature.png') }}" />
 			</p>
-			<p>Kristy Jacobson<br /> Director of Admissions</p>
+			<p>Ms. Kristy Cahill Jacobson ‘98<br /> Director of Admissions</p>
 			<div class="row">
 				<div class="col-md-6">
 					<div class='application_download' style="float: left !important;">
 						<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}/{{ $studentDetail->Application_ID }}' class="btn text-dark btn-primary mt-3">Download</a>
 					</div>
-
 				</div>
 				<div class="col-md-6">
 					@if($student_status == App\Models\Application::TYPE_ACCEPTED && $ntfDetail->notification_type == App\Models\Notification::NOTIFY_ACCEPTED)
@@ -622,7 +621,6 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 					@php
 					getAcceptanceModal();
 					@endphp
-
 					@endif
 					@if($appStatus->s1_candidate_status == App\Models\Application::CANDIDATE_REJECTED)
 					@php
@@ -630,8 +628,6 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 					@endphp
 					<div class="col-md-12 text-center" style="text-align: right!important"></div>
 					<div class="col-md-12 text-center" style="text-align: right!important"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#SurveyDecline" class='btn btn_accept btn-success  mt-3 btn-sm'>Decline Survey</a></div>
-
-
 					@endif
 					@endif
 					@if($candidate == 's2')
@@ -934,7 +930,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				<b style="color:#dc3545;"> The registration deadline is 8:00 am on March 24, 2023, or the acceptance
 					will be forfeited.</b>
 			</p>
-			<p>Tuition for the 2023-2024 academic year is <b>{Tuition_Amount}</b>. The Business Office will have
+			<p>Tuition for the 2023-2024 academic year is <b><?php echo getTuitionAmount() ?></b>. The Business Office will have
 				information on tuition payment plans and schedules in the online registration packet. For families who
 				applied for financial assistance, the Business Office has posted the Financial Assistance Committee’s
 				decision on this website for your reference.</p>
@@ -1181,6 +1177,8 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				development over the next four years. We look forward to your participation and cooperation in this
 				endeavor.
 			</p>
+
+
 			<p>
 				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>'s <b>Acceptance with Honors</b>
 				is a distinction reserved for the top 10% of applicants. This honor is
@@ -1191,36 +1189,45 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				<b>• {Class_Information}
 			</p>
 
-			<p>
-				To reserve a place in the Class of 2027</b>, please click on the <b>Enroll at
-					SI</b> button below and make a <b>deposit</b> of <b>{deposit
-					amount}</b>.
-				As a courtesy to those students on our waitlist, we ask that those who do not intend to register at
-				SI indicate their intention by
-				clicking on the <b>Decline</b> button below. <span style="color:red;">The registration
-					deadline is 6:00 am on March 24, 2023, or the acceptance will be
-					forfeited.
+
 			</p>
-			<p>Tuition for the 2023-2024 academic year is <b>$31,225</b>. The Business Office will have
-				information on tuition payment plans and
-				schedules in the online registration system. For families who applied for financial assistance, the
-				Business Office has posted
-				the Financial Assistance Committee’s decision in this portal for your reference.
+			</b>
+			<p>The online registration system will be available beginning on March 27, 2023, with additional information, important
+				dates and course information. To access the online registration system, visit <a class="text-primary" href="www.siprepadmissions.org">www.siprepadmissions.org</a> on March 27,
+				2023 using the username and password you used to apply. The registration system will be due on April 3, 2023.
 			</p>
-			<p> We had over <b>1,290</b> applicants apply to St. Ignatius College Preparatory for the
-				Class of 2027. The Admissions Committee was
-				fortunate to have so many qualified applicants to select from in this highly competitive applicant
-				pool. We are excited to have
-				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> as a member of our talented Freshman class.<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>’s acceptance
-				is contingent upon
-				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "his/her"); ?> continued academic performance, good citizenship, and successful completion of eighth
-				grade at
-				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_Current_School"); ?>. It is our intention to see that your student has the academic challenge
-				and individual attention that
-				have been a hallmark of Jesuit education. To this end, we are looking forward to working closely
-				with you and
-				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> over the next four years. Once again, <b>congratulations!</b></p>
-			</p>
+			<b>
+				<p>
+					To reserve a place in the Class of 2027
+			</b>, please click on the <b>Enroll at
+				SI</b> button below and make a <b>deposit</b> of <b>{deposit
+				amount}</b>.
+			As a courtesy to those students on our waitlist, we ask that those who do not intend to register at
+			SI indicate their intention by
+			clicking on the <b>Decline</b> button below. <span style="color:red;">The registration
+				deadline is 6:00 am on March 24, 2023, or the acceptance will be
+				forfeited.
+				</p>
+				<p>Tuition for the 2023-2024 academic year is <b>$31,225</b>. The Business Office will have
+					information on tuition payment plans and
+					schedules in the online registration system. For families who applied for financial assistance, the
+					Business Office has posted
+					the Financial Assistance Committee’s decision in this portal for your reference.
+				</p>
+				<p> We had over <b>1,290</b> applicants apply to St. Ignatius College Preparatory for the
+					Class of 2027. The Admissions Committee was
+					fortunate to have so many qualified applicants to select from in this highly competitive applicant
+					pool. We are excited to have
+					<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> as a member of our talented Freshman class.<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>’s acceptance
+					is contingent upon
+					<?php echo getStudentInformation($candidate, $studentJoinsDetail, "his/her"); ?> continued academic performance, good citizenship, and successful completion of eighth
+					grade at
+					<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_Current_School"); ?>. It is our intention to see that your student has the academic challenge
+					and individual attention that
+					have been a hallmark of Jesuit education. To this end, we are looking forward to working closely
+					with you and
+					<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> over the next four years. Once again, <b>congratulations!</b></p>
+				</p>
 		</div>
 
 		<div style="margin-top:15px;">
@@ -1230,7 +1237,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 			</p>
 			<p>Ms. Kristy Cahill Jacobson ‘98<br /> Director of Admissions</p>
 
-			
+
 			<div class="col-md-12">
 				@if($student_status == App\Models\Application::ACCEPTANCE_HONORS && $ntfDetail->notification_type == App\Models\Notification::ACCEPTANCE_HONORS)
 
