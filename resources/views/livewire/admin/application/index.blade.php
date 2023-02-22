@@ -73,10 +73,7 @@
                         </div>
                     </th>
                 </tr>
-
             </x-slot>
-
-
             @php
             $lastId = null;
             $rowClass = 'grey';
@@ -100,13 +97,7 @@
 
                 $getApplicationStatus = App\Models\StudentApplicationStatus::where('application_id', $getApplication->Application_ID)
                 ->where('profile_id', $getApplication->Profile_ID)->first();
-
-
-
-
                 @endphp
-
-
                 <tr role="row" class="odd {{ $rowClass }}">
                     <td>{{ ucfirst($student['First_Name']) ?? '---' }}</td>
                     <td>{{ ucfirst($student['Last_Name']) ?? '---' }}</td>
@@ -183,7 +174,6 @@
 
                         </select>
 
-
                         @break
                         @case(4)
                         <select name='candidate-status' required class='state_select-box'>
@@ -213,10 +203,7 @@
                             <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
                             <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
                         </select>
-
                         @break
-
-
                         @case(6)
                         <select name='candidate-status' required class='state_select-box'>
                             <option value='' disabled>Select</option>
@@ -230,11 +217,7 @@
                             <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
                             <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
                         </select>
-
                         @break
-
-
-
                         @case(7)
                         <select name='candidate-status' required class='state_select-box'>
                             <option value='' disabled>Select</option>
@@ -250,10 +233,6 @@
                         </select>
 
                         @break
-
-
-
-
                         @case(8)
                         <select name='candidate-status' required class='state_select-box'>
                             <option value='' disabled>Select</option>
@@ -889,3 +868,4 @@
             </x-slot>
 
     </x-admin.table>
+    
