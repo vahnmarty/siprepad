@@ -626,7 +626,7 @@
                         <select name='candidate-status' required class='state_select-box'>
                             <option value='' disabled>Select</option>
                             <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
-                            <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID_YES}}'selected>Accepted w/ FA Yes</option>
+                            <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID_YES}}' selected>Accepted w/ FA Yes</option>
                             <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID_NO}}'>Accepted w/ FA No</option>
                             <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::ACCEPTANCE_HONORS}}'>Accepted w/ Honors</option>
                             <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::ACCEPTANCE_Hon_W_FA_YES}}'>Accepted w/ Hon w/ FA Yes</option>
@@ -644,7 +644,7 @@
                             <option value='' disabled>Select</option>
                             <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
                             <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID_YES}}'>Accepted w/ FA Yes</option>
-                            <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID_NO}}'selected>Accepted w/ FA No</option>
+                            <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID_NO}}' selected>Accepted w/ FA No</option>
                             <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::ACCEPTANCE_HONORS}}'>Accepted w/ Honors</option>
                             <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::ACCEPTANCE_Hon_W_FA_YES}}'>Accepted w/ Hon w/ FA Yes</option>
                             <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::ACCEPTANCE_Hon_W_FA_NO}}'>Accepted w/ Hon w/ FA No</option>
@@ -660,7 +660,7 @@
                             <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_ACCEPTED}}'>Accepted</option>
                             <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID_YES}}'>Accepted w/ FA Yes</option>
                             <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID_NO}}'>Accepted w/ FA No</option>
-                            <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::ACCEPTANCE_HONORS}}'selected>Accepted w/ Honors</option>
+                            <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::ACCEPTANCE_HONORS}}' selected>Accepted w/ Honors</option>
                             <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::ACCEPTANCE_Hon_W_FA_YES}}'>Accepted w/ Hon w/ FA Yes</option>
                             <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::ACCEPTANCE_Hon_W_FA_NO}}'>Accepted w/ Hon w/ FA No</option>
                             <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
@@ -676,7 +676,7 @@
                             <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID_YES}}'>Accepted w/ FA Yes</option>
                             <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID_NO}}'>Accepted w/ FA No</option>
                             <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::ACCEPTANCE_HONORS}}'>Accepted w/ Honors</option>
-                            <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::ACCEPTANCE_Hon_W_FA_YES}}'selected>Accepted w/ Hon w/ FA Yes</option>
+                            <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::ACCEPTANCE_Hon_W_FA_YES}}' selected>Accepted w/ Hon w/ FA Yes</option>
                             <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::ACCEPTANCE_Hon_W_FA_NO}}'>Accepted w/ Hon w/ FA No</option>
                             <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
                             <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
@@ -692,7 +692,7 @@
                             <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID_NO}}'>Accepted w/ FA No</option>
                             <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::ACCEPTANCE_HONORS}}'>Accepted w/ Honors</option>
                             <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::ACCEPTANCE_Hon_W_FA_YES}}'>Accepted w/ Hon w/ FA Yes</option>
-                            <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::ACCEPTANCE_Hon_W_FA_NO}}'selected>Accepted w/ Hon w/ FA No</option>
+                            <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::ACCEPTANCE_Hon_W_FA_NO}}' selected>Accepted w/ Hon w/ FA No</option>
                             <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
                             <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
                             <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
