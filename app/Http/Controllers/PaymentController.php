@@ -239,21 +239,21 @@ class PaymentController extends Controller
             $name = ucfirst($studentname->S1_First_Name) . ' ' . ucfirst($studentname->S1_Last_name);
             $email = $studentname->S1_Personal_Email;
             $DOB = $studentname->S1_Birthdate;
-            $student_type = 's1';
+            $student_type = Application::STUDENT_S1;
         }
         if ($ntfDetail->student_profile == 'student_two') {
             $studentname = StudentInformation::where('Application_ID', $ntfDetail->application_id)->select('S2_First_Name', 'S2_Last_name', 'S2_Personal_Email', 'S2_Birthdate')->first();
             $name = ucfirst($studentname->S2_First_Name) . ' ' . ucfirst($studentname->S2_Last_name);
             $email = $studentname->S2_Personal_Email;
             $DOB = $studentname->S2_Birthdate;
-            $student_type = 's2';
+            $student_type = Application::STUDENT_S2;
         }
         if ($ntfDetail->student_profile == 'student_three') {
             $studentname = StudentInformation::where('Application_ID', $ntfDetail->application_id)->select('S3_First_Name', 'S3_Last_name', 'S3_Personal_Email', 'S3_Birthdate')->first();
             $name = ucfirst($studentname->S3_First_Name) . ' ' . ucfirst($studentname->S3_Last_name);
             $email = $studentname->S3_Personal_Email;
             $DOB = $studentname->S3_Birthdate;
-            $student_type = 's3';
+            $student_type = Application::STUDENT_S3;
         }
         if ($response != null) {
             if ($response->getMessages()->getResultCode() == "Ok") {

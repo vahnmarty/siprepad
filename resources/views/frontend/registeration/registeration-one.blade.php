@@ -19,8 +19,6 @@
 	@else
 	<?php $studentProfileOne = ''; ?>
 	@endif
-
-
 	@elseif($getApplicationStatus->s1_application_status==App\Models\Application::ACCEPTANCE_FINANCIAL_AID_YES && $getApplicationStatus->s1_candidate_status==App\Models\Application::CANDIDATE_ACCEPTED)
 	@if(array_key_exists(App\Models\Application::STUDENT_S1,$StudentApplicationStatusResults))
 	@if($StudentApplicationStatusResults[App\Models\Application::STUDENT_S1]==App\Models\Application::STUDENT_S1)
@@ -34,13 +32,6 @@
 	@else
 	<?php $studentProfileOne = ''; ?>
 	@endif
-
-
-
-
-
-
-
 	@if($getApplicationStatus->s2_application_status==App\Models\Application::CANDIDATE_ACCEPTED && $getApplicationStatus->s2_candidate_status==App\Models\Application::CANDIDATE_ACCEPTED)
 	@if(array_key_exists(App\Models\Application::STUDENT_S2,$StudentApplicationStatusResults))
 	@if($StudentApplicationStatusResults[App\Models\Application::STUDENT_S2]==App\Models\Application::STUDENT_S2)
@@ -61,13 +52,10 @@
 	@else
 	<?php $studentProfileTwo = ''; ?>
 	@endif
-	
-	
 	@else
 	<?php $studentProfileTwo = ''; ?>
 	@endif
 	@if($getApplicationStatus->s3_application_status==App\Models\Application::CANDIDATE_ACCEPTED && $getApplicationStatus->s3_candidate_status==App\Models\Application::CANDIDATE_ACCEPTED)
-	
 	@if(array_key_exists(App\Models\Application::STUDENT_S3,$StudentApplicationStatusResults))
 	@if($StudentApplicationStatusResults[App\Models\Application::STUDENT_S3]==App\Models\Application::STUDENT_S3)
 	<?php $studentProfileThree = App\Models\Application::STUDENT_THREE; ?>
@@ -78,9 +66,6 @@
 	<?php $studentProfileThree = ''; ?>
 	@endif
 	@elseif($getApplicationStatus->s3_application_status==App\Models\Application::ACCEPTANCE_FINANCIAL_AID_YES && $getApplicationStatus->s3_candidate_status==App\Models\Application::CANDIDATE_ACCEPTED)
-
-
-	
 	@if(array_key_exists(App\Models\Application::STUDENT_S3,$StudentApplicationStatusResults))
 	@if($StudentApplicationStatusResults[App\Models\Application::STUDENT_S3]==App\Models\Application::STUDENT_S3)
 	<?php $studentProfileThree = App\Models\Application::STUDENT_THREE; ?>
@@ -203,8 +188,6 @@
 									@enderror
 								</div>
 							</div>
-
-
 						</div>
 						<div class="multiracial mb-3">
 							<span>How do you identify racially ? If more than one select separate
@@ -277,8 +260,6 @@
 						</div>
 						@endif
 						@if($studentProfileTwo == App\Models\Application::STUDENT_TWO)
-
-
 						@if(!empty($studentinfo->S2_First_Name))
 						<div class=student-2>
 
@@ -368,9 +349,7 @@
 										@enderror
 									</div>
 								</div>
-
 							</div>
-
 							<div class="row">
 								<div class="col-md-4">
 									<div class="form-group">
@@ -385,8 +364,6 @@
 										@enderror
 									</div>
 								</div>
-
-
 							</div>
 							<div class="multiracial mb-3">
 								<span>How do you identify racially ? If more than one select separate
@@ -395,7 +372,6 @@
 
 								</span>
 							</div>
-
 							<div class="row">
 								<div class="col-md-4">
 									<div class="form-group">
@@ -404,9 +380,7 @@
 										@enderror
 
 									</div>
-
 								</div>
-
 							</div>
 
 							<!-- 						<div class="form-group"> -->
@@ -489,7 +463,6 @@
 										@enderror
 									</div>
 								</div>
-
 							</div>
 							<div class="row">
 								<div class="col-md-4">
@@ -545,9 +518,7 @@
 										@enderror
 									</div>
 								</div>
-
 							</div>
-
 							<div class="row">
 								<div class="col-md-4">
 									<div class="form-group">
@@ -563,8 +534,6 @@
 										@enderror
 									</div>
 								</div>
-
-
 							</div>
 							<div class="multiracial mb-3">
 								<span>How do you identify racially ? If more than one select separate
@@ -582,9 +551,7 @@
 										@enderror
 
 									</div>
-
 								</div>
-
 							</div>
 
 							<!-- 						<div class="form-group"> -->
@@ -632,7 +599,6 @@
 								</div>
 							</div>
 						</div>
-
 						@endif
 						@endif
 					</div>
@@ -643,7 +609,6 @@
 		<div class="form-btn text-end mt">
 			<button type="submit" value="Next" class="sub-btn">Next/Save</button>
 		</div>
-
 	</div>
 </form>
 @endsection @push('js') @endpush

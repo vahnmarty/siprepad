@@ -235,7 +235,7 @@ function  getDateFunctions($notification_time)
 function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Name = '')
 {
 	// dd($studentDetail);
-	if ($studentType == 's1') {
+	if ($studentType == App\Models\Application::STUDENT_S1) {
 		switch ($type) {
 
 			case "Student_First_Name":
@@ -572,7 +572,7 @@ function getTuitionAmount()
 				will be determined by placement exams to be administered on April 22, 2023. Your online registration
 				packet will include more information on these exams. The online registration packet will be available on
 				March 27, 2023, with additional information and important dates. To access the online registration
-				packet, visit <a style="color: #0086e7;">www.siprepadmissions.org</a> on March 27, 2023 using the
+				packet, visit <a href="http://www.siprepadmissions.org/" style="color: #0086e7;">www.siprepadmissions.org</a> on March 27, 2023 using the
 				username and password you used to apply. The registration system will be due on April 3, 2023.</p>
 			<p><b>To reserve a place in the Class of 2027</b>, please click on the <b> Enroll at SI</b> button below and make a <b>deposit</b> of {deposit amount}.
 				As a courtesy to those students on our waitlist, we ask that those who do not intend to register at SI indicate their intention by
@@ -606,7 +606,7 @@ function getTuitionAmount()
 				</div>
 				<div class="col-md-6">
 					@if($student_status == App\Models\Application::TYPE_ACCEPTED && $ntfDetail->notification_type == App\Models\Notification::NOTIFY_ACCEPTED)
-					@if($candidate == 's1')
+					@if($candidate == App\Models\Application::STUDENT_S1)
 					@if($appStatus->s1_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s1_candidate_status == App\Models\Application::CANDIDATE_READ)
 					<div class='student_btns' style=" float: right !important;">
 						<a data-bs-toggle="modal" data-bs-target="#acceptModel" class='btn btn_accept btn-success mt-3 btn-sm text-dark'>Enroll at SI</a>
@@ -630,7 +630,7 @@ function getTuitionAmount()
 					<div class="col-md-12 text-center" style="text-align: right!important"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#SurveyDecline" class='btn btn_accept btn-success  mt-3 btn-sm'>Decline Survey</a></div>
 					@endif
 					@endif
-					@if($candidate == 's2')
+					@if($candidate == App\Models\Application::STUDENT_S2)
 					@if($appStatus->s2_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s2_candidate_status == App\Models\Application::CANDIDATE_READ)
 
 					<div class='student_btns' style=" float: right !important;">
@@ -654,7 +654,7 @@ function getTuitionAmount()
 
 					@endif
 					@endif
-					@if($candidate == 's3')
+					@if($candidate == App\Models\Application::STUDENT_S3)
 					@if($appStatus->s3_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s3_candidate_status == App\Models\Application::CANDIDATE_READ)
 					<div class='student_btns' style="float: right !important;">
 						<a data-bs-toggle="modal" data-bs-target="#acceptModel" class='btn btn_accept btn-success mt-3 btn-sm text-dark'>Enroll at SI</a>
@@ -678,7 +678,7 @@ function getTuitionAmount()
 					@endif
 					@endif
 				</div>
-				@if($candidate == 's1')
+				@if($candidate == App\Models\Application::STUDENT_S1)
 
 				@if($appStatus->s1_candidate_status == App\Models\Application::TYPE_ACCEPTED)
 				<div class="col-md-12 text-left mt-4">Congratulations on enrolling as a student in the SI Class of 2027! Please check back here on Monday, March 27th for next steps and registration information.</div>
@@ -688,7 +688,7 @@ function getTuitionAmount()
 				@endif
 				@endif
 
-				@if($candidate == 's3')
+				@if($candidate == App\Models\Application::STUDENT_S3)
 
 				@if($appStatus->s3_candidate_status == App\Models\Application::TYPE_ACCEPTED)
 				<div class="col-md-12 text-left mt-4">Congratulations on enrolling as a student in the SI Class of 2027! Please check back here on Monday, March 27th for next steps and registration information.</div>
@@ -699,7 +699,7 @@ function getTuitionAmount()
 				@endif
 
 
-				@if($candidate == 's2')
+				@if($candidate == App\Models\Application::STUDENT_S2)
 
 				@if($appStatus->s2_candidate_status == App\Models\Application::TYPE_ACCEPTED)
 				<div class="col-md-12 text-left mt-4">Congratulations on enrolling as a student in the SI Class of 2027! Please check back here on Monday, March 27th for next steps and registration information.</div>
@@ -922,7 +922,7 @@ function getTuitionAmount()
 				will be determined by placement exams to be administered on April 22, 2023. Your online registration
 				packet will include more information on these exams. The online registration packet will be available on
 				March 27, 2023, with additional information and important dates. To access the online registration
-				packet, visit <a style="color: #0086e7;">www.siprepadmissions.org</a> on March 27, 2023 using the
+				packet, visit <a href="http://www.siprepadmissions.org/" style="color: #0086e7;">www.siprepadmissions.org</a> on March 27, 2023 using the
 				username and password you used to apply.</p>
 			<p>To reserve a place in the Class of 2027, please click on the <b>Accept</b> button below and make a
 				<b>deposit</b> of <b>$1,500</b>. As a courtesy to those students on our waitlist, we ask that those who
@@ -1193,7 +1193,7 @@ function getTuitionAmount()
 			</p>
 			</b>
 			<p>The online registration system will be available beginning on March 27, 2023, with additional information, important
-				dates and course information. To access the online registration system, visit <a class="text-primary" href="www.siprepadmissions.org">www.siprepadmissions.org</a> on March 27,
+				dates and course information. To access the online registration system, visit <a class="text-primary" href="http://www.siprepadmissions.org/">www.siprepadmissions.org</a> on March 27,
 				2023 using the username and password you used to apply. The registration system will be due on April 3, 2023.
 			</p>
 			<b>
@@ -1242,7 +1242,7 @@ function getTuitionAmount()
 				@if($student_status == App\Models\Application::ACCEPTANCE_HONORS && $ntfDetail->notification_type == App\Models\Notification::ACCEPTANCE_HONORS)
 
 
-				@if($candidate == 's1')
+				@if($candidate == App\Models\Application::STUDENT_S1)
 				@if($appStatus->s1_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s1_candidate_status == App\Models\Application::CANDIDATE_READ)
 				<div class="d-flex align-items-center justify-content-between">
 					<div class='application_download'>
@@ -1258,7 +1258,7 @@ function getTuitionAmount()
 
 
 				@endif
-				@if($candidate == 's2')
+				@if($candidate == App\Models\Application::STUDENT_S2)
 				@if($appStatus->s2_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s2_candidate_status == App\Models\Application::CANDIDATE_READ)
 
 				<div class="d-flex align-items-center justify-content-between">
@@ -1276,7 +1276,7 @@ function getTuitionAmount()
 
 
 				@endif
-				@if($candidate == 's3')
+				@if($candidate == App\Models\Application::STUDENT_S3)
 				@if($appStatus->s3_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s3_candidate_status == App\Models\Application::CANDIDATE_READ)
 				<div class="d-flex align-items-center justify-content-between">
 					<div class='application_download'>
@@ -1296,7 +1296,7 @@ function getTuitionAmount()
 			</div>
 
 
-			@if($candidate == 's1')
+			@if($candidate == App\Models\Application::STUDENT_S1)
 
 			@if($appStatus->s1_candidate_status == App\Models\Application::TYPE_ACCEPTED)
 			<div class="col-md-12 text-left mt-4">Congratulations on enrolling as a student in the SI Class of 2027! Please check back here on Monday, March 27th for next steps and registration information.</div>
@@ -1306,7 +1306,7 @@ function getTuitionAmount()
 			@endif
 			@endif
 
-			@if($candidate == 's3')
+			@if($candidate == App\Models\Application::STUDENT_S3)
 
 			@if($appStatus->s3_candidate_status == App\Models\Application::TYPE_ACCEPTED)
 			<div class="col-md-12 text-left mt-4">Congratulations on enrolling as a student in the SI Class of 2027! Please check back here on Monday, March 27th for next steps and registration information.</div>
@@ -1317,7 +1317,7 @@ function getTuitionAmount()
 			@endif
 
 
-			@if($candidate == 's2')
+			@if($candidate == App\Models\Application::STUDENT_S3)
 
 			@if($appStatus->s2_candidate_status == App\Models\Application::TYPE_ACCEPTED)
 			<div class="col-md-12 text-left mt-4">Congratulations on enrolling as a student in the SI Class of 2027! Please check back here on Monday, March 27th for next steps and registration information.</div>
@@ -1385,7 +1385,7 @@ function getTuitionAmount()
 
 			<p>
 				The online registration system will be available beginning on March 27, 2023, with additional information, important
-				dates and course information. To access the online registration system, visit <a class="text-primary" href="www.siprepadmissions.org">www.siprepadmissions.org</a> on March 27,
+				dates and course information. To access the online registration system, visit <a class="text-primary" href="http://www.siprepadmissions.org/">www.siprepadmissions.org</a> on March 27,
 				2023 using the username and password you used to apply. The registration system will be due on April 3, 2023.
 			</p>
 			<p> <b> To reserve a place in the Class of 2027</b>, please click on the <b>Enroll at SI</b> button below and make a <b>deposit</b> of <b>{deposit amount}.</b>
@@ -1419,7 +1419,7 @@ function getTuitionAmount()
 			<div class="col-md-12">
 				@if($student_status == App\Models\Application::ACCEPTANCE_Hon_W_FA_YES && $ntfDetail->notification_type == App\Models\Notification::ACCEPTANCE_Hon_W_FA_YES)
 
-				@if($candidate == 's1')
+				@if($candidate == App\Models\Application::STUDENT_S1)
 				@if($appStatus->s1_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s1_candidate_status == App\Models\Application::CANDIDATE_READ)
 				<!-- <div class='student_btns' style=" float: right !important;">
 					<a data-bs-toggle="modal" data-bs-target="#acceptModel" class='btn btn_accept btn-success mt-3 btn-sm text-dark'>Enroll at SI</a>
@@ -1439,7 +1439,7 @@ function getTuitionAmount()
 
 
 				@endif
-				@if($candidate == 's2')
+				@if($candidate == App\Models\Application::STUDENT_S2)
 				@if($appStatus->s2_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s2_candidate_status == App\Models\Application::CANDIDATE_READ)
 				<div class="d-flex align-items-center justify-content-between">
 					<div class='application_download'>
@@ -1456,7 +1456,7 @@ function getTuitionAmount()
 
 
 				@endif
-				@if($candidate == 's3')
+				@if($candidate == App\Models\Application::STUDENT_S3)
 				@if($appStatus->s3_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s3_candidate_status == App\Models\Application::CANDIDATE_READ)
 				<div class="d-flex align-items-center justify-content-between">
 					<div class='application_download'>
@@ -1476,7 +1476,7 @@ function getTuitionAmount()
 			</div>
 
 
-			@if($candidate == 's1')
+			@if($candidate == App\Models\Application::STUDENT_S1)
 
 			@if($appStatus->s1_candidate_status == App\Models\Application::TYPE_ACCEPTED)
 			<div class="col-md-12 text-left mt-4">Congratulations on enrolling as a student in the SI Class of 2027! Please check back here on Monday, March 27th for next steps and registration information.</div>
@@ -1486,7 +1486,7 @@ function getTuitionAmount()
 			@endif
 			@endif
 
-			@if($candidate == 's3')
+			@if($candidate == App\Models\Application::STUDENT_S3)
 
 			@if($appStatus->s3_candidate_status == App\Models\Application::TYPE_ACCEPTED)
 			<div class="col-md-12 text-left mt-4">Congratulations on enrolling as a student in the SI Class of 2027! Please check back here on Monday, March 27th for next steps and registration information.</div>
@@ -1497,7 +1497,7 @@ function getTuitionAmount()
 			@endif
 
 
-			@if($candidate == 's2')
+			@if($candidate == App\Models\Application::STUDENT_S2)
 
 			@if($appStatus->s2_candidate_status == App\Models\Application::TYPE_ACCEPTED)
 			<div class="col-md-12 text-left mt-4">Congratulations on enrolling as a student in the SI Class of 2027! Please check back here on Monday, March 27th for next steps and registration information.</div>
@@ -1568,7 +1568,7 @@ function getTuitionAmount()
 			</p>
 
 			<p>The online registration system will be available beginning on March 27, 2023, with additional information, important
-				dates and course information. To access the online registration system, visit <a class="text-primary" href="www.siprepadmissions.org"> https://www.siprepadmissions.org.</a> on March 27,
+				dates and course information. To access the online registration system, visit <a class="text-primary" href="http://www.siprepadmissions.org/"> https://www.siprepadmissions.org.</a> on March 27,
 				2023 using the username and password you used to apply. The registration system will be due on April 3, 2023.</p>
 			<p>
 				<b> To reserve a place in the Class of 2027</b>, please click on the <b>Enroll at

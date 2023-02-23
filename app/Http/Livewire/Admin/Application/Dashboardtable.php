@@ -581,18 +581,18 @@ class Dashboardtable extends Component
                 ];
                 foreach ($StudentApplicationStatusResults as $result) {
                     if ($getStudentInfo->Application_ID == $result['application_id']) {
-                        if ($result['s1_application_status'] == 's1') {
+                        if ($result['s1_application_status'] == Application::STUDENT_S1) {
                             $studentArr[] = $student1 = null;
                         } else {
 
                             $studentArr[] = $getStudentInfo->S1_First_Name ? $student1 : null;
                         }
-                        if ($result['s1_application_status'] == 's2') {
+                        if ($result['s1_application_status'] == Application::STUDENT_S2) {
                             $studentArr[] = $student2 = null;
                         } else {
                             $studentArr[] = $getStudentInfo->S2_First_Name ? $student2 : null;
                         }
-                        if ($result['s1_application_status'] == 's3') {
+                        if ($result['s1_application_status'] == Application::STUDENT_S3) {
                             $studentArr[] = $student3 = null;
                         } else {
 

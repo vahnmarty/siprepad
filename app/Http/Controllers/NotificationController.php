@@ -240,7 +240,7 @@ class NotificationController extends Controller
 
         if (!empty($checkApp)) {
 
-            if ($candidate == 's1') {
+            if ($candidate == Application::STUDENT_S1) {
 
                 if ($checkApp->s1_candidate_status == Application::CANDIDATE_NOT_DEFINED || $checkApp->s1_candidate_status == Application::CANDIDATE_READ) {
                     $updateCr = StudentApplicationStatus::where('application_id', $apid)->limit(1)->update(array(
@@ -259,7 +259,7 @@ class NotificationController extends Controller
                 }
             }
 
-            if ($candidate == 's2') {
+            if ($candidate == Application::STUDENT_S2) {
 
                 if ($checkApp->s2_candidate_status == Application::CANDIDATE_NOT_DEFINED || $checkApp->s2_candidate_status == Application::CANDIDATE_READ) {
                     $updateCr = StudentApplicationStatus::where('application_id', $apid)->limit(1)->update(array(
@@ -276,7 +276,7 @@ class NotificationController extends Controller
                     return redirect('/')->with('error', 'You can\'t change your response now!!');
                 }
             }
-            if ($candidate == 's3') {
+            if ($candidate == Application::STUDENT_S3) {
 
                 if ($checkApp->s3_candidate_status == Application::CANDIDATE_NOT_DEFINED || $checkApp->s3_candidate_status == Application::CANDIDATE_READ) {
                     $updateCr = StudentApplicationStatus::where('application_id', $apid)->limit(1)->update(array(
@@ -299,10 +299,7 @@ class NotificationController extends Controller
     }
     public function acceptanceSurvey(Request $request)
     {
-
-
-
-        $validator      =   Validator::make($request->all(), [
+        $validator =  Validator::make($request->all(), [
             "name_of_School_1" => "required",
             "name_of_School_2" => "required",
             "name_of_School_3" => "required",
@@ -454,10 +451,10 @@ class NotificationController extends Controller
             if ($appStatus->s1_candidate_status == Application::CANDIDATE_NOT_DEFINED) {
                 $updateCandidateStatus = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->update(['s1_candidate_status' => Application::CANDIDATE_READ]);
             }
-            $candidate = 's1';
-            $checkPayment = Payment::where('Application_ID', $ntfDetail->application_id)->where('student', 's1')->select('student')->first();
+            $candidate = Application::STUDENT_S1;
+            $checkPayment = Payment::where('Application_ID', $ntfDetail->application_id)->where('student', Application::STUDENT_S1)->select('student')->first();
             if ($checkPayment) {
-                if ($checkPayment->student == 's1') {
+                if ($checkPayment->student == Application::STUDENT_S1) {
                     $student_accept_status = 'payment_successful';
                 } else {
                     $student_accept_status = $status->s1_candidate_status;
@@ -486,10 +483,10 @@ class NotificationController extends Controller
                 return redirect('/')->with('error', 'You are not allowed to access this page');
             }
             $student_status = $status->s2_application_status;
-            $candidate = 's2';
-            $checkPayment = Payment::where('Application_ID', $ntfDetail->application_id)->where('student', 's2')->select('student')->first();
+            $candidate = Application::STUDENT_S2;
+            $checkPayment = Payment::where('Application_ID', $ntfDetail->application_id)->where('student', Application::STUDENT_S2)->select('student')->first();
             if ($checkPayment) {
-                if ($checkPayment->student == 's2') {
+                if ($checkPayment->student == Application::STUDENT_S2) {
                     $student_accept_status = "payment_successful";
                 } else {
                     $student_accept_status = $status->s2_candidate_status;
@@ -523,10 +520,10 @@ class NotificationController extends Controller
 
             $student_status = $status->s3_application_status;
             $student_accept_status = $status->s3_candidate_status;
-            $checkPayment = Payment::where('Application_ID', $ntfDetail->application_id)->where('student', 's3')->select('student')->first();
+            $checkPayment = Payment::where('Application_ID', $ntfDetail->application_id)->where('student', Application::STUDENT_S3)->select('student')->first();
 
             if ($checkPayment) {
-                if ($checkPayment->student == 's3') {
+                if ($checkPayment->student == Application::STUDENT_S3) {
                     $student_accept_status = 'payment_successful';
                 } else {
                     $student_accept_status = $status->s3_candidate_status;
@@ -534,7 +531,7 @@ class NotificationController extends Controller
             } else {
                 $student_accept_status = $status->s3_candidate_status;
             }
-            $candidate = 's3';
+            $candidate = Application::STUDENT_S3;
             if ($appStatus->s3_candidate_status == Application::CANDIDATE_NOT_DEFINED) {
                 $updateCandidateStatus = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->update(['s3_candidate_status' => Application::CANDIDATE_READ]);
             }
