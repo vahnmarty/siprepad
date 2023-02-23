@@ -761,7 +761,12 @@
                     $payment = App\Models\Payment::where('application_id', $getApplication->Application_ID)->where('student', App\Models\Application::STUDENT_S3)->pluck('amount')->first();
                     }
                     @endphp
-                    <td>{{$payment ?? '--'}} </td>
+                    @if($payment)
+                    <td>${{$payment ?? '--'}} </td>
+                    @else
+                    <td>--</td>
+                    @endif
+
                     <td>
                         <?php $studentProfile = "" ?>
 
@@ -868,4 +873,3 @@
             </x-slot>
 
     </x-admin.table>
-    

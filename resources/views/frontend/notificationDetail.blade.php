@@ -326,17 +326,15 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				}
 				break;
 			default:
-				return "----";
+				return "-";
 		};
 	}
 
-	// Primary_Address_Street") . ' <br>' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_City") . ' , ' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_State") . ' 
 
 	if ($studentType == App\Models\Application::STUDENT_S2) {
 
 		switch ($type) {
 			case "Student_First_Name":
-				// dd($studentDetail);
 				return $studentDetail->S2_First_Name;
 				break;
 			case "Student_Last_Name":
@@ -357,8 +355,6 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 
 				break;
 			case "P2_Last_Name":
-				// dd($P2_Last_Name);
-
 				if ($studentDetail->P2_Last_Name == null) {
 					return ucwords($studentDetail->P2_Last_Name);
 				} else {
@@ -387,7 +383,6 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				break;
 
 			case "P2_First_Name":
-				// dd($type);
 				if ($studentDetail->P2_First_Name == null) {
 
 					return ucwords($studentDetail->P2_First_Name);
@@ -395,7 +390,6 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 
 					return 'and ' . ucwords($studentDetail->P2_First_Name);
 				}
-
 				break;
 			case "Primary_Address_Street":
 				return ucwords($studentDetail->Address_1);
@@ -414,26 +408,25 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				return ucwords($studentDetail->S1_Current_School);
 				break;
 			case "his/her":
-				if ($studentDetail->S1_Gender == "Male") {
-					return "His";
+				if ($studentDetail->S2_Gender == "Male") {
+					return "his";
 				} else {
-					return "Her";
+					return "her";
 				}
 			case "he/she":
-				if ($studentDetail->S1_Gender == "Male") {
-					return "He";
+				if ($studentDetail->S2_Gender == "Male") {
+					return "he";
 				} else {
-					return "She";
+					return "she";
 				}
 				break;
 			default:
-				return "----";
+				return "-";
 		};
 	}
 	if ($studentType == App\Models\Application::STUDENT_S3) {
 		switch ($type) {
 			case "Student_First_Name":
-				// dd($studentDetail);
 				return ucwords($studentDetail->S3_First_Name);
 				break;
 			case "Student_Last_Name":
@@ -507,20 +500,22 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				return ucwords($studentDetail->S1_Current_School);
 				break;
 			case "his/her":
-				if ($studentDetail->S1_Gender == "Male") {
-					return "His";
+				if ($studentDetail->S3_Gender == "Male") {
+					return "his";
 				} else {
-					return "Her";
+					return "her";
 				}
+				break;
+
 			case "he/she":
-				if ($studentDetail->S1_Gender == "Male") {
-					return "He";
+				if ($studentDetail->S3_Gender == "Male") {
+					return "he";
 				} else {
-					return "She";
+					return "he";
 				}
 				break;
 			default:
-				return "----";
+				return "-";
 		};
 	}
 }
@@ -572,7 +567,7 @@ function getTuitionAmount()
 				will be determined by placement exams to be administered on April 22, 2023. Your online registration
 				packet will include more information on these exams. The online registration packet will be available on
 				March 27, 2023, with additional information and important dates. To access the online registration
-				packet, visit <a href="http://www.siprepadmissions.org/" style="color: #0086e7;">www.siprepadmissions.org</a> on March 27, 2023 using the
+				packet, visit <a style="color: #0086e7;" target="_blank" href="https://www.siprepadmissions.org/">www.siprepadmissions.org</a> on March 27, 2023 using the
 				username and password you used to apply. The registration system will be due on April 3, 2023.</p>
 			<p><b>To reserve a place in the Class of 2027</b>, please click on the <b> Enroll at SI</b> button below and make a <b>deposit</b> of {deposit amount}.
 				As a courtesy to those students on our waitlist, we ask that those who do not intend to register at SI indicate their intention by
@@ -811,10 +806,18 @@ function getTuitionAmount()
 			<p class='ntf_student_name'>Dear <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name"); ?>:</p>
 			<p class='ntf_app_status'>
 			<p>The Admissions Committee wants to thank you and <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> for submitting a very thoughtful application. The Committee was very impressed with <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>’s many fine qualities.</p>
-			<p>After careful review, the Admissions Committee has placed <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> on the <b>Wait List</b> for the Class of 2027. The <b>Wait Listed</b> applicants were extremely competitive candidates in the applicant pool. We are aware that <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> likely has other admission offers from which to choose. Being placed on the St. Ignatius College Preparatory <b>Wait List</b> is evidence of the strong positive impression <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> made throughout our review process. <b>Wait Listed</b> applicants were carefully selected by the Admissions Committee as students who they would like as members of the upcoming Freshman class. We recognize that <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> would be an asset to the class and sincerely hope that there will be a place available should <?php echo getStudentInformation($candidate, $studentJoinsDetail, "he/she"); ?> desire to attend St. Ignatius College Preparatory.</p>
+			<p>After careful review, the Admissions Committee has placed <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> on the <b> Waitlist</b> for the Class of 2027. The
+				<b>Waitlisted </b>applicants were extremely competitive candidates in the applicant pool. We are aware that <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>
+				likely has other admission offers from which to choose. Being placed on the St. Ignatius College Preparatory <b>Waitlist</b> is
+				evidence of the strong positive impression <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> made throughout our review process. <b>Waitlisted</b> applicants
+				were carefully selected by the Admissions Committee as students who they would like as members of the incoming Freshman
+				class
+			</p>
 			<p>Click below for important <b>Wait List</b> Information from the Admissions Staff. Please read it carefully as it answers the most frequently asked questions and details all pertinent information available.</p>
-			<p>For your information, we had over <b>1,290</b> applicants apply to St. Ignatius College Preparatory for <b>375</b> places in the Class of 2027. There were many qualified applicants in this large and talented applicant pool that we were unable to accept. In fact, we could fill two more schools the size of St. Ignatius that would be just as strong academically as the students we have accepted for next year's Freshman class.</p>
-			<p>We appreciate your patience and understanding while awaiting our final decision. Please be assured that the Admissions Committee will continue to give strong consideration to all legacies. Thank you for your interest in St. Ignatius College Preparatory and for entrusting us with <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>’s application this year.</p>
+			<p>We had over <b> 1,290</b> applicants apply to St. Ignatius College Preparatory for<b> 375</b> places in the Class of 2027. There were many
+				qualified applicants in this large and talented applicant pool that we were unable to accept. We appreciate your patience and
+				understanding while awaiting our final decision. Thank you for your interest in St. Ignatius College Preparatory and for
+				entrusting us with <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>’s application this year.</p>
 			</p>
 		</div>
 		<div style="margin-top:15px;">
@@ -822,7 +825,8 @@ function getTuitionAmount()
 			<p style="border:0;display:inline-block;margin-bottom: 0;">
 				<img style="max-width:205px;" src="{{ asset('admin_assets/logo/signature.png') }}" />
 			</p>
-			<p>Kristy Jacobson<br /> Director of Admissions</p>
+			<p>Ms. Kristy Cahill Jacobson ‘98<br /> Director of Admissions</p>
+			<p><span class="text-primary">Waitlist FAQ</span></p>
 		</div>
 	</div>
 </div>
@@ -862,8 +866,11 @@ function getTuitionAmount()
 			<p class='ntf_student_name'>Dear <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name"); ?>:</p>
 			<p class='ntf_app_status'>
 			<p>The Admissions Committee wants to thank you and <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> for submitting a very thoughtful application. We were fortunate to have so many qualified applicants to select from in this highly competitive applicant pool. The Committee was very impressed with <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>'s many fine qualities.
-			<p>We had over <b>1,290</b> applicants apply to St. Ignatius College Preparatory for the Class of 2027. We regret that we will not be able to offer <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> a place in SI's Freshman class. There were many qualified applicants in this large and talented pool that we were unable to accept. In fact, we could fill two more schools the size of SI that would be just as strong academically as the students we have accepted for next year's Freshman class. <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> is to be congratulated for all <?php echo getStudentInformation($candidate, $studentJoinsDetail, "he/she"); ?> has accomplished in <?php echo getStudentInformation($candidate, $studentJoinsDetail, "his/her"); ?> first eight years of school.</p>
-			<p>We sincerely wish <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> continued success in high school. The high school <?php echo getStudentInformation($candidate, $studentJoinsDetail, "he/she"); ?> attends will be fortunate to have {him/her} as a student. Thank you for entrusting us with <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>'s application. We appreciate your interest in St. Ignatius College Preparatory and your understanding of how difficult our selection process was this year with so many qualified applicants.</p>
+			<p>We had over <b>1,290</b> applicants apply to St. Ignatius College Preparatory for the Class of 2027. We regret that we will not be
+				able to offer <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> a place in SI's Freshman class. There were many qualified applicants in this large and
+				talented pool that we were unable to accept. <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> is to be congratulated for all <?php echo getStudentInformation($candidate, $studentJoinsDetail, "he/she"); ?> has already
+				accomplished.</p>
+			<p>We sincerely wish <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> continued success in high school. The high school <?php echo getStudentInformation($candidate, $studentJoinsDetail, "he/she"); ?> attends will be fortunate to have <?php echo getStudentInformation($candidate, $studentJoinsDetail, "his/her"); ?> as a student. Thank you for entrusting us with <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>'s application. We appreciate your interest in St. Ignatius College Preparatory and your understanding of how difficult our selection process was this year with so many qualified applicants.</p>
 			</p>
 		</div>
 		<div style="margin-top:15px;">
@@ -871,99 +878,12 @@ function getTuitionAmount()
 			<p style="border:0;display:inline-block;">
 				<img style="max-width:205px;" src="{{ asset('admin_assets/logo/signature.png') }}" />
 			</p>
-			<p>Kristy Jacobson<br /> Director of Admissions</p>
+			<p>Ms. Kristy Cahill Jacobson ‘98<br /> Director of Admissions</p>
 		</div>
 	</div>
 </div>
 @break
 @case(5)
-<!-- <div class="home-wrap">
-	<div class="row">
-		<div class="col-md-4" style="max-width: 133px;">
-			<div class='ntf_image_logo'>
-				<img src="{{ asset('frontend_assets/images/lg2.png') }}" alt="" />
-			</div>
-		</div>
-		<div class="col-md-8" style="max-width: 266px;">
-			<p> St. Ignatius College Preparatory<br>
-				2001 37th Avenue<br>
-				San Francisco, CA 94116<br>
-				(415) 731-7500
-			</p>
-			<p>Office of Admissions</p>
-
-		</div>
-		<p style="text-align:right;"><?php echo getDateFunctions($notification_time); ?></p>
-	</div>
-	<div class="row mt-3">
-
-		<div class="col-md-12">
-			<p><?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name", 'P2_Last_Name'); ?><br>
-				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Street"); ?><br>
-				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_City"); ?>, <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_State"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Zipcode"); ?><br>
-			</p>
-
-		</div>
-	</div>
-
-	<div class="hme-inr" id='ntf-detail'>
-
-
-		<div class='ntf_candidate_detail mt-2'>
-			<p class='ntf_student_name'>Dear <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name"); ?>:</p>
-			<p class='ntf_app_status'>
-			<p>Congratulations! <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_Last_Name"); ?> has been Accepted to St. Ignatius College
-				Preparatory. Welcome to our school community! We congratulate <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> for the academic
-				diligence that has made this success possible. The entire SI community pledges itself to your child’s
-				intellectual, spiritual, and social development over the next four years. We look forward to your
-				participation and cooperation in this endeavor.
-			<p><?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>’s <b>Acceptance</b> is based on <?php echo getStudentInformation($candidate, $studentJoinsDetail, "his/her"); ?> academic achievements and the gifts
-				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "he/she"); ?> will be to the SI community. Placement in Honors level courses for math and foreign language
-				will be determined by placement exams to be administered on April 22, 2023. Your online registration
-				packet will include more information on these exams. The online registration packet will be available on
-				March 27, 2023, with additional information and important dates. To access the online registration
-				packet, visit <a href="http://www.siprepadmissions.org/" style="color: #0086e7;">www.siprepadmissions.org</a> on March 27, 2023 using the
-				username and password you used to apply.</p>
-			<p>To reserve a place in the Class of 2027, please click on the <b>Accept</b> button below and make a
-				<b>deposit</b> of <b>$1,500</b>. As a courtesy to those students on our waitlist, we ask that those who
-				do not intend to register at SI indicate their intention by clicking on the <b>Decline</b> button below.
-				<b style="color:#dc3545;"> The registration deadline is 8:00 am on March 24, 2023, or the acceptance
-					will be forfeited.</b>
-			</p>
-			<p>Tuition for the 2023-2024 academic year is <b><?php echo getTuitionAmount() ?></b>. The Business Office will have
-				information on tuition payment plans and schedules in the online registration packet. For families who
-				applied for financial assistance, the Business Office has posted the Financial Assistance Committee’s
-				decision on this website for your reference.</p>
-			<p>For your information, we had over <b>1,290</b> applicants apply to St. Ignatius College Preparatory for
-				the Class of 2027. The Admissions Committee was fortunate to have so many qualified applicants to select
-				from in this highly competitive applicant pool. We are excited to have <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> as a member
-				of our talented Freshman class. <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>’s acceptance is contingent upon <?php echo getStudentInformation($candidate, $studentJoinsDetail, "his/her"); ?> continued
-				academic performance, good citizenship, and successful completion of eight grade at
-				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_Current_School"); ?>. It is our intention to see that your child has the academic challenge and
-				individual attention that have been a hallmark of Jesuit education. To this end, we are looking forward
-				to working closely with you and <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> over the next four years. Once again,
-				<b>congratulations!</b>
-			</p>
-			</p>
-		</div>
-
-		<div style="margin-top:15px;">
-			<p>Sincerely,</p>
-			<p style="border:0;display:inline-block;">
-				<img style="max-width:205px;" src="{{ asset('admin_assets/logo/signature.png') }}" />
-			</p>
-			<p>Kristy Jacobson<br /> Director of Admissions</p>
-			<p><b style="color: #0086e7;">Financial Assistance Details for <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_Last_Name"); ?></b>
-			</p>
-			<div class='application_download'>
-				<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}/{{ $studentDetail->Application_ID }}' class="btn text-dark btn-primary mt-3">Download</a>
-			</div>
-		</div>
-	</div>
-</div> -->
-
-
-
 <div class="home-wrap">
 	<div class="row">
 		<div class="col-md-4" style="max-width: 133px;">
@@ -1193,7 +1113,7 @@ function getTuitionAmount()
 			</p>
 			</b>
 			<p>The online registration system will be available beginning on March 27, 2023, with additional information, important
-				dates and course information. To access the online registration system, visit <a class="text-primary" href="http://www.siprepadmissions.org/">www.siprepadmissions.org</a> on March 27,
+				dates and course information. To access the online registration system, visit <a class="text-primary" target="_blank" href="https://www.siprepadmissions.org/">www.siprepadmissions.org</a> on March 27,
 				2023 using the username and password you used to apply. The registration system will be due on April 3, 2023.
 			</p>
 			<b>
@@ -1385,7 +1305,7 @@ function getTuitionAmount()
 
 			<p>
 				The online registration system will be available beginning on March 27, 2023, with additional information, important
-				dates and course information. To access the online registration system, visit <a class="text-primary" href="http://www.siprepadmissions.org/">www.siprepadmissions.org</a> on March 27,
+				dates and course information. To access the online registration system, visit <a class="text-primary" target="_blank" href="https://www.siprepadmissions.org/">www.siprepadmissions.org</a> on March 27,
 				2023 using the username and password you used to apply. The registration system will be due on April 3, 2023.
 			</p>
 			<p> <b> To reserve a place in the Class of 2027</b>, please click on the <b>Enroll at SI</b> button below and make a <b>deposit</b> of <b>{deposit amount}.</b>
@@ -1568,7 +1488,7 @@ function getTuitionAmount()
 			</p>
 
 			<p>The online registration system will be available beginning on March 27, 2023, with additional information, important
-				dates and course information. To access the online registration system, visit <a class="text-primary" href="http://www.siprepadmissions.org/"> https://www.siprepadmissions.org.</a> on March 27,
+				dates and course information. To access the online registration system, visit <a class="text-primary" target="_blank" href="https://www.siprepadmissions.org/"> https://www.siprepadmissions.org.</a> on March 27,
 				2023 using the username and password you used to apply. The registration system will be due on April 3, 2023.</p>
 			<p>
 				<b> To reserve a place in the Class of 2027</b>, please click on the <b>Enroll at
