@@ -32,7 +32,7 @@ class StatusPdfController extends Controller
         if ($studentDetail) {
             if ($notMessage) {
                 if ($notMessage->student_profile == Application::STUDENT_ONE) {
-                    $studentType = 's1';
+                    $studentType = Application::STUDENT_S1;
                     $StudentApplicationStatus =  StudentApplicationStatus::where('Profile_ID', $uid)->select('s1_application_status')->first();
                     if ($StudentApplicationStatus) {
                         $getStudentApplicationStatus = $StudentApplicationStatus->s1_application_status;
@@ -40,7 +40,7 @@ class StatusPdfController extends Controller
                         $getStudentApplicationStatus = '';
                     }
                 } else if ($notMessage->student_profile == Application::STUDENT_TWO) {
-                    $studentType = 's2';
+                    $studentType = Application::STUDENT_S2;
                     $StudentApplicationStatus =  StudentApplicationStatus::where('Profile_ID', $uid)->select('s2_application_status')->first();
                     if ($StudentApplicationStatus) {
                         $getStudentApplicationStatus = $StudentApplicationStatus->s2_application_status;
@@ -48,7 +48,7 @@ class StatusPdfController extends Controller
                         $getStudentApplicationStatus = '';
                     }
                 } else if ($notMessage->student_profile == Application::STUDENT_THREE) {
-                    $studentType = 's3';
+                    $studentType = Application::STUDENT_S3;
                     $StudentApplicationStatus =  StudentApplicationStatus::where('Profile_ID', $uid)->select('s3_application_status')->first();
                     if ($StudentApplicationStatus) {
                         $getStudentApplicationStatus = $StudentApplicationStatus->s3_application_status;
@@ -751,7 +751,7 @@ class StatusPdfController extends Controller
                         <tr>
                             <td width="50%" style="text-align: left;">
                                 The online registration system will be available beginning on March 27, 2023, with additional information, important
-                                dates and course information. To access the online registration system, visit <a href="www.siprepadmissions.org">www.siprepadmissions.org</a> on March 27,
+                                dates and course information. To access the online registration system, visit <a href="http://www.siprepadmissions.org/">www.siprepadmissions.org</a> on March 27,
                                 2023 using the username and password you used to apply. The registration system will be due on April 3, 2023.
                             </td>
             
@@ -901,7 +901,7 @@ class StatusPdfController extends Controller
                         <tr>
                             <td width="50%" style="text-align: left;">
                                 The online registration system will be available beginning on March 27, 2023, with additional information, important
-                                dates and course information. To access the online registration system, visit <a href="www.siprepadmissions.org">www.siprepadmissions.org</a> on March 27,
+                                dates and course information. To access the online registration system, visit <a href="http://www.siprepadmissions.org/">www.siprepadmissions.org</a> on March 27,
                                 2023 using the username and password you used to apply. The registration system will be due on April 3, 2023.
                             </td>
             
@@ -1038,7 +1038,7 @@ class StatusPdfController extends Controller
                         <tr>
                             <td width="50%" style="text-align: left;">
                                 The online registration system will be available beginning on March 27, 2023, with additional information, important
-                                dates and course information. To access the online registration system, visit <a href="www.siprepadmissions.org">www.siprepadmissions.org</a> on March 27,
+                                dates and course information. To access the online registration system, visit <a href="http://www.siprepadmissions.org/">www.siprepadmissions.org</a> on March 27,
                                 2023 using the username and password you used to apply. The registration system will be due on April 3, 2023.
                             </td>
             
@@ -1143,7 +1143,7 @@ class StatusPdfController extends Controller
     private function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Name = '')
     {
         // dd($studentDetail);
-        if ($studentType == 's1') {
+        if ($studentType == Application::STUDENT_S1) {
             switch ($type) {
 
                 case "Student_First_Name":
@@ -1240,7 +1240,7 @@ class StatusPdfController extends Controller
 
         // Primary_Address_Street") . ' <br>' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_City") . ' , ' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_State") . ' 
 
-        if ($studentType == 's2') {
+        if ($studentType == Application::STUDENT_S2) {
 
             switch ($type) {
                 case "Student_First_Name":
@@ -1338,7 +1338,7 @@ class StatusPdfController extends Controller
                     return "----";
             };
         }
-        if ($studentType == 's3') {
+        if ($studentType == Application::STUDENT_S3) {
             switch ($type) {
                 case "Student_First_Name":
                     // dd($studentDetail);

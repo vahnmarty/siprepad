@@ -332,10 +332,7 @@ class HomeController extends Controller
     }
     public function admissionApplication($step = GlobalStudentTransfer::STEP_ONE)
     {
-
-
         if (Auth::guard('customer')->check()) {
-
             $profile_id = Auth::guard('customer')->user()->id;
             $application = Application::where('Profile_ID', $profile_id)->where('status', 0)->first();
             $studentTransfer = $this->GlobalStudentTransfer;
@@ -660,16 +657,11 @@ class HomeController extends Controller
                 return view('frontend.registeration.registeration-six', compact('reg_id'));
             }
         } elseif ($step == GlobalStudentTransfer::STEP_SEVEN) {
-
             $registeration = Registeration::where('last_step_complete', 'six')->latest('id')->first();
-
             if ($registeration == null) {
                 return redirect()->back()->with('error', 'Please fill the all steps');
             } else {
-
                 $reg_id = $registeration->id;
-
-
                 return view('frontend.registeration.registeration-seven', compact('reg_id'));
             }
         } elseif ($step == GlobalStudentTransfer::STEP_FINAL) {
@@ -677,10 +669,7 @@ class HomeController extends Controller
             if ($registeration == null) {
                 return redirect()->back()->with('error', 'Please fill the all steps');
             } else {
-
                 $reg_id = $registeration->id;
-
-
                 return view('frontend.registeration.registeration-six', compact('reg_id'));
             }
         } elseif ($step == GlobalStudentTransfer::STEP_SEVEN) {

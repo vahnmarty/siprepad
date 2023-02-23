@@ -26,6 +26,7 @@ class Application extends Model
     const Acceptancefinancialaid = 3;
     const ACCEPTANCE_FINANCIAL_AID_YES = 5;
     const ACCEPTANCE_FINANCIAL_AID_NO = 6;
+    const ACCEPTANCE_FINANCIAL_AID = 5;
     const ACCEPTANCE_HONORS = 7;
     const ACCEPTANCE_Hon_W_FA_YES = 8;
     const ACCEPTANCE_Hon_W_FA_NO = 9;
