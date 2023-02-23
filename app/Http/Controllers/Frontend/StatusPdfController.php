@@ -140,7 +140,7 @@ class StatusPdfController extends Controller
                     </tr>
                     <tr>
                         <td width="50%" style="text-align: left;">
-                            Tuition for the 2023-2024 academic year is <strong>'.  self::getTuitionAmount().'.</strong> The Business Office
+                            Tuition for the 2023-2024 academic year is <strong>' .  self::getTuitionAmount() . '.</strong> The Business Office
                             will have information on tuition payment plans and schedules in the online registration packet.
                             For families who applied for financial assistance, the Business Office has posted the Financial
                             Assistance Committee’s decision on this website for your reference.
@@ -329,6 +329,107 @@ class StatusPdfController extends Controller
                 $mpdf->WriteHTML($html);
 
                 $mpdf->Output();
+            } elseif ($getStudentApplicationStatus == Application::ACCEPTANCE_FINANCIAL_AID_YES) {
+                $html = ' <table width="100%" style="font-family: sans-serif;" cellpadding="10">
+                <tr>
+                    <td width="0%" style="border: 0;"> <a href="#" target="_blank"><img src="' .  asset("admin_assets/logo/logo_header2.png") . '"
+                    width="100" height="110" alt="Logo" align="center" border="0"></a></td>
+        
+                    <td width="100%" style="border: 0; text-align: left; font-size: 12px">St. Ignatius College
+                        Preparatory<br> 2001
+                        37th Avenue<br>San Francisco, CA 94116<br>(415) 731-7500
+                        <br> <br><br>Office of Admissions
+        
+                    </td>
+                </tr>
+            </table>
+        
+            <table width="100%" style="font-family: sans-serif; font-size: 12px;">
+                <tr>
+                    <td>
+                        <table width="60%" align="left" style="font-family: sans-serif; font-size: 12px;">
+                            <tr>
+                                <td style="padding: 0px; line-height: 20px;">&nbsp;</td>
+                            </tr>
+                        </table>
+                        <table width="40%" align="right" style="font-family: sans-serif; font-size: 12px;">
+                            <tr>
+                                <td style="padding: 0px 8px; line-height: 20px; text-align: right;">' . self::getDateFunctions() . '</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <table class="items" width="100%" style="font-size: 12px; border-collapse: collapse;" cellpadding="8">
+                <thead>
+                <tr>
+                <td width="50%" style="text-align: left;">' . self::getStudentInformation($studentType, $studentDetail, "P1_First_Name") . '  ' . self::getStudentInformation($studentType, $studentDetail, "P1_Last_Name") . '  ' . self::getStudentInformation($studentType, $studentDetail, "P2_First_Name", 'P2_Last_Name') . ' 
+                    ' . self::getStudentInformation($studentType, $studentDetail, "P2_Last_Name") . ' <br>' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_Street") . ' <br>' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_City") . ', ' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_State") . ' 
+                    ' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_Zipcode") . ' </td>
+            </tr>
+        
+                </thead>
+        
+            </table>
+            <table class="items" width="100%" style="font-size: 12px; border-collapse: collapse;" cellpadding="8">
+                <thead>
+                <tr>
+                <td width="50%" style="text-align: left;">Dear ' . self::getStudentInformation($studentType, $studentDetail, "P1_Salutation") . ' ' . self::getStudentInformation($studentType, $studentDetail, "P1_Last_Name") . ' ' . self::getStudentInformation($studentType, $studentDetail, "P2_Salutation") . ' 
+                    ' . self::getStudentInformation($studentType, $studentDetail, "P2_Last_Name") . ':
+                </td>
+            </tr>
+                    <tr>
+                        <td width="100%" style="text-align: left;">My sincere congratulations to ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  upon
+                            acceptance to the Class of 2027 of St. Ignatius College Preparatory!
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="100%" style="text-align: left;">Your financial aid has been approved. You will receive
+                            {Financial Aid Amount} a year for the next four years, for a total of
+                            {Total Financial Aid Amount}. Your registration fee for Freshman year will be {Registration Fee}.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="100%" style="text-align: left;">We look forward to partnering with you as we provide an
+                            exceptional Jesuit education in the next four years.
+                        </td>
+                    </tr>
+                </thead>
+        
+            </table>
+        
+            <table width="100%" style="font-family: sans-serif; font-size: 12px;">
+        
+                <tr>
+                    <td style="padding: 10px; line-height: 20px;">
+                        Sincerely,
+                        <br>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; line-height: 20px; border:0;">
+                        <a href="#" target="_blank"><img src="' .  asset("admin_assets/logo/signature2.png") . '"
+                        width="100" height="110" alt="Logo" align="center" border="0"></a>
+                    </td>
+                </tr>
+                <br>
+                <tr>
+                    <td style="padding: 10px; line-height: 20px;">
+                        <br>
+                        Ken Stupi<br>
+                        VP of Finance & Administration
+                    </td>
+                </tr>
+        
+            </table>';
+                $mpdf = new \Mpdf\Mpdf();
+
+                $mpdf->SetTitle("Application Status");
+
+                $mpdf->WriteHTML($html);
+
+                $mpdf->Output();
             } elseif ($getStudentApplicationStatus == Application::TYPE_NOT_ACCEPTED) {
                 $html = '
 
@@ -432,243 +533,6 @@ class StatusPdfController extends Controller
                     </tr>
                 </table>
             ';
-                $mpdf = new \Mpdf\Mpdf();
-
-                $mpdf->SetTitle("Application Status");
-
-                $mpdf->WriteHTML($html);
-
-                $mpdf->Output();
-            } elseif ($getStudentApplicationStatus == Application::ACCEPTANCE_FINANCIAL_AID_YES) {
-                $html = ' <table width="100%" style="font-family: sans-serif;" cellpadding="10">
-                <tr>
-                    <td width="0%" style="border: 0;"> <a href="#" target="_blank"><img src="' .  asset("admin_assets/logo/logo_header2.png") . '"
-                    width="100" height="110" alt="Logo" align="center" border="0"></a></td>
-        
-                    <td width="100%" style="border: 0; text-align: left; font-size: 12px">St. Ignatius College
-                        Preparatory<br> 2001
-                        37th Avenue<br>San Francisco, CA 94116<br>(415) 731-7500
-                        <br> <br><br>Office of Admissions
-        
-                    </td>
-                </tr>
-            </table>
-        
-            <table width="100%" style="font-family: sans-serif; font-size: 12px;">
-                <tr>
-                    <td>
-                        <table width="60%" align="left" style="font-family: sans-serif; font-size: 12px;">
-                            <tr>
-                                <td style="padding: 0px; line-height: 20px;">&nbsp;</td>
-                            </tr>
-                        </table>
-                        <table width="40%" align="right" style="font-family: sans-serif; font-size: 12px;">
-                            <tr>
-                                <td style="padding: 0px 8px; line-height: 20px; text-align: right;">' . self::getDateFunctions() . '</td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-            <br>
-            <table class="items" width="100%" style="font-size: 12px; border-collapse: collapse;" cellpadding="8">
-                <thead>
-                <tr>
-                <td width="50%" style="text-align: left;">' . self::getStudentInformation($studentType, $studentDetail, "P1_First_Name") . '  ' . self::getStudentInformation($studentType, $studentDetail, "P1_Last_Name") . '  ' . self::getStudentInformation($studentType, $studentDetail, "P2_First_Name", 'P2_Last_Name') . ' 
-                    ' . self::getStudentInformation($studentType, $studentDetail, "P2_Last_Name") . ' <br>' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_Street") . ' <br>' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_City") . ', ' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_State") . ' 
-                    ' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_Zipcode") . ' </td>
-            </tr>
-        
-                </thead>
-        
-            </table>
-            <table class="items" width="100%" style="font-size: 12px; border-collapse: collapse;" cellpadding="8">
-                <thead>
-                <tr>
-                <td width="50%" style="text-align: left;">Dear ' . self::getStudentInformation($studentType, $studentDetail, "P1_Salutation") . ' ' . self::getStudentInformation($studentType, $studentDetail, "P1_Last_Name") . ' ' . self::getStudentInformation($studentType, $studentDetail, "P2_Salutation") . ' 
-                    ' . self::getStudentInformation($studentType, $studentDetail, "P2_Last_Name") . ':
-                </td>
-            </tr>
-                    <tr>
-                        <td width="100%" style="text-align: left;">My sincere congratulations to ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  upon
-                            acceptance to the Class of 2027 of St. Ignatius College Preparatory!
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="100%" style="text-align: left;">Your financial aid has been approved. You will receive
-                            {Financial Aid Amount} a year for the next four years, for a total of
-                            {Total Financial Aid Amount}. Your registration fee for Freshman year will be {Registration Fee}.
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="100%" style="text-align: left;">We look forward to partnering with you as we provide an
-                            exceptional Jesuit education in the next four years.
-                        </td>
-                    </tr>
-                </thead>
-        
-            </table>
-        
-            <table width="100%" style="font-family: sans-serif; font-size: 12px;">
-        
-                <tr>
-                    <td style="padding: 10px; line-height: 20px;">
-                        Sincerely,
-                        <br>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="padding: 10px; line-height: 20px; border:0;">
-                        <a href="#" target="_blank"><img src="' .  asset("admin_assets/logo/signature2.png") . '"
-                        width="100" height="110" alt="Logo" align="center" border="0"></a>
-                    </td>
-                </tr>
-                <br>
-                <tr>
-                    <td style="padding: 10px; line-height: 20px;">
-                        <br>
-                        Ken Stupi<br>
-                        VP of Finance & Administration
-                    </td>
-                </tr>
-        
-            </table>';
-                $mpdf = new \Mpdf\Mpdf();
-
-                $mpdf->SetTitle("Application Status");
-
-                $mpdf->WriteHTML($html);
-
-                $mpdf->Output();
-            } elseif ($getStudentApplicationStatus == Application::ACCEPTANCE_FINANCIAL_AID_NO) {
-
-                $html = '<table width="100%" style="font-family: sans-serif;" cellpadding="10">
-                <tr>
-                    <td width="0%" style="border: 0;"> <a href="#" target="_blank"><img src="' .  asset("admin_assets/logo/logo_header2.png") . '"
-                    width="100" height="110" alt="Logo" align="center" border="0"></a></td>
-        
-                    <td width="100%" style="border: 0; text-align: left; font-size: 12px">St. Ignatius College
-                        Preparatory<br> 2001
-                        37th Avenue<br>San Francisco, CA 94116<br>(415) 731-7500
-                        <br> <br><br>Office of Admissions
-        
-                    </td>
-                </tr>
-            </table>
-        
-            <table width="100%" style="font-family: sans-serif; font-size: 12px;">
-                <tr>
-                    <td>
-                        <table width="60%" align="left" style="font-family: sans-serif; font-size: 12px;">
-                            <tr>
-                                <td style="padding: 0px; line-height: 20px;">&nbsp;</td>
-                            </tr>
-                        </table>
-                        <table width="40%" align="right" style="font-family: sans-serif; font-size: 12px;">
-                            <tr>
-                                <td style="padding: 0px 8px; line-height: 20px; text-align: right;">' . self::getDateFunctions() . '</td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-            <br>
-            <table class="items" width="100%" style="font-size: 12px; border-collapse: collapse;" cellpadding="8">
-                <thead>
-                <tr>
-                <td width="50%" style="text-align: left;">' . self::getStudentInformation($studentType, $studentDetail, "P1_First_Name") . '  ' . self::getStudentInformation($studentType, $studentDetail, "P1_Last_Name") . '  ' . self::getStudentInformation($studentType, $studentDetail, "P2_First_Name", 'P2_Last_Name') . ' 
-                    ' . self::getStudentInformation($studentType, $studentDetail, "P2_Last_Name") . ' <br>' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_Street") . ' <br>' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_City") . ', ' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_State") . ' 
-                    ' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_Zipcode") . ' </td>
-            </tr>
-        
-                </thead>
-        
-            </table>
-            <table class="items" width="100%" style="font-size: 12px; border-collapse: collapse;" cellpadding="8">
-                <thead>
-                <tr>
-                <td width="50%" style="text-align: left;">Dear ' . self::getStudentInformation($studentType, $studentDetail, "P1_Salutation") . ' ' . self::getStudentInformation($studentType, $studentDetail, "P1_Last_Name") . ' ' . self::getStudentInformation($studentType, $studentDetail, "P2_Salutation") . ' 
-                    ' . self::getStudentInformation($studentType, $studentDetail, "P2_Last_Name") . ':
-                </td>
-            </tr>
-            <tr>
-            <td width="100%" style="text-align: left;">My sincere congratulations to ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  upon acceptance to the Class of 2027 of St. Ignatius College Preparatory!
-            </td>
-        </tr>
-
-                    <tr>
-                        <td width="100%" style="text-align: left;">I am writing to convey the decision of the Financial
-                            Assistance Committee. We regret to inform you that we are unable to
-                            provide financial assistance for the 2023-2024 school year.
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="100%" style="text-align: left;">Our financial assistance funds are limited, and we have made
-                            every effort to evaluate your family’s demonstrated need. We
-                            cannot support any appeals unless there have been significant changes in your financial
-                            circumstances that occurred after
-                            your application for aid was filed. Examples of significant changes include:
-                            <ul>
-                                <li>Loss of income (wages, benefits, etc.) due to unemployment</li>
-                                <li>New major medical issue or family death</li>
-                            </ul>
-        
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="100%" style="text-align: left;">
-                            If you are moving forward with an appeal, please detail and document these changes by noon on
-                            Friday, March 25. All
-                            required documents, including your 2022 taxes, must be on file in your TADS application to be
-                            considered for an appeal.
-                            Submit your appeal here: https://www.siprep.org/appeal.
-                            <br><br>
-                            Tuition payments are collected through FACTS, and you will be notified by e-mail to sign up for this
-                            payment process.
-                            <br><br>
-                            It is our intention to make a Saint Ignatius education possible for all families and you are most
-                            welcome to apply for financial
-                            assistance in future years. Information about next year`s assistance process will be available on
-                            the SI website in October
-                            2023.
-                            <br><br>
-                            Once again, the Financial Assistance Committee regrets that we were not able to meet your request.
-                            We look forward to
-                            partnering with you as we provide an exceptional Jesuit education in these next four years.
-        
-                        </td>
-                    </tr>
-                </thead>
-        
-            </table>
-        
-            <table width="100%" style="font-family: sans-serif; font-size: 12px;">
-        
-                <tr>
-                    <td style="padding: 10px; line-height: 20px;">
-                        Sincerely,
-                        <br>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="padding: 10px; line-height: 20px; border:0;">
-                        <a href="#" target="_blank"><img src="' .  asset("admin_assets/logo/signature2.png") . '"
-                        width="100" height="110" alt="Logo" align="center" border="0"></a>
-                    </td>
-                </tr>
-                <br>
-                <tr>
-                    <td style="padding: 10px; line-height: 20px;">
-                        <br>
-                        Ken Stupi<br>
-                        VP of Finance & Administration
-                    </td>
-                </tr>
-        
-            </table>
-        
-           
-           ';
                 $mpdf = new \Mpdf\Mpdf();
 
                 $mpdf->SetTitle("Application Status");
@@ -825,6 +689,142 @@ class StatusPdfController extends Controller
                         </td>
                     </tr>
                 </table>';
+                $mpdf = new \Mpdf\Mpdf();
+
+                $mpdf->SetTitle("Application Status");
+
+                $mpdf->WriteHTML($html);
+
+                $mpdf->Output();
+            } elseif ($getStudentApplicationStatus == Application::ACCEPTANCE_FINANCIAL_AID_NO) {
+
+                $html = '<table width="100%" style="font-family: sans-serif;" cellpadding="10">
+                <tr>
+                    <td width="0%" style="border: 0;"> <a href="#" target="_blank"><img src="' .  asset("admin_assets/logo/logo_header2.png") . '"
+                    width="100" height="110" alt="Logo" align="center" border="0"></a></td>
+        
+                    <td width="100%" style="border: 0; text-align: left; font-size: 12px">St. Ignatius College
+                        Preparatory<br> 2001
+                        37th Avenue<br>San Francisco, CA 94116<br>(415) 731-7500
+                        <br> <br><br>Office of Admissions
+        
+                    </td>
+                </tr>
+            </table>
+        
+            <table width="100%" style="font-family: sans-serif; font-size: 12px;">
+                <tr>
+                    <td>
+                        <table width="60%" align="left" style="font-family: sans-serif; font-size: 12px;">
+                            <tr>
+                                <td style="padding: 0px; line-height: 20px;">&nbsp;</td>
+                            </tr>
+                        </table>
+                        <table width="40%" align="right" style="font-family: sans-serif; font-size: 12px;">
+                            <tr>
+                                <td style="padding: 0px 8px; line-height: 20px; text-align: right;">' . self::getDateFunctions() . '</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <table class="items" width="100%" style="font-size: 12px; border-collapse: collapse;" cellpadding="8">
+                <thead>
+                <tr>
+                <td width="50%" style="text-align: left;">' . self::getStudentInformation($studentType, $studentDetail, "P1_First_Name") . '  ' . self::getStudentInformation($studentType, $studentDetail, "P1_Last_Name") . '  ' . self::getStudentInformation($studentType, $studentDetail, "P2_First_Name", 'P2_Last_Name') . ' 
+                    ' . self::getStudentInformation($studentType, $studentDetail, "P2_Last_Name") . ' <br>' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_Street") . ' <br>' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_City") . ', ' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_State") . ' 
+                    ' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_Zipcode") . ' </td>
+            </tr>
+        
+                </thead>
+        
+            </table>
+            <table class="items" width="100%" style="font-size: 12px; border-collapse: collapse;" cellpadding="8">
+                <thead>
+                <tr>
+                <td width="50%" style="text-align: left;">Dear ' . self::getStudentInformation($studentType, $studentDetail, "P1_Salutation") . ' ' . self::getStudentInformation($studentType, $studentDetail, "P1_Last_Name") . ' ' . self::getStudentInformation($studentType, $studentDetail, "P2_Salutation") . ' 
+                    ' . self::getStudentInformation($studentType, $studentDetail, "P2_Last_Name") . ':
+                </td>
+            </tr>
+            <tr>
+            <td width="100%" style="text-align: left;">My sincere congratulations to ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  upon acceptance to the Class of 2027 of St. Ignatius College Preparatory!
+            </td>
+        </tr>
+
+                    <tr>
+                        <td width="100%" style="text-align: left;">I am writing to convey the decision of the Financial
+                            Assistance Committee. We regret to inform you that we are unable to
+                            provide financial assistance for the 2023-2024 school year.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="100%" style="text-align: left;">Our financial assistance funds are limited, and we have made
+                            every effort to evaluate your family’s demonstrated need. We
+                            cannot support any appeals unless there have been significant changes in your financial
+                            circumstances that occurred after
+                            your application for aid was filed. Examples of significant changes include:
+                            <ul>
+                                <li>Loss of income (wages, benefits, etc.) due to unemployment</li>
+                                <li>New major medical issue or family death</li>
+                            </ul>
+        
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="100%" style="text-align: left;">
+                            If you are moving forward with an appeal, please detail and document these changes by noon on
+                            Friday, March 25. All
+                            required documents, including your 2022 taxes, must be on file in your TADS application to be
+                            considered for an appeal.
+                            Submit your appeal here: https://www.siprep.org/appeal.
+                            <br><br>
+                            Tuition payments are collected through FACTS, and you will be notified by e-mail to sign up for this
+                            payment process.
+                            <br><br>
+                            It is our intention to make a Saint Ignatius education possible for all families and you are most
+                            welcome to apply for financial
+                            assistance in future years. Information about next year`s assistance process will be available on
+                            the SI website in October
+                            2023.
+                            <br><br>
+                            Once again, the Financial Assistance Committee regrets that we were not able to meet your request.
+                            We look forward to
+                            partnering with you as we provide an exceptional Jesuit education in these next four years.
+        
+                        </td>
+                    </tr>
+                </thead>
+        
+            </table>
+        
+            <table width="100%" style="font-family: sans-serif; font-size: 12px;">
+        
+                <tr>
+                    <td style="padding: 10px; line-height: 20px;">
+                        Sincerely,
+                        <br>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; line-height: 20px; border:0;">
+                        <a href="#" target="_blank"><img src="' .  asset("admin_assets/logo/signature2.png") . '"
+                        width="100" height="110" alt="Logo" align="center" border="0"></a>
+                    </td>
+                </tr>
+                <br>
+                <tr>
+                    <td style="padding: 10px; line-height: 20px;">
+                        <br>
+                        Ken Stupi<br>
+                        VP of Finance & Administration
+                    </td>
+                </tr>
+        
+            </table>
+        
+           
+           ';
                 $mpdf = new \Mpdf\Mpdf();
 
                 $mpdf->SetTitle("Application Status");

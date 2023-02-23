@@ -306,7 +306,7 @@ class ApplicationController extends Controller
                         }
                     } else {
                         if ($checkStatus->s1_candidate_status == Application::CANDIDATE_ACCEPTED || $checkStatus->s1_candidate_status == Application::CANDIDATE_REJECTED) {
-                            return "Something wrong try again";
+                            return "Please Refresh the Page";
                         }
 
                         $checkStatus->update([
@@ -412,7 +412,7 @@ class ApplicationController extends Controller
                     } else {
 
                         if ($checkStatus->s2_candidate_status == Application::CANDIDATE_ACCEPTED || $checkStatus->s2_candidate_status == Application::CANDIDATE_REJECTED) {
-                            return "Something wrong try again";
+                            return "Please Refresh the Page";
                         }
                         $checkStatus->update([
                             's2_application_status' => $applicationStatus,
@@ -514,7 +514,7 @@ class ApplicationController extends Controller
                         }
                     } else {
                         if ($checkStatus->s3_candidate_status == Application::CANDIDATE_ACCEPTED || $checkStatus->s3_candidate_status == Application::CANDIDATE_REJECTED) {
-                            return "Something wrong try again";
+                            return "Please Refresh the Page";
                         }
                         $checkStatus->update([
                             's3_application_status' => $applicationStatus,
