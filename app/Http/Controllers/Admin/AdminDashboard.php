@@ -42,8 +42,11 @@ class AdminDashboard extends Controller
             } else {
                 $count['applicationIncompleteCount'] = 0;
             }
-
-
+            $checkStudent = self::checkStudentPayment();
+            $resultStudent = Application::CANDIDATE_NOT_DEFINED;
+            if ($checkStudent) {
+                $resultStudent = Application::CANDIDATE_ACCEPTED;
+            }
             $count['applicationsAccepted'] = self::getAppliactionAccepted();
 
             $count['applicationCompleteCount'] = self::submittedApplications();
@@ -687,6 +690,44 @@ class AdminDashboard extends Controller
         return count(array_filter($studentInfo));
 
         // return $data = $this->paginate($myCollectionObj, $this->perPage);
+    }
+
+    private function checkStudentPayment()
+    {
+        $studentArr = [];
+        $getData = StudentInformation::join('applications', 'applications.Application_ID', 'student_information.Application_ID')
+            ->select('student_information.*', 'applications.status', 'applications.last_step_complete')
+            ->where('applications.last_step_complete', 'ten')
+            ->get();
+        if (count($getData) > 0) {
+            foreach ($getData as $key => $getStudentInfo) {
+                $studentInfo = [];
+
+                $student1 = [
+                    "First_Name" => Str::lower($getStudentInfo->S1_First_Name)
+                ];
+
+                $student2 = [
+                    "First_Name" => Str::lower($getStudentInfo->S2_First_Name)
+                ];
+                $student3 = [
+                    "First_Name" => Str::lower($getStudentInfo->S3_First_Name)
+                ];
+
+                $studentArr[] = $getStudentInfo['S1_First_Name'] ? $student1 : null;
+                $studentArr[] = $getStudentInfo['S2_First_Name'] ? $student2 : null;
+                $studentArr[] = $getStudentInfo['S3_First_Name'] ? $student3 : null;
+
+                foreach ($studentArr as $student) {
+                    if (!is_null($student)) {
+                        array_push($studentInfo, $student);
+                    }
+                }
+            }
+        } else {
+            $studentInfo = [];
+        }
+        return (count(array_filter($studentArr)));
     }
     private function getAppliactionAccepted()
     {

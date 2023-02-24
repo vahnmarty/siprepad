@@ -66,6 +66,7 @@
             $rowClass = 'grey';
             @endphp
             <x-slot name="tbody">
+                @if($students)
                 @forelse($students as $key => $student)
                 @php
                 //if userid changed from last iteration, store new userid and change color
@@ -84,8 +85,8 @@
 
                 $getApplicationStatus = App\Models\StudentApplicationStatus::where('application_id', $getApplication->Application_ID)
                 ->where('profile_id', $getApplication->Profile_ID)->first();
-                
-              
+
+
 
 
                 @endphp
@@ -870,6 +871,8 @@
                     <td colspan="6" class="align-center">No records available</td>
                 </tr>
                 @endforelse
+                @endif
+
             </x-slot>
 
     </x-admin.table>

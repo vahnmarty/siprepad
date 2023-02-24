@@ -147,17 +147,18 @@ class StatusPdfController extends Controller
                         </td>
             
                     </tr>
+                   
                     <tr>
-                        <td width="50%" style="text-align: left;">
-                        We had over <b> 1,290</b> applicants apply to St. Ignatius College Preparatory for the Class of  2027. The Admissions Committee was
-                        fortunate to have so many qualified applicants to select from in this highly competitive applicant pool. We are excited to have
-                        ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . ' as a member of our talented Freshman class. ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '’s acceptance is contingent upon
-                       ' . self::getStudentInformation($studentType, $studentDetail, "his/her") . ' continued academic performance, good citizenship, and successful completion of eighth grade at
-                        ' . self::getStudentInformation($studentType, $studentDetail, "Student_Current_School") . '. It is our intention to see that your student has the academic challenge and individual attention that
-                        have been a hallmark of Jesuit education. To this end, we are looking forward to working closely with you and
-                        ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . ' over the next four years. Once again,<strong>congratulations!</strong>
-            
-                    </tr>
+    <td width="50%" style="text-align: left;">
+        We had over <b> 1,290</b> applicants apply to St. Ignatius College Preparatory for the Class of 2027. The Admissions Committee was
+        fortunate to have so many qualified applicants to select from in this highly competitive applicant pool. We are excited to have
+        ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . ' as a member of our talented Freshman class. ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '’s acceptance is contingent upon
+        ' . self::getStudentInformation($studentType, $studentDetail, "his/her") . ' continued academic performance, good citizenship, and successful completion of eighth grade at
+        ' . self::getStudentInformation($studentType, $studentDetail, "Student_Current_School") . '. It is our intention to see that your student has the academic challenge and individual attention that
+        have been a hallmark of Jesuit education. To this end, we are looking forward to working closely with you and
+        ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . ' over the next four years. Once again,<strong>congratulations!</strong>
+
+</tr>
             
             
                 </thead>
@@ -1123,6 +1124,298 @@ class StatusPdfController extends Controller
 
                 $mpdf->Output();
             }
+        }
+    }
+    private function  manageContentType($studentType, $studentDetail, $type, $P2_Last_Name = '')
+    {
+        // dd($studentDetail);
+        if ($studentType == Application::STUDENT_S1) {
+            switch ($type) {
+
+                case "Student_First_Name":
+
+
+                    return ucwords($studentDetail->S1_First_Name);
+                    break;
+                case "Student_Last_Name":
+                    return ucwords($studentDetail->S1_Last_Name);
+
+                    break;
+                case "P1_Salutation":
+                    return ucwords($studentDetail->P1_Salutation);
+
+                    break;
+
+                case "P2_Salutation":
+                    if ($studentDetail->P2_Salutation == null) {
+                    } else {
+                        return 'and ' . ucwords($studentDetail->P2_Salutation);
+                    }
+
+                    break;
+                case "P2_Last_Name":
+                    if ($studentDetail->P2_Last_Name == null) {
+                        return ucwords($studentDetail->P2_Last_Name);
+                    } else {
+                        if ($P2_Last_Name == 'P2_Last_Name') {
+                            return '' . ucwords($studentDetail->P2_Last_Name) . '';
+                        } else {
+                            if ($studentDetail->P2_Salutation == null) {
+
+                                return 'and ' . ucwords($studentDetail->P2_Last_Name) . '';
+                            } else {
+                                return ' ' . ucwords($studentDetail->P2_Last_Name) . '';
+                            }
+                        }
+                    }
+                    break;
+                case "P1_First_Name":
+                    return ucwords($studentDetail->P1_First_Name);
+                    break;
+                case "P1_Last_Name":
+
+                    if ($studentDetail->P2_Last_Name == null) {
+                        return ucwords($studentDetail->P1_Last_Name) . '';
+                    } else {
+                        return ucwords($studentDetail->P1_Last_Name);
+                    }
+                    break;
+
+                case "P2_First_Name":
+                    if ($studentDetail->P2_First_Name == null) {
+
+                        return ucwords($studentDetail->P2_First_Name);
+                    } else {
+
+                        return 'and ' . ucwords($studentDetail->P2_First_Name);
+                    }
+                    break;
+                case "Primary_Address_Street":
+                    return ucwords($studentDetail->Address_1);
+                    break;
+                case "Primary_Address_City":
+
+                    return ucwords($studentDetail->City_1);
+                    break;
+                case "Primary_Address_State":
+                    return ucwords($studentDetail->State_1);
+                    break;
+                case "Primary_Address_Zipcode":
+                    return ucwords($studentDetail->Zipcode_1);
+                    break;
+                case "Student_Current_School":
+                    return ucwords($studentDetail->S1_Current_School);
+                    break;
+                case "his/her":
+                    if ($studentDetail->S1_Gender == "Male") {
+                        return "his";
+                    } else {
+                        return "her";
+                    }
+                case "he/she":
+                    if ($studentDetail->S1_Gender == "Male") {
+                        return "he";
+                    } else {
+                        return "she";
+                    }
+                    break;
+                default:
+                    return "----";
+            };
+        }
+
+        // Primary_Address_Street") . ' <br>' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_City") . ' , ' . self::getStudentInformation($studentType, $studentDetail, "Primary_Address_State") . ' 
+
+        if ($studentType == Application::STUDENT_S2) {
+
+            switch ($type) {
+                case "Student_First_Name":
+                    // dd($studentDetail);
+                    return $studentDetail->S2_First_Name;
+                    break;
+                case "Student_Last_Name":
+                    return $studentDetail->S2_Last_Name;
+
+                    break;
+                case "P1_Salutation":
+                    return ucwords($studentDetail->P1_Salutation);
+
+                    break;
+
+                case "P2_Salutation":
+                    if ($studentDetail->P2_Salutation == null) {
+                        return ucwords($studentDetail->P2_Salutation);
+                    } else {
+                        return 'and ' . ucwords($studentDetail->P2_Salutation);
+                    }
+
+                    break;
+                case "P2_Last_Name":
+                    // dd($P2_Last_Name);
+
+                    if ($studentDetail->P2_Last_Name == null) {
+                        return ucwords($studentDetail->P2_Last_Name);
+                    } else {
+                        if ($P2_Last_Name == 'P2_Last_Name') {
+                            return '' . ucwords($studentDetail->P2_Last_Name) . '';
+                        } else {
+                            if ($studentDetail->P2_Salutation == null) {
+
+                                return 'and ' . ucwords($studentDetail->P2_Last_Name) . '';
+                            } else {
+                                return ' ' . ucwords($studentDetail->P2_Last_Name) . '';
+                            }
+                        }
+                    }
+                    break;
+                case "P1_First_Name":
+                    return ucwords($studentDetail->P1_First_Name);
+                    break;
+                case "P1_Last_Name":
+
+                    if ($studentDetail->P2_Last_Name == null) {
+                        return ucwords($studentDetail->P1_Last_Name) . '';
+                    } else {
+                        return ucwords($studentDetail->P1_Last_Name);
+                    }
+                    break;
+
+                case "P2_First_Name":
+                    // dd($type);
+                    if ($studentDetail->P2_First_Name == null) {
+
+                        return ucwords($studentDetail->P2_First_Name);
+                    } else {
+
+                        return 'and ' . ucwords($studentDetail->P2_First_Name);
+                    }
+
+                    break;
+                case "Primary_Address_Street":
+                    return ucwords($studentDetail->Address_1);
+                    break;
+                case "Primary_Address_City":
+
+                    return ucwords($studentDetail->City_1);
+                    break;
+                case "Primary_Address_State":
+                    return ucwords($studentDetail->State_1);
+                    break;
+                case "Primary_Address_Zipcode":
+                    return ucwords($studentDetail->Zipcode_1);
+                    break;
+                case "Student_Current_School":
+                    return ucwords($studentDetail->S1_Current_School);
+                    break;
+                case "his/her":
+                    if ($studentDetail->S2_Gender == "Male") {
+                        return "his";
+                    } else {
+                        return "her";
+                    }
+                case "he/she":
+                    if ($studentDetail->S2_Gender == "Male") {
+                        return "he";
+                    } else {
+                        return "she";
+                    }
+                    break;
+                default:
+                    return "----";
+            };
+        }
+        if ($studentType == Application::STUDENT_S3) {
+            switch ($type) {
+                case "Student_First_Name":
+                    // dd($studentDetail);
+                    return ucwords($studentDetail->S3_First_Name);
+                    break;
+                case "Student_Last_Name":
+                    return ucwords($studentDetail->S3_Last_Name);
+
+                    break;
+                case "P1_Salutation":
+                    return ucwords($studentDetail->P1_Salutation);
+
+                    break;
+
+                case "P2_Salutation":
+                    if ($studentDetail->P2_Salutation == null) {
+                        return ucwords($studentDetail->P2_Salutation);
+                    } else {
+                        return 'and ' . ucwords($studentDetail->P2_Salutation);
+                    }
+
+                    break;
+                case "P2_Last_Name":
+                    if ($studentDetail->P2_Last_Name == null) {
+                        return ucwords($studentDetail->P2_Last_Name);
+                    } else {
+                        if ($P2_Last_Name == 'P2_Last_Name') {
+                            return ' ' . ucwords($studentDetail->P2_Last_Name) . '';
+                        } else {
+                            if ($studentDetail->P2_Salutation == null) {
+
+                                return 'and ' . ucwords($studentDetail->P2_Last_Name) . '';
+                            } else {
+                                return ' ' . ucwords($studentDetail->P2_Last_Name) . '';
+                            }
+                        }
+                    }
+                    break;
+                case "P1_First_Name":
+                    return ucwords($studentDetail->P1_First_Name);
+                    break;
+                case "P1_Last_Name":
+
+                    if ($studentDetail->P2_Last_Name == null) {
+                        return ucwords($studentDetail->P1_Last_Name) . '';
+                    } else {
+                        return ucwords($studentDetail->P1_Last_Name);
+                    }
+                    break;
+
+                case "P2_First_Name":
+                    if ($studentDetail->P2_First_Name == null) {
+
+                        return ucwords($studentDetail->P2_First_Name);
+                    } else {
+
+                        return 'and ' . ucwords($studentDetail->P2_First_Name);
+                    }
+                    break;
+                case "Primary_Address_Street":
+                    return ucwords($studentDetail->Address_1);
+                    break;
+                case "Primary_Address_City":
+
+                    return ucwords($studentDetail->City_1);
+                    break;
+                case "Primary_Address_State":
+                    return ucwords($studentDetail->State_1);
+                    break;
+                case "Primary_Address_Zipcode":
+                    return ucwords($studentDetail->Zipcode_1);
+                    break;
+                case "Student_Current_School":
+                    return ucwords($studentDetail->S1_Current_School);
+                    break;
+                case "his/her":
+                    if ($studentDetail->S3_Gender == "Male") {
+                        return "his";
+                    } else {
+                        return "her";
+                    }
+                case "he/she":
+                    if ($studentDetail->S3_Gender == "Male") {
+                        return "he";
+                    } else {
+                        return "she";
+                    }
+                    break;
+                default:
+                    return "----";
+            };
         }
     }
     private function  getDateFunctions()

@@ -113,74 +113,7 @@ class HomeController extends Controller
     {
         return response()->json("You clicked on book wildcat experience", 200);
     }
-    private function getMadePayment($application, $profile_id, $applicationType)
-    {
-        $studentArr = [];
-        $studentInfo = [];
-        $StudentApplicationStatusResults = [];
-        if ($application) {
 
-            $getData = StudentInformation::where('Application_ID', $application->Application_ID)->where('Profile_ID', $profile_id)->get();
-            $StudentPaymentStatus = Payment::where('Application_ID', $application->Application_ID)->get();
-            foreach ($StudentPaymentStatus as $key => $StudentApplicationStatusResult) {
-                $StudentApplicationStatusResults[$key]['studentType'] = $StudentApplicationStatusResult['student'];
-                $StudentApplicationStatusResults[$key]['application_id'] = $StudentApplicationStatusResult['application_id'];
-            }
-            if (count($StudentPaymentStatus) > 0) {
-                foreach ($getData as $key => $getStudentInfo) {
-                    $student1 = [
-                        "Application_ID" => $getStudentInfo->Application_ID,
-                        "Photo" =>  $getStudentInfo->S1_Photo,
-                        "First_Name" => Str::lower($getStudentInfo->S1_First_Name),
-
-                        "student_type" => Application::STUDENT_ONE
-                    ];
-                    $student2 = [
-                        "Application_ID" => $getStudentInfo->Application_ID,
-                        "Photo" =>  $getStudentInfo->S2_Photo,
-                        "First_Name" => Str::lower($getStudentInfo->S2_First_Name),
-                        "Middle_Name" =>  $getStudentInfo->S2_Middle_Name,
-                        "Last_Name" =>  Str::lower($getStudentInfo->S2_Last_Name),
-
-                        "student_type" => Application::STUDENT_TWO
-
-                    ];
-                    $student3 = [
-                        "Application_ID" => $getStudentInfo->Application_ID,
-                        "Photo" =>  $getStudentInfo->S3_Photo,
-                        "First_Name" => Str::lower($getStudentInfo->S3_First_Name),
-                        "Middle_Name" =>  $getStudentInfo->S3_Middle_Name,
-                        "Last_Name" =>  Str::lower($getStudentInfo->S3_Last_Name),
-
-                        "student_type" => Application::STUDENT_THREE
-
-                    ];
-                    foreach ($StudentApplicationStatusResults as $result) {
-                        if ($getStudentInfo->Application_ID == $result['application_id']) {
-                            if ($result['studentType'] == Application::STUDENT_S1) {
-                                $studentArr[] = $getStudentInfo->S1_First_Name ? $student1 : null;
-                            } elseif ($result['studentType'] == Application::STUDENT_S2) {
-                                $studentArr[] = $getStudentInfo->S2_First_Name ? $student2 : null;
-                            } elseif ($result['studentType'] == Application::STUDENT_S3) {
-                                $studentArr[] = $getStudentInfo->S3_First_Name ? $student3 : null;
-                            }
-                        }
-                    }
-                    $studentInfo = [];
-                    foreach ($studentArr as $student) {
-                        if (!is_null($student)) {
-                            array_push($studentInfo, $student);
-                        }
-                    }
-                }
-            } else {
-                $studentInfo = [];
-            }
-        } else {
-            $studentInfo = [];
-        }
-        return $myCollectionObj = (array_filter($studentInfo));
-    }
 
     private function getCandidateAccepted($getStudentInfo, $StudentApplicationStatus, $applicationType)
     {
@@ -410,33 +343,85 @@ class HomeController extends Controller
             abort(400, 'You are not authorize');
         }
     }
+    private function getMadePayment($application, $profile_id, $applicationType)
+    {
+        $studentArr = [];
+        $studentInfo = [];
+        $StudentApplicationStatusResults = [];
+        if ($application) {
 
+            $getData = StudentInformation::where('Application_ID', $application->Application_ID)->where('Profile_ID', $profile_id)->get();
+            $StudentPaymentStatus = Payment::where('Application_ID', $application->Application_ID)->get();
+            foreach ($StudentPaymentStatus as $key => $StudentApplicationStatusResult) {
+                $StudentApplicationStatusResults[$key]['studentType'] = $StudentApplicationStatusResult['student'];
+                $StudentApplicationStatusResults[$key]['application_id'] = $StudentApplicationStatusResult['application_id'];
+            }
+            if (count($StudentPaymentStatus) > 0) {
+                foreach ($getData as $key => $getStudentInfo) {
+                    $student1 = [
+                        "Application_ID" => $getStudentInfo->Application_ID,
+                        "Photo" =>  $getStudentInfo->S1_Photo,
+                        "First_Name" => Str::lower($getStudentInfo->S1_First_Name),
+
+                        "student_type" => Application::STUDENT_ONE
+                    ];
+                    $student2 = [
+                        "Application_ID" => $getStudentInfo->Application_ID,
+                        "Photo" =>  $getStudentInfo->S2_Photo,
+                        "First_Name" => Str::lower($getStudentInfo->S2_First_Name),
+                        "Middle_Name" =>  $getStudentInfo->S2_Middle_Name,
+                        "Last_Name" =>  Str::lower($getStudentInfo->S2_Last_Name),
+
+                        "student_type" => Application::STUDENT_TWO
+
+                    ];
+                    $student3 = [
+                        "Application_ID" => $getStudentInfo->Application_ID,
+                        "Photo" =>  $getStudentInfo->S3_Photo,
+                        "First_Name" => Str::lower($getStudentInfo->S3_First_Name),
+                        "Middle_Name" =>  $getStudentInfo->S3_Middle_Name,
+                        "Last_Name" =>  Str::lower($getStudentInfo->S3_Last_Name),
+
+                        "student_type" => Application::STUDENT_THREE
+
+                    ];
+                    foreach ($StudentApplicationStatusResults as $result) {
+                        if ($getStudentInfo->Application_ID == $result['application_id']) {
+                            if ($result['studentType'] == Application::STUDENT_S1) {
+                                $studentArr[] = $getStudentInfo->S1_First_Name ? $student1 : null;
+                            } elseif ($result['studentType'] == Application::STUDENT_S2) {
+                                $studentArr[] = $getStudentInfo->S2_First_Name ? $student2 : null;
+                            } elseif ($result['studentType'] == Application::STUDENT_S3) {
+                                $studentArr[] = $getStudentInfo->S3_First_Name ? $student3 : null;
+                            }
+                        }
+                    }
+                    $studentInfo = [];
+                    foreach ($studentArr as $student) {
+                        if (!is_null($student)) {
+                            array_push($studentInfo, $student);
+                        }
+                    }
+                }
+            } else {
+                $studentInfo = [];
+            }
+        } else {
+            $studentInfo = [];
+        }
+        return $myCollectionObj = (array_filter($studentInfo));
+    }
     public function appForm($application_id = null)
     {
 
         return view('frontend.application.view-application', compact('application_id'));
     }
 
-    // public function listViewApplication($application_id = null)
-    // {
-    //     $payment = Payment::where('application_id', Auth::user()->id)->get();
-    //     if ($payment->count() > Payment::COUNT) {
-    //         return view('frontend.view_application', compact('payment', 'application_id'));
-    //     } else {
-    //         return view('frontend.application.view-application', compact('application_id'));
-    //     }
-    // }
+
 
     public function viewApplication($application_id = null)
     {
-        //todo: Do setup on livewire
-        //return response()->json("We are working on this", 200);
-            // $payment = Payment::where('application_id', Auth::user()->id)->get();
-            // if ($payment->count() > Payment::COUNT) {
-            //     return view('frontend.view_application', compact('payment', 'application_id'));
-            // } else {
-            //     return view('frontend.application.view-application', compact('application_id'));
-            // }
+
         return view('frontend.application.view-application', compact('application_id'));
     }
 
@@ -464,14 +449,11 @@ class HomeController extends Controller
                 $studentArr[] = $getStudent['S2_First_Name'] ? $arr2 : null;
                 $studentArr[] = $getStudent['S3_First_Name'] ? $arr3 : null;
                 foreach ($studentArr as $key => $student) {
-                    // if (!is_null($student) && !in_array($student, $recommendationStudent)) {
-                    //     array_push($getAllStudent, $student);
-                    // }
+
                     if (!is_null($student)) {
                         array_push($getAllStudent, $student);
                     }
                 }
-                //check all the student recommendation send or not
                 $getStudent = [];
                 foreach ($studentArr as $key => $student) {
                     if (!is_null($student) && !in_array($student, $recommendationStudent)) {
@@ -503,6 +485,7 @@ class HomeController extends Controller
         DB::beginTransaction();
         try {
 
+            
             $getRecommendation = Recommendation::create([
                 'Profile_ID' => Auth::id(),
                 'Rec_Name' => $request->name,
