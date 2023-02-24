@@ -610,9 +610,12 @@ function getTuitionAmount()
 					@else
 					@endif
 					@if($appStatus->s1_candidate_status == App\Models\Application::TYPE_ACCEPTED)
+					@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_ONE && $appStatus->s1_application_status == App\Models\Application::TYPE_ACCEPTED)
+
 					<div class="col-md-12 text-center" style="text-align: right!important"></div>
 					<div class="col-md-12 text-center" style="text-align: right!important"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#Survey" class='btn btn_accept btn-success  mt-3 btn-sm'>Acceptance Survey</a></div>
 					<!-- <div class="col-md-12 text-center" style="text-align: right!important">Congratulations on enrolling as a student in the SI Class of 2027! Please check back here on Monday, March 27th for next steps and registration information.</div> -->
+					@endif
 					@php
 					getAcceptanceModal();
 					@endphp
@@ -636,7 +639,10 @@ function getTuitionAmount()
 					@endif
 
 					@if($appStatus->s2_candidate_status == App\Models\Application::TYPE_ACCEPTED)
+					@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_TWO && $appStatus->s2_application_status == App\Models\Application::TYPE_ACCEPTED)
+
 					<div class="col-md-12 text-center" style="text-align: right!important"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#Survey" class='btn btn_accept btn-success  mt-3 btn-sm'>Acceptance Survey</a></div>
+					@endif
 					@php
 					getAcceptanceModal();
 					@endphp
@@ -658,7 +664,10 @@ function getTuitionAmount()
 					@else
 					@endif
 					@if($appStatus->s3_candidate_status == App\Models\Application::TYPE_ACCEPTED)
+					@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_TWO && $appStatus->s2_application_status == App\Models\Application::TYPE_ACCEPTED)
+
 					<div class="col-md-12 text-center" style="text-align: right!important"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#Survey" class='btn btn_accept btn-success  mt-3 btn-sm'>Acceptance Survey</a></div>
+					@endif
 					@php
 					getAcceptanceModal();
 					@endphp
@@ -718,7 +727,6 @@ function getTuitionAmount()
 			@endif
 
 			@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_TWO && $appStatus->s2_application_status == App\Models\Application::TYPE_ACCEPTED)
-			<!-- <div class="col-md-12 text-center" style="text-align: right!important"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#Survey" class='btn btn_accept btn-success  mt-3 btn-sm'>Acceptance Survey</a></div> -->
 			<script>
 				$(document).ready(function() {
 					$('#staticBackdrop').modal('hide');
@@ -727,7 +735,6 @@ function getTuitionAmount()
 			@endif
 
 			@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_THREE && $appStatus->s3_application_status == App\Models\Application::TYPE_ACCEPTED)
-			<!-- <div class="col-md-12 text-center" style="text-align: right!important"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#Survey" class='btn btn_accept btn-success mt-3 btn-sm'>Acceptance Survey</a></div> -->
 			<script>
 				$(document).ready(function() {
 					$('#staticBackdrop').modal('hide');
@@ -737,7 +744,6 @@ function getTuitionAmount()
 
 			@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_TWO && $appStatus->s2_application_status == App\Models\Application::ACCEPTANCE_FINANCIAL_AID_YES)
 
-			<!-- <div class="col-md-12 text-center"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#Survey" class='btn btn_accept btn-success mt-3 btn-sm'>Acceptance Survey</a></div> -->
 			<script>
 				$(document).ready(function() {
 					$('#staticBackdrop').modal('hide');
@@ -748,7 +754,6 @@ function getTuitionAmount()
 
 			@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_ONE && $appStatus->s1_application_status == App\Models\Application::ACCEPTANCE_FINANCIAL_AID_YES)
 
-			<!-- <div class="col-md-12 text-center"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#Survey" class='btn btn_accept btn-success mt-3 btn-sm'>Acceptance Survey</a></div> -->
 			<script>
 				$(document).ready(function() {
 					$('#staticBackdrop').modal('hide');
@@ -759,7 +764,6 @@ function getTuitionAmount()
 
 			@if($student_accept_status =="payment_successful" && $ntfDetail->student_profile == App\Models\Application::STUDENT_THREE && $appStatus->s3_application_status == App\Models\Application::ACCEPTANCE_FINANCIAL_AID_YES)
 
-			<!-- <div class="col-md-12 text-center"><a data-bs-toggle="modal" id="AcceptFirstSurvyModal" data-bs-target="#Survey" class='btn btn_accept btn-success mt-3 btn-sm'>Acceptance Survey</a></div> -->
 			<script>
 				$(document).ready(function() {
 					$('#staticBackdrop').modal('hide');
@@ -2315,9 +2319,9 @@ echo $modal= '<div class="modal fade" id="declineanceServModal" tabindex="-1" ar
 									<td>
 										<div class="selector-box">
 											<select id="school_s_Decision_1" name="school_s_Decision_1">
-												<option value="saab">Saab</option>
-												<option value="fiat">Fiat</option>
-												<option value="audi">Audi</option>
+												<option value="Accepted">Accepted</option>
+												<option value="Wait Listed">Wait Listed</option>
+												<option value="Not Accepted">Not Accepted</option>
 											</select>
 										</div>
 									</td>
@@ -2351,10 +2355,9 @@ echo $modal= '<div class="modal fade" id="declineanceServModal" tabindex="-1" ar
 									<td>
 										<div class="selector-box">
 											<select id="school_s_Decision_2" name="school_s_Decision_2">
-												<option value="volvo">Volvo</option>
-												<option value="saab">Saab</option>
-												<option value="fiat">Fiat</option>
-												<option value="audi">Audi</option>
+												<option value="Accepted">Accepted</option>
+												<option value="Wait Listed">Wait Listed</option>
+												<option value="Not Accepted">Not Accepted</option>
 											</select>
 										</div>
 									</td>
@@ -2387,10 +2390,9 @@ echo $modal= '<div class="modal fade" id="declineanceServModal" tabindex="-1" ar
 									<td>
 										<div class="selector-box">
 											<select id="school_s_Decision_3" name="school_s_Decision_3">
-												<option value="volvo">Volvo</option>
-												<option value="saab">Saab</option>
-												<option value="fiat">Fiat</option>
-												<option value="audi">Audi</option>
+												<option value="Accepted">Accepted</option>
+												<option value="Wait Listed">Wait Listed</option>
+												<option value="Not Accepted">Not Accepted</option>
 											</select>
 										</div>
 									</td>
@@ -2423,10 +2425,9 @@ echo $modal= '<div class="modal fade" id="declineanceServModal" tabindex="-1" ar
 									<td>
 										<div class="selector-box">
 											<select id="school_s_Decision_4" name="school_s_Decision_4">
-												<option value="volvo">Volvo</option>
-												<option value="saab">Saab</option>
-												<option value="fiat">Fiat</option>
-												<option value="audi">Audi</option>
+												<option value="Accepted">Accepted</option>
+												<option value="Wait Listed">Wait Listed</option>
+												<option value="Not Accepted">Not Accepted</option>
 											</select>
 										</div>
 									</td>
@@ -2489,10 +2490,14 @@ echo $modal= '<div class="modal fade" id="declineanceServModal" tabindex="-1" ar
 									<td>
 										<div class="selector-box">
 											<select id="second_Most_Important_Reason" name="second_Most_Important_Reason">
-												<option value="volvo">Volvo</option>
-												<option value="saab">Saab</option>
-												<option value="fiat">Fiat</option>
-												<option value="audi">Audi</option>
+												<option value="Financial Concerns">Financial Concerns</option>
+												<option value="Scholarship at Another School">Scholarship at Another School</option>
+												<option value="Desire a Smaller Size High School">Desire a Smaller Size High School</option>
+												<option value="Commute/Distance from Home">Commute/Distance from Home</option>
+												<option value="Legacy at Another School">Legacy at Another School</option>
+												<option value="Friends at Another School">Friends at Another School</option>
+												<option value="Religious Concerns">Religious Concerns</option>
+												<option value="Other">Other</option>
 											</select>
 										</div>
 									</td>
@@ -2510,10 +2515,14 @@ echo $modal= '<div class="modal fade" id="declineanceServModal" tabindex="-1" ar
 									<td>
 										<div class="selector-box">
 											<select id="third_Most_Important_Reason" name="third_Most_Important_Reason">
-												<option value="volvo">Volvo</option>
-												<option value="saab">Saab</option>
-												<option value="fiat">Fiat</option>
-												<option value="audi">Audi</option>
+												<option value="Financial Concerns">Financial Concerns</option>
+												<option value="Scholarship at Another School">Scholarship at Another School</option>
+												<option value="Desire a Smaller Size High School">Desire a Smaller Size High School</option>
+												<option value="Commute/Distance from Home">Commute/Distance from Home</option>
+												<option value="Legacy at Another School">Legacy at Another School</option>
+												<option value="Friends at Another School">Friends at Another School</option>
+												<option value="Religious Concerns">Religious Concerns</option>
+												<option value="Other">Other</option>
 											</select>
 										</div>
 									</td>
@@ -2552,20 +2561,13 @@ echo $modal= '<div class="modal fade" id="declineanceServModal" tabindex="-1" ar
 					<tr>
 						<td style="padding: 10px;" width="50%" align="center">
 							<a style="background-color: darkgrey; border: none; padding: 6px 8px; border-radius: 5px; width: 180px;" id="decline_Acceptance_to_SI" class="decline-btn">Decline Acceptance to SI</a>
-
 							<a style="background-color: darkgrey; border: none; padding: 6px 8px; border-radius: 5px; width: 100px;" data-dismiss="modal" class="decline-btn1">Decide Later</a>
 						</td>
 						<td></td>
 					</tr>
 					<tr style="height: 20px;"></tr>
-
 				</table>
-
-
-
-
 			</div>
-
 		</div>
 	</div>
 </div>';
@@ -2617,9 +2619,9 @@ echo $modal ='<div class="modal fade" id="acceptanceServModal" tabindex="	<b>$</
 									<td>
 										<div class="selector-box">
 											<select id="school_s_Decision_1" name="school_s_Decision_1">
-												<option value="saab">Saab</option>
-												<option value="fiat">Fiat</option>
-												<option value="audi">Audi</option>
+												<option value="Accepted">Accepted</option>
+												<option value="Wait Listed">Wait Listed</option>
+												<option value="Not Accepted">Not Accepted</option>
 											</select>
 										</div>
 										<!-- <input type="number" style="border-radius: 5px; padding: 5px 10px; width: 120px;  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"> -->
@@ -2655,10 +2657,9 @@ echo $modal ='<div class="modal fade" id="acceptanceServModal" tabindex="	<b>$</
 									<td>
 										<div class="selector-box">
 											<select id="school_s_Decision_2" name="school_s_Decision_2">
-												<option value="volvo">Volvo</option>
-												<option value="saab">Saab</option>
-												<option value="fiat">Fiat</option>
-												<option value="audi">Audi</option>
+												<option value="Accepted">Accepted</option>
+												<option value="Wait Listed">Wait Listed</option>
+												<option value="Not Accepted">Not Accepted</option>
 											</select>
 										</div>
 										<!-- <input type="number" style="border-radius: 5px; padding: 5px 10px; width: 120px;  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"> -->
@@ -2693,10 +2694,9 @@ echo $modal ='<div class="modal fade" id="acceptanceServModal" tabindex="	<b>$</
 									<td>
 										<div class="selector-box">
 											<select id="school_s_Decision_3" name="school_s_Decision_3">
-												<option value="volvo">Volvo</option>
-												<option value="saab">Saab</option>
-												<option value="fiat">Fiat</option>
-												<option value="audi">Audi</option>
+												<option value="Accepted">Accepted</option>
+												<option value="Wait Listed">Wait Listed</option>
+												<option value="Not Accepted">Not Accepted</option>
 											</select>
 										</div>
 										<!-- <input type="number" style="border-radius: 5px; padding: 5px 10px; width: 120px;  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"> -->
@@ -2731,10 +2731,9 @@ echo $modal ='<div class="modal fade" id="acceptanceServModal" tabindex="	<b>$</
 									<td>
 										<div class="selector-box">
 											<select id="school_s_Decision_4" name="school_s_Decision_4">
-												<option value="volvo">Volvo</option>
-												<option value="saab">Saab</option>
-												<option value="fiat">Fiat</option>
-												<option value="audi">Audi</option>
+												<option value="Accepted">Accepted</option>
+												<option value="Wait Listed">Wait Listed</option>
+												<option value="Not Accepted">Not Accepted</option>
 											</select>
 										</div>
 										<!-- <input type="number" style="border-radius: 5px; padding: 5px 10px; width: 120px;  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"> -->
@@ -2776,12 +2775,20 @@ echo $modal ='<div class="modal fade" id="acceptanceServModal" tabindex="	<b>$</
 										Most Important Reason:
 									</td>
 									<td>
+
+
 										<div class="selector-box">
 											<select id="most_Important_Reason" name="most_Important_Reason">
-												<option value="volvo">Volvo</option>
-												<option value="saab">Saab</option>
-												<option value="fiat">Fiat</option>
-												<option value="audi">Audi</option>
+
+												<option value="Academics">Academics</option>
+												<option value="Performing Arts">Performing Arts</option>
+												<option value="Other Co-curriculars Offered">Other Co-curriculars Offered</option>
+												<option value="Jesuit/Catholic Education">Jesuit/Catholic Education</option>
+												<option value="Diversity">Diversity</option>
+												<option value="Legacy Connection">Legacy Connection</option>
+												<option value="Social Justice">Social Justice</option>
+												<option value="Community">Community</option>
+												<option value="Other">Other</option>
 											</select>
 										</div>
 										<!-- <input type="number" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;"> -->
@@ -2800,10 +2807,16 @@ echo $modal ='<div class="modal fade" id="acceptanceServModal" tabindex="	<b>$</
 									<td>
 										<div class="selector-box">
 											<select id="second_Most_Important_Reason" name="second_Most_Important_Reason">
-												<option value="volvo">Volvo</option>
-												<option value="saab">Saab</option>
-												<option value="fiat">Fiat</option>
-												<option value="audi">Audi</option>
+
+												<option value="Academics">Academics</option>
+												<option value="Performing Arts">Performing Arts</option>
+												<option value="Other Co-curriculars Offered">Other Co-curriculars Offered</option>
+												<option value="Jesuit/Catholic Education">Jesuit/Catholic Education</option>
+												<option value="Diversity">Diversity</option>
+												<option value="Legacy Connection">Legacy Connection</option>
+												<option value="Social Justice">Social Justice</option>
+												<option value="Community">Community</option>
+												<option value="Other">Other</option>
 											</select>
 										</div>
 										<!-- <input type="number" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;"> -->
@@ -2822,10 +2835,15 @@ echo $modal ='<div class="modal fade" id="acceptanceServModal" tabindex="	<b>$</
 									<td>
 										<div class="selector-box">
 											<select id="third_Most_Important_Reason" name="third_Most_Important_Reason">
-												<option value="volvo">Volvo</option>
-												<option value="saab">Saab</option>
-												<option value="fiat">Fiat</option>
-												<option value="audi">Audi</option>
+												<option value="Academics">Academics</option>
+												<option value="Performing Arts">Performing Arts</option>
+												<option value="Other Co-curriculars Offered">Other Co-curriculars Offered</option>
+												<option value="Jesuit/Catholic Education">Jesuit/Catholic Education</option>
+												<option value="Diversity">Diversity</option>
+												<option value="Legacy Connection">Legacy Connection</option>
+												<option value="Social Justice">Social Justice</option>
+												<option value="Community">Community</option>
+												<option value="Other">Other</option>
 											</select>
 										</div>
 										<!-- <input type="number" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px; padding: 5px 10px; width: 270px;"> -->
