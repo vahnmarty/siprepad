@@ -871,7 +871,7 @@
                     <td colspan="6" class="align-center">No records available</td>
                 </tr>
                 @endforelse
-                @el
+                @endif
 
             </x-slot>
 
