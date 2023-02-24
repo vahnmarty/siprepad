@@ -108,153 +108,7 @@ class RegistrationController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        $profile_id = Auth::guard('customer')->user()->id;
-        $appid = Application::where('Profile_ID', $profile_id)->get('Application_ID')->first();
-        $applicationId = $appid->Application_ID;
-        $studentinfo = StudentInformation::where('Profile_ID', $profile_id)->first();
 
-        $getApplication = Application::where('Application_ID', $applicationId)
-            ->get()->first();
-
-        $getApplicationStatus = StudentApplicationStatus::where('application_id', $getApplication->Application_ID)
-            ->where('profile_id', $getApplication->Profile_ID)->first();
-        $studentinfo = StudentInformation::where('Profile_ID', $profile_id)->first();
-        if ($getApplicationStatus) {
-            if ($getApplicationStatus->s1_application_status == Application::CANDIDATE_ACCEPTED && $getApplicationStatus->s1_candidate_status == Application::CANDIDATE_ACCEPTED) {
-                $studentProfileOne = Application::STUDENT_ONE;
-            } else {
-                $studentProfileOne = '';
-            }
-            if ($getApplicationStatus->s2_application_status == Application::CANDIDATE_ACCEPTED && $getApplicationStatus->s2_candidate_status == Application::CANDIDATE_ACCEPTED) {
-                $studentProfileTwo = Application::STUDENT_TWO;
-            } else {
-                $studentProfileTwo = '';
-            }
-
-
-            if ($getApplicationStatus->s3_application_status == Application::CANDIDATE_ACCEPTED && $getApplicationStatus->s3_candidate_status == Application::CANDIDATE_ACCEPTED) {
-                $studentProfileThree = Application::STUDENT_THREE;
-            } else {
-                $studentProfileThree = '';
-            }
-        }
-        if ($studentProfileOne == Application::STUDENT_ONE) {
-            if ($studentinfo->S1_First_Name) {
-                $validatorS1 = validator($request->all(), [
-                    'S1_first_name' => 'required|string|max:30',
-                    'S1_middle_name' => 'nullable|string|max:30',
-                    'S1_last_name' => 'required|string|max:30',
-                    'S1_preffered_first_name' => 'nullable|string|max:30',
-                    'S1_date_of_birth' => 'required|before:today',
-                    'S1_gender' => 'required',
-                    'S1_student_phone_number' => 'required|regex:/[0-9]/|not_regex:/[a-z]/|min:10|max:12',
-                    'S1_tshirt_size' => 'required',
-                    'S1_religion' => 'nullable|string',
-                    'S1_racial' => 'nullable|string',
-                    'S1_ethnicity' => 'nullable|string',
-                    'S1_current_school' => 'nullable|string'
-                ]);
-                if ($validatorS1->fails()) {
-                    return Redirect::back()->withInput()->withErrors($validatorS1);
-                }
-            }
-        }
-        if ($studentProfileTwo == Application::STUDENT_TWO) {
-            if ($studentinfo->S2_First_Name) {
-                $validatorS2 = validator($request->all(), [
-                    'S2_first_name' => 'required|string|max:30',
-                    'S2_middle_name' => 'nullable|string|max:30',
-                    'S2_last_name' => 'required|string|max:30',
-                    'S2_preffered_first_name' => 'nullable|string|max:30',
-                    'S2_date_of_birth' => 'required|before:today',
-                    'S2_gender' => 'required',
-                    'S2_student_phone_number' => 'required|regex:/[0-9]/|not_regex:/[a-z]/|min:10|max:12',
-                    'S2_tshirt_size' => 'required',
-                    'S2_religion' => 'nullable|string',
-                    'S2_racial' => 'nullable|string',
-                    'S2_ethnicity' => 'nullable|string',
-                    'S2_current_school' => 'nullable|string'
-                ]);
-
-                if ($validatorS2->fails()) {
-                    return Redirect::back()->withInput()->withErrors($validatorS2);
-                }
-            }
-        }
-        if ($studentProfileThree == Application::STUDENT_THREE) {
-            if ($studentinfo->S3_First_Name) {
-                $validatorS3 = validator($request->all(), [
-                    'S3_first_name' => 'required|string|max:30',
-                    'S3_middle_name' => 'nullable|string|max:30',
-                    'S3_last_name' => 'required|string|max:30',
-                    'S3_preffered_first_name' => 'nullable|string|max:30',
-                    'S3_date_of_birth' => 'required|before:today',
-                    'S3_gender' => 'required',
-                    'S3_student_phone_number' => 'required|regex:/[0-9]/|not_regex:/[a-z]/|min:10|max:12',
-                    'S3_tshirt_size' => 'required',
-                    'S3_religion' => 'nullable|string',
-                    'S3_racial' => 'nullable|string',
-                    'S3_ethnicity' => 'nullable|string',
-                    'S3_current_school' => 'nullable|string'
-                ]);
-
-                if ($validatorS3->fails()) {
-                    return Redirect::back()->withInput()->withErrors($validatorS3);
-                }
-            }
-        }
-        $studentinfo = StudentInformation::find($id);
-        if ($studentProfileTwo == Application::STUDENT_ONE) {
-            $studentinfo->S1_First_Name = $request->S1_first_name;
-            $studentinfo->S1_Middle_Name = $request->S1_middle_name;
-            $studentinfo->S1_Last_Name = $request->S1_last_name;
-            $studentinfo->S1_Preferred_First_Name = $request->S1_preffered_first_name;
-            $studentinfo->S1_Birthdate = $request->S1_date_of_birth;
-            $studentinfo->S1_Gender = $request->S1_gender;
-            $studentinfo->S1_Mobile_Phone = $request->S1_student_phone_number;
-            $studentinfo->s1_tshirt_size = $request->S1_tshirt_size;
-            $studentinfo->s1_religion = $request->S1_religion;
-            $studentinfo->S1_Race = $request->S1_racial;
-            $studentinfo->S1_Ethnicity = $request->S1_ethnicity;
-            $studentinfo->S1_Current_School = $request->S1_current_school;
-        }
-        if ($studentProfileTwo == Application::STUDENT_TWO) {
-
-            $studentinfo->S2_First_Name = $request->S2_first_name;
-            $studentinfo->S2_Middle_Name = $request->S2_middle_name;
-            $studentinfo->S2_Last_Name = $request->S2_last_name;
-            $studentinfo->S2_Preferred_First_Name = $request->S2_preffered_first_name;
-            $studentinfo->S2_Birthdate = $request->S2_date_of_birth;
-            $studentinfo->S2_Gender = $request->S2_gender;
-            $studentinfo->S2_Mobile_Phone = $request->S2_student_phone_number;
-            $studentinfo->s2_tshirt_size = $request->S2_tshirt_size;
-            $studentinfo->s2_religion = $request->S2_religion;
-            $studentinfo->S2_Race = $request->S2_racial;
-            $studentinfo->S2_Ethnicity = $request->S2_ethnicity;
-            $studentinfo->S2_Current_School = $request->S2_current_school;
-        }
-        if ($studentProfileTwo == Application::STUDENT_THREE) {
-            $studentinfo->S3_First_Name = $request->S3_first_name;
-            $studentinfo->S3_Middle_Name = $request->S3_middle_name;
-            $studentinfo->S3_Last_Name = $request->S3_last_name;
-            $studentinfo->S3_Preferred_First_Name = $request->S3_preffered_first_name;
-            $studentinfo->S3_Birthdate = $request->S3_date_of_birth;
-            $studentinfo->S3_Gender = $request->S3_gender;
-            $studentinfo->S3_Mobile_Phone = $request->S3_student_phone_number;
-            $studentinfo->s3_tshirt_size = $request->S3_tshirt_size;
-            $studentinfo->s3_religion = $request->S3_religion;
-            $studentinfo->S3_Race = $request->S3_racial;
-            $studentinfo->S3_Ethnicity = $request->S3_ethnicity;
-            $studentinfo->S3_Current_School = $request->S3_current_school;
-        }
-        if ($studentinfo->update()) {
-            return redirect('registration/householdIndex/' . $profile_id)->with('success', "Updated successfully");
-        } else {
-            return redirect()->back()->with('error', "Error Occurred, Couldn't be Updated.");
-        }
-    }
 
     /**
      * Remove the specified resource from storage.
@@ -426,6 +280,156 @@ class RegistrationController extends Controller
         }
     }
 
+
+
+
+    public function update(Request $request, $id)
+    {
+        $profile_id = Auth::guard('customer')->user()->id;
+        $appid = Application::where('Profile_ID', $profile_id)->get('Application_ID')->first();
+        $applicationId = $appid->Application_ID;
+        $studentinfo = StudentInformation::where('Profile_ID', $profile_id)->first();
+
+        $getApplication = Application::where('Application_ID', $applicationId)
+            ->get()->first();
+
+        $getApplicationStatus = StudentApplicationStatus::where('application_id', $getApplication->Application_ID)
+            ->where('profile_id', $getApplication->Profile_ID)->first();
+        $studentinfo = StudentInformation::where('Profile_ID', $profile_id)->first();
+        if ($getApplicationStatus) {
+            if ($getApplicationStatus->s1_application_status == Application::CANDIDATE_ACCEPTED && $getApplicationStatus->s1_candidate_status == Application::CANDIDATE_ACCEPTED) {
+                $studentProfileOne = Application::STUDENT_ONE;
+            } else {
+                $studentProfileOne = '';
+            }
+            if ($getApplicationStatus->s2_application_status == Application::CANDIDATE_ACCEPTED && $getApplicationStatus->s2_candidate_status == Application::CANDIDATE_ACCEPTED) {
+                $studentProfileTwo = Application::STUDENT_TWO;
+            } else {
+                $studentProfileTwo = '';
+            }
+
+
+            if ($getApplicationStatus->s3_application_status == Application::CANDIDATE_ACCEPTED && $getApplicationStatus->s3_candidate_status == Application::CANDIDATE_ACCEPTED) {
+                $studentProfileThree = Application::STUDENT_THREE;
+            } else {
+                $studentProfileThree = '';
+            }
+        }
+        if ($studentProfileOne == Application::STUDENT_ONE) {
+            if ($studentinfo->S1_First_Name) {
+                $validatorS1 = validator($request->all(), [
+                    'S1_first_name' => 'required|string|max:30',
+                    'S1_middle_name' => 'nullable|string|max:30',
+                    'S1_last_name' => 'required|string|max:30',
+                    'S1_preffered_first_name' => 'nullable|string|max:30',
+                    'S1_date_of_birth' => 'required|before:today',
+                    'S1_gender' => 'required',
+                    'S1_student_phone_number' => 'required|regex:/[0-9]/|not_regex:/[a-z]/|min:10|max:12',
+                    'S1_tshirt_size' => 'required',
+                    'S1_religion' => 'nullable|string',
+                    'S1_racial' => 'nullable|string',
+                    'S1_ethnicity' => 'nullable|string',
+                    'S1_current_school' => 'nullable|string'
+                ]);
+                if ($validatorS1->fails()) {
+                    return Redirect::back()->withInput()->withErrors($validatorS1);
+                }
+            }
+        }
+        if ($studentProfileTwo == Application::STUDENT_TWO) {
+            if ($studentinfo->S2_First_Name) {
+                $validatorS2 = validator($request->all(), [
+                    'S2_first_name' => 'required|string|max:30',
+                    'S2_middle_name' => 'nullable|string|max:30',
+                    'S2_last_name' => 'required|string|max:30',
+                    'S2_preffered_first_name' => 'nullable|string|max:30',
+                    'S2_date_of_birth' => 'required|before:today',
+                    'S2_gender' => 'required',
+                    'S2_student_phone_number' => 'required|regex:/[0-9]/|not_regex:/[a-z]/|min:10|max:12',
+                    'S2_tshirt_size' => 'required',
+                    'S2_religion' => 'nullable|string',
+                    'S2_racial' => 'nullable|string',
+                    'S2_ethnicity' => 'nullable|string',
+                    'S2_current_school' => 'nullable|string'
+                ]);
+
+                if ($validatorS2->fails()) {
+                    return Redirect::back()->withInput()->withErrors($validatorS2);
+                }
+            }
+        }
+        if ($studentProfileThree == Application::STUDENT_THREE) {
+            if ($studentinfo->S3_First_Name) {
+                $validatorS3 = validator($request->all(), [
+                    'S3_first_name' => 'required|string|max:30',
+                    'S3_middle_name' => 'nullable|string|max:30',
+                    'S3_last_name' => 'required|string|max:30',
+                    'S3_preffered_first_name' => 'nullable|string|max:30',
+                    'S3_date_of_birth' => 'required|before:today',
+                    'S3_gender' => 'required',
+                    'S3_student_phone_number' => 'required|regex:/[0-9]/|not_regex:/[a-z]/|min:10|max:12',
+                    'S3_tshirt_size' => 'required',
+                    'S3_religion' => 'nullable|string',
+                    'S3_racial' => 'nullable|string',
+                    'S3_ethnicity' => 'nullable|string',
+                    'S3_current_school' => 'nullable|string'
+                ]);
+
+                if ($validatorS3->fails()) {
+                    return Redirect::back()->withInput()->withErrors($validatorS3);
+                }
+            }
+        }
+        $studentinfo = StudentInformation::find($id);
+        if ($studentProfileTwo == Application::STUDENT_ONE) {
+            $studentinfo->S1_First_Name = $request->S1_first_name;
+            $studentinfo->S1_Middle_Name = $request->S1_middle_name;
+            $studentinfo->S1_Last_Name = $request->S1_last_name;
+            $studentinfo->S1_Preferred_First_Name = $request->S1_preffered_first_name;
+            $studentinfo->S1_Birthdate = $request->S1_date_of_birth;
+            $studentinfo->S1_Gender = $request->S1_gender;
+            $studentinfo->S1_Mobile_Phone = $request->S1_student_phone_number;
+            $studentinfo->s1_tshirt_size = $request->S1_tshirt_size;
+            $studentinfo->s1_religion = $request->S1_religion;
+            $studentinfo->S1_Race = $request->S1_racial;
+            $studentinfo->S1_Ethnicity = $request->S1_ethnicity;
+            $studentinfo->S1_Current_School = $request->S1_current_school;
+        }
+        if ($studentProfileTwo == Application::STUDENT_TWO) {
+
+            $studentinfo->S2_First_Name = $request->S2_first_name;
+            $studentinfo->S2_Middle_Name = $request->S2_middle_name;
+            $studentinfo->S2_Last_Name = $request->S2_last_name;
+            $studentinfo->S2_Preferred_First_Name = $request->S2_preffered_first_name;
+            $studentinfo->S2_Birthdate = $request->S2_date_of_birth;
+            $studentinfo->S2_Gender = $request->S2_gender;
+            $studentinfo->S2_Mobile_Phone = $request->S2_student_phone_number;
+            $studentinfo->s2_tshirt_size = $request->S2_tshirt_size;
+            $studentinfo->s2_religion = $request->S2_religion;
+            $studentinfo->S2_Race = $request->S2_racial;
+            $studentinfo->S2_Ethnicity = $request->S2_ethnicity;
+            $studentinfo->S2_Current_School = $request->S2_current_school;
+        }
+        if ($studentProfileTwo == Application::STUDENT_THREE) {
+            $studentinfo->S3_First_Name = $request->S3_first_name;
+            $studentinfo->S3_Middle_Name = $request->S3_middle_name;
+            $studentinfo->S3_Last_Name = $request->S3_last_name;
+            $studentinfo->S3_Preferred_First_Name = $request->S3_preffered_first_name;
+            $studentinfo->S3_Birthdate = $request->S3_date_of_birth;
+            $studentinfo->S3_Gender = $request->S3_gender;
+            $studentinfo->S3_Mobile_Phone = $request->S3_student_phone_number;
+            $studentinfo->s3_tshirt_size = $request->S3_tshirt_size;
+            $studentinfo->s3_religion = $request->S3_religion;
+            $studentinfo->S3_Race = $request->S3_racial;
+            $studentinfo->S3_Ethnicity = $request->S3_ethnicity;
+            $studentinfo->S3_Current_School = $request->S3_current_school;
+        }
+        if ($studentinfo->update()) {
+            return redirect('registration/householdIndex/' . $profile_id)->with('success', "Updated successfully");
+        } else {
+            return redirect()->back()->with('error', "Error Occurred, Couldn't be Updated.");
+        }
+    }
     public function healthInfoCreate(Request $request)
     {
 
