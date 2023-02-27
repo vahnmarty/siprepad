@@ -485,7 +485,7 @@ class HomeController extends Controller
         DB::beginTransaction();
         try {
 
-
+            
             $getRecommendation = Recommendation::create([
                 'Profile_ID' => Auth::id(),
                 'Rec_Name' => $request->name,

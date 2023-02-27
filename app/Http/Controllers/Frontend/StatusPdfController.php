@@ -107,56 +107,45 @@ class StatusPdfController extends Controller
                         </td>
                     </tr>
                     <tr>
-                        <td width="50%" style="text-align: left;">Congratulations! ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  ' . self::getStudentInformation($studentType, $studentDetail, "Student_Last_Name") . '  has
-                            been <strong>Accepted</strong> to St. Ignatius College Preparatory.
-                            Welcome to our school community! We congratulate ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  for the academic diligence
-                            that has made this success possible.
-                            The entire SI community pledges itself to your child’s intellectual, spiritual, and social
-                            development over the next four years. We look forward to your participation and cooperation in this
-                            endeavor.
+                        <td width="50%" style="text-align: left;">Congratulations! ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  ' . self::getStudentInformation($studentType, $studentDetail, "Student_Last_Name") . '  has been <b> Accepted </b> to St. Ignatius College Preparatory.
+                        Welcome to our school community! We congratulate ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  for the academic diligence that has made this
+                        success possible. The entire SI community pledges itself to your child’s intellectual, spiritual, and social development over the
+                        next four years. We look forward to your participation and cooperation in this endeavor.
                         </td>
                     </tr>
                     <tr>
-                        <td width="50%" style="text-align: left;">' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '’s <strong>Acceptance</strong> is based on
-                            ' . self::getStudentInformation($studentType, $studentDetail, "his/her") . '  academic achievements and the gifts ' . self::getStudentInformation($studentType, $studentDetail, "he/she") . '  will be to the SI community. Placement in
-                            Honors level courses for math and foreign language will be determined by placement exams to be
-                            administered on April 22, 2023.
-                            Your online registration packet will include more information on these exams. The online
-                            registration packet will be available on March 27, 2023, with additional information and important
-                            dates.
-                            To access the online registration packet, visit <a
-                                href="https://www.siprepadmissions.org/">www.siprepadmissions.org</a> on March 27, 2023 using the
-                            username and password you used to apply. The registration system will be due on April 3, 2023.
+                        <td width="50%" style="text-align: left;">' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '’s <b>Acceptance </b> is based on ' . self::getStudentInformation($studentType, $studentDetail, "his/her") . '  academic achievements and the gifts ' . self::getStudentInformation($studentType, $studentDetail, "he/she") . '  will bring to the SI
+                        community. The online registration system will be available beginning on March 27, 2023, with additional information,
+                        important dates and course information. To access the online registration system, visit <a href="https://www.siprepadmissions.org/login">www.siprepadmissions.org</a> on March
+                        27, 2023 using the username and password you used to apply. The registration system will be due on April 3, 2023.
                         </td>
                     </tr>
                     <tr>
-                        <td width="50%" style="text-align: left;">
-                        <b>To reserve a place in the Class of 2027</b>, please click on the <b> Enroll at SI</b> button below and make a <b>deposit</b> of {deposit amount}.
-                        As a courtesy to those students on our waitlist, we ask that those who do not intend to register at SI indicate their intention by
-                        clicking on the <b>Decline</b> button below.<b style="color:#dc3545;"> The registration deadline is 8:00 am on March 24, 2023, or the acceptance
-                            will be forfeited.</b>
+                        <td width="50%" style="text-align: left;"><b>
+                       To reserve a place in the Class of 2027</b>, please click on the <b>Enroll at SI</b> button below and make a <b>deposit</b> of {deposit
+                            amount}. As a courtesy to those students on our waitlist, we ask that those who do not intend to register at SI indicate their
+                            intention by clicking on the <b>Decline</b> button below. <b style="color:#dc3545;"> The registration deadline is 6:00 am on March 24, 2023, or the acceptance will be
+                        forfeited.</b>
                         </td>
             
                     </tr>
                     <tr>
                         <td width="50%" style="text-align: left;">
-                            Tuition for the 2023-2024 academic year is <strong>' .  self::getTuitionAmount() . '.</strong> The Business Office
-                            will have information on tuition payment plans and schedules in the online registration packet.
-                            For families who applied for financial assistance, the Business Office has posted the Financial
-                            Assistance Committee’s decision on this website for your reference.
+                        Tuition for the 2023-2024 academic year is <b>$31,225</b>. The Business Office will have information on tuition payment plans and
+                        schedules in the online registration system. For families who applied for financial assistance, the Business Office has posted
+                        the Financial Assistance Committee’s decision in this portal for your reference.
                         </td>
             
                     </tr>
                    
                     <tr>
-    <td width="50%" style="text-align: left;">
-        We had over <b> 1,290</b> applicants apply to St. Ignatius College Preparatory for the Class of 2027. The Admissions Committee was
-        fortunate to have so many qualified applicants to select from in this highly competitive applicant pool. We are excited to have
-        ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . ' as a member of our talented Freshman class. ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '’s acceptance is contingent upon
-        ' . self::getStudentInformation($studentType, $studentDetail, "his/her") . ' continued academic performance, good citizenship, and successful completion of eighth grade at
-        ' . self::getStudentInformation($studentType, $studentDetail, "Student_Current_School") . '. It is our intention to see that your student has the academic challenge and individual attention that
-        have been a hallmark of Jesuit education. To this end, we are looking forward to working closely with you and
-        ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . ' over the next four years. Once again,<strong>congratulations!</strong>
+    <td width="50%" style="text-align: left;">We had over <b> 1,290</b> applicants apply to St. Ignatius College Preparatory for the Class of 2027. The Admissions Committee was
+    fortunate to have so many qualified applicants to select from in this highly competitive applicant pool. We are excited to have
+    ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  as a member of our talented Freshman class. ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '’s acceptance is contingent upon
+    ' . self::getStudentInformation($studentType, $studentDetail, "his/her") . '  continued academic performance, good citizenship, and successful completion of eighth grade at
+    ' . self::getStudentInformation($studentType, $studentDetail, "Student_Current_School") . '. It is our intention to see that your student has the academic challenge and individual attention that
+    have been a hallmark of Jesuit education. To this end, we are looking forward to working closely with you and
+    ' . self::getStudentInformation($studentType, $studentDetail, "Student_First_Name") . '  over the next four years. Once again, <b>congratulations</b>!
 
 </tr>
             

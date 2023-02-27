@@ -394,17 +394,17 @@ class NotificationController extends Controller
     public function ShowStudentNotification($notificationid)
     {
         $StudentApplicationStatusResults = [];
-
         $ntfStatus = Global_Notifiable::select('notifiable')->first();
-
         if ($ntfStatus->notifiable == Global_Notifiable::NOTIFICATION_OFF) {
             return redirect()->back()->with('error', 'You are not allowed to access this page');
         }
         $profile_id = Auth::guard('customer')->user()->id;
         $studentDetail = StudentInformation::where('Profile_ID', $profile_id)->first();
         $ntfDetail = Notification::where('id', $notificationid)->first();
-        // dd($ntfDetail);
         if (!$ntfDetail) {
+            return redirect('/')->with('error', 'You are not allowed to access this page');
+        }
+        if (!$profile_id==$ntfDetail->profile_id) {
             return redirect('/')->with('error', 'You are not allowed to access this page');
         }
         $appDetail = Application::where('Profile_ID', $profile_id)->first();
