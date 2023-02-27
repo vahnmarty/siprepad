@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\ApplicationController;
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\PdfController;
+
 use App\Http\Controllers\Admin\CmsController;
 use App\Http\Controllers\Admin\PromocodeController;
 use App\Http\Controllers\Admin\RecommendationController;
@@ -68,6 +70,7 @@ Route::group(['middleware' => 'auth:customer'], function () {
     
     // Route::get('/notification/pdfgenerator/{ntid}/{uid}', [StatusPdfController::class, 'index']);
     Route::get('/notification/pdfgenerator/{ntid}/{uid}/{Application_ID}', [StatusPdfController::class, 'index']);
+    Route::get('/admin/pdfgenerator/{ntid}/{uid}/{Application_ID}', [PdfController::class, 'index']);
     Route::get('/edit-profile', [UserAuthController::class, 'editProfile'])->name('edit-profile');
     Route::post('/edit-profile', [UserAuthController::class, 'updateProfile'])->name('update-profile');
     Route::get('/change-password', [UserAuthController::class, 'changePassword'])->name('change-password');
