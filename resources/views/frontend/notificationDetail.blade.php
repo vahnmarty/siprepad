@@ -235,6 +235,99 @@ function  getDateFunctions($notification_time)
 function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Name = '')
 {
 	// dd($studentDetail);
+	if ($studentType == App\Models\Application::STUDENT_S2) {
+
+		switch ($type) {
+			case "Student_First_Name":
+				return $studentDetail->S2_First_Name;
+				break;
+			case "Student_Last_Name":
+				return $studentDetail->S2_Last_Name;
+
+				break;
+			case "P1_Salutation":
+				return ucwords($studentDetail->P1_Salutation);
+
+				break;
+
+			case "P2_Salutation":
+				if ($studentDetail->P2_Salutation == null) {
+					return ucwords($studentDetail->P2_Salutation);
+				} else {
+					return 'and ' . ucwords($studentDetail->P2_Salutation);
+				}
+
+				break;
+			case "P2_Last_Name":
+				if ($studentDetail->P2_Last_Name == null) {
+					return ucwords($studentDetail->P2_Last_Name);
+				} else {
+					if ($P2_Last_Name == 'P2_Last_Name') {
+						return '' . ucwords($studentDetail->P2_Last_Name) . '';
+					} else {
+						if ($studentDetail->P2_Salutation == null) {
+
+							return 'and ' . ucwords($studentDetail->P2_Last_Name) . '';
+						} else {
+							return ' ' . ucwords($studentDetail->P2_Last_Name) . '';
+						}
+					}
+				}
+				break;
+			case "P1_First_Name":
+				return ucwords($studentDetail->P1_First_Name);
+				break;
+			case "P1_Last_Name":
+
+				if ($studentDetail->P2_Last_Name == null) {
+					return ucwords($studentDetail->P1_Last_Name) . '';
+				} else {
+					return ucwords($studentDetail->P1_Last_Name);
+				}
+				break;
+
+			case "P2_First_Name":
+				if ($studentDetail->P2_First_Name == null) {
+
+					return ucwords($studentDetail->P2_First_Name);
+				} else {
+
+					return 'and ' . ucwords($studentDetail->P2_First_Name);
+				}
+				break;
+			case "Primary_Address_Street":
+				return ucwords($studentDetail->Address_1);
+				break;
+			case "Primary_Address_City":
+
+				return ucwords($studentDetail->City_1);
+				break;
+			case "Primary_Address_State":
+				return ucwords($studentDetail->State_1);
+				break;
+			case "Primary_Address_Zipcode":
+				return ucwords($studentDetail->Zipcode_1);
+				break;
+			case "Student_Current_School":
+				return ucwords($studentDetail->S1_Current_School);
+				break;
+			case "his/her":
+				if ($studentDetail->S2_Gender == "Male") {
+					return "his";
+				} else {
+					return "her";
+				}
+			case "he/she":
+				if ($studentDetail->S2_Gender == "Male") {
+					return "he";
+				} else {
+					return "she";
+				}
+				break;
+			default:
+				return "-";
+		};
+	}
 	if ($studentType == App\Models\Application::STUDENT_S1) {
 		switch ($type) {
 
@@ -331,99 +424,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 	}
 
 
-	if ($studentType == App\Models\Application::STUDENT_S2) {
 
-		switch ($type) {
-			case "Student_First_Name":
-				return $studentDetail->S2_First_Name;
-				break;
-			case "Student_Last_Name":
-				return $studentDetail->S2_Last_Name;
-
-				break;
-			case "P1_Salutation":
-				return ucwords($studentDetail->P1_Salutation);
-
-				break;
-
-			case "P2_Salutation":
-				if ($studentDetail->P2_Salutation == null) {
-					return ucwords($studentDetail->P2_Salutation);
-				} else {
-					return 'and ' . ucwords($studentDetail->P2_Salutation);
-				}
-
-				break;
-			case "P2_Last_Name":
-				if ($studentDetail->P2_Last_Name == null) {
-					return ucwords($studentDetail->P2_Last_Name);
-				} else {
-					if ($P2_Last_Name == 'P2_Last_Name') {
-						return '' . ucwords($studentDetail->P2_Last_Name) . '';
-					} else {
-						if ($studentDetail->P2_Salutation == null) {
-
-							return 'and ' . ucwords($studentDetail->P2_Last_Name) . '';
-						} else {
-							return ' ' . ucwords($studentDetail->P2_Last_Name) . '';
-						}
-					}
-				}
-				break;
-			case "P1_First_Name":
-				return ucwords($studentDetail->P1_First_Name);
-				break;
-			case "P1_Last_Name":
-
-				if ($studentDetail->P2_Last_Name == null) {
-					return ucwords($studentDetail->P1_Last_Name) . '';
-				} else {
-					return ucwords($studentDetail->P1_Last_Name);
-				}
-				break;
-
-			case "P2_First_Name":
-				if ($studentDetail->P2_First_Name == null) {
-
-					return ucwords($studentDetail->P2_First_Name);
-				} else {
-
-					return 'and ' . ucwords($studentDetail->P2_First_Name);
-				}
-				break;
-			case "Primary_Address_Street":
-				return ucwords($studentDetail->Address_1);
-				break;
-			case "Primary_Address_City":
-
-				return ucwords($studentDetail->City_1);
-				break;
-			case "Primary_Address_State":
-				return ucwords($studentDetail->State_1);
-				break;
-			case "Primary_Address_Zipcode":
-				return ucwords($studentDetail->Zipcode_1);
-				break;
-			case "Student_Current_School":
-				return ucwords($studentDetail->S1_Current_School);
-				break;
-			case "his/her":
-				if ($studentDetail->S2_Gender == "Male") {
-					return "his";
-				} else {
-					return "her";
-				}
-			case "he/she":
-				if ($studentDetail->S2_Gender == "Male") {
-					return "he";
-				} else {
-					return "she";
-				}
-				break;
-			default:
-				return "-";
-		};
-	}
 	if ($studentType == App\Models\Application::STUDENT_S3) {
 		switch ($type) {
 			case "Student_First_Name":
@@ -522,7 +523,7 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 
 function getTuitionAmount()
 {
-	return "$31,225";
+	return '$'.App\Models\Application::TUITIONAMOUNT;
 }
 ?>
 <div class="loading" style="display: none;">Loading</div>

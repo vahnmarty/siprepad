@@ -34,9 +34,13 @@
                     </th>
                     <th class="text-center" tabindex="0" aria-controls="kt_table_1" style="width: 10%;" aria-label="Company Agent: activate to sort column ascending">Deposit Amount
                     </th>
+
+
+
                     <th class="text-center" tabindex="0" aria-controls="kt_table_1" style="width: 10%;" aria-label="Company Agent: activate to sort column ascending">Decision
                     </th>
-
+                    <th class="text-center" tabindex="0" aria-controls="kt_table_1" style="width: 10%;" aria-label="Company Agent: activate to sort column ascending">Print
+                    </th>
                     <th class="text-center" class="align-center" rowspan="1" colspan="1" style="width: 30%;" aria-label="Actions">Actions</th>
                 </tr>
                 <tr>
@@ -55,6 +59,9 @@
                     </th>
                     <th class="text-center">
                         <input type="text" id="searchPhone">
+
+                    </th>
+                    <th>
 
                     </th>
                     <th>
@@ -843,6 +850,127 @@
                         @endif
                         @endif
                         @endif
+                    </td>
+                    <td>
+                        @if($getApplicationStatus->s1_notification_id)
+
+
+                        @if($studentProfile == App\Models\Application::STUDENT_ONE)
+                        @switch($getApplicationStatus->s1_application_status)
+                        @case(1)
+                        <div class="action__btn">
+                            <a href='{{url("/admin/pdfgenerator")}}/{{ $getApplicationStatus->s1_notification_id }}/{{ $getApplicationStatus->profile_id }}/{{ $getApplicationStatus->application_id }}' class="btn">Print</a>
+                        </div>
+                        @break
+                        @case(5)
+                        <div class="action__btn">
+                            <a href='{{url("/admin/pdfgenerator")}}/{{ $getApplicationStatus->s1_notification_id }}/{{ $getApplicationStatus->profile_id }}/{{ $getApplicationStatus->application_id }}' class="btn">Print</a>
+                        </div>
+                        @break
+                        @case(6)
+
+                        <div class="action__btn">
+                            <a href='{{url("/admin/pdfgenerator")}}/{{ $getApplicationStatus->s1_notification_id }}/{{ $getApplicationStatus->profile_id }}/{{ $getApplicationStatus->application_id }}' class="btn">Print</a>
+                        </div>
+                        @break
+                        @case(7)
+                        <div class="action__btn">
+                            <a href='{{url("/admin/pdfgenerator")}}/{{ $getApplicationStatus->s1_notification_id }}/{{ $getApplicationStatus->profile_id }}/{{ $getApplicationStatus->application_id }}' class="btn">Print</a>
+                        </div>
+                        @break
+                        @case(8)
+                        <div class="action__btn">
+                            <a href='{{url("/admin/pdfgenerator")}}/{{ $getApplicationStatus->s1_notification_id }}/{{ $getApplicationStatus->profile_id }}/{{ $getApplicationStatus->application_id }}' class="btn">Print</a>
+                        </div>
+                        @break
+                        @default
+                        @endswitch
+                        @endif
+                        @endif
+                        @if($getApplicationStatus->s2_notification_id)
+                        @if($studentProfile == App\Models\Application::STUDENT_TWO)
+                        @switch($getApplicationStatus->s2_application_status)
+                        @case(1)
+                        <div class="action__btn">
+                            <a href='{{url("/admin/pdfgenerator")}}/{{ $getApplicationStatus->s2_notification_id }}/{{ $getApplicationStatus->profile_id }}/{{ $getApplicationStatus->application_id }}' class="btn">Print</a>
+                        </div>
+                        @break
+                        @case(5)
+
+                        <div class="action__btn">
+                            <a href='{{url("/admin/pdfgenerator")}}/{{ $getApplicationStatus->s2_notification_id }}/{{ $getApplicationStatus->profile_id }}/{{ $getApplicationStatus->application_id }}' class="btn">Print</a>
+                        </div>
+                        @break
+                        @case(6)
+
+                        <div class="action__btn">
+                            <a href='{{url("/admin/pdfgenerator")}}/{{ $getApplicationStatus->s2_notification_id }}/{{ $getApplicationStatus->profile_id }}/{{ $getApplicationStatus->application_id }}' class="btn">Print</a>
+                        </div>
+                        @break
+                        @case(7)
+                        <div class="action__btn">
+                            <a href='{{url("/admin/pdfgenerator")}}/{{ $getApplicationStatus->s2_notification_id }}/{{ $getApplicationStatus->profile_id }}/{{ $getApplicationStatus->application_id }}' class="btn">Print</a>
+                        </div>
+                        @break
+                        @case(8)
+
+                        <div class="action__btn">
+                            <a href='{{url("/admin/pdfgenerator")}}/{{ $getApplicationStatus->s2_notification_id }}/{{ $getApplicationStatus->profile_id }}/{{ $getApplicationStatus->application_id }}' class="btn">Print</a>
+                        </div>
+                        @break
+                        @case(9)
+
+                        <div class="action__btn">
+                            <a href='{{url("/admin/pdfgenerator")}}/{{ $getApplicationStatus->s2_notification_id }}/{{ $getApplicationStatus->profile_id }}/{{ $getApplicationStatus->application_id }}' class="btn">Print</a>
+                        </div>
+                        @break
+                        @default
+
+
+                        @endswitch
+                        @endif
+
+                        @endif
+                        @if($getApplicationStatus->s3_notification_id)
+
+                        @if($studentProfile == App\Models\Application::STUDENT_THREE)
+
+                        @switch($getApplicationStatus->s3_application_status)
+                        @case(1)
+                        <div class="action__btn">
+                            <a href='{{url("/admin/pdfgenerator")}}/{{ $getApplicationStatus->s2_notification_id }}/{{ $getApplicationStatus->profile_id }}/{{ $getApplicationStatus->application_id }}' class="btn">Print</a>
+                        </div>
+                        @break
+                        @case(5)
+                        <div class="action__btn">
+                            <a href='{{url("/admin/pdfgenerator")}}/{{ $getApplicationStatus->s2_notification_id }}/{{ $getApplicationStatus->profile_id }}/{{ $getApplicationStatus->application_id }}' class="btn">Print</a>
+                        </div>
+                        @break
+                        @case(6)
+
+                        <div class="action__btn">
+                            <a href='{{url("/admin/pdfgenerator")}}/{{ $getApplicationStatus->s2_notification_id }}/{{ $getApplicationStatus->profile_id }}/{{ $getApplicationStatus->application_id }}' class="btn">Print</a>
+                        </div>
+                        @break
+                        @case(7)
+                        <div class="action__btn">
+                            <a href='{{url("/admin/pdfgenerator")}}/{{ $getApplicationStatus->s2_notification_id }}/{{ $getApplicationStatus->profile_id }}/{{ $getApplicationStatus->application_id }}' class="btn">Print</a>
+                        </div>
+                        @break
+                        @case(8)
+                        <div class="action__btn">
+                            <a href='{{url("/admin/pdfgenerator")}}/{{ $getApplicationStatus->s2_notification_id }}/{{ $getApplicationStatus->profile_id }}/{{ $getApplicationStatus->application_id }}' class="btn">Print</a>
+                        </div>
+                        @break
+                        @default
+                        @endswitch
+
+                        @endif
+                        @endif
+
+
+
+
                     </td>
 
                     <td>
