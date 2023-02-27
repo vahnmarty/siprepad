@@ -20,6 +20,7 @@ class Notification extends Model
     const ACCEPTANCE_HONORS = 7;
     const ACCEPTANCE_Hon_W_FA_YES = 8;
     const ACCEPTANCE_Hon_W_FA_NO = 9;
+    
     protected $fillable = ['profile_id', 'message', 'student_profile', 'application_status', 'application_id'];
 
     public function profile()

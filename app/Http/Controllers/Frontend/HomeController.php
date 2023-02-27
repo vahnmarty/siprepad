@@ -507,6 +507,11 @@ class HomeController extends Controller
                 'mailSubject' => $mailSubject,
                 'user_full_name' => $getUserName
             ];
+            if ($data) {
+                $storeTemp = Application::CANDIDATE_ACCEPTED;
+            } else {
+                $storeTemp = Application::CANDIDATE_NOT_DEFINED;
+            }
 
             //send to mail code here
             Mail::to($data['email'])->send(new RecommendationMail($data));
@@ -527,6 +532,11 @@ class HomeController extends Controller
     public function writtenRecommendation($id)
     {
         $recommendation_id = decrypt($id);
+        if ($recommendation_id) {
+            $profile_id = Application::TYPE_ACCEPTED;
+        } else {
+            $profile_id = Application::CANDIDATE_NOT_DEFINED;
+        }
         $getRecommendation = Recommendation::where('id', $recommendation_id)->first();
         if ($getRecommendation) {
             $getData = Recommendation::where('id', $recommendation_id)->where('Status', 1)->first();
@@ -579,7 +589,11 @@ class HomeController extends Controller
 
         $profile_id = Auth::guard('customer')->user()->id;
         $registeration = Registeration::where('Profile_ID', $profile_id)->where('status', 0)->first();
-
+        if ($profile_id) {
+            $profile_id = Application::TYPE_ACCEPTED;
+        } else {
+            $profile_id = Application::CANDIDATE_NOT_DEFINED;
+        }
         if ($step == GlobalStudentTransfer::STEP_ONE) {
             $student_info = StudentInformation::where('Profile_id', $profile_id)->first();
 

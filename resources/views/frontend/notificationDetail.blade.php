@@ -229,7 +229,7 @@ input::-webkit-inner-spin-button {
 
 function  getDateFunctions($notification_time)
 {
-
+	$notification_time = $notification_time;
 	return $notification_time;
 }
 function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Name = '')
@@ -804,7 +804,6 @@ function getTuitionAmount()
 
 		</div>
 	</div>
-
 	<div class="hme-inr" id='ntf-detail'>
 		<div class='ntf_candidate_detail mt-2'>
 			<p class='ntf_student_name'>Dear <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name"); ?>:</p>
@@ -850,21 +849,17 @@ function getTuitionAmount()
 				(415) 731-7500
 			</p>
 			<p>Office of Admissions</p>
-
 		</div>
 		<p style="text-align:right;"><?php echo getDateFunctions($notification_time); ?></p>
 	</div>
 	<div class="row mt-3">
-
 		<div class="col-md-12">
 			<p> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name", 'P2_Last_Name'); ?><br>
 				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Street"); ?><br>
 				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_City"); ?>, <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_State"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Zipcode"); ?><br>
 			</p>
-
 		</div>
 	</div>
-
 	<div class="hme-inr" id='ntf-detail'>
 		<div class='ntf_candidate_detail mt-2'>
 			<p class='ntf_student_name'>Dear <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name"); ?>:</p>
@@ -907,19 +902,14 @@ function getTuitionAmount()
 		<p style="text-align:right;"><?php echo getDateFunctions($notification_time); ?></p>
 	</div>
 	<div class="row mt-3">
-
 		<div class="col-md-12">
 			<p><?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name", 'P2_Last_Name'); ?><br>
 				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Street"); ?><br>
 				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_City"); ?>, <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_State"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Zipcode"); ?><br>
 			</p>
-
 		</div>
 	</div>
-
 	<div class="hme-inr" id='ntf-detail'>
-
-
 		<div class='ntf_candidate_detail mt-2'>
 			<p class='ntf_student_name'>Dear <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name"); ?>:</p>
 			<p class='ntf_app_status'>
@@ -937,7 +927,6 @@ function getTuitionAmount()
 
 			</p>
 		</div>
-
 		<div style="margin-top:15px;">
 			<p>Sincerely,</p>
 			<p style="border:0;display:inline-block;">
@@ -952,12 +941,8 @@ function getTuitionAmount()
 		</div>
 	</div>
 </div>
-
-
 @break
-
 @case(6)
-
 <div class="home-wrap">
 	<div class="row">
 		<div class="col-md-4" style="max-width: 133px;">
@@ -986,10 +971,7 @@ function getTuitionAmount()
 
 		</div>
 	</div>
-
 	<div class="hme-inr" id='ntf-detail'>
-
-
 		<div class='ntf_candidate_detail mt-2'>
 			<p class='ntf_student_name'>Dear <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name"); ?>:</p>
 			<p class='ntf_app_status'>
@@ -1007,7 +989,6 @@ function getTuitionAmount()
 				circumstances that occurred after
 				your application for aid was filed. Examples of significant changes include:
 			</p>
-
 			<p>
 			<ul class="ps-3">
 				<li>Loss of income (wages, benefits, etc.) due to unemployment</li>
@@ -1036,7 +1017,6 @@ function getTuitionAmount()
 
 			</p>
 		</div>
-
 		<div style="margin-top:15px;">
 			<p>Sincerely,</p>
 			<p style="border:0;display:inline-block;">
@@ -1050,12 +1030,7 @@ function getTuitionAmount()
 		</div>
 	</div>
 </div>
-
-
-
 @break
-
-
 @case(7)
 <div class="home-wrap">
 	<div class="row">
@@ -1076,7 +1051,6 @@ function getTuitionAmount()
 		<p style="text-align:right;"><?php echo getDateFunctions($notification_time); ?></p>
 	</div>
 	<div class="row mt-3">
-
 		<div class="col-md-12">
 			<p><?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name", 'P2_Last_Name'); ?><br>
 				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Street"); ?><br>
@@ -1085,10 +1059,7 @@ function getTuitionAmount()
 
 		</div>
 	</div>
-
 	<div class="hme-inr" id='ntf-detail'>
-
-
 		<div class='ntf_candidate_detail mt-2'>
 			<p class='ntf_student_name'>Dear <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name"); ?>:</p>
 			<p class='ntf_app_status'>
@@ -1101,8 +1072,6 @@ function getTuitionAmount()
 				development over the next four years. We look forward to your participation and cooperation in this
 				endeavor.
 			</p>
-
-
 			<p>
 				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>'s <b>Acceptance with Honors</b>
 				is a distinction reserved for the top 10% of applicants. This honor is
@@ -1112,8 +1081,6 @@ function getTuitionAmount()
 				<br>
 				<b>• {Class_Information}
 			</p>
-
-
 			</p>
 			</b>
 			<p>The online registration system will be available beginning on March 27, 2023, with additional information, important
@@ -1153,19 +1120,14 @@ function getTuitionAmount()
 					<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> over the next four years. Once again, <b>congratulations!</b></p>
 				</p>
 		</div>
-
 		<div style="margin-top:15px;">
 			<p>Sincerely,</p>
 			<p style="border:0;display:inline-block;">
 				<img style="max-width:205px;" src="{{ asset('admin_assets/logo/signature.png') }}" />
 			</p>
 			<p>Ms. Kristy Cahill Jacobson ‘98<br /> Director of Admissions</p>
-
-
 			<div class="col-md-12">
 				@if($student_status == App\Models\Application::ACCEPTANCE_HONORS && $ntfDetail->notification_type == App\Models\Notification::ACCEPTANCE_HONORS)
-
-
 				@if($candidate == App\Models\Application::STUDENT_S1)
 				@if($appStatus->s1_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s1_candidate_status == App\Models\Application::CANDIDATE_READ)
 				<div class="d-flex align-items-center justify-content-between">
@@ -1179,12 +1141,9 @@ function getTuitionAmount()
 				</div>
 				@else
 				@endif
-
-
 				@endif
 				@if($candidate == App\Models\Application::STUDENT_S2)
 				@if($appStatus->s2_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s2_candidate_status == App\Models\Application::CANDIDATE_READ)
-
 				<div class="d-flex align-items-center justify-content-between">
 					<div class='application_download'>
 						<a href='{{url("/notification/pdfgenerator")}}/{{ $ntfDetail->id }}/{{ $studentDetail->Profile_ID }}/{{ $studentDetail->Application_ID }}' class="btn text-dark btn-primary mt-3">Download</a>
@@ -1196,9 +1155,6 @@ function getTuitionAmount()
 				</div>
 				@else
 				@endif
-
-
-
 				@endif
 				@if($candidate == App\Models\Application::STUDENT_S3)
 				@if($appStatus->s3_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s3_candidate_status == App\Models\Application::CANDIDATE_READ)
@@ -1213,15 +1169,10 @@ function getTuitionAmount()
 				</div>
 				@else
 				@endif
-
-
 				@endif
 				@endif
 			</div>
-
-
 			@if($candidate == App\Models\Application::STUDENT_S1)
-
 			@if($appStatus->s1_candidate_status == App\Models\Application::TYPE_ACCEPTED)
 			<div class="col-md-12 text-left mt-4">Congratulations on enrolling as a student in the SI Class of 2027! Please check back here on Monday, March 27th for next steps and registration information.</div>
 			@endif
@@ -1229,9 +1180,7 @@ function getTuitionAmount()
 			<div class="col-md-12 text-left mt-4">We're sorry to hear about your decision not to accept our offer.</div>
 			@endif
 			@endif
-
 			@if($candidate == App\Models\Application::STUDENT_S3)
-
 			@if($appStatus->s3_candidate_status == App\Models\Application::TYPE_ACCEPTED)
 			<div class="col-md-12 text-left mt-4">Congratulations on enrolling as a student in the SI Class of 2027! Please check back here on Monday, March 27th for next steps and registration information.</div>
 			@endif
@@ -1239,10 +1188,7 @@ function getTuitionAmount()
 			<div class="col-md-12 text-left mt-4">We're sorry to hear about your decision not to accept our offer.</div>
 			@endif
 			@endif
-
-
 			@if($candidate == App\Models\Application::STUDENT_S3)
-
 			@if($appStatus->s2_candidate_status == App\Models\Application::TYPE_ACCEPTED)
 			<div class="col-md-12 text-left mt-4">Congratulations on enrolling as a student in the SI Class of 2027! Please check back here on Monday, March 27th for next steps and registration information.</div>
 			@endif
@@ -1255,9 +1201,6 @@ function getTuitionAmount()
 	</div>
 </div>
 @break
-
-
-
 @case(8)
 <div class="home-wrap">
 	<div class="row">
@@ -1278,7 +1221,6 @@ function getTuitionAmount()
 		<p style="text-align:right;"><?php echo getDateFunctions($notification_time); ?></p>
 	</div>
 	<div class="row mt-3">
-
 		<div class="col-md-12">
 			<p><?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name", 'P2_Last_Name'); ?><br>
 				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Street"); ?><br>
@@ -1289,8 +1231,6 @@ function getTuitionAmount()
 	</div>
 
 	<div class="hme-inr" id='ntf-detail'>
-
-
 		<div class='ntf_candidate_detail mt-2'>
 			<p class='ntf_student_name'>Dear <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name"); ?>:</p>
 			<p class='ntf_app_status'>
@@ -1306,7 +1246,6 @@ function getTuitionAmount()
 				<br>
 				<b>• {Class_Information}</b>
 			</p>
-
 			<p>
 				The online registration system will be available beginning on March 27, 2023, with additional information, important
 				dates and course information. To access the online registration system, visit <a class="text-primary" target="_blank" href="https://www.siprepadmissions.org/">www.siprepadmissions.org</a> on March 27,
@@ -1331,18 +1270,14 @@ function getTuitionAmount()
 				<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> over the next four years. Once again, <b>congratulations!</b>
 			</p>
 		</div>
-
 		<div style="margin-top:15px;">
 			<p>Sincerely,</p>
 			<p style="border:0;display:inline-block;">
 				<img style="max-width:205px;" src="{{ asset('admin_assets/logo/signature.png') }}" />
 			</p>
 			<p>Ms. Kristy Cahill Jacobson ‘98<br /> Director of Admissions</p>
-
-
 			<div class="col-md-12">
 				@if($student_status == App\Models\Application::ACCEPTANCE_Hon_W_FA_YES && $ntfDetail->notification_type == App\Models\Notification::ACCEPTANCE_Hon_W_FA_YES)
-
 				@if($candidate == App\Models\Application::STUDENT_S1)
 				@if($appStatus->s1_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s1_candidate_status == App\Models\Application::CANDIDATE_READ)
 				<!-- <div class='student_btns' style=" float: right !important;">
@@ -1360,8 +1295,6 @@ function getTuitionAmount()
 				</div>
 				@else
 				@endif
-
-
 				@endif
 				@if($candidate == App\Models\Application::STUDENT_S2)
 				@if($appStatus->s2_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s2_candidate_status == App\Models\Application::CANDIDATE_READ)
@@ -1376,9 +1309,6 @@ function getTuitionAmount()
 				</div>
 				@else
 				@endif
-
-
-
 				@endif
 				@if($candidate == App\Models\Application::STUDENT_S3)
 				@if($appStatus->s3_candidate_status == App\Models\Application::CANDIDATE_NOT_DEFINED || $appStatus->s3_candidate_status == App\Models\Application::CANDIDATE_READ)
@@ -1393,15 +1323,10 @@ function getTuitionAmount()
 				</div>
 				@else
 				@endif
-
-
 				@endif
 				@endif
 			</div>
-
-
 			@if($candidate == App\Models\Application::STUDENT_S1)
-
 			@if($appStatus->s1_candidate_status == App\Models\Application::TYPE_ACCEPTED)
 			<div class="col-md-12 text-left mt-4">Congratulations on enrolling as a student in the SI Class of 2027! Please check back here on Monday, March 27th for next steps and registration information.</div>
 			@endif
@@ -1409,9 +1334,7 @@ function getTuitionAmount()
 			<div class="col-md-12 text-left mt-4">We're sorry to hear about your decision not to accept our offer.</div>
 			@endif
 			@endif
-
 			@if($candidate == App\Models\Application::STUDENT_S3)
-
 			@if($appStatus->s3_candidate_status == App\Models\Application::TYPE_ACCEPTED)
 			<div class="col-md-12 text-left mt-4">Congratulations on enrolling as a student in the SI Class of 2027! Please check back here on Monday, March 27th for next steps and registration information.</div>
 			@endif
@@ -1419,10 +1342,7 @@ function getTuitionAmount()
 			<div class="col-md-12 text-left mt-4">We're sorry to hear about your decision not to accept our offer.</div>
 			@endif
 			@endif
-
-
 			@if($candidate == App\Models\Application::STUDENT_S2)
-
 			@if($appStatus->s2_candidate_status == App\Models\Application::TYPE_ACCEPTED)
 			<div class="col-md-12 text-left mt-4">Congratulations on enrolling as a student in the SI Class of 2027! Please check back here on Monday, March 27th for next steps and registration information.</div>
 			@endif
@@ -1434,8 +1354,6 @@ function getTuitionAmount()
 	</div>
 </div>
 @break
-
-
 @case(9)
 <div class="home-wrap">
 	<div class="row">
