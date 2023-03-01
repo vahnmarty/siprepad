@@ -29,6 +29,8 @@ class StudentInformationAmount extends Model
         'S3_Yearly_Financial_Aid_Amount',
         'S3_Total_Financial_Aid',
         'S3_Registration_Deposit_Amount',
-        'course',
+        'course_1',
+        'course_2',
+        'course_3',
     ];
 }

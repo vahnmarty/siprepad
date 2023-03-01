@@ -4,22 +4,22 @@
 <script>
     $(function() {
         var datatable = $('#kt_table_1Arsh').DataTable({
-            paging: true,
-            lengthChange: true,
-            searching: true,
-            searchable: true,
             bFilter: true,
             ordering: true,
             info: true,
             autoWidth: true,
             rowReorder: true,
             responsive: true,
+            paging: true,
+            lengthChange: true,
+            searching: true,
+            searchable: true,
             order: [],
             dom: 'lBfrtip',
             processing: true,
             pageLength: 5,
             lengthMenu: [5, 10, 20, 50, 100, 200, 500],
-            
+
         });
         $('#serachData').click(function() {
             datatable.column(0).search($("#searchFirstName").val().trim()).draw();
@@ -27,7 +27,7 @@
             datatable.column(1).search($("#searchLastName").val().trim()).draw();
             datatable.column(3).search($("#searchPhone").val().trim()).draw();
         });
-        
+
         $('#resetData').click(function() {
             $("#searchFirstName").val('');
             $("#searchEmail").val('')
