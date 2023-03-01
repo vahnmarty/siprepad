@@ -233,7 +233,7 @@
                             <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::ACCEPTANCE_FINANCIAL_AID_NO}}'>Accepted w/ FA No</option>
                             <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::ACCEPTANCE_HONORS}}' selected>Accepted w/ Honors</option>
                             <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::ACCEPTANCE_Hon_W_FA_YES}}'>Accepted w/ Hon w/ FA Yes</option>
-                            <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::ACCEPTANCE_Hon_W_FA_NO}}'>Accepted w/ Hon w/ FA No</option>
+                            <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::ACCEPTANCE_Hon_W_FA_NO}}'>Accepted w/ Hon w/ FA No</option>$1500
                             <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
                             <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
                             <option student_type="{{App\Models\Application::STUDENT_ONE}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
@@ -749,23 +749,18 @@
                             <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_WAIT_LISTED}}'>Wait Listed</option>
                             <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::TYPE_NOT_ACCEPTED}}'>Not Accepted</option>
                             <option student_type="{{App\Models\Application::STUDENT_THREE}}" value='{{App\Models\Application::No_RESPONSE}}'>No Response</option>
-
                         </select>
-
                         @endif
                         @endif
-
                     </td>
                     @php
                     $payment = "";
                     if($student['student_type']==App\Models\Application::STUDENT_ONE) {
-
-                    $payment = App\Models\Payment::where('application_id', $getApplication->Application_ID)->where('student', App\Models\Application::STUDENT_S1)->pluck('amount')->first();
-
+                    $payment = App\Models\StudentInformationAmount::where('application_id', $getApplication->Application_ID)->where('profile_id', $getApplication->Profile_ID)->pluck('S1_Registration_Deposit_Amount')->first();
                     } elseif($student['student_type']==App\Models\Application::STUDENT_TWO) {
-                    $payment = App\Models\Payment::where('application_id', $getApplication->Application_ID)->where('student', App\Models\Application::STUDENT_S2)->pluck('amount')->first();
+                    $payment = App\Models\StudentInformationAmount::where('application_id', $getApplication->Application_ID)->where('profile_id', $getApplication->Profile_ID)->pluck('S2_Registration_Deposit_Amount')->first();
                     } elseif($student['student_type']==App\Models\Application::STUDENT_THREE) {
-                    $payment = App\Models\Payment::where('application_id', $getApplication->Application_ID)->where('student', App\Models\Application::STUDENT_S3)->pluck('amount')->first();
+                    $payment = App\Models\StudentInformationAmount::where('application_id', $getApplication->Application_ID)->where('profile_id', $getApplication->Profile_ID)->pluck('S3_Registration_Deposit_Amount')->first();
                     }
                     @endphp
                     @if($payment)
