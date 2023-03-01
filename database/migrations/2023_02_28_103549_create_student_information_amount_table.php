@@ -32,7 +32,9 @@ class CreateStudentInformationAmountTable extends Migration
             $table->string('S3_Yearly_Financial_Aid_Amount', 150)->nullable();
             $table->string('S3_Total_Financial_Aid', 150)->nullable();
             $table->string('S3_Registration_Deposit_Amount', 150)->nullable();
-            $table->string('course', 150)->nullable();
+            $table->string('course_1', 150)->nullable();
+            $table->string('course_2', 150)->nullable();
+            $table->string('course_3', 150)->nullable();
             $table->timestamps();
         });
     }
