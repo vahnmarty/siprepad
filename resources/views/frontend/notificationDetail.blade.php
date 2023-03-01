@@ -234,7 +234,7 @@ function  getDateFunctions($notification_time)
 }
 function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Name = '')
 {
-	// dd($studentDetail);
+	// dd($studentType);
 	if ($studentType == App\Models\Application::STUDENT_S2) {
 
 		switch ($type) {
@@ -323,6 +323,23 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				} else {
 					return "she";
 				}
+				break;
+			case "deposit amount":
+
+				if ($studentDetail->S2_Registration_Deposit_Amount == null) {
+					return number_format(App\Models\Payment::PAYAMOUNT);
+				} else {
+					return number_format($studentDetail->S2_Registration_Deposit_Amount);
+				}
+
+
+				break;
+				case "Class_Information":
+					if ($studentDetail->course_2 == null) {
+						return "--";
+					} else {
+						return $studentDetail->course_2;
+					}
 				break;
 			default:
 				return "-";
@@ -417,6 +434,20 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				} else {
 					return "she";
 				}
+				break;
+			case "deposit amount":
+				if ($studentDetail->S1_Registration_Deposit_Amount == null) {
+					return number_format(App\Models\Payment::PAYAMOUNT);
+				} else {
+					return number_format($studentDetail->S1_Registration_Deposit_Amount);
+				}
+				break;
+				case "Class_Information":
+					if ($studentDetail->course_1 == null) {
+						return "--";
+					} else {
+						return $studentDetail->course_1;
+					}
 				break;
 			default:
 				return "-";
@@ -514,6 +545,19 @@ function  getStudentInformation($studentType, $studentDetail, $type, $P2_Last_Na
 				} else {
 					return "he";
 				}
+			case "deposit amount":
+				if ($studentDetail->S3_Registration_Deposit_Amount == null) {
+					return number_format(App\Models\Payment::PAYAMOUNT);
+				} else {
+					return number_format($studentDetail->S3_Registration_Deposit_Amount);
+				}
+
+				case "Class_Information":
+					if ($studentDetail->course_3 == null) {
+						return "--";
+					} else {
+						return $studentDetail->course_3;
+					}
 				break;
 			default:
 				return "-";
@@ -567,7 +611,7 @@ function getTuitionAmount()
 				important dates and course information. To access the online registration system, visit <a style="color: #0086e7;" target="_blank" href="https://www.siprepadmissions.org/">www.siprepadmissions.org</a> on March
 				27, 2023 using the username and password you used to apply. The registration system will be due on April 3, 2023.</p>
 
-			<p><b>To reserve a place in the Class of 2027</b>, please click on the <b>Enroll at SI</b> button below and make a deposit of {deposit amount}.
+			<p><b>To reserve a place in the Class of 2027</b>, please click on the <b>Enroll at SI</b> button below and make a <b>deposit</b> of <b><?php echo getStudentInformation($candidate, $studentJoinsDetail, "deposit amount"); ?></b>.
 				As a courtesy to those students on our waitlist, we ask that those who do not intend to register at SI indicate their intention by
 				clicking on the <b>Decline</b> button below.<b style="color:#dc3545;"> The registration deadline is 6:00 am on March 24, 2023, or the acceptance will be
 					forfeited.</b>
@@ -920,7 +964,7 @@ function getTuitionAmount()
 				important dates and course information. To access the online registration system, visit <a class="text-primary" target="_blank" href=" https://siprepadmissions.org">siprepadmissions.org</a> on March
 				27, 2023 using the username and password you used to apply. The registration system will be due on April 3, 2023.
 			</p>
-			<p><b>To reserve a place in the Class of 2027</b>, please click on the <b>Enroll at SI</b> button below and make a <b>deposit</b> of <b>{deposit amount}</b>.
+			<p><b>To reserve a place in the Class of 2027</b>, please click on the <b>Enroll at SI</b> button below and make a <b>deposit</b> of <b><?php echo getStudentInformation($candidate, $studentJoinsDetail, "deposit amount"); ?></b>.
 				As a courtesy to those students on our waitlist, we ask that those who do not intend to register at SI indicate their intention by
 				clicking on the <b>Decline</b> button below. <b style="color:#dc3545;">The registration deadline is 6:00 am on March 24, 2023, or the acceptance will be
 					forfeited.</b>
@@ -1085,7 +1129,7 @@ function getTuitionAmount()
 				important dates and course information. To access the online registration system, visit <a class="text-primary" target="_blank" href=" https://siprepadmissions.org">siprepadmissions.org</a> on March
 				27, 2023 using the username and password you used to apply. The registration system will be due on April 3, 2023.
 			</p>
-			<p><b>To reserve a place in the Class of 2027</b>, please click on the <b>Enroll at SI</b> button below and make a <b>deposit</b> of <b>{deposit amount}</b>.
+			<p><b>To reserve a place in the Class of 2027</b>, please click on the <b>Enroll at SI</b> button below and make a <b>deposit</b> of <b><?php echo getStudentInformation($candidate, $studentJoinsDetail, "deposit amount"); ?></b>.
 				As a courtesy to those students on our waitlist, we ask that those who do not intend to register at SI indicate their intention by
 				clicking on the <b>Decline</b> button below. <b style="color:#dc3545;">The registration deadline is 6:00 am on March 24, 2023, or the acceptance will be
 					forfeited.</b>
@@ -1253,7 +1297,7 @@ function getTuitionAmount()
 				academic
 				achievements <?php echo getStudentInformation($candidate, $studentJoinsDetail, "he/she"); ?> will automatically be placed in the following Honors course(s):
 				<br>
-				<b>• {Class_Information}
+				<b>• <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Class_Information"); ?>
 			</p>
 			</p>
 			</b>
@@ -1263,7 +1307,7 @@ function getTuitionAmount()
 			</p>
 			<b>
 				<p>To reserve a place in the Class of 2027,
-			</b> please click on the <b>Enroll at SI</b> button below and make a deposit of {deposit amount}.
+			</b> please click on the <b>Enroll at SI</b> button below and make a <b>deposit</b> of <b><?php echo getStudentInformation($candidate, $studentJoinsDetail, "deposit amount"); ?></b>.
 			As a courtesy to those students on our waitlist, we ask that those who do not intend to register at SI indicate their intention by
 			clicking on the <b>Decline</b> button below.<b style="color:red;">The registration deadline is 6:00 am on March 24, 2023, or the acceptance will be
 				forfeited.</b>
@@ -1405,14 +1449,14 @@ function getTuitionAmount()
 				based on<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?>'s superior academic records and test scores and because of <?php echo getStudentInformation($candidate, $studentJoinsDetail, "his/her"); ?> academic
 				achievements <?php echo getStudentInformation($candidate, $studentJoinsDetail, "he/she"); ?> will automatically be placed in the following Honors course(s):
 				<br>
-				<b>• {Class_Information}</b>
+				<b>• <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Class_Information"); ?></b>
 			</p>
 			<p>
 				The online registration system will be available beginning on March 27, 2023, with additional information, important
 				dates and course information. To access the online registration system, visit <a class="text-primary" target="_blank" href="https://www.siprepadmissions.org/">www.siprepadmissions.org</a> on March 27,
 				2023 using the username and password you used to apply. The registration system will be due on April 3, 2023.
 			</p>
-			<p> <b> To reserve a place in the Class of 2027</b>, please click on the <b>Enroll at SI</b> button below and make a <b>deposit</b> of <b>{deposit amount}.</b>
+			<p> <b> To reserve a place in the Class of 2027</b>, please click on the <b>Enroll at SI</b> button below and make a <b>deposit</b> of <b><?php echo getStudentInformation($candidate, $studentJoinsDetail, "deposit amount"); ?>.</b>
 				As a courtesy to those students on our waitlist, we ask that those who do not intend to register at SI indicate their intention by
 				clicking on the <b>Decline</b> button below. <span style="color:red;">The registration deadline is 6:00 am on March 24, 2023, or the acceptance will be
 					forfeited.</span>
@@ -1567,7 +1611,7 @@ function getTuitionAmount()
 				academic
 				achievements <?php echo getStudentInformation($candidate, $studentJoinsDetail, "he/she"); ?> will automatically be placed in the following Honors course(s):
 				<br>
-				<b>• {Class_Information}</b>
+				<b>• <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Class_Information"); ?></b>
 			</p>
 
 			<p>The online registration system will be available beginning on March 27, 2023, with additional information, important
@@ -1904,7 +1948,7 @@ No Status yet
 		@else
 		<button class="payment" id="submitPayment" type="submit">PAY (Total
 
-			${{ App\Models\Payment::PAYAMOUNT ?? 0}})</button>
+			${{ number_format($studentInformationAmounts) ?? 0}})</button>
 
 		@endif
 
@@ -1983,7 +2027,7 @@ No Status yet
 				$('.loading').hide();
 				return false;
 			}
-			if (billing_city == "" || billing_city == null) {
+			if (billing_city == "" || billing_city == null) {Fee
 				alert("Billing city must be filled out");
 				$('.loading').hide();
 				return false;
