@@ -7,6 +7,7 @@ use App\Models\Notification;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Application;
 use App\Models\StudentInformation;
+use App\Models\StudentInformationAmount;
 use App\Models\Global_Notifiable;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\CandidateStatus;
@@ -404,7 +405,7 @@ class NotificationController extends Controller
         if (!$ntfDetail) {
             return redirect('/')->with('error', 'You are not allowed to access this page');
         }
-        if (!$profile_id==$ntfDetail->profile_id) {
+        if (!$profile_id == $ntfDetail->profile_id) {
             return redirect('/')->with('error', 'You are not allowed to access this page');
         }
         $appDetail = Application::where('Profile_ID', $profile_id)->first();
@@ -421,6 +422,7 @@ class NotificationController extends Controller
         ])->first();
         $studentJoinsDetail = StudentInformation::leftjoin('parent_information', 'student_information.Profile_ID', '=', 'parent_information.Profile_ID')
             ->where('parent_information.Application_ID',  $ntfDetail->application_id)
+            ->leftjoin('student_information_amount', 'student_information.Application_ID', '=', 'student_information_amount.application_id')
             ->leftjoin('address_information', 'student_information.Profile_ID', '=', 'address_information.Profile_ID')->where('student_information.Application_ID',  $ntfDetail->application_id)
             ->latest('address_information.ID')->first();
 
@@ -452,6 +454,12 @@ class NotificationController extends Controller
                 $updateCandidateStatus = StudentApplicationStatus::where('application_id', $ntfDetail->application_id)->update(['s1_candidate_status' => Application::CANDIDATE_READ]);
             }
             $candidate = Application::STUDENT_S1;
+            $studentInformationAmount =  StudentInformationAmount::where('application_id', $ntfDetail->application_id)->select('S1_Registration_Deposit_Amount')->first();
+            if ($studentInformationAmount) {
+                $studentInformationAmounts=$studentInformationAmount->S1_Registration_Deposit_Amount;
+            } else {
+                $studentInformationAmounts =Payment::PAYAMOUNT;
+            }
             $checkPayment = Payment::where('Application_ID', $ntfDetail->application_id)->where('student', Application::STUDENT_S1)->select('student')->first();
             if ($checkPayment) {
                 if ($checkPayment->student == Application::STUDENT_S1) {
@@ -484,6 +492,13 @@ class NotificationController extends Controller
             }
             $student_status = $status->s2_application_status;
             $candidate = Application::STUDENT_S2;
+            $studentInformationAmount =  StudentInformationAmount::where('application_id', $ntfDetail->application_id)->select('S2_Registration_Deposit_Amount')->first();
+            if ($studentInformationAmount) {
+                $studentInformationAmounts=$studentInformationAmount->S2_Registration_Deposit_Amount;
+            } else {
+                $studentInformationAmounts =Payment::PAYAMOUNT;
+            }
+            // dd($studentInformationAmount);
             $checkPayment = Payment::where('Application_ID', $ntfDetail->application_id)->where('student', Application::STUDENT_S2)->select('student')->first();
             if ($checkPayment) {
                 if ($checkPayment->student == Application::STUDENT_S2) {
@@ -520,6 +535,12 @@ class NotificationController extends Controller
 
             $student_status = $status->s3_application_status;
             $student_accept_status = $status->s3_candidate_status;
+            $studentInformationAmount =  StudentInformationAmount::where('application_id', $ntfDetail->application_id)->select('S3_Registration_Deposit_Amount')->first();
+            if ($studentInformationAmount) {
+                $studentInformationAmounts=$studentInformationAmount->S3_Registration_Deposit_Amount;
+            } else {
+                $studentInformationAmounts =Payment::PAYAMOUNT;
+            }
             $checkPayment = Payment::where('Application_ID', $ntfDetail->application_id)->where('student', Application::STUDENT_S3)->select('student')->first();
 
             if ($checkPayment) {
@@ -540,7 +561,7 @@ class NotificationController extends Controller
                 'is_read' => Notification::NOTIFY_READ
             ]);
         }
-
-        return view('frontend.notificationDetail', compact('ntfDetail', 'appDetail', 'studentJoinsDetail', 'studentDetail', 'appStatus', 'name', 'student_status', 'candidate', 'student_accept_status', 'notification_time'));
+ 
+        return view('frontend.notificationDetail', compact('ntfDetail', 'studentInformationAmounts', 'appDetail', 'studentJoinsDetail', 'studentDetail', 'appStatus', 'name', 'student_status', 'candidate', 'student_accept_status', 'notification_time'));
     }
 }
