@@ -764,7 +764,7 @@
                     }
                     @endphp
                     @if($payment)
-                    <td>${{$payment ?? '--'}} </td>
+                    <td>${{number_format($payment) ?? '--'}} </td>
                     @else
                     <td>--</td>
                     @endif
