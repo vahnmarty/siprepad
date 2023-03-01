@@ -1307,7 +1307,11 @@ function getTuitionAmount()
 			</p>
 			<b>
 				<p>To reserve a place in the Class of 2027,
+<<<<<<< HEAD
 			</b> please click on the <b>Enroll at SI</b> button below and make a <b>deposit</b> of <b><?php echo getStudentInformation($candidate, $studentJoinsDetail, "deposit amount"); ?></b>.
+=======
+			</b> please click on the <b>Enroll at SI</b> button below and make a deposit of {deposit amount}.
+>>>>>>> d495841ef72c4423faca40ce98117c2ba5336cf5
 			As a courtesy to those students on our waitlist, we ask that those who do not intend to register at SI indicate their intention by
 			clicking on the <b>Decline</b> button below.<b style="color:red;">The registration deadline is 6:00 am on March 24, 2023, or the acceptance will be
 				forfeited.</b>
