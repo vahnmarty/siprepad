@@ -1279,7 +1279,147 @@ function getTuitionAmount()
 												Financial Assistance Details for <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Student_Last_Name"); ?></a></span></p>
 
 
-								
+									<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-dialog modal-xl">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLabel">Accepted w/ FA Yes</h5>
+													<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+												</div>
+												<div class="modal-body">
+
+
+
+
+													<table width="100%" style="font-family: sans-serif;" cellpadding="10">
+														<tr>
+															<td width="0%" style="border: 0;"> <img style="max-width:100px;" src="{{ asset('frontend_assets/images/lg2.png') }}" /></td>
+
+															<td width="100%" style="border: 0; text-align: left; font-size: 12px">St. Ignatius College
+																Preparatory<br> 2001
+																37th Avenue<br>San Francisco, CA 94116<br>(415) 731-7500
+																<br> <br><br>Office of Admissions
+
+															</td>
+														</tr>
+													</table>
+
+													<table width="100%" style="font-family: sans-serif; font-size: 12px;">
+														<tr>
+															<td>
+																<table width="60%" align="left" style="font-family: sans-serif; font-size: 12px;">
+																	<tr>
+																		<td style="padding: 0px; line-height: 20px;">&nbsp;</td>
+																	</tr>
+																</table>
+																<table width="40%" align="right" style="font-family: sans-serif; font-size: 12px;">
+																	<tr>
+																		<td style="padding: 0px 8px; line-height: 20px; text-align: right;"><?php echo getDateFunctions($notification_time); ?></td>
+																	</tr>
+																</table>
+															</td>
+														</tr>
+													</table>
+													<br>
+													<table class="items" width="100%" style="font-size: 12px; border-collapse: collapse;" cellpadding="8">
+														<thead>
+															<tr>
+																<td width="100%" style="text-align: left;"><?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_First_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name", 'P2_Last_Name'); ?><br>
+																	<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Street"); ?><br>
+																	<?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_City"); ?>, <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_State"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "Primary_Address_Zipcode"); ?><br>
+
+																</td>
+															</tr>
+
+														</thead>
+
+													</table>
+													<table class="items" width="100%" style="font-size: 12px; border-collapse: collapse;" cellpadding="8">
+														<thead>
+															<tr>
+																<td width="100%" style="text-align: left;">Dear <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P1_Last_Name"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Salutation"); ?> <?php echo getStudentInformation($candidate, $studentJoinsDetail, "P2_Last_Name"); ?>:
+																</td>
+															</tr>
+															<tr>
+																<td width="100%" style="text-align: left;">I am writing to convey the decision of the Financial Assistance Committee. We regret to inform you that we are unable to
+																	provide financial assistance for the 2023-2024 school year
+																</td>
+															</tr>
+															<tr>
+																<td width="100%" style="text-align: left;">Our financial assistance funds are limited, and we have made every effort to evaluate your family’s demonstrated need. We
+																	cannot support any appeals unless there have been significant changes in your financial circumstances that occurred after
+																	your application for aid was filed. Examples of significant changes include:
+																	<ul>
+																		<li>Loss of income (wages, benefits, etc.) due to unemployment</li>
+																		<li>New major medical issue or family death</li>
+																	</ul>
+
+																</td>
+															</tr>
+															<tr>
+																<td width="100%" style="text-align: left;">
+																	If you are moving forward with an appeal, please detail and document these changes by noon on Friday, March 25. All
+																	required documents, including your 2022 taxes, must be on file in your TADS application to be considered for an appeal.
+																	Submit your appeal here: https://www.siprep.org/appeal.
+																	<br><br>
+																	Tuition payments are collected through FACTS, and you will be notified by e-mail to sign up for this payment process.
+																	<br><br>
+																	It is our intention to make a Saint Ignatius education possible for all families and you are most welcome to apply for financial
+																	assistance in future years. Information about next year's assistance process will be available on the SI website in October
+																	2023.
+																	<br><br>
+																	Once again, the Financial Assistance Committee regrets that we were not able to meet your request. We look forward to
+																	partnering with you as we provide an exceptional Jesuit education in these next four years.
+
+																</td>
+															</tr>
+														</thead>
+
+													</table>
+
+													<table width="100%" style="font-family: sans-serif; font-size: 12px;">
+
+														<tr>
+															<td style="padding: 10px; line-height: 20px;">
+																Sincerely,
+																<br>
+															</td>
+														</tr>
+														<tr>
+															<td style="padding: 10px; line-height: 20px; border:0;">
+																<a href="#" target="_blank"><img src="{{ asset('admin_assets/logo/signature2.png') }}" width="100" height="70" alt="Logo" align="center" border="0" style="object-fit: contain;"></a>
+															</td>
+														</tr>
+														<br>
+														<tr>
+															<td style="padding: 10px; line-height: 20px;">
+																<br>
+																Ken Stupi<br>
+																VP of Finance & Administration
+															</td>
+														</tr>
+
+													</table>
+
+
+													<table width="100%" style="font-family: sans-serif; font-size: 12px;">
+														<tr>
+
+															<td>
+																<button style="background-color: #00b050; border: none; padding: 6px 8px; border-radius: 0px;color: #000 ; font-weight: 600;" id="acknowledge">Acknowledge</button>
+															</td>
+														</tr>
+
+													</table>
+
+
+												</div>
+												<div class="modal-footer">
+
+												</div>
+											</div>
+										</div>
+									</div>
 									<div class="row">
 										<div class="col-md-6">
 											<div class='application_download'>
